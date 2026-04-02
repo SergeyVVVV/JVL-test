@@ -11,15 +11,19 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function EchoPage() {
-  const payload = await getPayload({ config })
+  let page: any = null
 
-  const { docs } = await payload.find({
-    collection: 'pages',
-    where: { slug: { equals: 'echo' } },
-    limit: 1,
-  })
-
-  const page = docs[0]
+  try {
+    const payload = await getPayload({ config })
+    const { docs } = await payload.find({
+      collection: 'pages',
+      where: { slug: { equals: 'echo' } },
+      limit: 1,
+    })
+    page = docs[0]
+  } catch {
+    // DB not available (e.g. Vercel build) — use fallback
+  }
 
   if (!page) {
     // Return a seeded fallback with real JVL Echo content for the prototype
