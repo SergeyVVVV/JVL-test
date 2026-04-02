@@ -3,5 +3,6 @@ import config from '@payload-config'
 import { importMap } from '../importMap'
 
 export default async function NotFound() {
-  return NotFoundPage({ config: await config, importMap })
+  // @ts-ignore
+  return NotFoundPage({ config, importMap })
 }
