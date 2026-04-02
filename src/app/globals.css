@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+@theme {
+  --color-jvl-dark: #101213;
+  --color-jvl-light: #F4F3EC;
+  --color-jvl-blue: #059FFF;
+  --color-jvl-orange: #FB671F;
+  --color-jvl-border: #4B4B4B;
+  --color-jvl-gray: #787878;
+  --font-poppins: var(--font-poppins);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #101213;
+  color: #F4F3EC;
+}
