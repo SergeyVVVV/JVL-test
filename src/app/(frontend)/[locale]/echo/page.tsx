@@ -7,6 +7,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     title: 'JVL Echo HD3 — Premium Tabletop Arcade Machine',
     description: 'The ultimate tabletop arcade machine for home and business. 40+ years of gaming excellence.',
+    robots: { index: false, follow: false },
   }
 }
 
