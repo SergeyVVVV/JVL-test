@@ -31,9 +31,9 @@ export default function HeroComponent({
   }, [])
 
   return (
-    <section className="relative min-h-screen flex items-end pb-20 md:items-center md:pb-0 overflow-hidden bg-[#101213] pt-[72px] md:pt-0">
-      {/* Video background */}
-      {desktopVideo && (
+    <section className="relative min-h-screen w-full flex items-end pb-20 md:items-center md:pb-0 overflow-hidden bg-[#101213] pt-[72px] md:pt-0">
+      {/* Video background or placeholder */}
+      {desktopVideo ? (
         <>
           <video
             ref={videoRef}
@@ -59,6 +59,14 @@ export default function HeroComponent({
             />
           )}
         </>
+      ) : (
+        /* Placeholder when no video */
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1a2e] via-[#101213] to-[#0a0a0a]">
+          <div className="absolute inset-0 opacity-[0.04]"
+            style={{ backgroundImage: 'radial-gradient(circle, #fff 1px, transparent 1px)', backgroundSize: '40px 40px' }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#059FFF]/5 to-transparent" />
+        </div>
       )}
 
       {/* Gradient overlay */}

@@ -62,14 +62,13 @@ export default function FeatureGridComponent({
   const isDark = background === 'dark'
   const bg = isDark ? 'bg-[#101213]' : 'bg-[#F4F3EC]'
   const textColor = isDark ? 'text-[#F4F3EC]' : 'text-[#101213]'
-  const cardBg = isDark ? 'bg-[#0d0f10]' : 'bg-white'
   const bodyColor = isDark ? 'text-[#787878]' : 'text-[#4B4B4B]'
   const cols =
     { '2': 'md:grid-cols-2', '3': 'md:grid-cols-3', '4': 'md:grid-cols-4' }[columns] || 'md:grid-cols-3'
 
   return (
     <section className={`${bg} py-24`}>
-      <div className="container mx-auto max-w-6xl px-6 md:px-12">
+      <div className="w-full max-w-6xl mx-auto px-6 md:px-12">
         {(tagLabel || headline) && (
           <div className="mb-16 text-center">
             {tagLabel && (
@@ -84,16 +83,16 @@ export default function FeatureGridComponent({
             )}
           </div>
         )}
-        <div className={`grid grid-cols-1 ${cols} border border-[#4B4B4B]`}>
+        <div className={`grid grid-cols-1 ${cols} border border-[#2a2a2a] overflow-hidden`}>
           {items.map((item, i) => (
             <div
               key={i}
-              className={`${cardBg} p-8 flex flex-col gap-5 border border-[#4B4B4B]`}
+              className="p-8 md:p-10 flex flex-col gap-5 border-r border-b border-[#2a2a2a]"
             >
-              <div className="w-10 h-10 flex items-center justify-center">
+              <div className="w-10 h-10 flex items-center justify-center bg-[#059FFF]/10 rounded-sm">
                 {icons[iconKeys[i % iconKeys.length]]}
               </div>
-              <h3 className={`text-base font-semibold uppercase tracking-wider ${textColor}`}>
+              <h3 className={`text-sm font-semibold uppercase tracking-[0.15em] ${textColor}`}>
                 {item.title}
               </h3>
               {item.body && (

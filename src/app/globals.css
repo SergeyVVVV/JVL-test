@@ -23,4 +23,5 @@ html {
 body {
   background-color: #101213;
   color: #F4F3EC;
+  overflow-x: hidden;
 }

@@ -119,8 +119,8 @@ export default function MediaCopyComponent({
   )
 
   return (
-    <section className="overflow-hidden">
-      <div className="grid grid-cols-1 md:grid-cols-2 min-h-[520px]">
+    <section className="overflow-hidden w-full">
+      <div className="grid grid-cols-1 md:grid-cols-2 min-h-[560px]">
         {mediaPosition === 'left' ? (
           <>
             {visualSide}
