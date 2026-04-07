@@ -52,8 +52,21 @@ export default function HeroComponent({
       className="relative w-full overflow-hidden bg-black"
       style={{ height: '100svh', minHeight: '600px' }}
     >
-      {/* Video / placeholder background */}
-      {desktopVideo ? (
+      {/* Poster image — always visible as background layer */}
+      {desktopPoster && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={desktopPoster}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+        />
+      )}
+      {!desktopPoster && (
+        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1a2e] via-[#101213] to-[#050505]" />
+      )}
+
+      {/* Video on top — plays when loaded */}
+      {desktopVideo && (
         <>
           <video
             ref={videoRef}
@@ -79,8 +92,6 @@ export default function HeroComponent({
             />
           )}
         </>
-      ) : (
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0d1a2e] via-[#101213] to-[#050505]" />
       )}
 
       {/* Dark overlays for text readability */}
