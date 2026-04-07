@@ -23,11 +23,10 @@ export default async function EchoPage() {
     })
     page = docs[0]
   } catch {
-    // DB not available (e.g. Vercel build) — use fallback
+    // DB not available — use fallback
   }
 
   if (!page) {
-    // Return a seeded fallback with real JVL Echo content for the prototype
     return <EchoFallback />
   }
 
@@ -40,86 +39,103 @@ export default async function EchoPage() {
   )
 }
 
-// Helper to proxy images through our Next.js API (avoids CORS/hotlink issues)
 function img(url: string) {
   return `/api/img?url=${encodeURIComponent(url)}`
 }
 
-// Fallback with real seeded content using production media URLs
 function EchoFallback() {
   const sections = [
+    // ── 1. Hero ────────────────────────────────────────────────────────────────
     {
       blockType: 'hero',
-      layout: 'full-video',
-      headline: 'A GIFT\nTHAT STAYS',
-      subheadline: 'JVL Echo HD3 — Premium Tabletop Arcade Machine for Home & Business',
-      cta: { label: 'Explore on Amazon', url: 'https://www.amazon.com', style: 'primary' },
+      headline: 'JVL ECHO HD3 –\nPREMIUM TABLETOP ARCADE MACHINE\nFOR HOME & BUSINESS',
+      cta: { label: 'Explore on Amazon', url: 'https://www.amazon.com/dp/B0C9RQJM7K' },
       desktopVideo: 'https://www.jvl.ca/storage/3681/1.mp4',
       mobileVideo: 'https://www.jvl.ca/storage/3683/1.mp4',
       desktopPoster: img('https://www.jvl.ca/image-transform/storage/width=1920,format=webp,quality=80/3680/1.jpg'),
       mobilePoster: img('https://www.jvl.ca/image-transform/storage/width=768,format=webp,quality=80/3682/1.jpg'),
     },
+
+    // ── 2. Intro — "Countertop Classics" (light, centered) ────────────────────
     {
       blockType: 'media-copy',
-      mediaPosition: 'right',
-      tagLabel: 'Superiority',
-      headline: 'ENGINEERED FOR THOSE WHO DEMAND MORE',
-      body: null,
-      mediaType: 'image',
-      // Images loaded from jvl.ca server — replace with local paths once developer exports them
-      // desktopImageUrl: img('https://www.jvl.ca/image-transform/storage/width=1280,format=webp,quality=80/3685/1.jpg'),
-      background: 'dark',
+      layout: 'centered',
+      background: 'light',
+      tagLabel: 'Countertop Classics',
+      headline: 'THE ULTIMATE HOME ARCADE MACHINE WITH BUILT-IN GAMES',
+      desktopImageUrl: img('https://www.jvl.ca/image-transform/storage/width=1280,format=webp,quality=80/3686/1.jpg'),
+      body: 'ECHO ruled bars across the U.S. in the \'90s and early 2000s — now, it\'s back, reimagined for home.\n\nTransform your living room or basement into your own personal arcade. Plug-and-play fun — no downloads, no Wi-Fi. From poker to puzzles, it\'s classic charm meets modern simplicity.',
+      quote: 'It\'s like owning a piece of arcade history — built for your home.',
     },
+
+    // ── 3. Product showcase ────────────────────────────────────────────────────
     {
       blockType: 'product-cards',
-      headline: 'CHOOSE YOUR ECHO',
+      background: 'light',
+      headline: 'HOME ARCADE MACHINE FOR SALE –\nBACKED BY AMAZON & JVL WARRANTY',
       items: [
         {
           title: 'Echo Home',
-          subtitle: 'For the living room',
-          // mediaUrl: img('https://www.jvl.ca/image-transform/storage/width=600,format=webp,quality=80/3690/1.jpg'),
-          price: '$3,999',
+          subtitle: 'Free Play Home version, without Bill Validator and Quarters Acceptor',
+          price: '$3,990',
           features: [
-            { text: '40+ built-in games' },
-            { text: 'HD touchscreen display' },
-            { text: 'Multiplayer ready' },
-            { text: 'Wi-Fi connected' },
+            { icon: 'shipping', text: 'FREE Prime Shipping' },
+            { icon: 'return', text: 'FREE 30-day refund/replacement' },
+            { icon: 'finance', text: 'Pay over time for up to 24 months with 0% APR' },
+            { icon: 'secure', text: 'Your transaction is secure' },
           ],
-          cta: { label: 'Buy Now', url: 'https://www.amazon.com' },
+          cta: { label: 'Buy on Amazon', url: 'https://www.amazon.com/dp/B0C9RQJM7K' },
+          ctaSecondary: { label: 'Get in touch with us!', url: '/en/contact-us' },
         },
         {
           title: 'Echo Amusement',
-          subtitle: 'For venues & operators',
-          // mediaUrl: img('https://www.jvl.ca/image-transform/storage/width=600,format=webp,quality=80/3691/1.jpg'),
-          price: 'Contact for pricing',
+          subtitle: 'Bill Validator (1$, 5$, 10$, 20$) and Quarters Acceptor',
+          price: '$4,250',
           features: [
-            { text: 'Commercial grade hardware' },
-            { text: 'Revenue tracking built-in' },
-            { text: '24/7 support included' },
-            { text: 'Custom branding options' },
+            { icon: 'shipping', text: 'FREE Prime Shipping' },
+            { icon: 'return', text: 'FREE 30-day refund/replacement' },
+            { icon: 'finance', text: 'Pay over time for up to 24 months with 0% APR' },
+            { icon: 'secure', text: 'Your transaction is secure' },
           ],
-          cta: { label: 'Get in Touch', url: '/en/contact-us' },
+          cta: { label: 'Buy on Amazon', url: 'https://www.amazon.com' },
+          ctaSecondary: { label: 'Get in touch with us!', url: '/en/contact-us' },
         },
       ],
     },
+
+    // ── 4. B2B CTA ─────────────────────────────────────────────────────────────
+    {
+      blockType: 'media-copy',
+      layout: 'centered',
+      background: 'light',
+      headline: 'INTERESTED IN BRINGING ECHO TO YOUR BUSINESS?',
+      desktopImageUrl: img('https://www.jvl.ca/image-transform/storage/width=1280,format=webp,quality=80/3688/1.jpg'),
+      body: 'ECHO Home and ECHO Amusement are strong revenue-driving additions for resellers, operators, and distributors. Whether you\'re looking to expand your portfolio or offer something fresh to your customers, we\'re here to support you.',
+      cta: { label: 'Explore ECHO B2B Programs', url: '/en/echo-b2b' },
+    },
+
+    // ── 5. Trust stats ─────────────────────────────────────────────────────────
     {
       blockType: 'trust',
-      headline: 'A LIFETIME IN GAMING',
+      background: 'dark',
       variant: 'stats',
+      headline: 'A LIFETIME IN GAMING',
       items: [
         { stat: '40+', label: 'Years of Experience' },
         { stat: '100K+', label: 'Machines Deployed' },
         { stat: '3', label: 'Global Markets' },
       ],
     },
+
+    // ── 6. Feature grid ────────────────────────────────────────────────────────
     {
       blockType: 'feature-grid',
+      background: 'dark',
       tagLabel: 'Built Different',
       headline: 'WHY OPERATORS CHOOSE ECHO',
       columns: '3',
-      background: 'dark',
       items: [
-        { title: 'Premium Games Library', body: 'Poker, puzzle, and arcade — 40+ titles and growing.' },
+        { title: 'Premium Games Library', body: 'Poker, puzzle, and arcade — 149 titles and growing.' },
         { title: '24/7 Remote Support', body: 'Our team monitors and supports your machines around the clock.' },
         { title: 'Revenue Ready', body: 'Built-in payment and revenue tracking for amusement operators.' },
         { title: 'Built to Last', body: 'Commercial-grade hardware engineered for continuous use.' },
@@ -127,14 +143,16 @@ function EchoFallback() {
         { title: 'Custom Branding', body: 'White-label options available for enterprise operators.' },
       ],
     },
+
+    // ── 7. CTA banner ──────────────────────────────────────────────────────────
     {
       blockType: 'cta',
       layout: 'banner',
+      background: 'brand',
       headline: 'READY TO BRING ECHO TO YOUR VENUE?',
       subheadline: 'Talk to our team and find the right solution for your business.',
       primaryCta: { label: 'Contact Us', url: '/en/contact-us' },
-      secondaryCta: { label: 'Learn More', url: '/en/echo' },
-      background: 'brand',
+      secondaryCta: { label: 'Learn More', url: '/en/echo-b2b' },
     },
   ]
 
