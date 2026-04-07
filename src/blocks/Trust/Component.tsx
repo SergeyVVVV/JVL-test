@@ -7,12 +7,14 @@ interface TrustProps {
   headline?: string
   variant?: 'stats' | 'testimonials' | 'logos'
   items?: TrustItem[]
+  background?: 'blue' | 'dark' | 'light'
 }
 
-export default function TrustComponent({ headline, variant = 'stats', items = [] }: TrustProps) {
+export default function TrustComponent({ headline, variant = 'stats', items = [], background = 'blue' }: TrustProps) {
+  const bgClass = background === 'dark' ? 'bg-[#101213]' : background === 'light' ? 'bg-[#F4F3EC]' : 'bg-[#059FFF]'
   return (
-    <section className="bg-[#059FFF] py-20 px-6 md:px-12">
-      <div className="container mx-auto max-w-6xl">
+    <section className={`${bgClass} py-20`}>
+      <div className="px-8 md:px-14 lg:px-20 max-w-[1200px] mx-auto">
         {headline && (
           <h2 className="text-3xl md:text-4xl font-semibold uppercase tracking-tight text-white mb-14 text-center">
             {headline}

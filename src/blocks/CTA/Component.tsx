@@ -37,7 +37,7 @@ export default function CTAComponent({
       : 'border-[#F4F3EC] text-[#F4F3EC] hover:bg-[#F4F3EC] hover:text-[#101213]'
 
   return (
-    <section className={`relative ${bgClass} py-24 px-6 md:px-12 overflow-hidden`}>
+    <section className={`relative ${bgClass} py-24 overflow-hidden`}>
       {backgroundImageUrl && (
         <img
           src={backgroundImageUrl}
@@ -46,7 +46,7 @@ export default function CTAComponent({
           aria-hidden="true"
         />
       )}
-      <div className="relative z-10 container mx-auto max-w-4xl text-center">
+      <div className="relative z-10 px-8 md:px-14 lg:px-20 max-w-[1200px] mx-auto text-center">
         {headline && (
           <h2
             className={`text-4xl md:text-5xl lg:text-6xl font-semibold uppercase tracking-tight leading-tight ${textClass} mb-6`}
