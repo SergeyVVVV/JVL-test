@@ -579,7 +579,7 @@ function UseCasesSection() {
                 background: 'none', border: 'none', cursor: 'pointer',
                 borderLeft: i === 0 ? 'none' : '1px solid rgba(244,243,236,0.4)',
                 padding: '5px 20px',
-                fontSize: 16, fontWeight: 300,
+                fontSize: 16, fontWeight: 400,
                 lineHeight: 1.2,
                 color: active === i ? '#059FFF' : '#F4F3EC',
                 opacity: active === i ? 1 : 0.4,
