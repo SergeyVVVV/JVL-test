@@ -13,7 +13,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function EchoPage() {
-  // Try to load real content from production DB
   const sections = await buildSections()
 
   return (
@@ -26,70 +25,68 @@ export default async function EchoPage() {
 }
 
 async function buildSections() {
-  // ── Hero ──────────────────────────────────────────────────────────────────
-  const heroBlock = await getLandingBlock('top_landing_block')
-  const heroId = heroBlock?.id ?? 0
-
-  const [desktopVideo, mobileVideo, desktopPoster, mobilePoster] = await Promise.all([
-    getMediaUrl('App\\Models\\TopLandingBlock', heroId, 'desktop_video'),
-    getMediaUrl('App\\Models\\TopLandingBlock', heroId, 'phone_video'),
-    getMediaUrl('App\\Models\\TopLandingBlock', heroId, 'desktop_poster'),
-    getMediaUrl('App\\Models\\TopLandingBlock', heroId, 'phone_poster'),
+  // Load all landing blocks in parallel
+  const [heroBlock, superBlock, productBlock, screensBlock] = await Promise.all([
+    getLandingBlock('top_landing_block'),
+    getLandingBlock('superiority_landing_block'),
+    getLandingBlock('premium_purchase_landing_block'),
+    getLandingBlock('screens_landing_block'),
   ])
 
-  // ── Superiority / Countertop Classics ─────────────────────────────────────
-  const superBlock = await getLandingBlock('superiority_landing_block')
-  const superId = superBlock?.id ?? 0
+  // Load media for each block
+  const [desktopVideo, mobileVideo, desktopPoster, mobilePoster] = heroBlock
+    ? await Promise.all([
+        getMediaUrl('App\\Models\\TopLandingBlock', heroBlock.id, 'desktop_video'),
+        getMediaUrl('App\\Models\\TopLandingBlock', heroBlock.id, 'phone_video'),
+        getMediaUrl('App\\Models\\TopLandingBlock', heroBlock.id, 'desktop_poster'),
+        getMediaUrl('App\\Models\\TopLandingBlock', heroBlock.id, 'phone_poster'),
+      ])
+    : [null, null, null, null]
 
-  const [superImage] = await Promise.all([
-    getMediaUrl('App\\Models\\SuperiorityLandingBlock', superId, 'desktop_image'),
-  ])
+  const superImage = superBlock
+    ? await getMediaUrl('App\\Models\\SuperiorityLandingBlock', superBlock.id, 'desktop_image')
+    : null
 
-  // ── Premium Purchase / Product showcase ───────────────────────────────────
-  const productBlock = await getLandingBlock('premium_purchase_landing_block')
-  const productId = productBlock?.id ?? 0
+  const product3dPoster = productBlock
+    ? await getMediaUrl('App\\Models\\PremiumPurchaseLandingBlock', productBlock.id, '3d_poster')
+    : null
 
-  const [product3dPoster] = await Promise.all([
-    getMediaUrl('App\\Models\\PremiumPurchaseLandingBlock', productId, '3d_poster'),
-  ])
-
-  // ── Screens / B2B lifestyle ───────────────────────────────────────────────
-  const screensBlock = await getLandingBlock('screens_landing_block')
-  const screensId = screensBlock?.id ?? 0
-
-  const b2bImage = await getMediaUrl('App\\Models\\ScreensLandingBlock', screensId, 'background_image')
-
-  // ─────────────────────────────────────────────────────────────────────────
+  const b2bImage = screensBlock
+    ? await getMediaUrl('App\\Models\\ScreensLandingBlock', screensBlock.id, 'background_image')
+    : null
 
   return [
     // 1. Hero
     {
       blockType: 'hero',
-      headline: 'JVL ECHO HD3 –\nPREMIUM TABLETOP ARCADE MACHINE\nFOR HOME & BUSINESS',
-      cta: { label: 'Explore on Amazon', url: 'https://www.amazon.com/dp/B0C9RQJM7K' },
+      headline: heroBlock?.title ?? 'JVL ECHO HD3 –\nPREMIUM TABLETOP ARCADE MACHINE\nFOR HOME & BUSINESS',
+      cta: {
+        label: heroBlock?.button_text ?? 'Explore on Amazon',
+        url: heroBlock?.button_url ?? 'https://www.amazon.com/dp/B0DJ3BSJ4D',
+      },
       desktopVideo: desktopVideo ?? undefined,
       mobileVideo: mobileVideo ?? undefined,
       desktopPoster: desktopPoster ?? undefined,
       mobilePoster: mobilePoster ?? undefined,
     },
 
-    // 2. Countertop Classics — light centered
+    // 2. Countertop Classics
     {
       blockType: 'media-copy',
       layout: 'centered',
       background: 'light',
-      tagLabel: 'Countertop Classics',
-      headline: 'THE ULTIMATE HOME ARCADE MACHINE WITH BUILT-IN GAMES',
+      tagLabel: superBlock?.tag_label ?? 'Countertop Classics',
+      headline: superBlock?.title ?? 'THE ULTIMATE HOME ARCADE MACHINE WITH BUILT-IN GAMES',
       desktopImageUrl: superImage ?? undefined,
       body: "ECHO ruled bars across the U.S. in the '90s and early 2000s — now, it's back, reimagined for home.\n\nTransform your living room or basement into your own personal arcade. Plug-and-play fun — no downloads, no Wi-Fi. From poker to puzzles, it's classic charm meets modern simplicity.",
       quote: "It's like owning a piece of arcade history — built for your home.",
     },
 
-    // 3. Product showcase — Home / Amusement tabs
+    // 3. Product showcase
     {
       blockType: 'product-cards',
       background: 'light',
-      headline: 'HOME ARCADE MACHINE FOR SALE –\nBACKED BY AMAZON & JVL WARRANTY',
+      headline: productBlock?.title ?? 'HOME ARCADE MACHINE FOR SALE –\nBACKED BY AMAZON & JVL WARRANTY',
       productImage: product3dPoster ?? undefined,
       items: [
         {
@@ -102,7 +99,7 @@ async function buildSections() {
             { icon: 'finance',  text: 'Pay over time for up to 24 months with 0% APR' },
             { icon: 'secure',   text: 'Your transaction is secure' },
           ],
-          cta: { label: 'Buy on Amazon', url: 'https://www.amazon.com/dp/B0C9RQJM7K' },
+          cta: { label: productBlock?.button_text ?? 'Buy on Amazon', url: productBlock?.button_url ?? 'https://www.amazon.com/dp/B0DJ3BSJ4D' },
           ctaSecondary: { label: 'Get in touch with us!', url: '/en/contact-us' },
         },
         {
@@ -115,7 +112,7 @@ async function buildSections() {
             { icon: 'finance',  text: 'Pay over time for up to 24 months with 0% APR' },
             { icon: 'secure',   text: 'Your transaction is secure' },
           ],
-          cta: { label: 'Buy on Amazon', url: 'https://www.amazon.com' },
+          cta: { label: 'Buy on Amazon', url: 'https://www.amazon.com/dp/B0DJ3BSJ4D' },
           ctaSecondary: { label: 'Get in touch with us!', url: '/en/contact-us' },
         },
       ],
@@ -132,10 +129,10 @@ async function buildSections() {
       cta: { label: 'Explore ECHO B2B Programs', url: '/en/echo-b2b' },
     },
 
-    // 5. Trust stats — dark
+    // 5. Trust stats
     {
       blockType: 'trust',
-      background: 'dark',
+      background: 'blue',
       variant: 'stats',
       headline: 'A LIFETIME IN GAMING',
       items: [
@@ -145,7 +142,7 @@ async function buildSections() {
       ],
     },
 
-    // 6. Feature grid — dark
+    // 6. Feature grid
     {
       blockType: 'feature-grid',
       background: 'dark',

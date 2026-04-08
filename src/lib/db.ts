@@ -17,6 +17,55 @@ export function getPool(): mysql.Pool {
   return pool
 }
 
+export interface LandingBlock {
+  id: number
+  title: string | null
+  tag_label: string | null
+  text: string | null
+  button_text: string | null
+  button_url: string | null
+  second_title: string | null
+  price: string | null
+  type: string
+}
+
+/** Parse a JSON-encoded multilingual field, return the `en` value */
+function parseLocale(raw: string | null, locale = 'en'): string | null {
+  if (!raw) return null
+  try {
+    const parsed = JSON.parse(raw)
+    return parsed[locale] ?? parsed['en'] ?? null
+  } catch {
+    return raw
+  }
+}
+
+/** Get a landing block by type from the unified landing_blocks table */
+export async function getLandingBlock(type: string, locale = 'en'): Promise<LandingBlock | null> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      'SELECT id, title, tag_label, text, button_text, button_url, second_title, price FROM landing_blocks WHERE type = ? AND active = 1 LIMIT 1',
+      [type]
+    )
+    const row = (rows as any[])[0]
+    if (!row) return null
+    return {
+      id: row.id,
+      title: parseLocale(row.title, locale),
+      tag_label: parseLocale(row.tag_label, locale),
+      text: parseLocale(row.text, locale),
+      button_text: parseLocale(row.button_text, locale),
+      button_url: row.button_url,
+      second_title: parseLocale(row.second_title, locale),
+      price: row.price,
+      type,
+    }
+  } catch {
+    return null
+  }
+}
+
 /** Get a media file URL (served via /api/storage) for a Laravel MediaLibrary record */
 export async function getMediaUrl(
   modelType: string,
@@ -35,32 +84,4 @@ export async function getMediaUrl(
   } catch {
     return null
   }
-}
-
-/** Get a landing block by type */
-export async function getLandingBlock(type: string): Promise<{ id: number } | null> {
-  try {
-    const db = getPool()
-    const tableName = typeToTable(type)
-    const [rows] = await db.execute(
-      `SELECT id FROM \`${tableName}\` WHERE type = ? LIMIT 1`,
-      [type]
-    )
-    return (rows as any[])[0] || null
-  } catch {
-    return null
-  }
-}
-
-function typeToTable(type: string): string {
-  const map: Record<string, string> = {
-    top_landing_block: 'top_landing_blocks',
-    superiority_landing_block: 'superiority_landing_blocks',
-    premium_purchase_landing_block: 'premium_purchase_landing_blocks',
-    screens_landing_block: 'screens_landing_blocks',
-    history_landing_block: 'history_landing_blocks',
-    engineered_landing_block: 'engineered_landing_blocks',
-    support_landing_block: 'support_landing_blocks',
-  }
-  return map[type] || type.replace(/_/g, '_') + 's'
 }
