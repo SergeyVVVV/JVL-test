@@ -905,6 +905,112 @@ function GamesSection() {
   )
 }
 
+// ─── Support Section ─────────────────────────────────────────────────────────
+
+const SUPPORT_CARDS = [
+  {
+    title: 'Real Human Support',
+    desc: 'Knowledgeable, responsive, and genuinely here to help — no bots, no scripts, just real people.',
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+      </svg>
+    ),
+  },
+  {
+    title: '1-Year Warranty',
+    desc: "Enjoy full coverage with our 1-year manufacturer warranty. If troubleshooting doesn't solve the issue, we'll replace your unit — no questions asked.",
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/>
+      </svg>
+    ),
+  },
+  {
+    title: 'Fast Delivery',
+    desc: 'Get it quick with Amazon Prime — FREE, fast shipping means minimal wait, maximum playtime.',
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 5v4h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>
+      </svg>
+    ),
+  },
+  {
+    title: 'No Setup Needed',
+    desc: 'Just plug it in, power it on, and start playing — no assembly, no hassle.',
+    icon: (
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+      </svg>
+    ),
+  },
+]
+
+function SupportSection() {
+  return (
+    <section style={{ background: '#101213', padding: '80px 0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+
+        {/* Top row: badge + heading + desc left, button right */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 40, marginBottom: 52 }}>
+          <div style={{ flex: '0 1 600px' }}>
+            <span style={{
+              display: 'inline-block',
+              border: '1px solid rgba(244,243,236,0.3)',
+              borderRadius: 999,
+              padding: '5px 16px',
+              fontSize: 12,
+              color: '#F4F3EC',
+              letterSpacing: '0.04em',
+              marginBottom: 20,
+            }}>
+              Support
+            </span>
+            <h2 style={{
+              fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.1,
+              color: '#F4F3EC',
+              margin: '0 0 20px',
+            }}>
+              Secure Amazon Checkout, Warranty & Support You Can Trust
+            </h2>
+            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: 0 }}>
+              Buy securely through Amazon with official JVL warranty and North American support. Fast delivery, verified authenticity, and peace of mind included.
+            </p>
+          </div>
+          <div style={{ flexShrink: 0, paddingTop: 4 }}>
+            <a href="/en/contact-us" className="btn-amazon" style={{ padding: '10px 20px' }}>
+              Contact Us!
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* 4 cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+          {SUPPORT_CARDS.map((card) => (
+            <div key={card.title} style={{ background: '#181a1b', border: '1px solid #2a2a2a', borderRadius: 4, padding: 24 }}>
+              <div style={{ marginBottom: 20 }}>{card.icon}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#F4F3EC', marginBottom: 12, lineHeight: 1.3 }}>
+                {card.title}
+              </div>
+              <p style={{ fontSize: 13, fontWeight: 300, lineHeight: 1.7, color: 'rgba(244,243,236,0.6)', margin: 0 }}>
+                {card.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  )
+}
+
 // ─── B2B Section ─────────────────────────────────────────────────────────────
 
 function B2BSection() {
@@ -1136,6 +1242,7 @@ export default function EchoPage1() {
       <DesignedSection />
       <GamesSection />
       <ProductSection data={data.product} />
+      <SupportSection />
       <B2BSection />
       <LegacySection />
       <StatsSection />
