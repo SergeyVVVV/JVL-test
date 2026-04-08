@@ -506,6 +506,118 @@ function ProductSection({ data }: { data: PageData['product'] }) {
   )
 }
 
+// ─── Use Cases Section ───────────────────────────────────────────────────────
+
+const USE_CASES = [
+  {
+    label: 'Perfect Gift',
+    img: '/api/storage/3477/005_720_01.jpg',
+    text: 'Surprise the ones who have everything with unforgettable fun for all ages.',
+  },
+  {
+    label: 'Game Lounge',
+    img: '/api/storage/3475/jvl-echo-poker-luxury-man-cave-setup.jpg',
+    text: 'Bring arcade excitement to your high-end sports lounge.',
+  },
+  {
+    label: 'Travel Ready',
+    img: '/api/storage/3483/jvl-echo-rv-motorhome-portable-gaming.jpg',
+    text: 'Perfect for your RV lifestyle — play anywhere, no internet required.',
+  },
+  {
+    label: 'Party Ready',
+    img: '/api/storage/3481/002_1920_01.jpg',
+    text: 'The ultimate entertainment centerpiece — bring the fun anywhere your crew goes.',
+  },
+]
+
+function UseCasesSection() {
+  const [active, setActive] = useState(0)
+  const [fading, setFading] = useState(false)
+  const [displayed, setDisplayed] = useState(0)
+
+  function switchTo(i: number) {
+    if (i === active) return
+    setFading(true)
+    setTimeout(() => {
+      setDisplayed(i)
+      setActive(i)
+      setFading(false)
+    }, 280)
+  }
+
+  const item = USE_CASES[displayed]
+
+  return (
+    <section style={{ position: 'relative', width: '100%', height: 520, overflow: 'hidden' }}>
+      {/* Background image with fade */}
+      <div style={{
+        position: 'absolute', inset: 0,
+        backgroundImage: `url(${item.img})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        opacity: fading ? 0 : 1,
+        transition: 'opacity 0.28s ease',
+      }} />
+
+      {/* Gradients */}
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 55%, rgba(0,0,0,0.55) 100%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 55%)' }} />
+
+      {/* Tab bar */}
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center', paddingTop: 28 }}>
+        <div style={{
+          display: 'flex', alignItems: 'center',
+          background: 'rgba(0,0,0,0.45)',
+          backdropFilter: 'blur(6px)',
+          borderRadius: 2,
+          padding: '0 4px',
+        }}>
+          {USE_CASES.map((uc, i) => (
+            <React.Fragment key={uc.label}>
+              {i > 0 && (
+                <span style={{ width: 1, height: 16, background: 'rgba(255,255,255,0.25)', flexShrink: 0 }} />
+              )}
+              <button
+                onClick={() => switchTo(i)}
+                style={{
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  padding: '12px 22px',
+                  fontSize: 14, fontWeight: 600,
+                  color: active === i ? '#059FFF' : 'rgba(255,255,255,0.75)',
+                  transition: 'color 0.2s',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {uc.label}
+              </button>
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+
+      {/* Text */}
+      <div style={{
+        position: 'absolute', bottom: 52, left: 0, right: 0,
+        padding: '0 5vw',
+        opacity: fading ? 0 : 1,
+        transition: 'opacity 0.28s ease',
+      }}>
+        <p style={{
+          maxWidth: 600,
+          fontSize: 'clamp(1.3rem, 2.2vw, 1.75rem)',
+          fontWeight: 700,
+          lineHeight: 1.25,
+          color: '#fff',
+          margin: 0,
+        }}>
+          {item.text}
+        </p>
+      </div>
+    </section>
+  )
+}
+
 // ─── B2B Section ─────────────────────────────────────────────────────────────
 
 function B2BSection() {
@@ -731,6 +843,7 @@ export default function EchoPage1() {
     <div>
       <Hero data={data.hero} />
       <CountertopSection data={data.countertop} />
+      <UseCasesSection />
       <ProductSection data={data.product} />
       <B2BSection />
       <LegacySection />
