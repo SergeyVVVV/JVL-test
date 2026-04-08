@@ -69,17 +69,16 @@ function Hero({ data }: { data: PageData['hero'] }) {
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.0) 60%)' }} />
 
       {/* Headline */}
-      <div style={{ position: 'absolute', bottom: 80, left: 0, padding: '0 6vw', maxWidth: 760 }}>
+      <div style={{ position: 'absolute', bottom: 80, left: 0, padding: '0 6vw', maxWidth: 900 }}>
         <h1 style={{
           fontFamily: 'inherit',
-          fontSize: 'clamp(2rem, 4.5vw, 4.5rem)',
+          fontSize: 'clamp(1.6rem, 2.8vw, 3rem)',
           fontWeight: 900,
-          lineHeight: 1.05,
-          letterSpacing: '-0.02em',
+          lineHeight: 1.1,
+          letterSpacing: '-0.01em',
           textTransform: 'uppercase',
           color: '#fff',
           margin: 0,
-          whiteSpace: 'pre-line',
         }}>
           {data.title}
         </h1>
