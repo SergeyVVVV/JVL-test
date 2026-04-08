@@ -8,6 +8,7 @@ const footerLinks = {
     { label: 'Echo B2B', href: '/en/echo-b2b' },
     { label: 'Flex', href: '/en/flex' },
     { label: 'Games', href: '/en/games' },
+    { label: 'News', href: '/en/news' },
   ],
   Company: [
     { label: 'About JVL', href: '/en/about-jvl' },
@@ -16,12 +17,44 @@ const footerLinks = {
     { label: 'Warranty', href: '/en/warranty' },
   ],
   Support: [
-    { label: 'FAQ', href: '/en/faq' },
     { label: 'Register Product', href: '/en/register' },
     { label: 'Privacy Policy', href: '/en/privacy' },
     { label: 'Terms of Use', href: '/en/terms' },
   ],
 }
+
+const socials = [
+  {
+    label: 'Instagram',
+    href: 'https://www.instagram.com/echo_home_jvl/',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <circle cx="12" cy="12" r="4"/>
+        <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'YouTube',
+    href: 'https://www.youtube.com/@JVLgaming',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/>
+        <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Facebook',
+    href: 'https://www.facebook.com/profile.php?id=61573956107914',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+      </svg>
+    ),
+  },
+]
 
 export default function Footer() {
   return (
@@ -35,20 +68,27 @@ export default function Footer() {
           <div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 28, width: 'auto', marginBottom: 20 }} />
-            <p style={{ fontSize: 13, fontWeight: 300, color: '#787878', lineHeight: 1.75, marginBottom: 20 }}>
+            <p style={{ fontSize: 13, fontWeight: 300, color: '#787878', lineHeight: 1.75, marginBottom: 28 }}>
               A lifetime in gaming. Premium arcade and digital gaming solutions for home and business since 1983.
             </p>
-            <p style={{ fontSize: 13, fontWeight: 300, color: '#787878', lineHeight: 1.9, margin: 0 }}>
-              1380 Capital Circle<br />
-              Lawrenceville, GA 30043<br />
-              USA<br />
-              <a href="tel:+14703041692" style={{ color: '#787878', textDecoration: 'none' }}
-                onMouseEnter={e => (e.currentTarget.style.color = '#F4F3EC')}
-                onMouseLeave={e => (e.currentTarget.style.color = '#787878')}
-              >
-                (470) 304-1692
-              </a>
-            </p>
+
+            {/* Social icons */}
+            <div style={{ display: 'flex', gap: 14 }}>
+              {socials.map((s) => (
+                <a
+                  key={s.label}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  style={{ color: '#555', transition: 'color 0.2s' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#059FFF')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#555')}
+                >
+                  {s.icon}
+                </a>
+              ))}
+            </div>
           </div>
 
           {/* Link columns */}
@@ -87,7 +127,7 @@ export default function Footer() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://www.jvl.ca/img/logo_18+.svg" alt="18+" style={{ height: 24, width: 'auto', opacity: 0.5 }} />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://www.jvl.ca/img/logo_gambling.svg" alt="Responsible Gambling" style={{ height: 24, width: 'auto', opacity: 0.5 }} />
+            <img src="https://www.jvl.ca/img/logo_gambling.svg" alt="Gambling Commission" style={{ height: 24, width: 'auto', opacity: 0.5 }} />
           </div>
         </div>
 
