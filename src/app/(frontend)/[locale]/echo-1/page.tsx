@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
-import Script from 'next/script'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -225,6 +224,45 @@ function Icon({ type }: { type: string }) {
   return null
 }
 
+// ─── 3D Model Viewer ─────────────────────────────────────────────────────────
+
+function ModelViewer3D() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    // Inject model-viewer script once
+    const scriptId = 'model-viewer-script'
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement('script')
+      script.id = scriptId
+      script.type = 'module'
+      script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js'
+      document.head.appendChild(script)
+    }
+
+    // Create element via innerHTML so boolean attrs like camera-controls are correct
+    if (containerRef.current) {
+      containerRef.current.innerHTML = `
+        <model-viewer
+          src="https://www.jvl.ca/storage/3486/3.glb?v=3"
+          poster="https://www.jvl.ca/storage/3372/echo_3d_01.jpg"
+          alt="JVL Echo HD3"
+          ar-modes="webxr scene-viewer quick-look"
+          camera-controls
+          tone-mapping="neutral"
+          shadow-intensity="1"
+          environment-image="legacy"
+          style="width:100%;height:100%;background:transparent;"
+        ></model-viewer>
+      `
+    }
+  }, [])
+
+  return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+}
+
+// ─── Product Section ──────────────────────────────────────────────────────────
+
 function ProductSection({ data }: { data: PageData['product'] }) {
   const [tab, setTab] = useState(0)
   const active = TABS[tab]
@@ -260,17 +298,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
             }}>
               <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', color: '#101213' }}>3D</span>
             </div>
-            {React.createElement('model-viewer', {
-              src: 'https://www.jvl.ca/storage/3486/3.glb?v=3',
-              poster: 'https://www.jvl.ca/storage/3372/echo_3d_01.jpg',
-              alt: 'JVL Echo HD3',
-              'ar-modes': 'webxr scene-viewer quick-look',
-              'camera-controls': '',
-              'tone-mapping': 'neutral',
-              'shadow-intensity': '1',
-              'environment-image': 'legacy',
-              style: { width: '100%', height: '100%', background: 'transparent' },
-            })}
+            <ModelViewer3D />
           </div>
 
           {/* Details */}
@@ -498,20 +526,13 @@ export default function EchoPage1() {
   if (!data) return <div style={{ height: '100vh', background: '#101213' }} />
 
   return (
-    <>
-      <Script
-        type="module"
-        src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"
-        strategy="lazyOnload"
-      />
-      <div>
-        <Hero data={data.hero} />
-        <CountertopSection data={data.countertop} />
-        <ProductSection data={data.product} />
-        <StatsSection />
-        <FeatureGrid />
-        <CTABanner />
-      </div>
-    </>
+    <div>
+      <Hero data={data.hero} />
+      <CountertopSection data={data.countertop} />
+      <ProductSection data={data.product} />
+      <StatsSection />
+      <FeatureGrid />
+      <CTABanner />
+    </div>
   )
 }
