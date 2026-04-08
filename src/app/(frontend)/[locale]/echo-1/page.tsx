@@ -698,62 +698,144 @@ const DESIGN_CARDS = [
 
 function DesignedSection() {
   return (
-    <section style={{ background: '#fff', padding: '80px 0' }}>
+    <section style={{ background: '#fff', padding: '96px 0' }}>
+      <style>{`
+        .ds-text-footer { display: flex; align-items: flex-end; gap: 40px; margin-top: 36px; }
+        .ds-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr;
+          grid-auto-rows: clamp(200px, 21vw, 280px);
+          gap: 8px;
+        }
+        .ds-hero { grid-row: span 2; }
+        @media (max-width: 960px) {
+          .ds-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(180px, 28vw, 260px); }
+          .ds-hero { grid-row: span 1; }
+        }
+        @media (max-width: 600px) {
+          .ds-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
+          .ds-text-footer { flex-direction: column; align-items: flex-start; gap: 24px; }
+        }
+      `}</style>
+
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
-        {/* Top row: heading + button */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 40, marginBottom: 52 }}>
-          <div style={{ flex: '0 1 660px' }}>
-            <h2 style={{
-              fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: '-0.02em',
-              lineHeight: 1.1,
-              color: '#101213',
-              margin: '0 0 20px',
-            }}>
-              Premium Countertop Arcade Machine Designed for Modern Game Rooms
-            </h2>
-            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0, maxWidth: 520 }}>
-              Every curve, light, and pixel was designed to feel exceptional.
-              <br /><br />
-              22" HD touchscreen. Brushed aluminum housing. LED halo lighting.
-              <br /><br />
-              Compact yet powerful — redefining what a mini arcade cabinet can be.
-            </p>
-            <div style={{ marginTop: 32 }}>
+        {/* ── Text block ── */}
+        <div style={{ marginBottom: 56 }}>
+          <h2 style={{
+            fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.1,
+            color: '#101213',
+            margin: '0 0 28px',
+            maxWidth: 680,
+          }}>
+            Premium Countertop Arcade Machine Designed for Modern Game Rooms
+          </h2>
+
+          {/* Intro line */}
+          <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.65, color: '#4B4B4B', margin: 0, maxWidth: 560 }}>
+            Every curve, light, and pixel was designed to feel exceptional.
+          </p>
+
+          {/* Spec line — uppercase label treatment */}
+          <p style={{
+            fontSize: 11,
+            fontWeight: 600,
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            color: '#101213',
+            margin: '20px 0 0',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0,
+          }}>
+            22&quot; HD touchscreen
+            <span style={{ display: 'inline-block', width: 1, height: 12, background: '#D0CEC6', margin: '0 14px', verticalAlign: 'middle' }} />
+            Brushed aluminum housing
+            <span style={{ display: 'inline-block', width: 1, height: 12, background: '#D0CEC6', margin: '0 14px', verticalAlign: 'middle' }} />
+            LED halo lighting
+          </p>
+
+          {/* Closer line */}
+          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', margin: '14px 0 0', maxWidth: 520, fontStyle: 'italic' }}>
+            Compact yet powerful — redefining what a mini arcade cabinet can be.
+          </p>
+
+          {/* Quote + CTA anchored together */}
+          <div className="ds-text-footer">
+            <div style={{ flex: '1 1 0', maxWidth: 500 }}>
               <QuoteBlock
                 text="It's like owning a piece of arcade history — built for your home."
                 author="Verified Customer"
                 theme="light"
               />
             </div>
-          </div>
-          <div style={{ flexShrink: 0, paddingTop: 4 }}>
-            <a
-              href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
-              target="_blank" rel="noopener noreferrer"
-              className="btn-amazon"
-              style={{ padding: '10px 20px' }}
-            >
-              Explore on Amazon
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
+            <div style={{ flexShrink: 0 }}>
+              <a
+                href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
+                target="_blank" rel="noopener noreferrer"
+                className="btn-amazon"
+                style={{ padding: '12px 24px', whiteSpace: 'nowrap' }}
+              >
+                Explore on Amazon
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* 5 cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12 }}>
-          {DESIGN_CARDS.map((card) => (
-            <div key={card.label} style={{ position: 'relative', borderRadius: 4, overflow: 'hidden', aspectRatio: '3/4' }}>
-              <img src={card.img} alt={card.label} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 55%)' }} />
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '16px 14px' }}>
-                <div style={{ fontSize: 13, fontWeight: 600, color: '#fff', lineHeight: 1.2, marginBottom: 6 }}>{card.label}</div>
-                <div style={{ fontSize: 11, fontWeight: 300, color: 'rgba(255,255,255,0.8)', lineHeight: 1.5 }}>{card.desc}</div>
+        {/* ── Card grid: hero left (spans 2 rows) + 2×2 right ── */}
+        <div className="ds-grid">
+          {DESIGN_CARDS.map((card, i) => (
+            <div
+              key={card.label}
+              className={i === 0 ? 'ds-hero' : ''}
+              style={{ position: 'relative', borderRadius: 4, overflow: 'hidden' }}
+            >
+              <img
+                src={card.img}
+                alt={card.label}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+              {/* Stronger overlay */}
+              <div style={{
+                position: 'absolute', inset: 0,
+                background: i === 0
+                  ? 'linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0) 70%)'
+                  : 'linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0) 80%)',
+              }} />
+              {/* Text */}
+              <div style={{
+                position: 'absolute', bottom: 0, left: 0, right: 0,
+                padding: i === 0 ? '32px 28px' : '20px 20px',
+              }}>
+                <div style={{
+                  fontSize: i === 0 ? 19 : 14,
+                  fontWeight: 600,
+                  color: '#fff',
+                  lineHeight: 1.2,
+                  marginBottom: i === 0 ? 10 : 7,
+                  letterSpacing: '-0.01em',
+                }}>
+                  {card.label}
+                </div>
+                <div style={{
+                  fontSize: i === 0 ? 13 : 12,
+                  fontWeight: 300,
+                  color: 'rgba(255,255,255,0.80)',
+                  lineHeight: 1.6,
+                  display: '-webkit-box',
+                  WebkitLineClamp: i === 0 ? 4 : 3,
+                  WebkitBoxOrient: 'vertical' as const,
+                  overflow: 'hidden',
+                }}>
+                  {card.desc}
+                </div>
               </div>
             </div>
           ))}
