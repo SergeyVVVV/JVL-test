@@ -617,6 +617,294 @@ function UseCasesSection() {
 
 // ─── B2B Section ─────────────────────────────────────────────────────────────
 
+// ─── Designed Section ────────────────────────────────────────────────────────
+
+const DESIGN_CARDS = [
+  { label: 'Compact Footprint', desc: 'Fits any premium interior — modern or classic. Compact and sleek, designed specifically for bartops and countertops.', img: '/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg' },
+  { label: '22" HD Touchscreen', desc: 'Arcade action in a brilliant 22" high-definition touchscreen. No joysticks, no trackballs — no problems.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
+  { label: 'Immersive Audio', desc: '25-watt, 4-speaker high-fidelity tri-band sound system with a dedicated subwoofer for the rich audio.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
+  { label: '1 & 2-Player Modes', desc: 'Enjoy solo play or head-to-head matchups in 2-player mode. ECHO provides competitive games for all.', img: '/api/storage/3412/2_player_modes.jpg' },
+  { label: 'Tournaments & Leaderboards', desc: 'Host tournaments, track high scores, and battle for the top spot in the ultimate Hall of Fame.', img: '/api/storage/3413/Leaderboards.jpg' },
+]
+
+function DesignedSection() {
+  return (
+    <section style={{ background: '#fff', padding: '80px 0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+
+        {/* Top row: heading + button */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 40, marginBottom: 52 }}>
+          <div style={{ flex: '0 1 660px' }}>
+            <h2 style={{
+              fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.1,
+              color: '#101213',
+              margin: '0 0 20px',
+            }}>
+              Premium Countertop Arcade Machine Designed for Modern Game Rooms
+            </h2>
+            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0, maxWidth: 520 }}>
+              Every curve, light, and pixel was designed to feel exceptional.
+              <br /><br />
+              22" HD touchscreen. Brushed aluminum housing. LED halo lighting.
+              <br /><br />
+              Compact yet powerful — redefining what a mini arcade cabinet can be.
+            </p>
+            <p style={{ fontSize: 16, fontStyle: 'italic', color: '#787878', marginTop: 20, marginBottom: 0 }}>
+              "Built like a showpiece. Engineered like a tank."
+            </p>
+          </div>
+          <div style={{ flexShrink: 0, paddingTop: 4 }}>
+            <a
+              href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
+              target="_blank" rel="noopener noreferrer"
+              className="btn-amazon"
+              style={{ padding: '10px 20px' }}
+            >
+              Explore on Amazon
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* 5 cards */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12 }}>
+          {DESIGN_CARDS.map((card) => (
+            <div key={card.label} style={{ position: 'relative', borderRadius: 4, overflow: 'hidden', aspectRatio: '3/4' }}>
+              <img src={card.img} alt={card.label} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0) 55%)' }} />
+              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '16px 14px' }}>
+                <div style={{ fontSize: 13, fontWeight: 600, color: '#fff', lineHeight: 1.2, marginBottom: 6 }}>{card.label}</div>
+                <div style={{ fontSize: 11, fontWeight: 300, color: 'rgba(255,255,255,0.8)', lineHeight: 1.5 }}>{card.desc}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+      </div>
+    </section>
+  )
+}
+
+// ─── Games Section ────────────────────────────────────────────────────────────
+
+const GAME_CATEGORIES = [
+  {
+    label: 'Action',
+    img: '/api/storage/3458/Action.jpg',
+    video: '/api/storage/3459/Action.mp4',
+    desc: 'Dive into the fan-favorite Gone Fishing, outmaneuver opponents in Bumper Wars, battle crazy creatures in Monster Mash, and crush levels in Bonbon Deluxe.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="6" width="20" height="12" rx="2"/>
+        <path d="M12 12h.01M8 10v4M6 12h4"/><circle cx="16" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="18" cy="10" r="1" fill="currentColor" stroke="none"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Strategy',
+    img: '/api/storage/3460/Strategy.jpg',
+    video: '/api/storage/3461/Strategy.mp4',
+    desc: 'ECHO is packed with timeless strategy games! Outmaneuver rivals in Backgammon and Battle Ships, or dive into classic match-3 and math games.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M8 16V8c0-1.1.9-2 2-2h4M12 6V4M9 20h6M12 16v4"/><rect x="9" y="8" width="6" height="8" rx="1"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Cards',
+    img: '/api/storage/3462/Cards.jpg',
+    video: '/api/storage/3463/Cards.mp4',
+    desc: 'From casinos to coffee tables, card games never go out of style! Hit 21 in Blackjack, go all-in with Texas Hold\'em, or keep it classic with Solitaire.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="4" width="14" height="18" rx="2"/><path d="M8 7v2M8 11v2"/><rect x="8" y="2" width="14" height="18" rx="2" fill="#F4F3EC" stroke="currentColor"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Puzzle',
+    img: '/api/storage/3464/Puzzle.jpg',
+    video: '/api/storage/3465/Puzzle.mp4',
+    desc: 'Challenge your brain in classic logic games like Sudoku, Mine Sweeper, and Mahjong. Perfect for solo challenges or friendly competition.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M19.5 12c0-.23-.01-.45-.03-.68l2.03-1.58a.5.5 0 0 0 .12-.61l-2-3.46a.5.5 0 0 0-.61-.22l-2.39.96a7 7 0 0 0-1.17-.68l-.36-2.54A.5.5 0 0 0 14.5 3h-4a.5.5 0 0 0-.5.42l-.36 2.54a7 7 0 0 0-1.17.68L6.08 5.68a.5.5 0 0 0-.61.22l-2 3.46a.5.5 0 0 0 .12.61l2.03 1.58C5.51 11.55 5.5 11.78 5.5 12s.01.45.03.68L3.5 14.26a.5.5 0 0 0-.12.61l2 3.46a.5.5 0 0 0 .61.22l2.39-.96c.37.26.76.48 1.17.68l.36 2.54a.5.5 0 0 0 .5.42h4c.24 0 .44-.17.49-.42l.36-2.54a7 7 0 0 0 1.17-.68l2.39.96a.5.5 0 0 0 .61-.22l2-3.46a.5.5 0 0 0-.12-.61l-2.03-1.58c.02-.23.03-.45.03-.68z"/><circle cx="12" cy="12" r="2.5"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Quiz',
+    img: '/api/storage/3466/Quiz.jpg',
+    video: '/api/storage/3467/Quiz.mp4',
+    desc: "Whether you're a trivia master or a word wizard, ECHO's quiz games will put your skills to the test! Answer exciting questions in Double Quiz or build winning words in Word Chase.",
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Adult',
+    img: '/api/storage/3468/Erotic.jpg',
+    video: null,
+    desc: 'For those who like it hot, ECHO offers a fun selection of spicy, adult-themed games. Prefer to keep things family-friendly? You can easily enable, disable, or schedule access to adult content in the settings.',
+    icon: (
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 12h6M12 9v6"/>
+      </svg>
+    ),
+  },
+]
+
+function GamesSection() {
+  const [activeTab, setActiveTab] = useState(0)
+  const [playing, setPlaying] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const cat = GAME_CATEGORIES[activeTab]
+
+  function switchTab(i: number) {
+    setPlaying(false)
+    if (videoRef.current) {
+      videoRef.current.pause()
+      videoRef.current.currentTime = 0
+    }
+    setActiveTab(i)
+  }
+
+  function handlePlay() {
+    setPlaying(true)
+    videoRef.current?.play()
+  }
+
+  return (
+    <section style={{ background: '#F4F3EC', padding: '80px 0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+
+        {/* Heading + description */}
+        <div style={{ maxWidth: 720, marginBottom: 40 }}>
+          <h2 style={{
+            fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
+            fontWeight: 600,
+            textTransform: 'uppercase',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.1,
+            color: '#101213',
+            margin: '0 0 20px',
+          }}>
+            Home Arcade Machine with Multiple Games – 149 Classic Titles, No Downloads Needed
+          </h2>
+          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
+            With ECHO HD3, you get 149 built-in timeless games covering every genre, from action, puzzles and to strategy-packed poker.
+            <br />
+            No downloads, no installs, no subscriptions — just non-stop entertainment.
+          </p>
+        </div>
+
+        {/* Stats row */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderTop: '1px solid #D0CEC6', borderBottom: '1px solid #D0CEC6', marginBottom: 56 }}>
+          {[
+            { value: '149', label: 'Pre-installed games' },
+            { value: 'Solo & 2-Player', label: 'Player Modes' },
+            { value: '∞', label: 'Hours of Fun' },
+          ].map((s, i) => (
+            <div key={s.label} style={{
+              padding: '28px 24px',
+              textAlign: 'center',
+              borderLeft: i > 0 ? '1px solid #D0CEC6' : 'none',
+            }}>
+              <div style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 700, color: '#101213', lineHeight: 1, marginBottom: 8 }}>{s.value}</div>
+              <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#787878' }}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Game categories */}
+        <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, alignItems: 'start' }}>
+
+          {/* Category list */}
+          <div>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#787878', marginBottom: 20 }}>
+              Game Categories
+            </div>
+            {GAME_CATEGORIES.map((c, i) => (
+              <button
+                key={c.label}
+                onClick={() => switchTab(i)}
+                style={{
+                  display: 'flex', alignItems: 'center', gap: 12,
+                  width: '100%', background: 'none', border: 'none', cursor: 'pointer',
+                  padding: '14px 0',
+                  borderTop: '1px solid #D0CEC6',
+                  color: activeTab === i ? '#FB671F' : '#101213',
+                  transition: 'color 0.2s',
+                  textAlign: 'left',
+                }}
+              >
+                <span style={{ flexShrink: 0 }}>{c.icon}</span>
+                <span style={{ fontSize: 15, fontWeight: activeTab === i ? 500 : 400 }}>{c.label}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Video + description */}
+          <div>
+            <div style={{ position: 'relative', borderRadius: 4, overflow: 'hidden', marginBottom: 20, background: '#000' }}>
+              <img
+                src={cat.img}
+                alt={cat.label}
+                style={{ width: '100%', display: 'block', opacity: playing ? 0 : 1, transition: 'opacity 0.2s' }}
+              />
+              {cat.video && (
+                <video
+                  ref={videoRef}
+                  src={cat.video}
+                  controls
+                  style={{
+                    position: 'absolute', inset: 0, width: '100%', height: '100%',
+                    objectFit: 'cover',
+                    opacity: playing ? 1 : 0,
+                    transition: 'opacity 0.2s',
+                  }}
+                />
+              )}
+              {cat.video && !playing && (
+                <button
+                  onClick={handlePlay}
+                  style={{
+                    position: 'absolute', top: '50%', left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)',
+                    border: 'none', cursor: 'pointer', borderRadius: '50%',
+                    width: 56, height: 56,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: '#fff',
+                  }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M8 5v14l11-7z"/>
+                  </svg>
+                </button>
+              )}
+            </div>
+            <div style={{ fontSize: 16, fontWeight: 500, color: '#101213', marginBottom: 10 }}>{cat.label}</div>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>{cat.desc}</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  )
+}
+
+// ─── B2B Section ─────────────────────────────────────────────────────────────
+
 function B2BSection() {
   return (
     <section style={{ background: '#F4F3EC', padding: '80px 0 96px' }}>
@@ -841,6 +1129,8 @@ export default function EchoPage1() {
       <Hero data={data.hero} />
       <CountertopSection data={data.countertop} />
       <UseCasesSection />
+      <DesignedSection />
+      <GamesSection />
       <ProductSection data={data.product} />
       <B2BSection />
       <LegacySection />
