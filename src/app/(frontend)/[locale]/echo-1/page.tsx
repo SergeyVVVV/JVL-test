@@ -184,7 +184,7 @@ function LegacySection() {
               Explore the JVL legacy in gaming — from ENCORE to ECHO HD3.
             </p>
             <p style={{ fontSize: 15, fontWeight: 300, color: 'rgba(244,243,236,0.8)', margin: '0 0 20px', lineHeight: 1.7 }}>
-              For over 30 years, JVL <strong style={{ fontWeight: 700, color: '#F4F3EC' }}>has led the world in touchscreen arcade entertainment</strong>. The Echo HD3 continues that legacy — elegant hardware, intelligent software, timeless gameplay.
+              For over 30 years, JVL has led the world in touchscreen arcade entertainment. The Echo HD3 continues that legacy — elegant hardware, intelligent software, timeless gameplay.
             </p>
             <p style={{ fontSize: 15, fontStyle: 'italic', color: 'rgba(244,243,236,0.5)', margin: 0 }}>
               &ldquo;Designed in US. Built for the world.&rdquo;
@@ -193,7 +193,7 @@ function LegacySection() {
         </div>
 
         {/* Product display */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center', minHeight: 360 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center', minHeight: 360, marginBottom: 0 }}>
           {/* Text left */}
           <div style={{ textAlign: 'right', paddingRight: 32 }}>
             <h3 style={{
@@ -223,7 +223,7 @@ function LegacySection() {
       </div>
 
       {/* Timeline bar */}
-      <div style={{ marginTop: 64, borderTop: '1px solid rgba(244,243,236,0.12)' }}>
+      <div style={{ marginTop: 24, borderTop: '1px solid rgba(244,243,236,0.12)', background: 'rgba(0,0,0,0.35)', paddingBottom: 8 }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 5vw' }}>
           <div style={{ display: 'flex', overflowX: 'auto', scrollbarWidth: 'none' }}>
             {TIMELINE.map((t, i) => (
@@ -493,7 +493,9 @@ function ProductSection({ data }: { data: PageData['product'] }) {
               </a>
               <a
                 href="/en/contact-us"
-                style={{ fontSize: 14, color: '#101213', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 500 }}
+                style={{ fontSize: 14, color: '#101213', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 500, transition: 'color 0.2s' }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#059FFF')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#101213')}
               >
                 Get in touch with us
                 <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -926,17 +928,17 @@ function B2BSection() {
 
         {/* Text */}
         <div style={{ textAlign: 'center' }}>
-          <h2 style={{
-            fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
+          <h3 style={{
+            fontSize: 'clamp(1rem, 1.8vw, 1.4rem)',
             fontWeight: 600,
             textTransform: 'uppercase',
-            letterSpacing: '-0.02em',
-            lineHeight: 1.1,
+            letterSpacing: '0.04em',
+            lineHeight: 1.3,
             color: '#101213',
-            margin: '0 0 24px',
+            margin: '0 0 20px',
           }}>
             Interested in bringing Echo to your business?
-          </h2>
+          </h3>
           <p style={{
             fontSize: 15,
             fontWeight: 300,
@@ -954,8 +956,10 @@ function B2BSection() {
             style={{
               display: 'inline-flex', alignItems: 'center', gap: 6,
               fontSize: 14, fontWeight: 600, color: '#101213',
-              textDecoration: 'none', letterSpacing: '0.02em',
+              textDecoration: 'none', letterSpacing: '0.02em', transition: 'color 0.2s',
             }}
+            onMouseEnter={e => (e.currentTarget.style.color = '#059FFF')}
+            onMouseLeave={e => (e.currentTarget.style.color = '#101213')}
           >
             Explore ECHO B2B Programs
             <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
