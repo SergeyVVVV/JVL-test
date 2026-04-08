@@ -73,7 +73,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
         <h1 style={{
           fontFamily: 'inherit',
           fontSize: 'clamp(2rem, 3.5vw, 3.8rem)',
-          fontWeight: 800,
+          fontWeight: 600,
           lineHeight: 1.1,
           letterSpacing: '-0.01em',
           textTransform: 'uppercase',
@@ -170,7 +170,7 @@ function LegacySection() {
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, marginBottom: 80, alignItems: 'start' }}>
           <h2 style={{
             fontSize: 'clamp(2rem, 4vw, 3.8rem)',
-            fontWeight: 800,
+            fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '-0.02em',
             lineHeight: 1.05,
@@ -282,7 +282,7 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
         <h2 style={{
           textAlign: 'center',
           fontSize: 'clamp(1.6rem, 3.5vw, 3rem)',
-          fontWeight: 800,
+          fontWeight: 600,
           textTransform: 'uppercase',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
@@ -405,7 +405,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
         {/* Heading */}
         <h2 style={{
           fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
-          fontWeight: 800,
+          fontWeight: 600,
           textTransform: 'uppercase',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
@@ -475,7 +475,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
             </div>
 
             {/* Price */}
-            <div style={{ fontSize: 36, fontWeight: 800, color: '#101213', margin: '24px 0' }}>
+            <div style={{ fontSize: 36, fontWeight: 600, color: '#101213', margin: '24px 0' }}>
               {active.price}
             </div>
 
@@ -640,7 +640,7 @@ function B2BSection() {
         <div style={{ textAlign: 'center' }}>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 3.5vw, 3rem)',
-            fontWeight: 800,
+            fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '-0.02em',
             lineHeight: 1.1,
@@ -701,7 +701,7 @@ function StatsSection() {
               textAlign: 'center', padding: '0 24px',
               borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.25)' : 'none',
             }}>
-              <div style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', fontWeight: 800, color: '#fff', lineHeight: 1, marginBottom: 12 }}>{s.value}</div>
+              <div style={{ fontSize: 'clamp(3rem, 6vw, 5rem)', fontWeight: 600, color: '#fff', lineHeight: 1, marginBottom: 12 }}>{s.value}</div>
               <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)' }}>{s.label}</div>
             </div>
           ))}
@@ -733,7 +733,7 @@ function FeatureGrid() {
           </span>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 3.5vw, 3rem)',
-            fontWeight: 800,
+            fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '-0.02em',
             color: '#F4F3EC',
@@ -787,7 +787,7 @@ function CTABanner() {
     <section style={{ background: '#059FFF', padding: '80px 6vw', textAlign: 'center' }}>
       <h2 style={{
         fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-        fontWeight: 800,
+        fontWeight: 600,
         textTransform: 'uppercase',
         letterSpacing: '-0.02em',
         color: '#fff',
