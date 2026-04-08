@@ -905,6 +905,163 @@ function GamesSection() {
   )
 }
 
+// ─── Specs Section ───────────────────────────────────────────────────────────
+
+const SPECS_ITEMS = [
+  {
+    label: 'Product Information',
+    img: '/api/storage/3449/Tech-Specs.jpg',
+    table: [
+      ['Dimensions', '15"L x 19.5"W x 18.5"H'],
+      ['Weight', '39.4 Pounds'],
+      ['Controller', 'Touchscreen'],
+      ['Screen Size', '22 Inches'],
+      ['Display Type', 'LCD'],
+      ['Power Source', 'Corded Electric'],
+      ['Setup Complexity', 'Plug-n-Play, no setup needed'],
+    ],
+  },
+  {
+    label: 'Premium Build',
+    img: '/api/storage/3450/Premium-Build.jpg',
+    text: 'Built to withstand the toughest arcade and bar environments, ECHO features a reinforced plastic case and precision-built frame.',
+  },
+  {
+    label: 'Swivel Base',
+    img: '/api/storage/3451/Swivel-Base.jpg',
+    text: '360° Swivel Base for Shared Play. ECHO\'s rotating base lets players on both sides take control — perfect for head-to-head action!',
+  },
+  {
+    label: 'Dynamic Multi-color Halo',
+    img: '/api/storage/3452/Halo.jpg',
+    text: 'ECHO\'s 360° multi-color halo turns up the energy, surrounding your game with a brilliant, ever-changing glow for a fully immersive experience.',
+  },
+  {
+    label: 'Security and Customization',
+    img: '/api/storage/3453/Key-Access.jpg',
+    text: 'ECHO keeps your game settings, tournaments, and leaderboard data safe with built-in security features. Customization and system access are physically protected by secure key access.',
+  },
+  {
+    label: 'No Internet Needed',
+    img: '/api/storage/3457/Offline.jpg',
+    text: 'ECHO works 100% offline. Everything is built-in — 149 preloaded games, leaderboards, and tournaments run offline. No waiting, no disconnects.',
+  },
+  {
+    label: 'Multilingual Support',
+    img: '/api/storage/3455/Multi-Lang.jpg',
+    text: 'ECHO supports seven languages — English, Spanish, Italian, French, German, Polish, and Russian — all easily switchable directly through the interface.',
+  },
+]
+
+function SpecsSection() {
+  const [open, setOpen] = useState(0)
+
+  return (
+    <section style={{ background: '#F4F3EC', padding: '80px 0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+
+        {/* Top: heading left, button right */}
+        <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 40, marginBottom: 52 }}>
+          <div style={{ flex: '0 1 640px' }}>
+            <h2 style={{
+              fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.1,
+              color: '#101213',
+              margin: '0 0 16px',
+            }}>
+              Mini Arcade Cabinet with Games – Compact Power, Endless Fun
+            </h2>
+            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
+              Every detail refined. Every feature designed to deliver performance, beauty, and timeless play.
+            </p>
+          </div>
+          <div style={{ flexShrink: 0, paddingTop: 4 }}>
+            <a
+              href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
+              target="_blank" rel="noopener noreferrer"
+              className="btn-amazon"
+              style={{ padding: '10px 20px' }}
+            >
+              Buy on Amazon
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* Two-col: image left, accordion right */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
+
+          {/* Image */}
+          <div style={{ position: 'sticky', top: 140 }}>
+            <img
+              key={open}
+              src={SPECS_ITEMS[open].img}
+              alt={SPECS_ITEMS[open].label}
+              style={{ width: '100%', display: 'block', borderRadius: 4 }}
+            />
+          </div>
+
+          {/* Accordion */}
+          <div>
+            {SPECS_ITEMS.map((item, i) => (
+              <div key={item.label} style={{ borderTop: '1px solid #D0CEC6' }}>
+                <button
+                  onClick={() => setOpen(i === open ? -1 : i)}
+                  style={{
+                    width: '100%', background: 'none', border: 'none', cursor: 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '18px 0',
+                    fontSize: 15, fontWeight: 500,
+                    color: open === i ? '#FB671F' : '#101213',
+                    textAlign: 'left',
+                    transition: 'color 0.2s',
+                  }}
+                >
+                  {item.label}
+                  <svg
+                    width="16" height="16" viewBox="0 0 16 16" fill="none"
+                    style={{ flexShrink: 0, transform: open === i ? 'rotate(180deg)' : 'none', transition: 'transform 0.2s', color: open === i ? '#FB671F' : '#787878' }}
+                  >
+                    <path d="M4 6l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </button>
+
+                {open === i && (
+                  <div style={{ paddingBottom: 20 }}>
+                    {'table' in item && item.table ? (
+                      <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                        <tbody>
+                          {item.table.map(([key, val]) => (
+                            <tr key={key} style={{ borderBottom: '1px solid #E0DDD4' }}>
+                              <td style={{ padding: '10px 0', fontSize: 13, fontWeight: 400, color: '#787878', width: '45%' }}>{key}</td>
+                              <td style={{ padding: '10px 0', fontSize: 13, fontWeight: 400, color: '#101213' }}>{val}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    ) : (
+                      <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
+                        {'text' in item ? item.text : ''}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+            <div style={{ borderTop: '1px solid #D0CEC6' }} />
+          </div>
+
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Support Section ─────────────────────────────────────────────────────────
 
 const SUPPORT_CARDS = [
@@ -1244,6 +1401,7 @@ export default function EchoPage1() {
       <UseCasesSection />
       <DesignedSection />
       <GamesSection />
+      <SpecsSection />
       <SupportSection />
     </div>
   )
