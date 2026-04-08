@@ -1376,6 +1376,147 @@ function CTABanner() {
   )
 }
 
+// ─── Footer CTA ──────────────────────────────────────────────────────────────
+
+function FooterCTA() {
+  return (
+    <section style={{
+      position: 'relative',
+      backgroundImage: 'url(/api/storage/3485/jvl-echo-bartop-arcade-machine-office.jpg)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      padding: '80px 0',
+    }}>
+      {/* Overlay */}
+      <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.55)' }} />
+
+      <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+
+          {/* Col 1: Be Part of the Experience */}
+          <div style={{
+            background: 'rgba(16,18,19,0.72)', backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 4, padding: '36px 32px',
+            display: 'flex', flexDirection: 'column', gap: 20,
+          }}>
+            <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.1, color: '#F4F3EC', margin: 0 }}>
+              Be Part of the Experience
+            </h3>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.7)', margin: 0 }}>
+              Stay in the loop — join us on social media for product updates, exclusive offers and discounts.
+            </p>
+            <div style={{ display: 'flex', gap: 16, marginTop: 'auto' }}>
+              {[
+                { label: 'Instagram', href: 'https://www.instagram.com/jvl_echo/', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg> },
+                { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61573956107914', icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg> },
+              ].map((s) => (
+                <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer"
+                  style={{ display: 'inline-flex', alignItems: 'center', gap: 8, color: '#F4F3EC', textDecoration: 'none', fontSize: 14, fontWeight: 500, transition: 'color 0.2s' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#059FFF')}
+                  onMouseLeave={e => (e.currentTarget.style.color = '#F4F3EC')}
+                >
+                  {s.icon} {s.label}
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Col 2: Support */}
+          <div style={{
+            background: 'rgba(16,18,19,0.72)', backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 4, padding: '36px 32px',
+            display: 'flex', flexDirection: 'column', gap: 28,
+          }}>
+            <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.1, color: '#F4F3EC', margin: 0 }}>
+              Support
+            </h3>
+            {[
+              { label: 'ECHO Manual', btn: 'Download manual', href: '/api/storage/3491/ECHO_user-manual.pdf', external: true },
+              { label: 'Warranty Registration', btn: 'Fill out the form', href: '/en/warranty' },
+            ].map((item) => (
+              <div key={item.label} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+                <div style={{ fontSize: 15, fontWeight: 500, color: '#F4F3EC' }}>{item.label}</div>
+                <a
+                  href={item.href}
+                  target={item.external ? '_blank' : undefined}
+                  rel={item.external ? 'noopener noreferrer' : undefined}
+                  style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    padding: '12px 16px',
+                    border: '1px solid rgba(244,243,236,0.25)',
+                    color: '#F4F3EC', textDecoration: 'none', fontSize: 14, fontWeight: 400,
+                    borderRadius: 2, transition: 'border-color 0.2s, color 0.2s',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor = '#059FFF'; e.currentTarget.style.color = '#059FFF' }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(244,243,236,0.25)'; e.currentTarget.style.color = '#F4F3EC' }}
+                >
+                  {item.btn}
+                  <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
+              </div>
+            ))}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              <div style={{ fontSize: 15, fontWeight: 500, color: '#F4F3EC' }}>Repair & Support</div>
+              <p style={{ fontSize: 13, fontWeight: 300, color: 'rgba(244,243,236,0.6)', margin: '0 0 8px', lineHeight: 1.6 }}>
+                Reach out for repair parts, warranty questions, or general inquiries.
+              </p>
+              <a
+                href="/en/contact-us"
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                  padding: '12px 16px',
+                  border: '1px solid rgba(244,243,236,0.25)',
+                  color: '#F4F3EC', textDecoration: 'none', fontSize: 14, fontWeight: 400,
+                  borderRadius: 2, transition: 'border-color 0.2s, color 0.2s',
+                }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = '#059FFF'; e.currentTarget.style.color = '#059FFF' }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(244,243,236,0.25)'; e.currentTarget.style.color = '#F4F3EC' }}
+              >
+                Get in touch with us!
+                <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Col 3: Bring ECHO to your business */}
+          <div style={{
+            background: 'rgba(16,18,19,0.72)', backdropFilter: 'blur(8px)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            borderRadius: 4, padding: '36px 32px',
+            display: 'flex', flexDirection: 'column', gap: 20,
+          }}>
+            <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.1, color: '#F4F3EC', margin: 0 }}>
+              Bring Echo to Your Business
+            </h3>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.7)', margin: 0 }}>
+              Bring the timeless appeal of modern arcade entertainment to your business. We offer tailored purchasing options, reseller-friendly pricing, and dedicated support built for professional environments.
+            </p>
+            <a
+              href="/en/echo-b2b"
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '12px 16px', marginTop: 'auto',
+                border: '1px solid rgba(244,243,236,0.25)',
+                color: '#F4F3EC', textDecoration: 'none', fontSize: 14, fontWeight: 400,
+                borderRadius: 2, transition: 'border-color 0.2s, color 0.2s',
+              }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#059FFF'; e.currentTarget.style.color = '#059FFF' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(244,243,236,0.25)'; e.currentTarget.style.color = '#F4F3EC' }}
+            >
+              Explore ECHO B2B Programs
+              <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Page ─────────────────────────────────────────────────────────────────────
 
 export default function EchoPage1() {
@@ -1403,6 +1544,7 @@ export default function EchoPage1() {
       <GamesSection />
       <SpecsSection />
       <SupportSection />
+      <FooterCTA />
     </div>
   )
 }
