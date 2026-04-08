@@ -38,12 +38,10 @@ html {
 
 .btn-amazon:hover {
   background: #FB671F;
-  transform: translateY(-1px);
   box-shadow: 0 6px 20px rgba(251, 103, 31, 0.35);
 }
 
 .btn-amazon:active {
-  transform: translateY(0);
   box-shadow: none;
 }
 
