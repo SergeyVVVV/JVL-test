@@ -143,6 +143,73 @@ const TIMELINE = [
   { year: '1995',    name: 'Concorde 1',  img: '/api/storage/3441/Concorde-1.jpg', desc: "JVL's first CD-ROM touchscreen, Concorde 1 set new standards with 42 games, sharp graphics, and dual cash inputs. Built on global R&D and real operator feedback, it became a breakout hit." },
 ]
 
+// ─── QuoteBlock ───────────────────────────────────────────────────────────────
+
+interface QuoteBlockProps {
+  text: string
+  author?: string
+  theme?: 'dark' | 'light'
+}
+
+function QuoteBlock({ text, author, theme = 'dark' }: QuoteBlockProps) {
+  const isDark = theme === 'dark'
+  return (
+    <div style={{
+      position: 'relative',
+      background: isDark ? '#101213' : '#F4F3EC',
+      borderLeft: '3px solid #FB671F',
+      borderRadius: 4,
+      padding: '36px 40px 36px 48px',
+      overflow: 'hidden',
+    }}>
+      {/* Giant decorative " */}
+      <span style={{
+        position: 'absolute',
+        top: -10,
+        left: 12,
+        fontSize: 120,
+        lineHeight: 1,
+        fontFamily: 'Georgia, serif',
+        color: '#FB671F',
+        opacity: 0.18,
+        userSelect: 'none',
+        pointerEvents: 'none',
+      }}>&ldquo;</span>
+
+      {/* Quote text */}
+      <p style={{
+        position: 'relative',
+        margin: 0,
+        fontSize: 'clamp(1.1rem, 2vw, 1.45rem)',
+        fontStyle: 'italic',
+        fontWeight: 300,
+        lineHeight: 1.65,
+        color: isDark ? '#F4F3EC' : '#101213',
+        letterSpacing: '0.01em',
+      }}>
+        &ldquo;{text}&rdquo;
+      </p>
+
+      {/* Author */}
+      {author && (
+        <p style={{
+          position: 'relative',
+          margin: '20px 0 0',
+          fontSize: 12,
+          fontWeight: 600,
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: '#FB671F',
+        }}>
+          — {author}
+        </p>
+      )}
+    </div>
+  )
+}
+
+// ─── Legacy Section ───────────────────────────────────────────────────────────
+
 function LegacySection() {
   const [active, setActive] = useState(0)
   const item = TIMELINE[active]
@@ -655,9 +722,13 @@ function DesignedSection() {
               <br /><br />
               Compact yet powerful — redefining what a mini arcade cabinet can be.
             </p>
-            <p style={{ fontSize: 16, fontStyle: 'italic', color: '#787878', marginTop: 20, marginBottom: 0 }}>
-              "Built like a showpiece. Engineered like a tank."
-            </p>
+            <div style={{ marginTop: 32 }}>
+              <QuoteBlock
+                text="It's like owning a piece of arcade history — built for your home."
+                author="Verified Customer"
+                theme="light"
+              />
+            </div>
           </div>
           <div style={{ flexShrink: 0, paddingTop: 4 }}>
             <a
