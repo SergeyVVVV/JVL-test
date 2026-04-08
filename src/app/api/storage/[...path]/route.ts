@@ -17,6 +17,8 @@ const MIME_TYPES: Record<string, string> = {
   webm: 'video/webm',
   mov: 'video/quicktime',
   pdf: 'application/pdf',
+  glb: 'model/gltf-binary',
+  gltf: 'model/gltf+json',
 }
 
 export async function GET(

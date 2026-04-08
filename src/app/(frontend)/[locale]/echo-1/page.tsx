@@ -69,11 +69,11 @@ function Hero({ data }: { data: PageData['hero'] }) {
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.0) 60%)' }} />
 
       {/* Headline */}
-      <div style={{ position: 'absolute', bottom: 80, left: 0, right: 0, padding: '0 6vw' }}>
+      <div style={{ position: 'absolute', bottom: 80, left: 0, right: 0, padding: '0 5vw' }}>
         <h1 style={{
           fontFamily: 'inherit',
           fontSize: 'clamp(2rem, 3.5vw, 3.8rem)',
-          fontWeight: 900,
+          fontWeight: 800,
           lineHeight: 1.1,
           letterSpacing: '-0.01em',
           textTransform: 'uppercase',
@@ -87,7 +87,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
       {/* Bottom bar */}
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
         <div style={{ height: 1, background: 'rgba(255,255,255,0.15)' }} />
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 6vw' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 5vw', maxWidth: 1440, margin: '0 auto', width: '100%' }}>
           {/* Controls */}
           <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
             <button
@@ -244,8 +244,8 @@ function ModelViewer3D() {
     if (containerRef.current) {
       containerRef.current.innerHTML = `
         <model-viewer
-          src="https://www.jvl.ca/storage/3486/3.glb?v=3"
-          poster="https://www.jvl.ca/storage/3372/echo_3d_01.jpg"
+          src="/api/storage/3486/3.glb"
+          poster="/api/storage/3372/echo_3d_01.jpg"
           alt="JVL Echo HD3"
           ar-modes="webxr scene-viewer quick-look"
           camera-controls
@@ -376,34 +376,12 @@ function B2BSection() {
     <section style={{ background: '#F4F3EC', padding: '80px 0 96px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
-        {/* B2B badge */}
-        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 32 }}>
-          <div style={{
-            width: 64, height: 64,
-            border: '1.5px solid #101213',
-            borderRadius: '50%',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            position: 'relative',
-          }}>
-            {/* circular arrow */}
-            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style={{ position: 'absolute', inset: 0 }}>
-              <path
-                d="M 32 6 A 26 26 0 1 1 8 32"
-                stroke="#101213" strokeWidth="1.5" fill="none"
-                strokeLinecap="round"
-              />
-              <polyline points="5,26 8,32 14,29" stroke="#101213" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-            </svg>
-            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.06em', color: '#101213', zIndex: 1 }}>B2B</span>
-          </div>
-        </div>
-
         {/* Photo */}
         <div style={{ borderRadius: 4, overflow: 'hidden', marginBottom: 48 }}>
           <img
-            src="/api/storage/3560/Bar_scene_4.jpg"
-            alt="Echo in a bar"
-            style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 520 }}
+            src="/api/storage/3544/12.png"
+            alt="Interested in bringing ECHO to your business?"
+            style={{ width: '100%', display: 'block', objectFit: 'cover' }}
           />
         </div>
 
