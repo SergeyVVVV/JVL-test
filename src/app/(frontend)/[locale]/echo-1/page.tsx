@@ -169,7 +169,7 @@ function LegacySection() {
         {/* Two-column header */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, marginBottom: 80, alignItems: 'start' }}>
           <h2 style={{
-            fontSize: 'clamp(2rem, 4vw, 3.8rem)',
+            fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
             fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '-0.02em',
@@ -281,7 +281,7 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
         {/* Heading */}
         <h2 style={{
           textAlign: 'center',
-          fontSize: 'clamp(1.6rem, 3.5vw, 3rem)',
+          fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
           fontWeight: 600,
           textTransform: 'uppercase',
           letterSpacing: '-0.02em',
@@ -639,7 +639,7 @@ function B2BSection() {
         {/* Text */}
         <div style={{ textAlign: 'center' }}>
           <h2 style={{
-            fontSize: 'clamp(1.8rem, 3.5vw, 3rem)',
+            fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
             fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '-0.02em',
@@ -732,7 +732,7 @@ function FeatureGrid() {
             Built Different
           </span>
           <h2 style={{
-            fontSize: 'clamp(1.8rem, 3.5vw, 3rem)',
+            fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
             fontWeight: 600,
             textTransform: 'uppercase',
             letterSpacing: '-0.02em',
@@ -786,7 +786,7 @@ function CTABanner() {
   return (
     <section style={{ background: '#059FFF', padding: '80px 6vw', textAlign: 'center' }}>
       <h2 style={{
-        fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+        fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
         fontWeight: 600,
         textTransform: 'uppercase',
         letterSpacing: '-0.02em',
