@@ -152,7 +152,7 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
         <h2 style={{
           textAlign: 'center',
           fontSize: 'clamp(1.6rem, 3.5vw, 3rem)',
-          fontWeight: 900,
+          fontWeight: 800,
           textTransform: 'uppercase',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
@@ -273,7 +273,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
         {/* Heading */}
         <h2 style={{
           fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
-          fontWeight: 900,
+          fontWeight: 800,
           textTransform: 'uppercase',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
@@ -376,6 +376,11 @@ function B2BSection() {
     <section style={{ background: '#F4F3EC', padding: '80px 0 96px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
+        {/* B2B icon */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 24 }}>
+          <img src="https://www.jvl.ca/img/icons/b2b.svg" alt="JVL Echo B2B" width={48} height={48} />
+        </div>
+
         {/* Photo */}
         <div style={{ borderRadius: 4, overflow: 'hidden', marginBottom: 48 }}>
           <img
@@ -389,7 +394,7 @@ function B2BSection() {
         <div style={{ textAlign: 'center' }}>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 3.5vw, 3rem)',
-            fontWeight: 900,
+            fontWeight: 800,
             textTransform: 'uppercase',
             letterSpacing: '-0.02em',
             lineHeight: 1.1,
@@ -482,7 +487,7 @@ function FeatureGrid() {
           </span>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 3.5vw, 3rem)',
-            fontWeight: 900,
+            fontWeight: 800,
             textTransform: 'uppercase',
             letterSpacing: '-0.02em',
             color: '#F4F3EC',
@@ -536,7 +541,7 @@ function CTABanner() {
     <section style={{ background: '#059FFF', padding: '80px 6vw', textAlign: 'center' }}>
       <h2 style={{
         fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-        fontWeight: 900,
+        fontWeight: 800,
         textTransform: 'uppercase',
         letterSpacing: '-0.02em',
         color: '#fff',
