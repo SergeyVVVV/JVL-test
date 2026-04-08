@@ -190,15 +190,8 @@ export default function Header() {
               href={product.url}
               target="_blank"
               rel="noopener noreferrer"
-              style={{
-                display: 'inline-flex', alignItems: 'center', gap: 6,
-                background: '#059FFF', color: '#fff',
-                fontSize: 13, fontWeight: 700, letterSpacing: '0.04em',
-                padding: '8px 18px', textDecoration: 'none',
-                transition: 'background 0.2s',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.background = '#0080d4')}
-              onMouseLeave={e => (e.currentTarget.style.background = '#059FFF')}
+              className="btn-amazon"
+              style={{ padding: '8px 18px' }}
             >
               Buy on Amazon
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none">

@@ -115,12 +115,8 @@ function Hero({ data }: { data: PageData['hero'] }) {
             href={data.buttonUrl}
             target="_blank"
             rel="noopener noreferrer"
-            style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              background: '#059FFF', color: '#fff',
-              fontWeight: 700, fontSize: 13, letterSpacing: '0.06em', textTransform: 'uppercase',
-              padding: '12px 24px', textDecoration: 'none',
-            }}
+            className="btn-amazon"
+            style={{ padding: '12px 24px', textTransform: 'uppercase' }}
           >
             {data.buttonText}
             <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -309,12 +305,8 @@ function ProductSection({ data }: { data: PageData['product'] }) {
                 href={active.amazonUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  background: '#059FFF', color: '#fff',
-                  fontWeight: 700, fontSize: 13, letterSpacing: '0.06em', textTransform: 'uppercase',
-                  padding: '14px 28px', textDecoration: 'none',
-                }}
+                className="btn-amazon"
+                style={{ padding: '14px 28px', textTransform: 'uppercase' }}
               >
                 Buy on Amazon
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>

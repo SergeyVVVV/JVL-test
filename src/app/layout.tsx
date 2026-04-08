@@ -10,8 +10,32 @@ const poppins = Poppins({
 })
 
 export const metadata: Metadata = {
-  title: 'JVL',
-  description: 'Premium Gaming Solutions',
+  title: {
+    default: 'Tabletop Arcade Machine for Home — JVL Echo HD3',
+    template: '%s | JVL',
+  },
+  description: 'Discover JVL Echo HD3 – a premium countertop home arcade with 149 built-in games and HD touchscreen in a stylish bartop design.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+    ],
+    shortcut: '/favicon.ico',
+  },
+  openGraph: {
+    title: 'Tabletop Arcade Machine for Home — JVL Echo HD3',
+    description: 'Discover JVL Echo HD3 – a premium countertop home arcade with 149 built-in games and HD touchscreen in a stylish bartop design.',
+    url: 'https://www.jvl.ca/en/echo',
+    siteName: 'JVL',
+    images: [{ url: 'https://www.jvl.ca/storage/3522/194.jpg', width: 1200, height: 630 }],
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Tabletop Arcade Machine for Home — JVL Echo HD3',
+    description: 'Discover JVL Echo HD3 – a premium countertop home arcade with 149 built-in games.',
+    images: ['https://www.jvl.ca/storage/3522/194.jpg'],
+  },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

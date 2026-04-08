@@ -20,6 +20,33 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Amazon CTA button — blue → orange on hover with smooth transition */
+.btn-amazon {
+  background: #059FFF;
+  color: #fff;
+  transition: background 0.22s ease, transform 0.15s ease, box-shadow 0.22s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-amazon:hover {
+  background: #FB671F;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(251, 103, 31, 0.35);
+}
+
+.btn-amazon:active {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
 body {
   background-color: #101213;
   color: #F4F3EC;
