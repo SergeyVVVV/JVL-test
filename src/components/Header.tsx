@@ -35,6 +35,7 @@ const PRODUCTS = [
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
+  const [dropdownLeft, setDropdownLeft] = useState(0)
   const [activeProduct, setActiveProduct] = useState(0)
   const [scrolled, setScrolled] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
@@ -87,7 +88,11 @@ export default function Header() {
               <div key={item.label} style={{ position: 'relative' }}>
                 {item.children ? (
                   <button
-                    onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
+                    onClick={(e) => {
+                      const rect = (e.currentTarget as HTMLButtonElement).getBoundingClientRect()
+                      setDropdownLeft(rect.left)
+                      setOpenDropdown(openDropdown === item.label ? null : item.label)
+                    }}
                     style={{
                       display: 'flex', alignItems: 'center', gap: 4,
                       background: 'none', border: 'none', cursor: 'pointer',
@@ -108,28 +113,6 @@ export default function Header() {
                   </Link>
                 )}
 
-                {/* Dropdown */}
-                {item.children && openDropdown === item.label && (
-                  <div style={{
-                    position: 'absolute', top: 'calc(100% + 12px)', left: 0,
-                    minWidth: 190, background: '#181818',
-                    border: '1px solid #2a2a2a', boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-                    zIndex: 200,
-                  }}>
-                    {item.children.map((child) => (
-                      <Link
-                        key={child.label}
-                        href={child.href}
-                        onClick={() => setOpenDropdown(null)}
-                        style={{ display: 'block', padding: '12px 20px', fontSize: 14, color: '#F4F3EC', textDecoration: 'none' }}
-                        onMouseEnter={e => { e.currentTarget.style.color = '#059FFF'; e.currentTarget.style.background = '#101213' }}
-                        onMouseLeave={e => { e.currentTarget.style.color = '#F4F3EC'; e.currentTarget.style.background = 'transparent' }}
-                      >
-                        {child.label}
-                      </Link>
-                    ))}
-                  </div>
-                )}
               </div>
             ))}
           </nav>
@@ -147,6 +130,33 @@ export default function Header() {
           </button>
         </div>
       </div>
+
+      {/* ── Dropdown (rendered at header level, outside overflow:hidden) ── */}
+      {openDropdown && (() => {
+        const item = navItems.find(n => n.label === openDropdown)
+        if (!item?.children) return null
+        return (
+          <div style={{
+            position: 'fixed', top: 72, left: dropdownLeft,
+            minWidth: 190, background: '#181818',
+            border: '1px solid #2a2a2a', boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+            zIndex: 300,
+          }}>
+            {item.children.map((child) => (
+              <Link
+                key={child.label}
+                href={child.href}
+                onClick={() => setOpenDropdown(null)}
+                style={{ display: 'block', padding: '12px 20px', fontSize: 14, color: '#F4F3EC', textDecoration: 'none' }}
+                onMouseEnter={e => { e.currentTarget.style.color = '#059FFF'; e.currentTarget.style.background = '#101213' }}
+                onMouseLeave={e => { e.currentTarget.style.color = '#F4F3EC'; e.currentTarget.style.background = 'transparent' }}
+              >
+                {child.label}
+              </Link>
+            ))}
+          </div>
+        )
+      })()}
 
       {/* ── Product switcher bar ── */}
       <div style={{ background: '#101213', borderBottom: '1px solid #222' }}>
