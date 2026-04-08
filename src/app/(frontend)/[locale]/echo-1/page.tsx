@@ -1238,16 +1238,13 @@ export default function EchoPage1() {
     <div>
       <Hero data={data.hero} />
       <CountertopSection data={data.countertop} />
+      <ProductSection data={data.product} />
+      <B2BSection />
+      <LegacySection />
       <UseCasesSection />
       <DesignedSection />
       <GamesSection />
-      <ProductSection data={data.product} />
       <SupportSection />
-      <B2BSection />
-      <LegacySection />
-      <StatsSection />
-      <FeatureGrid />
-      <CTABanner />
     </div>
   )
 }
