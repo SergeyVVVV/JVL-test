@@ -1,26 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Script from 'next/script'
-
-// Declare model-viewer as a valid JSX element
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      'model-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & {
-        src?: string
-        poster?: string
-        alt?: string
-        'ar-modes'?: string
-        'camera-controls'?: boolean | ''
-        'tone-mapping'?: string
-        'shadow-intensity'?: string
-        'environment-image'?: string
-        style?: React.CSSProperties
-      }, HTMLElement>
-    }
-  }
-}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -279,17 +260,17 @@ function ProductSection({ data }: { data: PageData['product'] }) {
             }}>
               <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', color: '#101213' }}>3D</span>
             </div>
-            <model-viewer
-              src="https://www.jvl.ca/storage/3486/3.glb?v=3"
-              poster="https://www.jvl.ca/storage/3372/echo_3d_01.jpg"
-              alt="JVL Echo HD3"
-              ar-modes="webxr scene-viewer quick-look"
-              camera-controls
-              tone-mapping="neutral"
-              shadow-intensity="1"
-              environment-image="legacy"
-              style={{ width: '100%', height: '100%', background: 'transparent' }}
-            />
+            {React.createElement('model-viewer', {
+              src: 'https://www.jvl.ca/storage/3486/3.glb?v=3',
+              poster: 'https://www.jvl.ca/storage/3372/echo_3d_01.jpg',
+              alt: 'JVL Echo HD3',
+              'ar-modes': 'webxr scene-viewer quick-look',
+              'camera-controls': '',
+              'tone-mapping': 'neutral',
+              'shadow-intensity': '1',
+              'environment-image': 'legacy',
+              style: { width: '100%', height: '100%', background: 'transparent' },
+            })}
           </div>
 
           {/* Details */}
