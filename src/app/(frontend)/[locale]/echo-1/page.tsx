@@ -127,6 +127,136 @@ function Hero({ data }: { data: PageData['hero'] }) {
   )
 }
 
+// ─── Legacy Timeline ─────────────────────────────────────────────────────────
+
+const TIMELINE = [
+  { year: 'Present', name: 'ECHO HD3',    img: '/api/storage/3442/jvl-echo-countertop-arcade-racing-game.jpg', desc: "JVL's most advanced countertop yet — available in both Home and Commercial versions. Featuring a powerful new APU, crystal-clear audio, and a seamless P-CAP touchscreen." },
+  { year: '2010',    name: 'ECHO HD2',    img: '/api/storage/3432/jvl-hd2-puzzle-game-touchscreen-display.jpg', desc: 'A classic with a full touchscreen interface and vibrant true HD display. Boasting an incredible 149-game collection, ECHO HD2 set a new standard for variety and replay value.' },
+  { year: '2008',    name: 'Encore',      img: '/api/storage/3433/jvl-encore-bartop-machine.jpg', desc: "JVL's first high-definition touchscreen. With 12 true HD 3D games, an intuitive interface, hi-fi sound, and support for streaming music, ENCORE combined cutting-edge gameplay with multi-sensory appeal." },
+  { year: '2006',    name: 'Retro',       img: '/api/storage/3434/Retro.jpg', desc: 'A bold blend of vintage style and modern tech, RETRO delivered standout performance with nostalgic flair. It quickly became a favorite among operators and players alike.' },
+  { year: '2005',    name: 'Vortex',      img: '/api/storage/3435/Vortex.jpg', desc: "A sleek, compact unit with JVL's unique Power Pad for touch or button play. Paired with the iTouch8 software and 130 games, VORTEX offered unmatched versatility and standout performance for any venue." },
+  { year: '2004',    name: 'Eclipse',     img: '/api/storage/3436/Eclipse.jpg', desc: 'A durable, flash-based touchscreen with no moving parts, ECLIPSE offered over 100 games and a crisp 15" swivel LCD. Known for its reliability it became a favorite in both home gamerooms and commercial settings.' },
+  { year: '2003',    name: 'Orion',       img: '/api/storage/3444/Orion_2.jpg', desc: 'An upright unit that redefined touchscreen gaming with its sleek design, 19" display, and powerful audio. 80 games and built for both national and local tournaments.' },
+  { year: '2001',    name: 'Conquest',    img: '/api/storage/3438/Conquest.jpg', desc: 'As the first North American countertop to feature real-time online rankings, CONQUEST powered the groundbreaking Touch & Win network. It set a new standard for connected gameplay.' },
+  { year: '1999',    name: 'Concorde 3',  img: '/api/storage/3439/Concorde-3.jpg', desc: 'With fast CD-ROM upgrades, Pentium-class speed, and 60+ games, C3 delivered top-tier performance and reliability — earning strong praise from operators across North America.' },
+  { year: '1997',    name: 'Concorde 2',  img: '/api/storage/3440/Concorde-2.jpg', desc: 'With 54 new games, 2-player support, and customizable settings, Concorde 2 delivered a flexible, high-performance upgrade built for competitive play and operator success.' },
+  { year: '1995',    name: 'Concorde 1',  img: '/api/storage/3441/Concorde-1.jpg', desc: "JVL's first CD-ROM touchscreen, Concorde 1 set new standards with 42 games, sharp graphics, and dual cash inputs. Built on global R&D and real operator feedback, it became a breakout hit." },
+]
+
+function LegacySection() {
+  const [active, setActive] = useState(0)
+  const item = TIMELINE[active]
+
+  return (
+    <section style={{ background: '#101213', padding: '96px 0 0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 5vw' }}>
+
+        {/* Badge */}
+        <div style={{ marginBottom: 40 }}>
+          <span style={{
+            display: 'inline-block',
+            border: '1px solid rgba(244,243,236,0.3)',
+            borderRadius: 999,
+            padding: '6px 20px',
+            fontSize: 13,
+            color: '#F4F3EC',
+            letterSpacing: '0.04em',
+          }}>
+            JVL Countertops Family
+          </span>
+        </div>
+
+        {/* Two-column header */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, marginBottom: 80, alignItems: 'start' }}>
+          <h2 style={{
+            fontSize: 'clamp(2rem, 4vw, 3.8rem)',
+            fontWeight: 800,
+            textTransform: 'uppercase',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.05,
+            color: '#F4F3EC',
+            margin: 0,
+          }}>
+            Touchscreen Arcade Machine with 30+ Years of Innovation
+          </h2>
+          <div style={{ paddingTop: 8 }}>
+            <p style={{ fontSize: 15, fontWeight: 300, color: 'rgba(244,243,236,0.65)', margin: '0 0 20px', lineHeight: 1.7 }}>
+              Explore the JVL legacy in gaming — from ENCORE to ECHO HD3.
+            </p>
+            <p style={{ fontSize: 15, fontWeight: 300, color: 'rgba(244,243,236,0.8)', margin: '0 0 20px', lineHeight: 1.7 }}>
+              For over 30 years, JVL <strong style={{ fontWeight: 700, color: '#F4F3EC' }}>has led the world in touchscreen arcade entertainment</strong>. The Echo HD3 continues that legacy — elegant hardware, intelligent software, timeless gameplay.
+            </p>
+            <p style={{ fontSize: 15, fontStyle: 'italic', color: 'rgba(244,243,236,0.5)', margin: 0 }}>
+              &ldquo;Designed in US. Built for the world.&rdquo;
+            </p>
+          </div>
+        </div>
+
+        {/* Product display */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center', minHeight: 360 }}>
+          {/* Text left */}
+          <div style={{ textAlign: 'right', paddingRight: 32 }}>
+            <h3 style={{
+              fontSize: 'clamp(1.4rem, 2.5vw, 2rem)',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.06em',
+              color: '#F4F3EC',
+              margin: '0 0 16px',
+            }}>
+              {item.name}
+            </h3>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: 0, maxWidth: 380, marginLeft: 'auto' }}>
+              {item.desc}
+            </p>
+          </div>
+          {/* Image right */}
+          <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+            <img
+              key={item.year}
+              src={item.img}
+              alt={`JVL ${item.name}`}
+              style={{ maxHeight: 340, maxWidth: '100%', objectFit: 'contain', display: 'block' }}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Timeline bar */}
+      <div style={{ marginTop: 64, borderTop: '1px solid rgba(244,243,236,0.12)' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 5vw' }}>
+          <div style={{ display: 'flex', overflowX: 'auto', scrollbarWidth: 'none' }}>
+            {TIMELINE.map((t, i) => (
+              <button
+                key={t.year}
+                onClick={() => setActive(i)}
+                style={{
+                  flex: '0 0 calc(100% / 11)',
+                  minWidth: 80,
+                  background: 'none',
+                  border: 'none',
+                  cursor: 'pointer',
+                  padding: '20px 0',
+                  fontSize: 14,
+                  fontWeight: active === i ? 700 : 400,
+                  color: active === i ? '#FB671F' : 'rgba(244,243,236,0.45)',
+                  borderTop: `2px solid ${active === i ? '#FB671F' : 'transparent'}`,
+                  transition: 'color 0.2s, border-color 0.2s',
+                  textAlign: 'center',
+                  letterSpacing: '0.01em',
+                  marginTop: -1,
+                }}
+              >
+                {t.year}
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Countertop Classics ──────────────────────────────────────────────────────
 
 function CountertopSection({ data }: { data: PageData['countertop'] }) {
@@ -593,6 +723,7 @@ export default function EchoPage1() {
   return (
     <div>
       <Hero data={data.hero} />
+      <LegacySection />
       <CountertopSection data={data.countertop} />
       <ProductSection data={data.product} />
       <B2BSection />
