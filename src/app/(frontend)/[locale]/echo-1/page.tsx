@@ -369,6 +369,96 @@ function ProductSection({ data }: { data: PageData['product'] }) {
   )
 }
 
+// ─── B2B Section ─────────────────────────────────────────────────────────────
+
+function B2BSection() {
+  return (
+    <section style={{ background: '#F4F3EC', padding: '80px 0 96px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+
+        {/* B2B badge */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 32 }}>
+          <div style={{
+            width: 64, height: 64,
+            border: '1.5px solid #101213',
+            borderRadius: '50%',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            position: 'relative',
+          }}>
+            {/* circular arrow */}
+            <svg width="64" height="64" viewBox="0 0 64 64" fill="none" style={{ position: 'absolute', inset: 0 }}>
+              <path
+                d="M 32 6 A 26 26 0 1 1 8 32"
+                stroke="#101213" strokeWidth="1.5" fill="none"
+                strokeLinecap="round"
+              />
+              <polyline points="5,26 8,32 14,29" stroke="#101213" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+            </svg>
+            <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.06em', color: '#101213', zIndex: 1 }}>B2B</span>
+          </div>
+        </div>
+
+        {/* Photo */}
+        <div style={{ borderRadius: 4, overflow: 'hidden', marginBottom: 48 }}>
+          <img
+            src="https://www.jvl.ca/storage/3454/echo-b2b-bar.jpg"
+            alt="Echo in a bar"
+            onError={(e) => {
+              // fallback to another known path pattern
+              const t = e.currentTarget
+              if (!t.dataset.tried) {
+                t.dataset.tried = '1'
+                t.src = 'https://www.jvl.ca/storage/3450/echo-b2b.jpg'
+              }
+            }}
+            style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 520 }}
+          />
+        </div>
+
+        {/* Text */}
+        <div style={{ textAlign: 'center' }}>
+          <h2 style={{
+            fontSize: 'clamp(1.8rem, 3.5vw, 3rem)',
+            fontWeight: 900,
+            textTransform: 'uppercase',
+            letterSpacing: '-0.02em',
+            lineHeight: 1.1,
+            color: '#101213',
+            margin: '0 0 24px',
+          }}>
+            Interested in bringing Echo to your business?
+          </h2>
+          <p style={{
+            fontSize: 15,
+            fontWeight: 300,
+            lineHeight: 1.75,
+            color: '#4B4B4B',
+            maxWidth: 560,
+            margin: '0 auto 32px',
+          }}>
+            ECHO Home and ECHO Amusement are strong revenue-driving additions for resellers,
+            operators, and distributors. Whether you&apos;re looking to expand your portfolio or offer
+            something fresh to your customers, we&apos;re here to support you.
+          </p>
+          <a
+            href="/en/echo-b2b"
+            style={{
+              display: 'inline-flex', alignItems: 'center', gap: 6,
+              fontSize: 14, fontWeight: 600, color: '#101213',
+              textDecoration: 'none', letterSpacing: '0.02em',
+            }}
+          >
+            Explore ECHO B2B Programs
+            <svg width="14" height="14" viewBox="0 0 12 12" fill="none">
+              <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Stats ────────────────────────────────────────────────────────────────────
 
 function StatsSection() {
@@ -530,6 +620,7 @@ export default function EchoPage1() {
       <Hero data={data.hero} />
       <CountertopSection data={data.countertop} />
       <ProductSection data={data.product} />
+      <B2BSection />
       <StatsSection />
       <FeatureGrid />
       <CTABanner />
