@@ -319,7 +319,8 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
 const TABS = [
   {
     key: 'home',
-    label: 'Echo Home',
+    label: 'HOME',
+    heading: 'ECHO Touchscreen Countertop',
     subtitle: 'Free Play Home version, without Bill Validator and Quarters Acceptor',
     price: '$3,990',
     amazonUrl: 'https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D',
@@ -332,7 +333,8 @@ const TABS = [
   },
   {
     key: 'amusement',
-    label: 'Echo Amusement',
+    label: 'AMUSEMENT',
+    heading: 'ECHO for Commercial Spaces',
     subtitle: 'Bill Validator ($1, $5, $10, $20) and Quarters Acceptor included',
     price: '$4,250',
     amazonUrl: 'https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D',
@@ -415,7 +417,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
         </h2>
 
         {/* Two columns */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
           {/* 3D Model Viewer */}
           <div style={{ position: 'relative', width: '100%', aspectRatio: '1 / 1' }}>
             {/* 3D badge */}
@@ -454,6 +456,11 @@ function ProductSection({ data }: { data: PageData['product'] }) {
               ))}
             </div>
 
+            {/* Product heading */}
+            <h3 style={{ fontSize: 'clamp(1.1rem, 1.8vw, 1.5rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.01em', color: '#101213', margin: '0 0 10px' }}>
+              {active.heading}
+            </h3>
+
             {/* Subtitle */}
             <p style={{ fontSize: 14, color: '#6B6B6B', marginBottom: 24, lineHeight: 1.6 }}>{active.subtitle}</p>
 
@@ -473,7 +480,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
             </div>
 
             {/* CTAs */}
-            <div style={{ display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', gap: 32, alignItems: 'center', flexWrap: 'wrap' }}>
               <a
                 href={active.amazonUrl}
                 target="_blank"
@@ -488,7 +495,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
                 href="/en/contact-us"
                 style={{ fontSize: 14, color: '#101213', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 500 }}
               >
-                Get in touch
+                Get in touch with us
                 <svg width="14" height="14" viewBox="0 0 12 12" fill="none"><path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </a>
             </div>
@@ -723,10 +730,10 @@ export default function EchoPage1() {
   return (
     <div>
       <Hero data={data.hero} />
-      <LegacySection />
       <CountertopSection data={data.countertop} />
       <ProductSection data={data.product} />
       <B2BSection />
+      <LegacySection />
       <StatsSection />
       <FeatureGrid />
       <CTABanner />
