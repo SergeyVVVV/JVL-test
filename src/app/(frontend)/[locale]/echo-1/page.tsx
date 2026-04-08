@@ -700,7 +700,13 @@ function DesignedSection() {
   return (
     <section style={{ background: '#fff', padding: '96px 0' }}>
       <style>{`
-        .ds-text-footer { display: flex; align-items: flex-end; gap: 40px; margin-top: 36px; }
+        .ds-header {
+          display: grid;
+          grid-template-columns: 3fr 2fr;
+          gap: 72px;
+          align-items: end;
+          margin-bottom: 52px;
+        }
         .ds-grid {
           display: grid;
           grid-template-columns: 2fr 1fr 1fr;
@@ -709,83 +715,86 @@ function DesignedSection() {
         }
         .ds-hero { grid-row: span 2; }
         @media (max-width: 960px) {
+          .ds-header { grid-template-columns: 1fr; gap: 32px; }
           .ds-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(180px, 28vw, 260px); }
           .ds-hero { grid-row: span 1; }
         }
         @media (max-width: 600px) {
           .ds-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
-          .ds-text-footer { flex-direction: column; align-items: flex-start; gap: 24px; }
         }
       `}</style>
 
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
-        {/* ── Text block ── */}
-        <div style={{ marginBottom: 56 }}>
-          <h2 style={{
-            fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '-0.02em',
-            lineHeight: 1.1,
-            color: '#101213',
-            margin: '0 0 28px',
-            maxWidth: 680,
-          }}>
-            Premium Countertop Arcade Machine Designed for Modern Game Rooms
-          </h2>
+        {/* ── Header: left = heading + desc / right = quote + CTA ── */}
+        <div className="ds-header">
 
-          {/* Intro line */}
-          <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.65, color: '#4B4B4B', margin: 0, maxWidth: 560 }}>
-            Every curve, light, and pixel was designed to feel exceptional.
-          </p>
+          {/* Left col */}
+          <div>
+            <h2 style={{
+              fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
+              fontWeight: 600,
+              textTransform: 'uppercase',
+              letterSpacing: '-0.02em',
+              lineHeight: 1.1,
+              color: '#101213',
+              margin: '0 0 24px',
+            }}>
+              Premium Countertop Arcade Machine Designed for Modern Game Rooms
+            </h2>
+            <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.7, color: '#4B4B4B', margin: 0 }}>
+              Every curve, light, and pixel was designed to feel exceptional.
+            </p>
+            <p style={{
+              fontSize: 11, fontWeight: 600, letterSpacing: '0.13em',
+              textTransform: 'uppercase', color: '#101213',
+              margin: '18px 0 0',
+            }}>
+              22&quot; HD touchscreen
+              <span style={{ display: 'inline-block', width: 1, height: 10, background: '#C8C5BC', margin: '0 12px -1px', verticalAlign: 'middle' }} />
+              Brushed aluminum housing
+              <span style={{ display: 'inline-block', width: 1, height: 10, background: '#C8C5BC', margin: '0 12px -1px', verticalAlign: 'middle' }} />
+              LED halo lighting
+            </p>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', fontStyle: 'italic', margin: '14px 0 0' }}>
+              Compact yet powerful — redefining what a mini arcade cabinet can be.
+            </p>
+          </div>
 
-          {/* Spec line — uppercase label treatment */}
-          <p style={{
-            fontSize: 11,
-            fontWeight: 600,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color: '#101213',
-            margin: '20px 0 0',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 0,
-          }}>
-            22&quot; HD touchscreen
-            <span style={{ display: 'inline-block', width: 1, height: 12, background: '#D0CEC6', margin: '0 14px', verticalAlign: 'middle' }} />
-            Brushed aluminum housing
-            <span style={{ display: 'inline-block', width: 1, height: 12, background: '#D0CEC6', margin: '0 14px', verticalAlign: 'middle' }} />
-            LED halo lighting
-          </p>
-
-          {/* Closer line */}
-          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', margin: '14px 0 0', maxWidth: 520, fontStyle: 'italic' }}>
-            Compact yet powerful — redefining what a mini arcade cabinet can be.
-          </p>
-
-          {/* Quote + CTA anchored together */}
-          <div className="ds-text-footer">
-            <div style={{ flex: '1 1 0', maxWidth: 500 }}>
-              <QuoteBlock
-                text="It's like owning a piece of arcade history — built for your home."
-                author="Verified Customer"
-                theme="light"
-              />
+          {/* Right col — light quote + CTA, anchored to bottom of left */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+            {/* Lightweight quote — no box, just accent + text */}
+            <div style={{ borderTop: '2px solid #FB671F', paddingTop: 20 }}>
+              <p style={{
+                fontSize: 15,
+                fontStyle: 'italic',
+                fontWeight: 300,
+                lineHeight: 1.65,
+                color: '#4B4B4B',
+                margin: 0,
+              }}>
+                &ldquo;It&rsquo;s like owning a piece of arcade history — built for your home.&rdquo;
+              </p>
+              <p style={{
+                fontSize: 11, fontWeight: 600, letterSpacing: '0.12em',
+                textTransform: 'uppercase', color: '#FB671F',
+                margin: '12px 0 0',
+              }}>
+                — Verified Customer
+              </p>
             </div>
-            <div style={{ flexShrink: 0 }}>
-              <a
-                href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
-                target="_blank" rel="noopener noreferrer"
-                className="btn-amazon"
-                style={{ padding: '12px 24px', whiteSpace: 'nowrap' }}
-              >
-                Explore on Amazon
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-            </div>
+            {/* CTA sits right below quote, no gap */}
+            <a
+              href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
+              target="_blank" rel="noopener noreferrer"
+              className="btn-amazon"
+              style={{ padding: '11px 22px', alignSelf: 'flex-start' }}
+            >
+              Explore on Amazon
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
           </div>
         </div>
 
