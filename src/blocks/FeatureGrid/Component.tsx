@@ -64,7 +64,7 @@ export default function FeatureGridComponent({
 
   return (
     <section className={`${bg} py-20 md:py-24`}>
-      <div className="px-8 md:px-14 lg:px-20 max-w-[1200px] mx-auto">
+      <div style={{ padding: '0 5vw', maxWidth: '1200px', margin: '0 auto' }}>
         {(tagLabel || headline) && (
           <div className="mb-14 text-center">
             {tagLabel && (

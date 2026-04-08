@@ -33,7 +33,7 @@ export default function MediaCopyComponent({
   if (layout === 'centered') {
     return (
       <section className={`${sectionBg} py-16 md:py-24`}>
-        <div className="px-6 md:px-14 lg:px-20 max-w-[1200px] mx-auto">
+        <div style={{ padding: '0 5vw', maxWidth: '1200px', margin: '0 auto' }}>
           {/* Tag */}
           {tagLabel && (
             <div className="flex justify-center mb-6">

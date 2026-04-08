@@ -46,7 +46,7 @@ export default function CTAComponent({
           aria-hidden="true"
         />
       )}
-      <div className="relative z-10 px-8 md:px-14 lg:px-20 max-w-[1200px] mx-auto text-center">
+      <div className="relative z-10 text-center" style={{ padding: '0 5vw', maxWidth: '1200px', margin: '0 auto' }}>
         {headline && (
           <h2
             className={`text-4xl md:text-5xl lg:text-6xl font-semibold uppercase tracking-tight leading-tight ${textClass} mb-6`}

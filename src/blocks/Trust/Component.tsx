@@ -14,7 +14,7 @@ export default function TrustComponent({ headline, variant = 'stats', items = []
   const bgClass = background === 'dark' ? 'bg-[#101213]' : background === 'light' ? 'bg-[#F4F3EC]' : 'bg-[#059FFF]'
   return (
     <section className={`${bgClass} py-20`}>
-      <div className="px-8 md:px-14 lg:px-20 max-w-[1200px] mx-auto">
+      <div style={{ padding: '0 5vw', maxWidth: '1200px', margin: '0 auto' }}>
         {headline && (
           <h2 className="text-3xl md:text-4xl font-semibold uppercase tracking-tight text-white mb-14 text-center">
             {headline}

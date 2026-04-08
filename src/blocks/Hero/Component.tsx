@@ -99,7 +99,7 @@ export default function HeroComponent({
       <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/10 to-transparent" />
 
       {/* Headline — positioned above the bottom strip */}
-      <div className="absolute bottom-[60px] md:bottom-[68px] left-0 z-10 px-8 md:px-14 lg:px-20 pb-5">
+      <div className="absolute bottom-[60px] left-0 z-10 pb-5" style={{ padding: '0 5vw 20px', maxWidth: '100%' }}>
         {headline && (
           <h1
             className="text-[2.2rem] sm:text-[3rem] md:text-[3.75rem] lg:text-[4.5rem] font-black uppercase leading-[1.05] tracking-tight text-white"
@@ -118,7 +118,7 @@ export default function HeroComponent({
       {/* Bottom strip: divider + controls + CTA */}
       <div className="absolute bottom-0 left-0 right-0 z-20">
         <div className="h-px bg-white/25" />
-        <div className="flex items-center justify-between px-8 md:px-14 lg:px-20 py-4 md:py-5">
+        <div className="flex items-center justify-between" style={{ padding: '16px 5vw' }}>
           {/* Video controls */}
           <div className="flex items-center gap-5">
             {desktopVideo && (
