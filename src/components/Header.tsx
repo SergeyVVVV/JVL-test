@@ -114,6 +114,7 @@ export default function Header() {
                     position: 'absolute', top: 'calc(100% + 12px)', left: 0,
                     minWidth: 190, background: '#181818',
                     border: '1px solid #2a2a2a', boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+                    zIndex: 200,
                   }}>
                     {item.children.map((child) => (
                       <Link

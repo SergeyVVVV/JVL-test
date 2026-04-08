@@ -47,7 +47,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
   }, [])
 
   return (
-    <section style={{ position: 'relative', width: '100%', height: '100svh', minHeight: 600, background: '#080a0b', overflow: 'hidden' }}>
+    <section style={{ position: 'relative', width: '100%', height: 'calc(100svh - 124px)', minHeight: 520, background: '#080a0b', overflow: 'hidden' }}>
       {/* Poster */}
       {data.desktopPoster && (
         <img src={data.desktopPoster} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
