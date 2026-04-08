@@ -549,7 +549,7 @@ function UseCasesSection() {
   const item = USE_CASES[displayed]
 
   return (
-    <section style={{ position: 'relative', width: '100%', minHeight: '75vh', maxHeight: '70vw', overflow: 'hidden' }}>
+    <section style={{ position: 'relative', width: '100%', height: 'clamp(500px, 75vh, 70vw)', overflow: 'hidden' }}>
       {/* Background image with fade */}
       <div style={{
         position: 'absolute', inset: 0,
@@ -579,7 +579,7 @@ function UseCasesSection() {
                 background: 'none', border: 'none', cursor: 'pointer',
                 borderLeft: i === 0 ? 'none' : '1px solid rgba(244,243,236,0.4)',
                 padding: '5px 20px',
-                fontSize: 14, fontWeight: 300,
+                fontSize: 16, fontWeight: 300,
                 lineHeight: 1.2,
                 color: active === i ? '#059FFF' : '#F4F3EC',
                 opacity: active === i ? 1 : 0.4,
