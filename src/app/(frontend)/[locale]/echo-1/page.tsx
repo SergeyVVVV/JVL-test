@@ -401,16 +401,8 @@ function B2BSection() {
         {/* Photo */}
         <div style={{ borderRadius: 4, overflow: 'hidden', marginBottom: 48 }}>
           <img
-            src="https://www.jvl.ca/storage/3454/echo-b2b-bar.jpg"
+            src="/api/storage/3560/Bar_scene_4.jpg"
             alt="Echo in a bar"
-            onError={(e) => {
-              // fallback to another known path pattern
-              const t = e.currentTarget
-              if (!t.dataset.tried) {
-                t.dataset.tried = '1'
-                t.src = 'https://www.jvl.ca/storage/3450/echo-b2b.jpg'
-              }
-            }}
             style={{ width: '100%', display: 'block', objectFit: 'cover', maxHeight: 520 }}
           />
         </div>
