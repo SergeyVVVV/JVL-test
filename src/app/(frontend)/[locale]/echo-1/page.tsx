@@ -549,7 +549,7 @@ function UseCasesSection() {
   const item = USE_CASES[displayed]
 
   return (
-    <section style={{ position: 'relative', width: '100%', height: 520, overflow: 'hidden' }}>
+    <section style={{ position: 'relative', width: '100%', minHeight: '75vh', maxHeight: '70vw', overflow: 'hidden' }}>
       {/* Background image with fade */}
       <div style={{
         position: 'absolute', inset: 0,
@@ -561,54 +561,51 @@ function UseCasesSection() {
       }} />
 
       {/* Gradients */}
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.1) 55%, rgba(0,0,0,0.55) 100%)' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 55%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)' }} />
 
       {/* Tab bar */}
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, display: 'flex', justifyContent: 'center', paddingTop: 28 }}>
+      <div style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
         <div style={{
-          display: 'flex', alignItems: 'center',
-          background: 'rgba(0,0,0,0.45)',
-          backdropFilter: 'blur(6px)',
-          borderRadius: 2,
-          padding: '0 4px',
+          display: 'inline-flex', alignItems: 'center',
+          background: 'rgba(16,18,19,0.6)',
+          backdropFilter: 'blur(5px)',
+          padding: '15px 20px',
         }}>
           {USE_CASES.map((uc, i) => (
-            <React.Fragment key={uc.label}>
-              {i > 0 && (
-                <span style={{ width: 1, height: 16, background: 'rgba(255,255,255,0.25)', flexShrink: 0 }} />
-              )}
-              <button
-                onClick={() => switchTo(i)}
-                style={{
-                  background: 'none', border: 'none', cursor: 'pointer',
-                  padding: '12px 22px',
-                  fontSize: 14, fontWeight: 600,
-                  color: active === i ? '#059FFF' : 'rgba(255,255,255,0.75)',
-                  transition: 'color 0.2s',
-                  whiteSpace: 'nowrap',
-                }}
-              >
-                {uc.label}
-              </button>
-            </React.Fragment>
+            <button
+              key={uc.label}
+              onClick={() => switchTo(i)}
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer',
+                borderLeft: i === 0 ? 'none' : '1px solid rgba(244,243,236,0.4)',
+                padding: '5px 20px',
+                fontSize: 14, fontWeight: 300,
+                lineHeight: 1.2,
+                color: active === i ? '#059FFF' : '#F4F3EC',
+                opacity: active === i ? 1 : 0.4,
+                transition: 'color 0.2s, opacity 0.2s',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              {uc.label}
+            </button>
           ))}
         </div>
       </div>
 
       {/* Text */}
       <div style={{
-        position: 'absolute', bottom: 52, left: 0, right: 0,
-        padding: '0 5vw',
+        position: 'absolute', bottom: 0, left: 0, right: 0,
+        padding: '50px 5vw 70px',
         opacity: fading ? 0 : 1,
         transition: 'opacity 0.28s ease',
       }}>
         <p style={{
           maxWidth: 600,
-          fontSize: 'clamp(1.3rem, 2.2vw, 1.75rem)',
-          fontWeight: 700,
-          lineHeight: 1.25,
-          color: '#fff',
+          fontSize: 24,
+          fontWeight: 400,
+          lineHeight: 1.15,
+          color: '#F4F3EC',
           margin: 0,
         }}>
           {item.text}
