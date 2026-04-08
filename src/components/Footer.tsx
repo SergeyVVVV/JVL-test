@@ -8,9 +8,9 @@ const footerLinks = {
     { label: 'Echo B2B', href: '/en/echo-b2b' },
     { label: 'Flex', href: '/en/flex' },
     { label: 'Games', href: '/en/games' },
-    { label: 'News', href: '/en/news' },
   ],
   Company: [
+    { label: 'News', href: '/en/news' },
     { label: 'About JVL', href: '/en/about-jvl' },
     { label: 'Partners', href: '/en/partners' },
     { label: 'Contact Us', href: '/en/contact-us' },
@@ -26,7 +26,7 @@ const footerLinks = {
 const socials = [
   {
     label: 'Instagram',
-    href: 'https://www.instagram.com/echo_home_jvl/',
+    href: 'https://www.instagram.com/jvl_echo/',
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
@@ -51,6 +51,19 @@ const socials = [
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
         <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'LinkedIn',
+    href: 'https://www.linkedin.com/company/jvl-corporation/',
+    icon: (
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="2" y="2" width="20" height="20" rx="2" ry="2"/>
+        <line x1="8" y1="11" x2="8" y2="16"/>
+        <line x1="8" y1="8" x2="8" y2="8.01"/>
+        <line x1="12" y1="16" x2="12" y2="11"/>
+        <path d="M16 16v-3a2 2 0 0 0-4 0"/>
       </svg>
     ),
   },
@@ -121,7 +134,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div style={{ borderTop: '1px solid #2a2a2a', paddingTop: 28, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <p style={{ fontSize: 12, fontWeight: 300, color: '#787878', margin: 0 }}>
-            © {new Date().getFullYear()} JVL. All rights reserved.
+            Copyright © {new Date().getFullYear()} JVL Labs Inc. and its licensors. All rights reserved.
           </p>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
