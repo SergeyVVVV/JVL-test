@@ -1,6 +1,26 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Script from 'next/script'
+
+// Declare model-viewer as a valid JSX element
+declare global {
+  namespace JSX {
+    interface IntrinsicElements {
+      'model-viewer': React.DetailedHTMLProps<React.HTMLAttributes<HTMLElement> & {
+        src?: string
+        poster?: string
+        alt?: string
+        'ar-modes'?: string
+        'camera-controls'?: boolean | ''
+        'tone-mapping'?: string
+        'shadow-intensity'?: string
+        'environment-image'?: string
+        style?: React.CSSProperties
+      }, HTMLElement>
+    }
+  }
+}
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -72,7 +92,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
       <div style={{ position: 'absolute', bottom: 80, left: 0, padding: '0 6vw', maxWidth: 900 }}>
         <h1 style={{
           fontFamily: 'inherit',
-          fontSize: 'clamp(1.6rem, 2.8vw, 3rem)',
+          fontSize: 'clamp(2rem, 3.5vw, 3.8rem)',
           fontWeight: 900,
           lineHeight: 1.1,
           letterSpacing: '-0.01em',
@@ -132,7 +152,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
 function CountertopSection({ data }: { data: PageData['countertop'] }) {
   return (
     <section style={{ background: '#F4F3EC', padding: '80px 0' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 6vw' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
         {/* Tag */}
         <div style={{ textAlign: 'center', marginBottom: 20 }}>
           <span style={{
@@ -230,7 +250,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
 
   return (
     <section style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 6vw' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
         {/* Heading */}
         <h2 style={{
           fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
@@ -247,15 +267,29 @@ function ProductSection({ data }: { data: PageData['product'] }) {
 
         {/* Two columns */}
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center' }}>
-          {/* Image */}
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            {data.image ? (
-              <img src={data.image} alt="JVL Echo" style={{ maxWidth: '100%', maxHeight: 480, objectFit: 'contain', display: 'block' }} />
-            ) : (
-              <div style={{ width: '100%', aspectRatio: '1', background: '#E8E5DC', display: 'flex', alignItems: 'center', justifyContent: 'center', borderRadius: 4 }}>
-                <span style={{ color: '#B0ADA4', fontSize: 14 }}>No image</span>
-              </div>
-            )}
+          {/* 3D Model Viewer */}
+          <div style={{ position: 'relative', width: '100%', aspectRatio: '1 / 1' }}>
+            {/* 3D badge */}
+            <div style={{
+              position: 'absolute', top: 16, left: 16, zIndex: 2,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              width: 44, height: 44, borderRadius: '50%',
+              border: '1.5px solid #C8C5BC',
+              background: 'rgba(244,243,236,0.9)',
+            }}>
+              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', color: '#101213' }}>3D</span>
+            </div>
+            <model-viewer
+              src="https://www.jvl.ca/storage/3486/3.glb?v=3"
+              poster="https://www.jvl.ca/storage/3372/echo_3d_01.jpg"
+              alt="JVL Echo HD3"
+              ar-modes="webxr scene-viewer quick-look"
+              camera-controls
+              tone-mapping="neutral"
+              shadow-intensity="1"
+              environment-image="legacy"
+              style={{ width: '100%', height: '100%', background: 'transparent' }}
+            />
           </div>
 
           {/* Details */}
@@ -337,7 +371,7 @@ function StatsSection() {
 
   return (
     <section style={{ background: '#059FFF', padding: '72px 0' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 6vw' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
         <p style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)', marginBottom: 48 }}>
           A Lifetime in Gaming
         </p>
@@ -371,7 +405,7 @@ const FEATURES = [
 function FeatureGrid() {
   return (
     <section style={{ background: '#101213', padding: '80px 0' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 6vw' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
         {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: 56 }}>
           <span style={{ display: 'block', fontSize: 11, fontWeight: 700, letterSpacing: '0.2em', textTransform: 'uppercase', color: '#059FFF', marginBottom: 16 }}>
@@ -483,13 +517,20 @@ export default function EchoPage1() {
   if (!data) return <div style={{ height: '100vh', background: '#101213' }} />
 
   return (
-    <div>
-      <Hero data={data.hero} />
-      <CountertopSection data={data.countertop} />
-      <ProductSection data={data.product} />
-      <StatsSection />
-      <FeatureGrid />
-      <CTABanner />
-    </div>
+    <>
+      <Script
+        type="module"
+        src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"
+        strategy="lazyOnload"
+      />
+      <div>
+        <Hero data={data.hero} />
+        <CountertopSection data={data.countertop} />
+        <ProductSection data={data.product} />
+        <StatsSection />
+        <FeatureGrid />
+        <CTABanner />
+      </div>
+    </>
   )
 }
