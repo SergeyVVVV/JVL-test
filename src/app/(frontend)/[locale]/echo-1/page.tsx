@@ -69,7 +69,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.0) 60%)' }} />
 
       {/* Headline */}
-      <div style={{ position: 'absolute', bottom: 80, left: 0, padding: '0 6vw', maxWidth: 900 }}>
+      <div style={{ position: 'absolute', bottom: 80, left: 0, right: 0, padding: '0 6vw' }}>
         <h1 style={{
           fontFamily: 'inherit',
           fontSize: 'clamp(2rem, 3.5vw, 3.8rem)',
