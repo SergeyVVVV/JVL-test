@@ -20,6 +20,7 @@ interface ProductCardItem {
 interface ProductCardsProps {
   headline?: string
   background?: 'dark' | 'light'
+  productImage?: string
   items?: ProductCardItem[]
 }
 
@@ -61,6 +62,7 @@ function FeatureIcon({ icon }: { icon?: string }) {
 export default function ProductCardsComponent({
   headline,
   background = 'light',
+  productImage,
   items = [],
 }: ProductCardsProps) {
   const [activeTab, setActiveTab] = useState(0)
@@ -75,7 +77,7 @@ export default function ProductCardsComponent({
 
   return (
     <section className={`${sectionBg} py-16 md:py-24`}>
-      <div className="px-6 md:px-14 lg:px-20 max-w-[1200px] mx-auto">
+      <div style={{ padding: '0 5vw', maxWidth: '1200px', margin: '0 auto' }}>
         {/* Heading */}
         {headline && (
           <h2
@@ -90,29 +92,17 @@ export default function ProductCardsComponent({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
           {/* Product image */}
           <div className="flex items-center justify-center">
-            {activeItem?.mediaUrl ? (
+            {(productImage || activeItem?.mediaUrl) ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img
-                src={activeItem.mediaUrl}
-                alt={activeItem.title}
+                src={productImage || activeItem?.mediaUrl}
+                alt={activeItem?.title}
                 className="max-w-full object-contain"
-                style={{ maxHeight: '420px' }}
+                style={{ maxHeight: '480px' }}
               />
             ) : (
-              /* Placeholder — product silhouette */
-              <div className="w-full aspect-square max-w-[360px] flex items-center justify-center">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src="https://www.jvl.ca/img/echo-hd3.png"
-                  alt="JVL Echo HD3"
-                  className="max-w-full object-contain opacity-90"
-                  style={{ maxHeight: '420px' }}
-                  onError={(e) => {
-                    // fallback to logo if image not found
-                    (e.target as HTMLImageElement).src = 'https://www.jvl.ca/img/logo.svg'
-                    ;(e.target as HTMLImageElement).style.filter = 'opacity(0.15)'
-                  }}
-                />
+              <div className="w-full flex items-center justify-center opacity-10">
+                <svg width="200" height="200" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
               </div>
             )}
           </div>
