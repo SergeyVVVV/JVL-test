@@ -736,15 +736,15 @@ function DesignedSection() {
           lineHeight: 1.1,
           color: '#101213',
           textAlign: 'center',
-          margin: '0 0 48px',
+          margin: '0 0 32px',
         }}>
           Premium Countertop Arcade Machine Designed for Modern Game Rooms
         </h2>
 
-        {/* ── Sub-header: description left / quote + CTA right ── */}
+        {/* ── Content: desc + CTA left / quiet quote accent right ── */}
         <div className="ds-header">
 
-          {/* Left col */}
+          {/* Left: description + CTA as one tight unit */}
           <div>
             <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.7, color: '#4B4B4B', margin: 0 }}>
               Every curve, light, and pixel was designed to feel exceptional.
@@ -752,7 +752,7 @@ function DesignedSection() {
             <p style={{
               fontSize: 11, fontWeight: 600, letterSpacing: '0.13em',
               textTransform: 'uppercase', color: '#101213',
-              margin: '18px 0 0',
+              margin: '14px 0 0',
             }}>
               22&quot; HD touchscreen
               <span style={{ display: 'inline-block', width: 1, height: 10, background: '#C8C5BC', margin: '0 12px -1px', verticalAlign: 'middle' }} />
@@ -760,40 +760,36 @@ function DesignedSection() {
               <span style={{ display: 'inline-block', width: 1, height: 10, background: '#C8C5BC', margin: '0 12px -1px', verticalAlign: 'middle' }} />
               LED halo lighting
             </p>
-            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', fontStyle: 'italic', margin: '14px 0 0' }}>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', fontStyle: 'italic', margin: '10px 0 0' }}>
               Compact yet powerful — redefining what a mini arcade cabinet can be.
             </p>
+            <div style={{ marginTop: 22 }}>
+              <a
+                href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
+                target="_blank" rel="noopener noreferrer"
+                className="btn-amazon"
+                style={{ padding: '11px 22px' }}
+              >
+                Explore on Amazon
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+            </div>
           </div>
 
-          {/* Right col — quote + CTA */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
-            <div>
-              <div style={{
-                fontSize: 56, lineHeight: 0.8, color: '#FB671F', opacity: 0.22,
-                fontFamily: 'Georgia, serif', marginBottom: 12, userSelect: 'none',
-              }}>&ldquo;</div>
-              <p style={{
-                fontSize: 16,
-                fontStyle: 'italic',
-                fontWeight: 300,
-                lineHeight: 1.65,
-                color: '#4B4B4B',
-                margin: 0,
-              }}>
-                It&rsquo;s like owning a piece of arcade history — built for your home.
-              </p>
-            </div>
-            <a
-              href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
-              target="_blank" rel="noopener noreferrer"
-              className="btn-amazon"
-              style={{ padding: '11px 22px', alignSelf: 'flex-start' }}
-            >
-              Explore on Amazon
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </a>
+          {/* Right: subtle quote — small secondary accent, not a hero */}
+          <div style={{ borderLeft: '2px solid #FB671F', paddingLeft: 20, alignSelf: 'center' }}>
+            <p style={{
+              fontSize: 14,
+              fontStyle: 'italic',
+              fontWeight: 300,
+              lineHeight: 1.65,
+              color: '#9A9790',
+              margin: 0,
+            }}>
+              &ldquo;It&rsquo;s like owning a piece of arcade history — built for your home.&rdquo;
+            </p>
           </div>
         </div>
 
