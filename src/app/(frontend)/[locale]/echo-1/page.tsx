@@ -702,7 +702,7 @@ function DesignedSection() {
 
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
-        {/* ── Centered heading ── */}
+        {/* ── Heading ── */}
         <h2 style={{
           fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
           fontWeight: 600,
@@ -710,37 +710,27 @@ function DesignedSection() {
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
           color: '#101213',
-          textAlign: 'center',
           maxWidth: 840,
-          margin: '0 auto 32px',
+          margin: '0 0 28px',
         }}>
           Premium Countertop Arcade Machine Designed for Modern Game Rooms
         </h2>
 
-        {/* ── Description block — centered, consistent with other sections ── */}
-        <div style={{ maxWidth: 720, margin: '0 auto 40px', textAlign: 'center' }}>
-          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 14px' }}>
-            Every curve, light, and pixel was designed to feel exceptional.
-          </p>
-          <p style={{
-            fontSize: 11, fontWeight: 600, letterSpacing: '0.13em',
-            textTransform: 'uppercase', color: '#101213',
-            margin: '0 0 10px',
-          }}>
-            22&quot; HD touchscreen
-            <span style={{ display: 'inline-block', width: 1, height: 10, background: '#C8C5BC', margin: '0 12px -1px', verticalAlign: 'middle' }} />
-            Brushed aluminum housing
-            <span style={{ display: 'inline-block', width: 1, height: 10, background: '#C8C5BC', margin: '0 12px -1px', verticalAlign: 'middle' }} />
-            LED halo lighting
-          </p>
-          <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', fontStyle: 'italic', margin: '0 0 24px' }}>
-            Compact yet powerful — redefining what a mini arcade cabinet can be.
-          </p>
+        {/* ── Text left + CTA right ── */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center', marginBottom: 48 }}>
+          <div>
+            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 12px' }}>
+              Every curve, light, and pixel was designed to feel exceptional.
+            </p>
+            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', fontStyle: 'italic', margin: 0 }}>
+              Compact yet powerful — redefining what a mini arcade cabinet can be.
+            </p>
+          </div>
           <a
             href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
             target="_blank" rel="noopener noreferrer"
             className="btn-amazon"
-            style={{ padding: '11px 22px' }}
+            style={{ padding: '11px 22px', whiteSpace: 'nowrap' }}
           >
             Explore on Amazon
             <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -1093,8 +1083,8 @@ function SpecsSection() {
     <section style={{ background: '#F4F3EC', padding: '80px 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
-        {/* Centered heading + desc + CTA */}
-        <div style={{ textAlign: 'center', marginBottom: 52 }}>
+        {/* Heading + desc + CTA */}
+        <div style={{ marginBottom: 52 }}>
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
             fontWeight: 600,
@@ -1103,24 +1093,26 @@ function SpecsSection() {
             lineHeight: 1.1,
             color: '#101213',
             maxWidth: 840,
-            margin: '0 auto 16px',
+            margin: '0 0 20px',
           }}>
             Mini Arcade Cabinet with Games – Compact Power, Endless Fun
           </h2>
-          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 auto 28px', maxWidth: 720 }}>
-            Every detail refined. Every feature designed to deliver performance, beauty, and timeless play.
-          </p>
-          <a
-            href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
-            target="_blank" rel="noopener noreferrer"
-            className="btn-amazon"
-            style={{ padding: '10px 20px' }}
-          >
-            Buy on Amazon
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-              <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center' }}>
+            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
+              Every detail refined. Every feature designed to deliver performance, beauty, and timeless play.
+            </p>
+            <a
+              href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
+              target="_blank" rel="noopener noreferrer"
+              className="btn-amazon"
+              style={{ padding: '10px 20px', whiteSpace: 'nowrap' }}
+            >
+              Buy on Amazon
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+          </div>
         </div>
 
         {/* Two-col: image left, accordion right */}
@@ -1238,8 +1230,8 @@ function SupportSection() {
     <section style={{ background: '#101213', padding: '80px 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
-        {/* Heading + desc + CTA centered */}
-        <div style={{ textAlign: 'center', marginBottom: 52 }}>
+        {/* Heading + desc + CTA */}
+        <div style={{ marginBottom: 52 }}>
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
             fontWeight: 600,
@@ -1248,19 +1240,21 @@ function SupportSection() {
             lineHeight: 1.1,
             color: '#F4F3EC',
             maxWidth: 840,
-            margin: '0 auto 20px',
+            margin: '0 0 20px',
           }}>
             Secure Amazon Checkout, Warranty & Support You Can Trust
           </h2>
-          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: '0 auto 28px', maxWidth: 720 }}>
-            Buy securely through Amazon with official JVL warranty and North American support. Fast delivery, verified authenticity, and peace of mind included.
-          </p>
-          <a href="/en/contact-us" className="btn-amazon" style={{ padding: '10px 20px' }}>
-            Contact Us!
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-              <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center' }}>
+            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: 0 }}>
+              Buy securely through Amazon with official JVL warranty and North American support. Fast delivery, verified authenticity, and peace of mind included.
+            </p>
+            <a href="/en/contact-us" className="btn-amazon" style={{ padding: '10px 20px', whiteSpace: 'nowrap' }}>
+              Contact Us!
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </a>
+          </div>
         </div>
 
         {/* 4 cards */}
