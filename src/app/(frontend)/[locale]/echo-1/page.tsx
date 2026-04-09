@@ -218,20 +218,10 @@ function LegacySection() {
     <section style={{ background: '#101213', padding: '96px 0 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 5vw' }}>
 
-        {/* Badge */}
-        <div style={{ marginBottom: 40 }}>
-          <span style={{
-            display: 'inline-block',
-            border: '1px solid rgba(244,243,236,0.3)',
-            borderRadius: 999,
-            padding: '6px 20px',
-            fontSize: 13,
-            color: '#F4F3EC',
-            letterSpacing: '0.04em',
-          }}>
-            JVL Countertops Family
-          </span>
-        </div>
+        {/* Eyebrow */}
+        <p style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 12px' }}>
+          JVL Countertops Family
+        </p>
 
         {/* Centered heading */}
         <h2 style={{
@@ -255,7 +245,7 @@ function LegacySection() {
           <p style={{ fontSize: 15, fontWeight: 300, color: 'rgba(244,243,236,0.8)', margin: '0 0 16px', lineHeight: 1.7 }}>
             For over 30 years, JVL has led the world in touchscreen arcade entertainment. The Echo HD3 continues that legacy — elegant hardware, intelligent software, timeless gameplay.
           </p>
-          <p style={{ fontSize: 15, fontStyle: 'italic', color: 'rgba(244,243,236,0.5)', margin: 0 }}>
+          <p style={{ fontSize: 14, fontWeight: 300, fontStyle: 'italic', color: 'rgba(244,243,236,0.45)', margin: 0 }}>
             &ldquo;Designed in US. Built for the world.&rdquo;
           </p>
         </div>
@@ -331,20 +321,10 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
   return (
     <section style={{ background: '#F4F3EC', padding: '80px 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
-        {/* Tag */}
-        <div style={{ textAlign: 'center', marginBottom: 20 }}>
-          <span style={{
-            display: 'inline-block',
-            border: '1px solid #C8C5BC',
-            borderRadius: 999,
-            padding: '6px 20px',
-            fontSize: 13,
-            color: '#101213',
-            letterSpacing: '0.04em',
-          }}>
-            {data.tagLabel}
-          </span>
-        </div>
+        {/* Eyebrow */}
+        <p style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 12px' }}>
+          {data.tagLabel}
+        </p>
 
         {/* Heading */}
         <h2 style={{
@@ -355,26 +335,26 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
           color: '#101213',
-          margin: '0 0 48px',
+          margin: '0 0 40px',
         }}>
           {data.title}
         </h2>
 
         {/* Image */}
         {data.image && (
-          <div style={{ borderRadius: 4, overflow: 'hidden', marginBottom: 48 }}>
+          <div style={{ borderRadius: 4, overflow: 'hidden', marginBottom: 40 }}>
             <img src={data.image} alt="" style={{ width: '100%', display: 'block', objectFit: 'cover' }} />
           </div>
         )}
 
         {/* Body */}
-        <div style={{ maxWidth: 680, margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 24px' }}>
+        <div style={{ maxWidth: 580, margin: '0 auto', textAlign: 'center' }}>
+          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 16px' }}>
             ECHO ruled bars across the U.S. in the '90s and early 2000s — now, it's back, reimagined for home.
             Transform your living room or basement into your own personal arcade. Plug-and-play fun — no downloads, no Wi-Fi.
           </p>
-          <p style={{ fontSize: 18, fontWeight: 500, fontStyle: 'italic', color: '#101213', margin: 0 }}>
-            "It's like owning a piece of arcade history — built for your home."
+          <p style={{ fontSize: 14, fontWeight: 300, fontStyle: 'italic', color: '#9A9790', margin: 0 }}>
+            &ldquo;It&rsquo;s like owning a piece of arcade history — built for your home.&rdquo;
           </p>
         </div>
       </div>
@@ -479,7 +459,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
           lineHeight: 1.1,
           color: '#101213',
           textAlign: 'center',
-          margin: '0 0 56px',
+          margin: '0 0 40px',
         }}>
           {data.title}
         </h2>
@@ -701,13 +681,6 @@ function DesignedSection() {
   return (
     <section style={{ background: '#fff', padding: '96px 0' }}>
       <style>{`
-        .ds-header {
-          display: grid;
-          grid-template-columns: 3fr 2fr;
-          gap: 72px;
-          align-items: end;
-          margin-bottom: 52px;
-        }
         .ds-grid {
           display: grid;
           grid-template-columns: 2fr 1fr 1fr;
@@ -716,7 +689,6 @@ function DesignedSection() {
         }
         .ds-hero { grid-row: span 2; }
         @media (max-width: 960px) {
-          .ds-header { grid-template-columns: 1fr; gap: 32px; }
           .ds-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(180px, 28vw, 260px); }
           .ds-hero { grid-row: span 1; }
         }
@@ -741,56 +713,36 @@ function DesignedSection() {
           Premium Countertop Arcade Machine Designed for Modern Game Rooms
         </h2>
 
-        {/* ── Content: desc + CTA left / quiet quote accent right ── */}
-        <div className="ds-header">
-
-          {/* Left: description + CTA as one tight unit */}
-          <div>
-            <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.7, color: '#4B4B4B', margin: 0 }}>
-              Every curve, light, and pixel was designed to feel exceptional.
-            </p>
-            <p style={{
-              fontSize: 11, fontWeight: 600, letterSpacing: '0.13em',
-              textTransform: 'uppercase', color: '#101213',
-              margin: '14px 0 0',
-            }}>
-              22&quot; HD touchscreen
-              <span style={{ display: 'inline-block', width: 1, height: 10, background: '#C8C5BC', margin: '0 12px -1px', verticalAlign: 'middle' }} />
-              Brushed aluminum housing
-              <span style={{ display: 'inline-block', width: 1, height: 10, background: '#C8C5BC', margin: '0 12px -1px', verticalAlign: 'middle' }} />
-              LED halo lighting
-            </p>
-            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', fontStyle: 'italic', margin: '10px 0 0' }}>
-              Compact yet powerful — redefining what a mini arcade cabinet can be.
-            </p>
-            <div style={{ marginTop: 22 }}>
-              <a
-                href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
-                target="_blank" rel="noopener noreferrer"
-                className="btn-amazon"
-                style={{ padding: '11px 22px' }}
-              >
-                Explore on Amazon
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          {/* Right: subtle quote — small secondary accent, not a hero */}
-          <div style={{ borderLeft: '2px solid #FB671F', paddingLeft: 20, alignSelf: 'center' }}>
-            <p style={{
-              fontSize: 14,
-              fontStyle: 'italic',
-              fontWeight: 300,
-              lineHeight: 1.65,
-              color: '#9A9790',
-              margin: 0,
-            }}>
-              &ldquo;It&rsquo;s like owning a piece of arcade history — built for your home.&rdquo;
-            </p>
-          </div>
+        {/* ── Description block — centered, consistent with other sections ── */}
+        <div style={{ maxWidth: 580, margin: '0 auto 40px', textAlign: 'center' }}>
+          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 14px' }}>
+            Every curve, light, and pixel was designed to feel exceptional.
+          </p>
+          <p style={{
+            fontSize: 11, fontWeight: 600, letterSpacing: '0.13em',
+            textTransform: 'uppercase', color: '#101213',
+            margin: '0 0 10px',
+          }}>
+            22&quot; HD touchscreen
+            <span style={{ display: 'inline-block', width: 1, height: 10, background: '#C8C5BC', margin: '0 12px -1px', verticalAlign: 'middle' }} />
+            Brushed aluminum housing
+            <span style={{ display: 'inline-block', width: 1, height: 10, background: '#C8C5BC', margin: '0 12px -1px', verticalAlign: 'middle' }} />
+            LED halo lighting
+          </p>
+          <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', fontStyle: 'italic', margin: '0 0 24px' }}>
+            Compact yet powerful — redefining what a mini arcade cabinet can be.
+          </p>
+          <a
+            href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
+            target="_blank" rel="noopener noreferrer"
+            className="btn-amazon"
+            style={{ padding: '11px 22px' }}
+          >
+            Explore on Amazon
+            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+              <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </a>
         </div>
 
         {/* ── Card grid: hero left (spans 2 rows) + 2×2 right ── */}
@@ -947,7 +899,7 @@ function GamesSection() {
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
         {/* Heading + description */}
-        <div style={{ maxWidth: 720, margin: '0 auto 40px', textAlign: 'center' }}>
+        <div style={{ maxWidth: 580, margin: '0 auto 40px', textAlign: 'center' }}>
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
             fontWeight: 600,
@@ -1261,20 +1213,8 @@ function SupportSection() {
     <section style={{ background: '#101213', padding: '80px 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
-        {/* Badge + heading + desc + CTA centered */}
+        {/* Heading + desc + CTA centered */}
         <div style={{ textAlign: 'center', marginBottom: 52 }}>
-          <span style={{
-            display: 'inline-block',
-            border: '1px solid rgba(244,243,236,0.3)',
-            borderRadius: 999,
-            padding: '5px 16px',
-            fontSize: 12,
-            color: '#F4F3EC',
-            letterSpacing: '0.04em',
-            marginBottom: 20,
-          }}>
-            Support
-          </span>
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
             fontWeight: 600,
