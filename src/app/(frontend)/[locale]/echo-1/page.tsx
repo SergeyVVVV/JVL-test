@@ -1113,9 +1113,9 @@ function SpecsSection() {
           {/* Image */}
           <div style={{ position: 'sticky', top: 140 }}>
             <img
-              key={open}
-              src={SPECS_ITEMS[open].img}
-              alt={SPECS_ITEMS[open].label}
+              key={Math.max(open, 0)}
+              src={SPECS_ITEMS[Math.max(open, 0)].img}
+              alt={SPECS_ITEMS[Math.max(open, 0)].label}
               style={{ width: '100%', display: 'block', borderRadius: 4 }}
             />
           </div>
