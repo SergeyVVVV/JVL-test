@@ -66,6 +66,134 @@ export async function getLandingBlock(type: string, locale = 'en'): Promise<Land
   }
 }
 
+export interface NewsArticle {
+  id: number
+  pageId: number
+  slug: string
+  title: string | null
+  content1: string | null
+  content2: string | null
+  description: string | null
+  publishedAt: string | null
+  type: number
+  heroImage: string | null
+  heroImageMobile: string | null
+  tags: string[]
+}
+
+export interface RelatedNewsItem {
+  id: number
+  slug: string
+  title: string | null
+  publishedAt: string | null
+  type: number
+  heroImage: string | null
+}
+
+/** Fetch a published news article by its page slug */
+export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise<NewsArticle | null> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      `SELECT p.id AS page_id, p.slug, p.title, p.content1, p.content2, p.description,
+              n.id AS news_id, n.type, n.published_at
+       FROM pages p
+       INNER JOIN news n ON n.page_id = p.id
+       WHERE p.slug = ? AND n.active = 1
+       LIMIT 1`,
+      [slug]
+    )
+    const row = (rows as any[])[0]
+    if (!row) return null
+
+    const [hero, heroMobile] = await Promise.all([
+      getMediaUrl('App\\Models\\Page', row.page_id, 'main'),
+      getMediaUrl('App\\Models\\Page', row.page_id, 'mainMobile'),
+    ])
+
+    // tags (Spatie) via taggables → tags
+    let tags: string[] = []
+    try {
+      const [tagRows] = await db.execute(
+        `SELECT t.name FROM taggables tg
+         INNER JOIN tags t ON t.id = tg.tag_id
+         WHERE tg.taggable_type = 'App\\\\Models\\\\News' AND tg.taggable_id = ?`,
+        [row.news_id]
+      )
+      tags = (tagRows as any[])
+        .map((r) => parseLocale(r.name, locale))
+        .filter((v): v is string => !!v)
+    } catch {}
+
+    const publishedAt = row.published_at
+      ? (row.published_at instanceof Date
+          ? row.published_at.toISOString().slice(0, 10)
+          : String(row.published_at).slice(0, 10))
+      : null
+
+    return {
+      id: row.news_id,
+      pageId: row.page_id,
+      slug: row.slug,
+      title: parseLocale(row.title, locale),
+      content1: parseLocale(row.content1, locale),
+      content2: parseLocale(row.content2, locale),
+      description: parseLocale(row.description, locale),
+      publishedAt,
+      type: Number(row.type ?? 0),
+      heroImage: hero,
+      heroImageMobile: heroMobile,
+      tags,
+    }
+  } catch {
+    return null
+  }
+}
+
+/** Fetch related news (same type, excluding the current article) */
+export async function getRelatedNews(
+  excludeNewsId: number,
+  type: number,
+  locale = 'en',
+  limit = 6
+): Promise<RelatedNewsItem[]> {
+  try {
+    const db = getPool()
+    const safeLimit = Math.max(1, Math.min(20, Math.floor(limit)))
+    const [rows] = await db.execute(
+      `SELECT n.id AS news_id, n.type, n.published_at,
+              p.id AS page_id, p.slug, p.title
+       FROM news n
+       INNER JOIN pages p ON p.id = n.page_id
+       WHERE n.active = 1 AND n.type = ? AND n.id != ?
+       ORDER BY n.published_at DESC
+       LIMIT ${safeLimit}`,
+      [type, excludeNewsId]
+    )
+    const items = rows as any[]
+    const results: RelatedNewsItem[] = []
+    for (const r of items) {
+      const heroImage = await getMediaUrl('App\\Models\\Page', r.page_id, 'main')
+      const publishedAt = r.published_at
+        ? (r.published_at instanceof Date
+            ? r.published_at.toISOString().slice(0, 10)
+            : String(r.published_at).slice(0, 10))
+        : null
+      results.push({
+        id: r.news_id,
+        slug: r.slug,
+        title: parseLocale(r.title, locale),
+        publishedAt,
+        type: Number(r.type ?? 0),
+        heroImage,
+      })
+    }
+    return results
+  } catch {
+    return []
+  }
+}
+
 /** Get a media file URL (served via /api/storage) for a Laravel MediaLibrary record */
 export async function getMediaUrl(
   modelType: string,

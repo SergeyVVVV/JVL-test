@@ -9,26 +9,26 @@
     "payload": "payload"
   },
   "dependencies": {
-    "next": "15.3.9",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "payload": "^3.28.1",
+    "@payloadcms/db-sqlite": "^3.28.1",
     "@payloadcms/next": "^3.28.1",
     "@payloadcms/richtext-lexical": "^3.28.1",
-    "@payloadcms/db-sqlite": "^3.28.1",
     "@payloadcms/ui": "^3.28.1",
     "framer-motion": "^11.0.0",
-    "sharp": "^0.33.0",
     "graphql": "^16.8.0",
-    "mysql2": "^3.11.0"
+    "mysql2": "^3.21.0",
+    "next": "15.3.9",
+    "payload": "^3.28.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "sharp": "^0.33.0"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@tailwindcss/postcss": "^4.0.0",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "postcss": "^8",
     "tailwindcss": "^4.0.0",
-    "@tailwindcss/postcss": "^4.0.0",
-    "postcss": "^8"
+    "typescript": "^5"
   }
 }
