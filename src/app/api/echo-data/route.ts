@@ -46,7 +46,7 @@ export async function GET() {
         image: superImage,
       },
       product: {
-        title: productBlock?.title ?? 'HOME ARCADE MACHINE FOR SALE – BACKED BY AMAZON & JVL WARRANTY',
+        title: productBlock?.title ?? 'PREMIUM HOME ARCADE MACHINE – BACKED BY AMAZON & JVL WARRANTY',
         image: productImage,
         buttonText: productBlock?.button_text ?? 'Buy on Amazon',
         buttonUrl: productBlock?.button_url ?? 'https://www.amazon.com/dp/B0DJ3BSJ4D',
