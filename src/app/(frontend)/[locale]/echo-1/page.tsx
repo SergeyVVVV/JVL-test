@@ -232,7 +232,8 @@ function LegacySection() {
           lineHeight: 1.05,
           color: '#F4F3EC',
           textAlign: 'center',
-          margin: '0 0 28px',
+          maxWidth: 720,
+          margin: '0 auto 28px',
         }}>
           Touchscreen Arcade Machine with 30+ Years of Innovation
         </h2>
@@ -335,7 +336,8 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
           color: '#101213',
-          margin: '0 0 40px',
+          maxWidth: 720,
+          margin: '0 auto 40px',
         }}>
           {data.title}
         </h2>
@@ -459,7 +461,8 @@ function ProductSection({ data }: { data: PageData['product'] }) {
           lineHeight: 1.1,
           color: '#101213',
           textAlign: 'center',
-          margin: '0 0 40px',
+          maxWidth: 720,
+          margin: '0 auto 40px',
         }}>
           {data.title}
         </h2>
@@ -708,7 +711,8 @@ function DesignedSection() {
           lineHeight: 1.1,
           color: '#101213',
           textAlign: 'center',
-          margin: '0 0 32px',
+          maxWidth: 720,
+          margin: '0 auto 32px',
         }}>
           Premium Countertop Arcade Machine Designed for Modern Game Rooms
         </h2>
@@ -898,19 +902,23 @@ function GamesSection() {
     <section style={{ background: '#F4F3EC', padding: '80px 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
-        {/* Heading + description */}
+        {/* Heading */}
+        <h2 style={{
+          fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
+          fontWeight: 600,
+          textTransform: 'uppercase',
+          letterSpacing: '-0.02em',
+          lineHeight: 1.1,
+          color: '#101213',
+          textAlign: 'center',
+          maxWidth: 720,
+          margin: '0 auto 16px',
+        }}>
+          Home Arcade Machine with Multiple Games – 149 Classic Titles, No Downloads Needed
+        </h2>
+
+        {/* Supporting text */}
         <div style={{ maxWidth: 580, margin: '0 auto 40px', textAlign: 'center' }}>
-          <h2 style={{
-            fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
-            fontWeight: 600,
-            textTransform: 'uppercase',
-            letterSpacing: '-0.02em',
-            lineHeight: 1.1,
-            color: '#101213',
-            margin: '0 0 20px',
-          }}>
-            Home Arcade Machine with Multiple Games – 149 Classic Titles, No Downloads Needed
-          </h2>
           <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
             With ECHO HD3, you get 149 built-in timeless games covering every genre, from action, puzzles and to strategy-packed poker.
             <br />
@@ -1078,11 +1086,12 @@ function SpecsSection() {
             letterSpacing: '-0.02em',
             lineHeight: 1.1,
             color: '#101213',
-            margin: '0 0 16px',
+            maxWidth: 720,
+            margin: '0 auto 16px',
           }}>
             Mini Arcade Cabinet with Games – Compact Power, Endless Fun
           </h2>
-          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 auto 28px', maxWidth: 520 }}>
+          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 auto 28px', maxWidth: 580 }}>
             Every detail refined. Every feature designed to deliver performance, beauty, and timeless play.
           </p>
           <a
@@ -1222,11 +1231,12 @@ function SupportSection() {
             letterSpacing: '-0.02em',
             lineHeight: 1.1,
             color: '#F4F3EC',
-            margin: '0 0 20px',
+            maxWidth: 720,
+            margin: '0 auto 20px',
           }}>
             Secure Amazon Checkout, Warranty & Support You Can Trust
           </h2>
-          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: '0 auto 28px', maxWidth: 520 }}>
+          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: '0 auto 28px', maxWidth: 580 }}>
             Buy securely through Amazon with official JVL warranty and North American support. Fast delivery, verified authenticity, and peace of mind included.
           </p>
           <a href="/en/contact-us" className="btn-amazon" style={{ padding: '10px 20px' }}>
