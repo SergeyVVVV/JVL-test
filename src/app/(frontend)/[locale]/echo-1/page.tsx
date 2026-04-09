@@ -232,7 +232,7 @@ function LegacySection() {
           lineHeight: 1.05,
           color: '#F4F3EC',
           textAlign: 'center',
-          maxWidth: 720,
+          maxWidth: 840,
           margin: '0 auto 28px',
         }}>
           Touchscreen Arcade Machine with 30+ Years of Innovation
@@ -336,7 +336,7 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
           color: '#101213',
-          maxWidth: 720,
+          maxWidth: 840,
           margin: '0 auto 40px',
         }}>
           {data.title}
@@ -350,7 +350,7 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
         )}
 
         {/* Body */}
-        <div style={{ maxWidth: 580, margin: '0 auto', textAlign: 'center' }}>
+        <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
           <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 16px' }}>
             ECHO ruled bars across the U.S. in the '90s and early 2000s — now, it's back, reimagined for home.
             Transform your living room or basement into your own personal arcade. Plug-and-play fun — no downloads, no Wi-Fi.
@@ -461,7 +461,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
           lineHeight: 1.1,
           color: '#101213',
           textAlign: 'center',
-          maxWidth: 720,
+          maxWidth: 840,
           margin: '0 auto 40px',
         }}>
           {data.title}
@@ -711,14 +711,14 @@ function DesignedSection() {
           lineHeight: 1.1,
           color: '#101213',
           textAlign: 'center',
-          maxWidth: 720,
+          maxWidth: 840,
           margin: '0 auto 32px',
         }}>
           Premium Countertop Arcade Machine Designed for Modern Game Rooms
         </h2>
 
         {/* ── Description block — centered, consistent with other sections ── */}
-        <div style={{ maxWidth: 580, margin: '0 auto 40px', textAlign: 'center' }}>
+        <div style={{ maxWidth: 720, margin: '0 auto 40px', textAlign: 'center' }}>
           <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 14px' }}>
             Every curve, light, and pixel was designed to feel exceptional.
           </p>
@@ -911,14 +911,14 @@ function GamesSection() {
           lineHeight: 1.1,
           color: '#101213',
           textAlign: 'center',
-          maxWidth: 720,
+          maxWidth: 840,
           margin: '0 auto 16px',
         }}>
           Home Arcade Machine with Multiple Games – 149 Classic Titles, No Downloads Needed
         </h2>
 
         {/* Supporting text */}
-        <div style={{ maxWidth: 580, margin: '0 auto 40px', textAlign: 'center' }}>
+        <div style={{ maxWidth: 720, margin: '0 auto 40px', textAlign: 'center' }}>
           <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
             With ECHO HD3, you get 149 built-in timeless games covering every genre, from action, puzzles and to strategy-packed poker.
             <br />
@@ -1086,12 +1086,12 @@ function SpecsSection() {
             letterSpacing: '-0.02em',
             lineHeight: 1.1,
             color: '#101213',
-            maxWidth: 720,
+            maxWidth: 840,
             margin: '0 auto 16px',
           }}>
             Mini Arcade Cabinet with Games – Compact Power, Endless Fun
           </h2>
-          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 auto 28px', maxWidth: 580 }}>
+          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 auto 28px', maxWidth: 720 }}>
             Every detail refined. Every feature designed to deliver performance, beauty, and timeless play.
           </p>
           <a
@@ -1231,12 +1231,12 @@ function SupportSection() {
             letterSpacing: '-0.02em',
             lineHeight: 1.1,
             color: '#F4F3EC',
-            maxWidth: 720,
+            maxWidth: 840,
             margin: '0 auto 20px',
           }}>
             Secure Amazon Checkout, Warranty & Support You Can Trust
           </h2>
-          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: '0 auto 28px', maxWidth: 580 }}>
+          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: '0 auto 28px', maxWidth: 720 }}>
             Buy securely through Amazon with official JVL warranty and North American support. Fast delivery, verified authenticity, and peace of mind included.
           </p>
           <a href="/en/contact-us" className="btn-amazon" style={{ padding: '10px 20px' }}>
