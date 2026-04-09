@@ -911,17 +911,30 @@ function GamesSection() {
           lineHeight: 1.1,
           color: '#101213',
           textAlign: 'center',
-          maxWidth: 840,
-          margin: '0 auto 16px',
+          maxWidth: 720,
+          margin: '0 auto 14px',
         }}>
-          Home Arcade Machine with Multiple Games – 149 Classic Titles, No Downloads Needed
+          Home Arcade Machine with Multiple Games
         </h2>
 
+        {/* Subheading */}
+        <p style={{
+          fontSize: 17,
+          fontWeight: 400,
+          color: '#4B4B4B',
+          textAlign: 'center',
+          maxWidth: 560,
+          margin: '0 auto 20px',
+          lineHeight: 1.4,
+          letterSpacing: '0.01em',
+        }}>
+          149 Classic Titles, No Downloads Needed
+        </p>
+
         {/* Supporting text */}
-        <div style={{ maxWidth: 720, margin: '0 auto 40px', textAlign: 'center' }}>
+        <div style={{ maxWidth: 560, margin: '0 auto 40px', textAlign: 'center' }}>
           <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
-            With ECHO HD3, you get 149 built-in timeless games covering every genre, from action, puzzles and to strategy-packed poker.
-            <br />
+            With ECHO HD3, you get 149 built-in timeless games covering every genre — from action and puzzles to strategy-packed poker.
             No downloads, no installs, no subscriptions — just non-stop entertainment.
           </p>
         </div>
@@ -929,17 +942,17 @@ function GamesSection() {
         {/* Stats row */}
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderTop: '1px solid #D0CEC6', borderBottom: '1px solid #D0CEC6', marginBottom: 56 }}>
           {[
-            { value: '149', label: 'Pre-installed games' },
-            { value: 'Solo & 2-Player', label: 'Player Modes' },
-            { value: '∞', label: 'Hours of Fun' },
+            { value: '149', label: 'Pre-installed games', size: 'clamp(2.2rem, 3.5vw, 3rem)' },
+            { value: 'Solo & 2-Player', label: 'Player Modes', size: 'clamp(1.05rem, 1.8vw, 1.55rem)' },
+            { value: '∞', label: 'Hours of Fun', size: 'clamp(3rem, 5vw, 4rem)' },
           ].map((s, i) => (
             <div key={s.label} style={{
               padding: '28px 24px',
               textAlign: 'center',
               borderLeft: i > 0 ? '1px solid #D0CEC6' : 'none',
             }}>
-              <div style={{ fontSize: 'clamp(1.8rem, 3vw, 2.5rem)', fontWeight: 700, color: '#101213', lineHeight: 1, marginBottom: 8 }}>{s.value}</div>
-              <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#787878' }}>{s.label}</div>
+              <div style={{ fontSize: s.size, fontWeight: 700, color: '#101213', lineHeight: 1.1, marginBottom: 8 }}>{s.value}</div>
+              <div style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: '#787878' }}>{s.label}</div>
             </div>
           ))}
         </div>
