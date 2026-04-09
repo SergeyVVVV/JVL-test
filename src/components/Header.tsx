@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
 const navItems = [
@@ -33,6 +34,9 @@ const PRODUCTS = [
 ]
 
 export default function Header() {
+  const pathname = usePathname()
+  const showProductBar = /\/echo/.test(pathname)
+
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
   const [dropdownLeft, setDropdownLeft] = useState(0)
@@ -158,8 +162,8 @@ export default function Header() {
         )
       })()}
 
-      {/* ── Product switcher bar ── */}
-      <div style={{ background: '#101213', borderBottom: '1px solid #222' }}>
+      {/* ── Product switcher bar (echo pages only) ── */}
+      {showProductBar && <div style={{ background: '#101213', borderBottom: '1px solid #222' }}>
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           height: 52, padding: '0 5vw', maxWidth: 1440, margin: '0 auto',
@@ -211,7 +215,7 @@ export default function Header() {
             </a>
           </div>
         </div>
-      </div>
+      </div>}
 
       {/* Mobile Nav */}
       {mobileOpen && (

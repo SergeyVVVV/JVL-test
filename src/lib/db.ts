@@ -104,7 +104,10 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
       [slug]
     )
     const row = (rows as any[])[0]
-    if (!row) return null
+    if (!row) {
+      console.warn(`[news] no active article for slug="${slug}"`)
+      return null
+    }
 
     const [hero, heroMobile] = await Promise.all([
       getMediaUrl('App\\Models\\Page', row.page_id, 'main'),
@@ -117,7 +120,7 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
       const [tagRows] = await db.execute(
         `SELECT t.name FROM taggables tg
          INNER JOIN tags t ON t.id = tg.tag_id
-         WHERE tg.taggable_type = 'App\\\\Models\\\\News' AND tg.taggable_id = ?`,
+         WHERE tg.taggable_type = 'App\\\\Models\\\\News' AND tg.taggable_id = ? AND t.type = 'Game Tags'`,
         [row.news_id]
       )
       tags = (tagRows as any[])
@@ -145,7 +148,8 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
       heroImageMobile: heroMobile,
       tags,
     }
-  } catch {
+  } catch (err) {
+    console.error('[news] getNewsArticleBySlug failed:', err)
     return null
   }
 }

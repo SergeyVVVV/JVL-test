@@ -52,6 +52,16 @@ export default async function BlogArticlePage({ params }: PageProps) {
           color: #D8D6CE;
           letter-spacing: 0.005em;
         }
+        /* Strip Summernote inline background/color styles */
+        .jvl-prose * {
+          background-color: transparent !important;
+        }
+        .jvl-prose p,
+        .jvl-prose li,
+        .jvl-prose span,
+        .jvl-prose div {
+          color: inherit !important;
+        }
         .jvl-prose > * + * { margin-top: 1.1em; }
         .jvl-prose p { margin: 0 0 1.1em; }
         .jvl-prose a { color: #059FFF; text-decoration: underline; text-underline-offset: 3px; }
@@ -144,7 +154,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
         style={{
           maxWidth: 1200,
           margin: '0 auto',
-          padding: '56px 24px 32px',
+          padding: '4px 24px 32px',
         }}
       >
         {/* Tag pill */}
