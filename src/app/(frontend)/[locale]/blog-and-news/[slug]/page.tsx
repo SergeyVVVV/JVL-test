@@ -143,7 +143,10 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
         /* TOC hidden below xl */
         .blog-toc { display: none; }
-        @media (min-width: 1280px) { .blog-toc { display: block; } }
+        @media (min-width: 1280px) { .blog-toc { display: block; position: relative; z-index: 2; } }
+
+        /* Prevent left column from overflowing grid track */
+        .blog-left { min-width: 0; }
 
         /* Prose */
         .jvl-prose {
@@ -371,7 +374,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
         <div className="blog-body">
 
           {/* LEFT: hero + article content */}
-          <div>
+          <div className="blog-left">
             {/* Hero image — inside left column */}
             {(article.heroImage || article.heroImageMobile) && (
               <div style={{ borderRadius: 10, overflow: 'hidden', marginBottom: 40 }}>
