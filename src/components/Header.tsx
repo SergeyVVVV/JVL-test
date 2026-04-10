@@ -78,7 +78,7 @@ export default function Header() {
       }}>
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-          height: 72, padding: '0 5vw', maxWidth: 1440, margin: '0 auto',
+          height: 72, padding: '0 5vw', maxWidth: 1440, margin: '0 auto', width: '100%',
         }}>
           {/* Logo */}
           <Link href="/en/echo" style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>

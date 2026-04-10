@@ -547,7 +547,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
             </div>
 
             {/* Secondary CTA */}
-            <div>
+            <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
               <a
                 href="/en/contact-us"
                 style={{ fontSize: 14, color: '#101213', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 500, transition: 'color 0.2s' }}
@@ -623,7 +623,7 @@ function UseCasesSection() {
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)' }} />
 
       {/* Tab bar */}
-      <div style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
+      <div className="echo-uc-outer" style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
         <div className="echo-uc-tabs">
           {USE_CASES.map((uc, i) => (
             <button
@@ -1774,10 +1774,33 @@ export default function EchoPage1() {
         /* ── Use Cases ── */
         .echo-uc-desc { font-size: 24px; font-weight: 400; line-height: 1.15; color: #F4F3EC; margin: 0; }
         @media (max-width: 767px) {
-          .echo-uc-desc { font-size: 16px !important; line-height: 1.4 !important; }
-          .echo-uc-text-wrap { padding: 24px 5vw 48px !important; }
-          .echo-uc-tabs { display: flex !important; overflow-x: auto; scrollbar-width: none; }
-          .echo-uc-tabs button { white-space: nowrap; flex-shrink: 0; }
+          .echo-uc-desc { font-size: 14px !important; line-height: 1.45 !important; }
+          .echo-uc-text-wrap { padding: 20px 5vw 36px !important; }
+
+          /* 2×2 grid tabs on mobile */
+          .echo-uc-tabs {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            padding: 0 !important;
+            backdrop-filter: blur(6px);
+          }
+          .echo-uc-tabs button {
+            padding: 12px 8px !important;
+            font-size: 13px !important;
+            border-left: none !important;
+            border-bottom: 1px solid rgba(244,243,236,0.18) !important;
+            justify-content: center;
+          }
+          .echo-uc-tabs button:nth-child(odd) {
+            border-right: 1px solid rgba(244,243,236,0.18) !important;
+          }
+          .echo-uc-tabs button:nth-child(3),
+          .echo-uc-tabs button:nth-child(4) {
+            border-bottom: none !important;
+          }
+          /* Outer wrapper — full width on mobile */
+          .echo-uc-outer { justify-content: stretch !important; }
         }
 
         /* ── Specs / Support section Amazon button fix ── */
