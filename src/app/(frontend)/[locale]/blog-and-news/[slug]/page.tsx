@@ -30,6 +30,15 @@ function calculateReadTime(html: string): number {
   return Math.max(1, Math.ceil(words / 200))
 }
 
+function extractExcerpt(html: string | null, maxLen = 220): string | null {
+  if (!html) return null
+  const match = html.match(/<p[^>]*>([\s\S]*?)<\/p>/i)
+  if (!match) return null
+  const text = match[1].replace(/<[^>]*>/g, '').trim()
+  if (!text) return null
+  return text.length > maxLen ? text.slice(0, maxLen).replace(/\s+\S*$/, '') + '…' : text
+}
+
 function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -101,6 +110,9 @@ export default async function BlogArticlePage({ params }: PageProps) {
   const content1 = injectHeadingIds(article.content1)
   const content2 = injectHeadingIds(article.content2)
 
+  // Lead text: description from DB or first paragraph of content
+  const leadText = article.description || extractExcerpt(article.content1)
+
   return (
     <article style={{
       background: '#F4F3EC',
@@ -111,47 +123,12 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
       {/* ── Scoped styles ─────────────────────────────────── */}
       <style>{`
-        /* Container */
         .blog-container {
           max-width: 1200px;
           margin: 0 auto;
           padding-inline: 16px;
         }
-        @media (min-width: 768px) {
-          .blog-container { padding-inline: 24px; }
-        }
-
-        /* Section 1 spacing */
-        .blog-header {
-          padding-top: 48px;
-          padding-bottom: 32px;
-        }
-        @media (min-width: 768px) {
-          .blog-header { padding-top: 64px; padding-bottom: 40px; }
-        }
-
-        /* H1 */
-        .blog-h1 {
-          font-size: 36px;
-          font-weight: 700;
-          line-height: 1.1;
-          letter-spacing: -0.02em;
-          text-transform: uppercase;
-          color: #101213;
-          margin: 0 0 24px;
-        }
-        @media (min-width: 768px) { .blog-h1 { font-size: 48px; } }
-        @media (min-width: 1024px) { .blog-h1 { font-size: 56px; } }
-
-        /* Lead */
-        .blog-lead {
-          font-size: 18px;
-          font-weight: 300;
-          line-height: 1.6;
-          color: #4B4B4B;
-          margin: 0 0 24px;
-        }
-        @media (min-width: 768px) { .blog-lead { font-size: 20px; } }
+        @media (min-width: 768px) { .blog-container { padding-inline: 24px; } }
 
         /* Two-column body */
         .blog-body {
@@ -159,34 +136,28 @@ export default async function BlogArticlePage({ params }: PageProps) {
           grid-template-columns: 1fr;
           gap: 32px;
           padding-top: 40px;
-          padding-bottom: 80px;
+          padding-bottom: 64px;
         }
         @media (min-width: 768px) { .blog-body { padding-top: 48px; gap: 48px; } }
-        @media (min-width: 1280px) {
-          .blog-body { grid-template-columns: 1fr 300px; }
-        }
+        @media (min-width: 1280px) { .blog-body { grid-template-columns: 1fr 300px; } }
 
-        /* TOC: hidden below xl */
+        /* TOC hidden below xl */
         .blog-toc { display: none; }
         @media (min-width: 1280px) { .blog-toc { display: block; } }
 
         /* Prose */
         .jvl-prose {
-          font-size: 16px;
+          font-size: 18px;
           font-weight: 400;
           line-height: 1.8;
           color: #2A2A2A;
         }
-        @media (min-width: 768px) { .jvl-prose { font-size: 17px; } }
+        @media (min-width: 768px) { .jvl-prose { font-size: 19px; } }
 
         .jvl-prose * { background-color: transparent !important; }
-        .jvl-prose p,
-        .jvl-prose li,
-        .jvl-prose span,
-        .jvl-prose div { color: inherit !important; }
+        .jvl-prose p, .jvl-prose li, .jvl-prose span, .jvl-prose div { color: inherit !important; }
 
         .jvl-prose p { margin: 0 0 20px; }
-        .jvl-prose > * + * { margin-top: 0; }
 
         .jvl-prose h2 {
           font-size: 24px;
@@ -207,25 +178,17 @@ export default async function BlogArticlePage({ params }: PageProps) {
           scroll-margin-top: 80px;
         }
 
-        .jvl-prose h4 {
-          font-size: 17px;
-          font-weight: 600;
-          color: #101213 !important;
-          margin: 24px 0 12px;
-        }
+        .jvl-prose h4 { font-size: 18px; font-weight: 600; color: #101213 !important; margin: 24px 0 12px; }
 
         .jvl-prose a { color: #059FFF; text-decoration: underline; text-underline-offset: 3px; }
         .jvl-prose a:hover { color: #FB671F; }
 
-        .jvl-prose ul,
-        .jvl-prose ol {
-          font-size: 16px;
+        .jvl-prose ul, .jvl-prose ol {
           line-height: 1.7;
           padding-left: 24px;
           margin: 0 0 20px;
           color: #2A2A2A !important;
         }
-        @media (min-width: 768px) { .jvl-prose ul, .jvl-prose ol { font-size: 17px; } }
         .jvl-prose li { margin-bottom: 8px; color: #2A2A2A !important; }
         .jvl-prose li * { color: #2A2A2A !important; }
 
@@ -246,15 +209,9 @@ export default async function BlogArticlePage({ params }: PageProps) {
           display: block;
         }
 
-        .jvl-prose hr {
-          border: 0;
-          border-top: 1px solid #D0CEC6;
-          margin: 40px 0;
-        }
-
+        .jvl-prose hr { border: 0; border-top: 1px solid #D0CEC6; margin: 40px 0; }
         .jvl-prose strong, .jvl-prose b { color: #101213 !important; font-weight: 600; }
 
-        /* Tables */
         .jvl-prose table {
           width: 100%;
           border-collapse: collapse;
@@ -263,7 +220,6 @@ export default async function BlogArticlePage({ params }: PageProps) {
           border-radius: 8px;
           overflow: hidden;
           margin: 32px 0;
-          display: table;
         }
         .jvl-prose table th {
           text-align: left;
@@ -285,12 +241,11 @@ export default async function BlogArticlePage({ params }: PageProps) {
         .jvl-prose table tr:last-child td { border-bottom: none; }
         .jvl-prose table tbody tr:hover { background: rgba(0,0,0,0.02) !important; }
 
-        /* Code */
         .jvl-prose code {
           background: #E8E6DF !important;
           padding: 2px 6px;
           border-radius: 4px;
-          font-size: 0.9em;
+          font-size: 0.88em;
           color: #101213 !important;
         }
         .jvl-prose pre {
@@ -311,14 +266,13 @@ export default async function BlogArticlePage({ params }: PageProps) {
         @media (min-width: 768px) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 1024px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
 
-        /* Related card hover */
         .related-card { transition: transform 0.2s ease; }
         .related-card:hover { transform: translateY(-2px); }
       `}</style>
 
-      {/* ── Section 1: Header ─────────────────────────────── */}
+      {/* ══ Section 1: Header ════════════════════════════════ */}
       <div className="blog-container">
-        <div className="blog-header">
+        <div style={{ paddingTop: 48, paddingBottom: 32 }}>
 
           {/* Breadcrumb */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
@@ -339,151 +293,187 @@ export default async function BlogArticlePage({ params }: PageProps) {
               border: '1px solid #D0CEC6',
               borderRadius: 6,
               color: '#101213',
-              letterSpacing: '0.02em',
             }}>
               {label}
             </span>
           </div>
 
           {/* H1 */}
-          <h1 className="blog-h1">{article.title}</h1>
+          <h1 style={{
+            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
+            fontWeight: 700,
+            lineHeight: 1.1,
+            letterSpacing: '-0.02em',
+            textTransform: 'uppercase',
+            color: '#101213',
+            margin: '0 0 24px',
+          }}>
+            {article.title}
+          </h1>
 
           {/* Lead / excerpt */}
-          {article.description && (
-            <p className="blog-lead">{article.description}</p>
+          {leadText && (
+            <p style={{
+              fontSize: 'clamp(17px, 2vw, 20px)',
+              fontWeight: 300,
+              lineHeight: 1.6,
+              color: '#4B4B4B',
+              margin: '0 0 24px',
+              maxWidth: 720,
+            }}>
+              {leadText}
+            </p>
           )}
 
           {/* Meta row: date · read time */}
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            fontSize: 13,
-            color: '#787878',
-            marginBottom: 32,
-          }}>
-            {article.publishedAt && (
-              <span>{formatDate(article.publishedAt)}</span>
-            )}
-            {article.publishedAt && (
-              <span style={{ color: '#D0CEC6' }}>·</span>
-            )}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#787878', marginBottom: 32 }}>
+            {article.publishedAt && <span>{formatDate(article.publishedAt)}</span>}
+            {article.publishedAt && <span style={{ color: '#D0CEC6' }}>·</span>}
             <span>{readTime} min read</span>
           </div>
 
-          {/* Hero image */}
-          {(article.heroImage || article.heroImageMobile) && (
-            <div style={{ borderRadius: 12, overflow: 'hidden', marginBottom: 0 }}>
-              <picture>
-                {article.heroImageMobile && (
-                  <source media="(max-width: 640px)" srcSet={article.heroImageMobile} />
-                )}
-                <img
-                  src={article.heroImage ?? article.heroImageMobile ?? ''}
-                  alt={article.title ?? ''}
-                  style={{ width: '100%', display: 'block', objectFit: 'cover' }}
-                />
-              </picture>
+          {/* Author placeholder */}
+          <div style={{
+            border: '1px solid #D0CEC6',
+            borderRadius: 8,
+            padding: '20px 24px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 16,
+            marginBottom: 40,
+            maxWidth: 480,
+          }}>
+            <div style={{
+              width: 48,
+              height: 48,
+              borderRadius: '50%',
+              background: '#D0CEC6',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              fontSize: 20,
+            }}>
+              ✍️
             </div>
-          )}
+            <div>
+              <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#787878', marginBottom: 4 }}>
+                Author
+              </div>
+              <div style={{ fontSize: 15, fontWeight: 600, color: '#101213' }}>JVL Editorial Team</div>
+              <div style={{ fontSize: 13, color: '#787878', marginTop: 2 }}>JVL Content Team</div>
+            </div>
+          </div>
+
         </div>
       </div>
 
-      {/* ── Section 2: Two-column body ────────────────────── */}
+      {/* ══ Section 2: Two-column body ═══════════════════════ */}
       <div className="blog-container">
         <div className="blog-body">
 
-          {/* Left column: content */}
+          {/* LEFT: hero + article content */}
           <div>
+            {/* Hero image — inside left column */}
+            {(article.heroImage || article.heroImageMobile) && (
+              <div style={{ borderRadius: 10, overflow: 'hidden', marginBottom: 40 }}>
+                <picture>
+                  {article.heroImageMobile && (
+                    <source media="(max-width: 640px)" srcSet={article.heroImageMobile} />
+                  )}
+                  <img
+                    src={article.heroImage ?? article.heroImageMobile ?? ''}
+                    alt={article.title ?? ''}
+                    style={{ width: '100%', display: 'block', objectFit: 'cover' }}
+                  />
+                </picture>
+              </div>
+            )}
+
+            {/* Article prose */}
             <div className="jvl-prose">
               {content1 && <div dangerouslySetInnerHTML={{ __html: content1 }} />}
               {content2 && <div dangerouslySetInnerHTML={{ __html: content2 }} />}
             </div>
-
-            {/* Related articles */}
-            {related.length > 0 && (
-              <section style={{
-                marginTop: 48,
-                paddingTop: 48,
-                borderTop: '1px solid #D0CEC6',
-              }}>
-                <h2 style={{
-                  fontSize: 24,
-                  fontWeight: 700,
-                  color: '#101213',
-                  margin: '0 0 32px',
-                }}>
-                  Related Articles
-                </h2>
-                <div className="related-grid">
-                  {related.map((r) => (
-                    <Link
-                      key={r.id}
-                      href={`/${locale}/blog-and-news/${r.slug}`}
-                      style={{ display: 'block', textDecoration: 'none', color: '#101213' }}
-                    >
-                      <article className="related-card" style={{
-                        border: '1px solid #D0CEC6',
-                        borderRadius: 8,
-                        overflow: 'hidden',
-                        background: '#FFFFFF',
-                      }}>
-                        <div style={{ height: 200, background: '#E8E6DF', overflow: 'hidden' }}>
-                          {r.heroImage && (
-                            <img
-                              src={r.heroImage}
-                              alt={r.title ?? ''}
-                              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                            />
-                          )}
-                        </div>
-                        <div style={{ padding: 24 }}>
-                          <div style={{
-                            fontSize: 13,
-                            fontWeight: 500,
-                            padding: '6px 12px',
-                            border: '1px solid #D0CEC6',
-                            borderRadius: 6,
-                            display: 'inline-block',
-                            marginBottom: 12,
-                            color: '#787878',
-                          }}>
-                            {r.type === 1 ? 'Blog' : 'News'}
-                          </div>
-                          <h3 style={{
-                            fontSize: 20,
-                            fontWeight: 600,
-                            lineHeight: 1.3,
-                            color: '#101213',
-                            margin: '0 0 8px',
-                            display: '-webkit-box',
-                            WebkitLineClamp: 2,
-                            WebkitBoxOrient: 'vertical',
-                            overflow: 'hidden',
-                          }}>
-                            {r.title}
-                          </h3>
-                          {r.publishedAt && (
-                            <p style={{ fontSize: 13, color: '#787878', margin: 0 }}>
-                              {formatDate(r.publishedAt)}
-                            </p>
-                          )}
-                        </div>
-                      </article>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            )}
           </div>
 
-          {/* Right column: TOC */}
+          {/* RIGHT: sticky TOC (xl+ only) */}
           <div className="blog-toc">
             <ArticleTOC items={toc} />
           </div>
 
         </div>
       </div>
+
+      {/* ══ Section 3: Related Articles (full width) ═════════ */}
+      {related.length > 0 && (
+        <div className="blog-container">
+          <section style={{ borderTop: '1px solid #D0CEC6', paddingTop: 48, paddingBottom: 80 }}>
+            <h2 style={{ fontSize: 24, fontWeight: 700, color: '#101213', margin: '0 0 32px' }}>
+              Related Articles
+            </h2>
+            <div className="related-grid">
+              {related.map((r) => (
+                <Link
+                  key={r.id}
+                  href={`/${locale}/blog-and-news/${r.slug}`}
+                  style={{ display: 'block', textDecoration: 'none', color: '#101213' }}
+                >
+                  <article className="related-card" style={{
+                    border: '1px solid #D0CEC6',
+                    borderRadius: 8,
+                    overflow: 'hidden',
+                    background: '#FFFFFF',
+                  }}>
+                    <div style={{ height: 200, background: '#E8E6DF', overflow: 'hidden' }}>
+                      {r.heroImage && (
+                        <img
+                          src={r.heroImage}
+                          alt={r.title ?? ''}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                        />
+                      )}
+                    </div>
+                    <div style={{ padding: 24 }}>
+                      <span style={{
+                        display: 'inline-block',
+                        fontSize: 13,
+                        fontWeight: 500,
+                        padding: '5px 10px',
+                        border: '1px solid #D0CEC6',
+                        borderRadius: 6,
+                        color: '#787878',
+                        marginBottom: 12,
+                      }}>
+                        {r.type === 1 ? 'Blog' : 'News'}
+                      </span>
+                      <h3 style={{
+                        fontSize: 18,
+                        fontWeight: 600,
+                        lineHeight: 1.3,
+                        color: '#101213',
+                        margin: '0 0 8px',
+                        display: '-webkit-box',
+                        WebkitLineClamp: 2,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                      }}>
+                        {r.title}
+                      </h3>
+                      {r.publishedAt && (
+                        <p style={{ fontSize: 13, color: '#787878', margin: 0 }}>
+                          {formatDate(r.publishedAt)}
+                        </p>
+                      )}
+                    </div>
+                  </article>
+                </Link>
+              ))}
+            </div>
+          </section>
+        </div>
+      )}
+
     </article>
   )
 }
