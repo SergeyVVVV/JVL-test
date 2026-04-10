@@ -252,9 +252,9 @@ function LegacySection() {
         </div>
 
         {/* Product display */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'center', minHeight: 360, marginBottom: 0 }}>
+        <div className="echo-legacy-grid">
           {/* Text left */}
-          <div style={{ textAlign: 'right', paddingRight: 32 }}>
+          <div className="echo-legacy-text">
             <h3 style={{
               fontSize: 'clamp(1.4rem, 2.5vw, 2rem)',
               fontWeight: 700,
@@ -265,7 +265,7 @@ function LegacySection() {
             }}>
               {item.name}
             </h3>
-            <p style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: 0, maxWidth: 380, marginLeft: 'auto' }}>
+            <p className="echo-legacy-desc" style={{ fontSize: 14, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: 0 }}>
               {item.desc}
             </p>
           </div>
@@ -468,7 +468,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
         </h2>
 
         {/* Two columns */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
+        <div className="echo-product-grid">
           {/* 3D Model Viewer */}
           <div style={{ position: 'relative', width: '100%', aspectRatio: '1 / 1' }}>
             {/* 3D badge */}
@@ -618,12 +618,7 @@ function UseCasesSection() {
 
       {/* Tab bar */}
       <div style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
-        <div style={{
-          display: 'inline-flex', alignItems: 'center',
-          background: 'rgba(16,18,19,0.6)',
-          backdropFilter: 'blur(5px)',
-          padding: '15px 20px',
-        }}>
+        <div className="echo-uc-tabs">
           {USE_CASES.map((uc, i) => (
             <button
               key={uc.label}
@@ -717,7 +712,7 @@ function DesignedSection() {
         </h2>
 
         {/* ── Text left + CTA right ── */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center', marginBottom: 48 }}>
+        <div className="echo-ds-hdr">
           <div>
             <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 12px' }}>
               Every curve, light, and pixel was designed to feel exceptional.
@@ -930,7 +925,7 @@ function GamesSection() {
         </div>
 
         {/* Stats row */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderTop: '1px solid #D0CEC6', borderBottom: '1px solid #D0CEC6', marginBottom: 56 }}>
+        <div className="echo-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderTop: '1px solid #D0CEC6', borderBottom: '1px solid #D0CEC6', marginBottom: 56 }}>
           {[
             { value: '149', label: 'Pre-installed games', size: 'clamp(2.2rem, 3.5vw, 3rem)' },
             { value: 'Solo & 2-Player', label: 'Player Modes', size: 'clamp(1.5rem, 2.4vw, 2rem)' },
@@ -951,7 +946,7 @@ function GamesSection() {
         </div>
 
         {/* Game categories */}
-        <div style={{ display: 'grid', gridTemplateColumns: '220px 1fr', gap: 48, alignItems: 'start' }}>
+        <div className="echo-games-grid">
 
           {/* Category list */}
           <div>
@@ -1097,7 +1092,7 @@ function SpecsSection() {
           }}>
             Mini Arcade Cabinet with Games – Compact Power, Endless Fun
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center' }}>
+          <div className="echo-specs-hdr">
             <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
               Every detail refined. Every feature designed to deliver performance, beauty, and timeless play.
             </p>
@@ -1116,10 +1111,10 @@ function SpecsSection() {
         </div>
 
         {/* Two-col: image left, accordion right */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 64, alignItems: 'start' }}>
+        <div className="echo-specs-grid">
 
           {/* Image */}
-          <div style={{ position: 'sticky', top: 140 }}>
+          <div className="echo-specs-img">
             <img
               key={Math.max(open, 0)}
               src={SPECS_ITEMS[Math.max(open, 0)].img}
@@ -1244,7 +1239,7 @@ function SupportSection() {
           }}>
             Secure Amazon Checkout, Warranty & Support You Can Trust
           </h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center' }}>
+          <div className="echo-sup-hdr">
             <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: 0 }}>
               Buy securely through Amazon with official JVL warranty and North American support. Fast delivery, verified authenticity, and peace of mind included.
             </p>
@@ -1258,7 +1253,7 @@ function SupportSection() {
         </div>
 
         {/* 4 cards */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+        <div className="echo-sup-cards">
           {SUPPORT_CARDS.map((card) => (
             <div key={card.title} style={{ background: '#181a1b', border: '1px solid #2a2a2a', borderRadius: 4, padding: 24 }}>
               <div style={{ marginBottom: 20 }}>{card.icon}</div>
@@ -1409,10 +1404,9 @@ function FeatureGrid() {
         </div>
 
         {/* Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', border: '1px solid #222' }}>
+        <div className="echo-feat-grid">
           {FEATURES.map((f, i) => (
-            <div key={i} style={{
-              padding: '36px 32px',
+            <div key={i} className="echo-feat-item" style={{
               borderRight: (i + 1) % 3 !== 0 ? '1px solid #222' : 'none',
               borderBottom: i < 3 ? '1px solid #222' : 'none',
             }}>
@@ -1502,7 +1496,7 @@ function FooterCTA() {
       <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.55)' }} />
 
       <div style={{ position: 'relative', maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+        <div className="echo-footer-grid">
 
           {/* Col 1: Be Part of the Experience */}
           <div style={{
@@ -1645,6 +1639,85 @@ export default function EchoPage1() {
 
   return (
     <div>
+      <style>{`
+        /* ── Product Section ── */
+        .echo-product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+        @media (max-width: 767px) {
+          .echo-product-grid { grid-template-columns: 1fr; gap: 32px; }
+        }
+
+        /* ── Legacy product display ── */
+        .echo-legacy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; min-height: 360px; margin-bottom: 0; }
+        .echo-legacy-text { text-align: right; padding-right: 32px; }
+        .echo-legacy-desc { max-width: 380px; margin-left: auto; }
+        @media (max-width: 767px) {
+          .echo-legacy-grid { grid-template-columns: 1fr; gap: 24px; min-height: unset; }
+          .echo-legacy-text { text-align: left; padding-right: 0; }
+          .echo-legacy-desc { max-width: 100%; margin-left: 0; }
+        }
+
+        /* ── Games Section ── */
+        .echo-games-grid { display: grid; grid-template-columns: 220px 1fr; gap: 48px; align-items: start; }
+        @media (max-width: 767px) {
+          .echo-games-grid { grid-template-columns: 1fr; gap: 24px; }
+        }
+
+        /* ── Specs Section ── */
+        .echo-specs-hdr { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+        .echo-specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
+        .echo-specs-img { position: sticky; top: 140px; }
+        @media (max-width: 767px) {
+          .echo-specs-hdr { grid-template-columns: 1fr; gap: 20px; }
+          .echo-specs-grid { grid-template-columns: 1fr; gap: 0; }
+          .echo-specs-img { display: none; }
+        }
+
+        /* ── Support Section ── */
+        .echo-sup-hdr { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; }
+        .echo-sup-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+        @media (max-width: 767px) {
+          .echo-sup-hdr { grid-template-columns: 1fr; gap: 20px; }
+          .echo-sup-cards { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ── Feature Grid ── */
+        .echo-feat-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #222; }
+        .echo-feat-item { padding: 36px 32px; }
+        @media (max-width: 767px) {
+          .echo-feat-grid { grid-template-columns: 1fr; }
+          .echo-feat-item { border-right: none !important; border-bottom: 1px solid #222 !important; }
+          .echo-feat-item:last-child { border-bottom: none !important; }
+        }
+        @media (min-width: 768px) {
+          .echo-feat-item { border-right: var(--echo-feat-br, none); border-bottom: var(--echo-feat-bb, none); }
+        }
+
+        /* ── Footer CTA grid ── */
+        .echo-footer-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        @media (max-width: 767px) {
+          .echo-footer-grid { grid-template-columns: 1fr; }
+        }
+
+        /* ── Designed Section header row ── */
+        .echo-ds-hdr { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; margin-bottom: 48px; }
+        @media (max-width: 767px) {
+          .echo-ds-hdr { grid-template-columns: 1fr; gap: 20px; }
+        }
+
+        /* ── Use Cases tab bar ── */
+        .echo-uc-tabs { display: inline-flex; align-items: center; background: rgba(16,18,19,0.6); backdrop-filter: blur(5px); padding: 15px 20px; }
+        @media (max-width: 640px) {
+          .echo-uc-tabs { display: flex; width: 100%; padding: 10px 0; overflow-x: auto; scrollbar-width: none; justify-content: center; }
+          .echo-uc-tabs button { padding: 5px 14px !important; font-size: 14px !important; }
+        }
+
+        /* ── Stats row ── */
+        @media (max-width: 480px) {
+          .echo-stats-row { grid-template-columns: 1fr !important; }
+          .echo-stats-row > div { border-left: none !important; border-top: 1px solid #D0CEC6; }
+          .echo-stats-row > div:first-child { border-top: none; }
+        }
+      `}</style>
       <Hero data={data.hero} />
       <CountertopSection data={data.countertop} />
       <ProductSection data={data.product} />
