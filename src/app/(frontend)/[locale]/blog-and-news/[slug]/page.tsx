@@ -32,6 +32,10 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
   const related = await getRelatedNews(article.id, article.type, locale, 6)
   const label = article.type === 1 ? 'Blog' : 'News'
+  // Tags without the type label (to avoid duplication)
+  const displayTags = article.tags.filter(t => t.toLowerCase() !== label.toLowerCase())
+  // Category for breadcrumb: first tag if any, else label
+  const category = displayTags[0] ?? label
 
   return (
     <article
@@ -167,7 +171,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
             Blog
           </Link>
           <span style={{ fontSize: 13, color: '#B0AEA8' }}>/</span>
-          <span style={{ fontSize: 13, color: '#B0AEA8', letterSpacing: '0.02em' }}>{label}</span>
+          <span style={{ fontSize: 13, color: '#B0AEA8', letterSpacing: '0.02em' }}>{category}</span>
         </div>
 
         {/* Tag pill */}
@@ -186,7 +190,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
           >
             {label}
           </span>
-          {article.tags.map((t) => (
+          {displayTags.map((t) => (
             <span
               key={t}
               style={{
@@ -214,6 +218,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
           style={{
             fontSize: 'clamp(1.8rem, 4vw, 3rem)',
             fontWeight: 700,
+            textTransform: 'uppercase',
             letterSpacing: '-0.02em',
             lineHeight: 1.15,
             margin: '0 0 16px',

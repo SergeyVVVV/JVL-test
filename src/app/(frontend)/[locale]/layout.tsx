@@ -9,7 +9,7 @@ export default function LocaleLayout({ children }: { children: React.ReactNode }
   return (
     <>
       <Header />
-      <main style={{ paddingTop: 124 }}>{children}</main>
+      <main style={{ paddingTop: 124, background: '#F4F3EC' }}>{children}</main>
       <Footer />
     </>
   )
