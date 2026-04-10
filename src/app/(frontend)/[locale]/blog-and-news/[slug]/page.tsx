@@ -36,8 +36,8 @@ export default async function BlogArticlePage({ params }: PageProps) {
   return (
     <article
       style={{
-        background: '#101213',
-        color: '#F4F3EC',
+        background: '#F4F3EC',
+        color: '#101213',
         fontFamily: 'var(--font-poppins), system-ui, sans-serif',
         minHeight: '100vh',
         paddingBottom: 80,
@@ -49,7 +49,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
           font-size: 17px;
           font-weight: 300;
           line-height: 1.75;
-          color: #D8D6CE;
+          color: #2A2A2A;
           letter-spacing: 0.005em;
         }
         /* Strip Summernote inline background/color styles */
@@ -71,18 +71,18 @@ export default async function BlogArticlePage({ params }: PageProps) {
           font-weight: 700;
           text-transform: uppercase;
           letter-spacing: -0.01em;
-          color: #F4F3EC;
+          color: #101213 !important;
           margin: 2em 0 0.6em;
           line-height: 1.2;
         }
         .jvl-prose h3 {
           font-size: clamp(1.2rem, 2vw, 1.5rem);
           font-weight: 600;
-          color: #F4F3EC;
+          color: #101213 !important;
           margin: 1.6em 0 0.5em;
           line-height: 1.3;
         }
-        .jvl-prose h4 { font-size: 1.1rem; font-weight: 600; color: #F4F3EC; margin: 1.4em 0 0.4em; }
+        .jvl-prose h4 { font-size: 1.1rem; font-weight: 600; color: #101213 !important; margin: 1.4em 0 0.4em; }
         .jvl-prose ul, .jvl-prose ol { margin: 0 0 1.1em 1.4em; padding: 0; }
         .jvl-prose li { margin: 0 0 0.45em; }
         .jvl-prose blockquote {
@@ -90,7 +90,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
           padding: 0.2em 0 0.2em 1.2em;
           margin: 1.4em 0;
           font-style: italic;
-          color: #9A9790;
+          color: #787878 !important;
           font-size: 1.05em;
         }
         .jvl-prose img {
@@ -100,22 +100,22 @@ export default async function BlogArticlePage({ params }: PageProps) {
           margin: 1.6em 0;
           display: block;
         }
-        .jvl-prose hr { border: 0; border-top: 1px solid #4B4B4B; margin: 2.2em 0; }
+        .jvl-prose hr { border: 0; border-top: 1px solid #D0CEC6; margin: 2.2em 0; }
         .jvl-prose code {
-          background: #1C1F22;
+          background: #E8E6DF !important;
           padding: 0.15em 0.4em;
           border-radius: 3px;
           font-size: 0.9em;
-          color: #F4F3EC;
+          color: #101213 !important;
         }
         .jvl-prose pre {
-          background: #1C1F22;
+          background: #E8E6DF !important;
           padding: 1em 1.2em;
           border-radius: 6px;
           overflow-x: auto;
           margin: 1.4em 0;
         }
-        .jvl-prose pre code { background: transparent; padding: 0; }
+        .jvl-prose pre code { background: transparent !important; padding: 0; }
 
         /* Tables */
         .jvl-prose table {
@@ -127,7 +127,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
           overflow-x: auto;
         }
         .jvl-prose table thead {
-          background: #1C1F22;
+          background: #E8E6DF !important;
         }
         .jvl-prose table th {
           text-align: left;
@@ -135,18 +135,19 @@ export default async function BlogArticlePage({ params }: PageProps) {
           text-transform: uppercase;
           font-size: 11px;
           letter-spacing: 0.08em;
-          color: #FB671F;
+          color: #FB671F !important;
           padding: 14px 16px;
-          border-bottom: 1px solid #4B4B4B;
+          border-bottom: 1px solid #D0CEC6;
         }
         .jvl-prose table td {
           padding: 14px 16px;
-          border-bottom: 1px solid #2A2D30;
-          color: #D8D6CE;
+          border-bottom: 1px solid #D0CEC6;
+          color: #2A2A2A !important;
           vertical-align: top;
         }
         .jvl-prose table tr:last-child td { border-bottom: none; }
-        .jvl-prose table tbody tr:hover { background: rgba(255,255,255,0.02); }
+        .jvl-prose table tbody tr:hover { background: rgba(0,0,0,0.03) !important; }
+        .jvl-prose strong, .jvl-prose b { color: #101213 !important; font-weight: 600; }
       `}</style>
 
       {/* HEADER */}
@@ -163,11 +164,11 @@ export default async function BlogArticlePage({ params }: PageProps) {
             style={{
               display: 'inline-block',
               padding: '8px 20px',
-              border: '1px solid #4B4B4B',
+              border: '1px solid #B0AEA8',
               borderRadius: 999,
               fontSize: 13,
               fontWeight: 400,
-              color: '#F4F3EC',
+              color: '#101213',
               letterSpacing: '0.02em',
             }}
           >
@@ -180,10 +181,10 @@ export default async function BlogArticlePage({ params }: PageProps) {
                 display: 'inline-block',
                 marginLeft: 8,
                 padding: '8px 20px',
-                border: '1px solid #4B4B4B',
+                border: '1px solid #B0AEA8',
                 borderRadius: 999,
                 fontSize: 13,
-                color: '#9A9790',
+                color: '#787878',
                 letterSpacing: '0.02em',
               }}
             >
@@ -201,7 +202,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
             letterSpacing: '-0.02em',
             lineHeight: 0.98,
             margin: 0,
-            color: '#F4F3EC',
+            color: '#101213',
           }}
         >
           {article.title}
@@ -214,7 +215,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
               marginTop: 28,
               fontSize: 13,
               fontWeight: 400,
-              color: '#9A9790',
+              color: '#787878',
               letterSpacing: '0.04em',
               textTransform: 'uppercase',
             }}
@@ -269,7 +270,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
             maxWidth: 1200,
             margin: '96px auto 0',
             padding: '0 24px',
-            borderTop: '1px solid #2A2D30',
+            borderTop: '1px solid #D0CEC6',
             paddingTop: 64,
           }}
         >
@@ -291,7 +292,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
               fontWeight: 600,
               textTransform: 'uppercase',
               letterSpacing: '-0.01em',
-              color: '#F4F3EC',
+              color: '#101213',
               margin: '0 0 40px',
             }}
           >
@@ -311,7 +312,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
                 href={`/${locale}/blog-and-news/${r.slug}`}
                 style={{
                   display: 'block',
-                  color: '#F4F3EC',
+                  color: '#101213',
                   textDecoration: 'none',
                 }}
               >
@@ -320,7 +321,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
                     aspectRatio: '16 / 10',
                     borderRadius: 6,
                     overflow: 'hidden',
-                    background: '#1C1F22',
+                    background: '#D0CEC6',
                     marginBottom: 14,
                   }}
                 >
@@ -336,7 +337,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
                   <div
                     style={{
                       fontSize: 11,
-                      color: '#9A9790',
+                      color: '#787878',
                       letterSpacing: '0.04em',
                       textTransform: 'uppercase',
                       marginBottom: 6,
@@ -350,7 +351,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
                     fontSize: 17,
                     fontWeight: 500,
                     lineHeight: 1.3,
-                    color: '#F4F3EC',
+                    color: '#101213',
                     display: '-webkit-box',
                     WebkitLineClamp: 2,
                     WebkitBoxOrient: 'vertical',
