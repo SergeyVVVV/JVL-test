@@ -54,17 +54,15 @@ function Hero({ data }: { data: PageData['hero'] }) {
       )}
 
       {/* Video */}
-      {(data.mobileVideo || data.desktopVideo) && (
+      {data.desktopVideo && (
         <video
           ref={videoRef}
+          src={data.desktopVideo}
           poster={data.desktopPoster ?? undefined}
           autoPlay muted loop playsInline
           className="echo-hero-video"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-        >
-          {data.mobileVideo && <source src={data.mobileVideo} media="(max-width: 767px)" />}
-          {data.desktopVideo && <source src={data.desktopVideo} />}
-        </video>
+        />
       )}
 
       {/* Gradient overlays */}
@@ -1726,7 +1724,7 @@ export default function EchoPage1() {
         @media (max-width: 767px) {
           .echo-hero { height: 58vh; min-height: 380px; max-height: 520px; margin-top: -52px; }
           .echo-hero-h1 { font-size: clamp(1.15rem, 5vw, 1.5rem) !important; line-height: 1.15 !important; }
-          .echo-hero-video { object-fit: contain !important; object-position: center center !important; }
+          .echo-hero-video { object-position: 70% center !important; }
           .echo-countertop-section { padding: 40px 0 !important; }
         }
 
