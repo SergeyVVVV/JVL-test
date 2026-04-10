@@ -147,12 +147,12 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
         /* Prose */
         .jvl-prose {
-          font-size: 20px;
+          font-size: 18px;
           font-weight: 400;
           line-height: 1.85;
           color: #2A2A2A;
         }
-        @media (min-width: 768px) { .jvl-prose { font-size: 22px; } }
+        @media (min-width: 768px) { .jvl-prose { font-size: 20px; } }
 
         .jvl-prose * { background-color: transparent !important; }
         .jvl-prose p, .jvl-prose li, .jvl-prose span, .jvl-prose div, .jvl-prose a, .jvl-prose td {
@@ -278,7 +278,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
           height: 100%;
         }
         .related-card:hover { transform: translateY(-2px); }
-        .related-card-body { flex: 1; display: flex; flex-direction: column; }
+        .related-card-body { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
       `}</style>
 
       {/* ══ Section 1: Header ════════════════════════════════ */}
