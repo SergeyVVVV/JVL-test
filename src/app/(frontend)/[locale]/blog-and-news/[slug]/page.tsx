@@ -150,12 +150,12 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
         /* Prose */
         .jvl-prose {
-          font-size: 18px;
+          font-size: 16px;
           font-weight: 400;
-          line-height: 1.85;
+          line-height: 1.8;
           color: #2A2A2A;
         }
-        @media (min-width: 768px) { .jvl-prose { font-size: 20px; } }
+        @media (min-width: 768px) { .jvl-prose { font-size: 17px; } }
 
         .jvl-prose * { background-color: transparent !important; }
         .jvl-prose p, .jvl-prose li, .jvl-prose span, .jvl-prose div, .jvl-prose a, .jvl-prose td {
@@ -328,10 +328,10 @@ export default async function BlogArticlePage({ params }: PageProps) {
           {/* Lead / excerpt */}
           {leadText && (
             <p style={{
-              fontSize: 'clamp(17px, 2vw, 20px)',
-              fontWeight: 300,
+              fontSize: 'clamp(18px, 2vw, 20px)',
+              fontWeight: 400,
               lineHeight: 1.6,
-              color: '#4B4B4B',
+              color: '#2A2A2A',
               margin: '0 0 24px',
             }}>
               {leadText}
