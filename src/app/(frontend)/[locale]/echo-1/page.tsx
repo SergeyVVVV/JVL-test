@@ -54,14 +54,17 @@ function Hero({ data }: { data: PageData['hero'] }) {
       )}
 
       {/* Video */}
-      {data.desktopVideo && (
+      {(data.mobileVideo || data.desktopVideo) && (
         <video
           ref={videoRef}
-          src={data.desktopVideo}
           poster={data.desktopPoster ?? undefined}
           autoPlay muted loop playsInline
+          className="echo-hero-video"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-        />
+        >
+          {data.mobileVideo && <source src={data.mobileVideo} media="(max-width: 767px)" />}
+          {data.desktopVideo && <source src={data.desktopVideo} />}
+        </video>
       )}
 
       {/* Gradient overlays */}
@@ -70,7 +73,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
 
       {/* Headline */}
       <div style={{ position: 'absolute', bottom: 80, left: 0, right: 0, padding: '0 5vw' }}>
-        <h1 style={{
+        <h1 className="echo-hero-h1" style={{
           fontFamily: 'inherit',
           fontSize: 'clamp(2rem, 3.5vw, 3.8rem)',
           fontWeight: 600,
@@ -321,7 +324,7 @@ function LegacySection() {
 
 function CountertopSection({ data }: { data: PageData['countertop'] }) {
   return (
-    <section style={{ background: '#F4F3EC', padding: '80px 0' }}>
+    <section className="echo-countertop-section" style={{ background: '#F4F3EC', padding: '80px 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
         {/* Eyebrow */}
         <p style={{ textAlign: 'center', fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 12px' }}>
@@ -1642,7 +1645,7 @@ export default function EchoPage1() {
   if (!data) return <div style={{ height: '100vh', background: '#101213' }} />
 
   return (
-    <div>
+    <div id="echo1-page">
       <style>{`
         /* ── Product Section ── */
         .echo-product-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start; }
@@ -1725,7 +1728,15 @@ export default function EchoPage1() {
         /* ── Hero ── */
         .echo-hero { height: calc(100svh - 124px); min-height: 520px; }
         @media (max-width: 767px) {
-          .echo-hero { height: 60vh; min-height: 420px; max-height: 580px; }
+          .echo-hero { height: 58vh; min-height: 380px; max-height: 520px; margin-top: -52px; }
+          .echo-hero-h1 { font-size: clamp(1.15rem, 5vw, 1.5rem) !important; line-height: 1.15 !important; }
+          .echo-hero-video { object-fit: contain !important; object-position: center center !important; }
+          .echo-countertop-section { padding: 40px 0 !important; }
+        }
+
+        /* ── H2 sizes on mobile ── */
+        @media (max-width: 767px) {
+          #echo1-page section h2 { font-size: clamp(1.35rem, 5vw, 2rem) !important; }
         }
 
         /* ── Price + CTA row ── */

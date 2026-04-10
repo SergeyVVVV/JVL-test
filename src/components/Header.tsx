@@ -85,11 +85,11 @@ export default function Header() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 36, width: 'auto' }} className="hidden md:block" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 22, width: 'auto' }} className="md:hidden" />
+            <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 14, width: 'auto' }} className="md:hidden" />
           </Link>
 
           {/* Desktop Nav */}
-          <nav ref={dropdownRef} style={{ display: 'flex', alignItems: 'center', gap: 28 }} className="hidden md:flex">
+          <nav ref={dropdownRef} style={{ alignItems: 'center', gap: 28 }} className="hidden md:flex">
             {navItems.map((item) => (
               <div key={item.label} style={{ position: 'relative' }}>
                 {item.children ? (
