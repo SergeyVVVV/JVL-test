@@ -283,7 +283,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
       {/* ══ Section 1: Header ════════════════════════════════ */}
       <div className="blog-container">
-        <div style={{ paddingTop: 48, paddingBottom: 32 }}>
+        <div style={{ paddingTop: 34, paddingBottom: 32 }}>
 
           {/* Breadcrumb */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
