@@ -608,7 +608,7 @@ function UseCasesSection() {
   const item = USE_CASES[displayed]
 
   return (
-    <section style={{ position: 'relative', width: '100%', height: 'clamp(500px, 75vh, 70vw)', overflow: 'hidden' }}>
+    <section className="echo-uc-section" style={{ position: 'relative', width: '100%', height: 'clamp(500px, 75vh, 70vw)', overflow: 'hidden' }}>
       {/* Background image with fade */}
       <div style={{
         position: 'absolute', inset: 0,
@@ -758,7 +758,7 @@ function DesignedSection() {
                 position: 'absolute', bottom: 0, left: 0, right: 0,
                 padding: i === 0 ? '32px 28px' : '20px 20px',
               }}>
-                <div style={{
+                <div className="echo-ds-card-title" style={{
                   fontSize: i === 0 ? 19 : 14,
                   fontWeight: 600,
                   color: '#fff',
@@ -1255,8 +1255,8 @@ function SupportSection() {
         {/* 4 cards */}
         <div className="echo-sup-cards">
           {SUPPORT_CARDS.map((card) => (
-            <div key={card.title} style={{ background: '#181a1b', border: '1px solid #2a2a2a', borderRadius: 4, padding: 24 }}>
-              <div style={{ marginBottom: 20 }}>{card.icon}</div>
+            <div key={card.title} className="echo-sup-card" style={{ background: '#181a1b', border: '1px solid #2a2a2a', borderRadius: 4, padding: 24 }}>
+              <div className="echo-sup-card-icon" style={{ marginBottom: 20 }}>{card.icon}</div>
               <div style={{ fontSize: 13, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#F4F3EC', marginBottom: 12, lineHeight: 1.3 }}>
                 {card.title}
               </div>
@@ -1764,7 +1764,19 @@ export default function EchoPage1() {
 
         /* ── Designed section cards ── */
         @media (max-width: 767px) {
-          .echo-ds-card-text { line-height: 1.35 !important; -webkit-line-clamp: 2 !important; font-size: 11px !important; }
+          .echo-ds-card-text { line-height: 1.5 !important; -webkit-line-clamp: 4 !important; font-size: 12px !important; }
+          .echo-ds-card-title { font-size: 17px !important; }
+        }
+
+        /* ── Use Cases section height on mobile ── */
+        @media (max-width: 767px) {
+          .echo-uc-section { height: 420px !important; }
+        }
+
+        /* ── Support cards less padding on mobile ── */
+        @media (max-width: 767px) {
+          .echo-sup-card { padding: 16px !important; }
+          .echo-sup-card-icon { margin-bottom: 14px !important; }
         }
 
         /* ── Games categories horizontal on mobile ── */
