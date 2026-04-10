@@ -319,7 +319,6 @@ export default async function BlogArticlePage({ params }: PageProps) {
               lineHeight: 1.6,
               color: '#4B4B4B',
               margin: '0 0 24px',
-              maxWidth: 720,
             }}>
               {leadText}
             </p>
