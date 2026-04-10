@@ -153,23 +153,35 @@ export default async function BlogArticlePage({ params }: PageProps) {
       {/* HEADER */}
       <header
         style={{
-          maxWidth: 1200,
+          maxWidth: 760,
           margin: '0 auto',
-          padding: '4px 24px 32px',
+          padding: '4px 24px 40px',
         }}
       >
+        {/* Breadcrumb */}
+        <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
+          <Link
+            href={`/${locale}/blog-and-news`}
+            style={{ fontSize: 13, color: '#787878', textDecoration: 'none', letterSpacing: '0.02em' }}
+          >
+            Blog
+          </Link>
+          <span style={{ fontSize: 13, color: '#B0AEA8' }}>/</span>
+          <span style={{ fontSize: 13, color: '#B0AEA8', letterSpacing: '0.02em' }}>{label}</span>
+        </div>
+
         {/* Tag pill */}
-        <div style={{ marginBottom: 32 }}>
+        <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
           <span
             style={{
               display: 'inline-block',
-              padding: '8px 20px',
+              padding: '5px 14px',
               border: '1px solid #B0AEA8',
               borderRadius: 999,
-              fontSize: 13,
-              fontWeight: 400,
+              fontSize: 12,
+              fontWeight: 500,
               color: '#101213',
-              letterSpacing: '0.02em',
+              letterSpacing: '0.03em',
             }}
           >
             {label}
@@ -179,49 +191,51 @@ export default async function BlogArticlePage({ params }: PageProps) {
               key={t}
               style={{
                 display: 'inline-block',
-                marginLeft: 8,
-                padding: '8px 20px',
+                padding: '5px 14px',
                 border: '1px solid #B0AEA8',
                 borderRadius: 999,
-                fontSize: 13,
+                fontSize: 12,
                 color: '#787878',
-                letterSpacing: '0.02em',
+                letterSpacing: '0.03em',
               }}
             >
               {t}
             </span>
           ))}
+          {article.publishedAt && (
+            <span style={{ fontSize: 12, color: '#787878', letterSpacing: '0.03em', marginLeft: 4 }}>
+              {formatDate(article.publishedAt)}
+            </span>
+          )}
         </div>
 
         {/* H1 */}
         <h1
           style={{
-            fontSize: 'clamp(2.2rem, 6vw, 5.5rem)',
-            fontWeight: 800,
-            textTransform: 'uppercase',
+            fontSize: 'clamp(1.8rem, 4vw, 3rem)',
+            fontWeight: 700,
             letterSpacing: '-0.02em',
-            lineHeight: 0.98,
-            margin: 0,
+            lineHeight: 1.15,
+            margin: '0 0 16px',
             color: '#101213',
           }}
         >
           {article.title}
         </h1>
 
-        {/* Published date */}
-        {article.publishedAt && (
-          <div
+        {/* Description / lead text */}
+        {article.description && (
+          <p
             style={{
-              marginTop: 28,
-              fontSize: 13,
-              fontWeight: 400,
-              color: '#787878',
-              letterSpacing: '0.04em',
-              textTransform: 'uppercase',
+              fontSize: 17,
+              fontWeight: 300,
+              lineHeight: 1.65,
+              color: '#4B4B4B',
+              margin: 0,
             }}
           >
-            {formatDate(article.publishedAt)}
-          </div>
+            {article.description}
+          </p>
         )}
       </header>
 
@@ -229,7 +243,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
       {(article.heroImage || article.heroImageMobile) && (
         <div
           style={{
-            maxWidth: 1200,
+            maxWidth: 760,
             margin: '0 auto 56px',
             padding: '0 24px',
           }}
