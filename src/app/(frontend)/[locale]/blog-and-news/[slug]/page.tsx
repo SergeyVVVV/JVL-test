@@ -155,7 +155,12 @@ export default async function BlogArticlePage({ params }: PageProps) {
         @media (min-width: 768px) { .jvl-prose { font-size: 22px; } }
 
         .jvl-prose * { background-color: transparent !important; }
-        .jvl-prose p, .jvl-prose li, .jvl-prose span, .jvl-prose div { color: inherit !important; }
+        .jvl-prose p, .jvl-prose li, .jvl-prose span, .jvl-prose div, .jvl-prose a, .jvl-prose td {
+          color: inherit !important;
+          font-size: inherit !important;
+          font-family: inherit !important;
+          line-height: inherit !important;
+        }
 
         .jvl-prose p { margin: 0 0 20px; }
 
@@ -266,8 +271,14 @@ export default async function BlogArticlePage({ params }: PageProps) {
         @media (min-width: 768px) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (min-width: 1024px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
 
-        .related-card { transition: transform 0.2s ease; }
+        .related-card {
+          transition: transform 0.2s ease;
+          display: flex;
+          flex-direction: column;
+          height: 100%;
+        }
         .related-card:hover { transform: translateY(-2px); }
+        .related-card-body { flex: 1; display: flex; flex-direction: column; }
       `}</style>
 
       {/* ══ Section 1: Header ════════════════════════════════ */}
@@ -404,15 +415,16 @@ export default async function BlogArticlePage({ params }: PageProps) {
                 <Link
                   key={r.id}
                   href={`/${locale}/blog-and-news/${r.slug}`}
-                  style={{ display: 'block', textDecoration: 'none', color: '#101213' }}
+                  style={{ display: 'flex', textDecoration: 'none', color: '#101213' }}
                 >
                   <article className="related-card" style={{
                     border: '1px solid #D0CEC6',
                     borderRadius: 8,
                     overflow: 'hidden',
                     background: '#FFFFFF',
+                    width: '100%',
                   }}>
-                    <div style={{ height: 200, background: '#E8E6DF', overflow: 'hidden' }}>
+                    <div style={{ height: 200, background: '#E8E6DF', overflow: 'hidden', flexShrink: 0 }}>
                       {r.heroImage && (
                         <img
                           src={r.heroImage}
@@ -421,7 +433,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
                         />
                       )}
                     </div>
-                    <div style={{ padding: 24 }}>
+                    <div className="related-card-body" style={{ padding: 24 }}>
                       <span style={{
                         display: 'inline-block',
                         fontSize: 13,
@@ -440,15 +452,12 @@ export default async function BlogArticlePage({ params }: PageProps) {
                         lineHeight: 1.3,
                         color: '#101213',
                         margin: '0 0 8px',
-                        display: '-webkit-box',
-                        WebkitLineClamp: 2,
-                        WebkitBoxOrient: 'vertical',
-                        overflow: 'hidden',
+                        flex: 1,
                       }}>
                         {r.title}
                       </h3>
                       {r.publishedAt && (
-                        <p style={{ fontSize: 13, color: '#787878', margin: 0 }}>
+                        <p style={{ fontSize: 13, color: '#787878', margin: '8px 0 0' }}>
                           {formatDate(r.publishedAt)}
                         </p>
                       )}
