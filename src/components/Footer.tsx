@@ -152,7 +152,7 @@ export default function Footer() {
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      style={{ fontSize: 13, fontWeight: 300, color: '#787878', textDecoration: 'none' }}
+                      style={{ fontSize: 15, fontWeight: 300, color: '#787878', textDecoration: 'none' }}
                       onMouseEnter={e => (e.currentTarget.style.color = '#F4F3EC')}
                       onMouseLeave={e => (e.currentTarget.style.color = '#787878')}
                     >
