@@ -147,12 +147,12 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
         /* Prose */
         .jvl-prose {
-          font-size: 18px;
+          font-size: 20px;
           font-weight: 400;
-          line-height: 1.8;
+          line-height: 1.85;
           color: #2A2A2A;
         }
-        @media (min-width: 768px) { .jvl-prose { font-size: 19px; } }
+        @media (min-width: 768px) { .jvl-prose { font-size: 22px; } }
 
         .jvl-prose * { background-color: transparent !important; }
         .jvl-prose p, .jvl-prose li, .jvl-prose span, .jvl-prose div { color: inherit !important; }
@@ -325,44 +325,32 @@ export default async function BlogArticlePage({ params }: PageProps) {
             </p>
           )}
 
-          {/* Meta row: date · read time */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#787878', marginBottom: 32 }}>
-            {article.publishedAt && <span>{formatDate(article.publishedAt)}</span>}
-            {article.publishedAt && <span style={{ color: '#D0CEC6' }}>·</span>}
-            <span>{readTime} min read</span>
-          </div>
-
-          {/* Author placeholder */}
-          <div style={{
-            border: '1px solid #D0CEC6',
-            borderRadius: 8,
-            padding: '20px 24px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 16,
-            marginBottom: 40,
-            maxWidth: 480,
-          }}>
-            <div style={{
-              width: 48,
-              height: 48,
-              borderRadius: '50%',
-              background: '#D0CEC6',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              flexShrink: 0,
-              fontSize: 20,
-            }}>
-              ✍️
-            </div>
-            <div>
-              <div style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#787878', marginBottom: 4 }}>
-                Author
-              </div>
-              <div style={{ fontSize: 15, fontWeight: 600, color: '#101213' }}>JVL Editorial Team</div>
-              <div style={{ fontSize: 13, color: '#787878', marginTop: 2 }}>JVL Content Team</div>
-            </div>
+          {/* Meta row: date · read time · author */}
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px 20px', fontSize: 14, color: '#787878', marginBottom: 40 }}>
+            {article.publishedAt && (
+              <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, opacity: 0.6 }}>
+                  <rect x="1" y="2.5" width="14" height="12" rx="2" stroke="#787878" strokeWidth="1.4"/>
+                  <path d="M1 6h14" stroke="#787878" strokeWidth="1.4"/>
+                  <path d="M5 1v3M11 1v3" stroke="#787878" strokeWidth="1.4" strokeLinecap="round"/>
+                </svg>
+                Updated {formatDate(article.publishedAt)}
+              </span>
+            )}
+            <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, opacity: 0.6 }}>
+                <circle cx="8" cy="8" r="6.5" stroke="#787878" strokeWidth="1.4"/>
+                <path d="M8 4.5V8l2.5 2" stroke="#787878" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+              {readTime} min read
+            </span>
+            <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, opacity: 0.6 }}>
+                <circle cx="8" cy="5" r="3" stroke="#787878" strokeWidth="1.4"/>
+                <path d="M2 14c0-3.314 2.686-5 6-5s6 1.686 6 5" stroke="#787878" strokeWidth="1.4" strokeLinecap="round"/>
+              </svg>
+              JVL Editorial Team
+            </span>
           </div>
 
         </div>
