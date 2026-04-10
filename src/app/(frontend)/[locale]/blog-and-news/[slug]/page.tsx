@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getNewsArticleBySlug, getRelatedNews } from '@/lib/db'
+import ArticleTOC from './ArticleTOC'
 
 export const dynamic = 'force-dynamic'
 
@@ -8,12 +9,69 @@ interface PageProps {
   params: Promise<{ locale: string; slug: string }>
 }
 
+interface TOCItem {
+  id: string
+  text: string
+  level: number
+}
+
+/* ── Helpers ───────────────────────────────────────────────── */
+
 function formatDate(iso: string | null): string {
   if (!iso) return ''
   const d = new Date(iso)
   if (Number.isNaN(d.getTime())) return ''
   return d.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })
 }
+
+function calculateReadTime(html: string): number {
+  const text = html.replace(/<[^>]*>/g, ' ')
+  const words = text.trim().split(/\s+/).filter(Boolean).length
+  return Math.max(1, Math.ceil(words / 200))
+}
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/<[^>]*>/g, '')
+    .replace(/[^a-z0-9\s-]/g, '')
+    .trim()
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+}
+
+function extractTOC(html: string): TOCItem[] {
+  const toc: TOCItem[] = []
+  const seen = new Map<string, number>()
+  const regex = /<h([23])[^>]*>([\s\S]*?)<\/h[23]>/gi
+  let match
+  while ((match = regex.exec(html)) !== null) {
+    const level = parseInt(match[1])
+    const text = match[2].replace(/<[^>]*>/g, '').trim()
+    if (!text) continue
+    let id = slugify(text)
+    const count = seen.get(id) ?? 0
+    seen.set(id, count + 1)
+    if (count > 0) id = `${id}-${count}`
+    toc.push({ id, text, level })
+  }
+  return toc
+}
+
+function injectHeadingIds(html: string | null): string | null {
+  if (!html) return null
+  const seen = new Map<string, number>()
+  return html.replace(/<h([23])([^>]*?)>([\s\S]*?)<\/h\1>/gi, (_, level, attrs, inner) => {
+    const text = inner.replace(/<[^>]*>/g, '').trim()
+    let id = slugify(text)
+    const count = seen.get(id) ?? 0
+    seen.set(id, count + 1)
+    if (count > 0) id = `${id}-${count}`
+    return `<h${level}${attrs} id="${id}">${inner}</h${level}>`
+  })
+}
+
+/* ── Metadata ──────────────────────────────────────────────── */
 
 export async function generateMetadata({ params }: PageProps) {
   const { locale, slug } = await params
@@ -25,6 +83,8 @@ export async function generateMetadata({ params }: PageProps) {
   }
 }
 
+/* ── Page ──────────────────────────────────────────────────── */
+
 export default async function BlogArticlePage({ params }: PageProps) {
   const { locale, slug } = await params
   const article = await getNewsArticleBySlug(slug, locale)
@@ -32,363 +92,398 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
   const related = await getRelatedNews(article.id, article.type, locale, 3)
   const label = article.type === 1 ? 'Blog' : 'News'
-  // Tags without the type label (to avoid duplication)
   const displayTags = article.tags.filter(t => t.toLowerCase() !== label.toLowerCase())
-  // Category for breadcrumb: first tag if any, else label
   const category = displayTags[0] ?? label
 
+  const combinedHtml = (article.content1 ?? '') + (article.content2 ?? '')
+  const readTime = calculateReadTime(combinedHtml)
+  const toc = extractTOC(combinedHtml)
+  const content1 = injectHeadingIds(article.content1)
+  const content2 = injectHeadingIds(article.content2)
+
   return (
-    <article
-      style={{
-        background: '#F4F3EC',
-        color: '#101213',
-        fontFamily: 'var(--font-poppins), system-ui, sans-serif',
-        minHeight: '100vh',
-        paddingBottom: 80,
-      }}
-    >
-      {/* Scoped prose styles for HTML content incl. tables */}
+    <article style={{
+      background: '#F4F3EC',
+      color: '#101213',
+      fontFamily: 'var(--font-poppins), system-ui, sans-serif',
+      minHeight: '100vh',
+    }}>
+
+      {/* ── Scoped styles ─────────────────────────────────── */}
       <style>{`
-        .jvl-prose {
-          font-size: 19px;
+        /* Container */
+        .blog-container {
+          max-width: 1200px;
+          margin: 0 auto;
+          padding-inline: 16px;
+        }
+        @media (min-width: 768px) {
+          .blog-container { padding-inline: 24px; }
+        }
+
+        /* Section 1 spacing */
+        .blog-header {
+          padding-top: 48px;
+          padding-bottom: 32px;
+        }
+        @media (min-width: 768px) {
+          .blog-header { padding-top: 64px; padding-bottom: 40px; }
+        }
+
+        /* H1 */
+        .blog-h1 {
+          font-size: 36px;
+          font-weight: 700;
+          line-height: 1.1;
+          letter-spacing: -0.02em;
+          text-transform: uppercase;
+          color: #101213;
+          margin: 0 0 24px;
+        }
+        @media (min-width: 768px) { .blog-h1 { font-size: 48px; } }
+        @media (min-width: 1024px) { .blog-h1 { font-size: 56px; } }
+
+        /* Lead */
+        .blog-lead {
+          font-size: 18px;
           font-weight: 300;
-          line-height: 1.75;
+          line-height: 1.6;
+          color: #4B4B4B;
+          margin: 0 0 24px;
+        }
+        @media (min-width: 768px) { .blog-lead { font-size: 20px; } }
+
+        /* Two-column body */
+        .blog-body {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 32px;
+          padding-top: 40px;
+          padding-bottom: 80px;
+        }
+        @media (min-width: 768px) { .blog-body { padding-top: 48px; gap: 48px; } }
+        @media (min-width: 1280px) {
+          .blog-body { grid-template-columns: 1fr 300px; }
+        }
+
+        /* TOC: hidden below xl */
+        .blog-toc { display: none; }
+        @media (min-width: 1280px) { .blog-toc { display: block; } }
+
+        /* Prose */
+        .jvl-prose {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.8;
           color: #2A2A2A;
-          letter-spacing: 0.005em;
         }
-        /* Strip Summernote inline background/color styles */
-        .jvl-prose * {
-          background-color: transparent !important;
-        }
+        @media (min-width: 768px) { .jvl-prose { font-size: 17px; } }
+
+        .jvl-prose * { background-color: transparent !important; }
         .jvl-prose p,
         .jvl-prose li,
         .jvl-prose span,
-        .jvl-prose div {
-          color: inherit !important;
-        }
-        /* Force list text to be dark regardless of Summernote inline styles */
-        .jvl-prose ul,
-        .jvl-prose ol { color: #2A2A2A !important; }
-        .jvl-prose li,
-        .jvl-prose li * { color: #2A2A2A !important; }
-        .jvl-prose > * + * { margin-top: 1.1em; }
-        .jvl-prose p { margin: 0 0 1.1em; }
-        .jvl-prose a { color: #059FFF; text-decoration: underline; text-underline-offset: 3px; }
-        .jvl-prose a:hover { color: #FB671F; }
+        .jvl-prose div { color: inherit !important; }
+
+        .jvl-prose p { margin: 0 0 20px; }
+        .jvl-prose > * + * { margin-top: 0; }
+
         .jvl-prose h2 {
-          font-size: clamp(1.5rem, 2.6vw, 2rem);
+          font-size: 24px;
           font-weight: 700;
-          text-transform: uppercase;
-          letter-spacing: -0.01em;
           color: #101213 !important;
-          margin: 2em 0 0.6em;
+          margin: 48px 0 20px;
           line-height: 1.2;
+          scroll-margin-top: 80px;
         }
+        @media (min-width: 768px) { .jvl-prose h2 { font-size: 28px; } }
+
         .jvl-prose h3 {
-          font-size: clamp(1.2rem, 2vw, 1.5rem);
+          font-size: 20px;
           font-weight: 600;
           color: #101213 !important;
-          margin: 1.6em 0 0.5em;
+          margin: 32px 0 16px;
           line-height: 1.3;
+          scroll-margin-top: 80px;
         }
-        .jvl-prose h4 { font-size: 1.1rem; font-weight: 600; color: #101213 !important; margin: 1.4em 0 0.4em; }
-        .jvl-prose ul, .jvl-prose ol { margin: 0 0 1.1em 1.4em; padding: 0; }
-        .jvl-prose li { margin: 0 0 0.45em; }
+
+        .jvl-prose h4 {
+          font-size: 17px;
+          font-weight: 600;
+          color: #101213 !important;
+          margin: 24px 0 12px;
+        }
+
+        .jvl-prose a { color: #059FFF; text-decoration: underline; text-underline-offset: 3px; }
+        .jvl-prose a:hover { color: #FB671F; }
+
+        .jvl-prose ul,
+        .jvl-prose ol {
+          font-size: 16px;
+          line-height: 1.7;
+          padding-left: 24px;
+          margin: 0 0 20px;
+          color: #2A2A2A !important;
+        }
+        @media (min-width: 768px) { .jvl-prose ul, .jvl-prose ol { font-size: 17px; } }
+        .jvl-prose li { margin-bottom: 8px; color: #2A2A2A !important; }
+        .jvl-prose li * { color: #2A2A2A !important; }
+
         .jvl-prose blockquote {
-          border-left: 3px solid #FB671F;
-          padding: 0.2em 0 0.2em 1.2em;
-          margin: 1.4em 0;
+          border-left: 4px solid #FB671F;
+          padding: 20px 24px;
+          margin: 24px 0;
           font-style: italic;
-          color: #787878 !important;
-          font-size: 1.05em;
+          line-height: 1.7;
+          color: #4B4B4B !important;
         }
+
         .jvl-prose img {
           max-width: 100%;
           height: auto;
-          border-radius: 6px;
-          margin: 1.6em 0;
+          border-radius: 8px;
+          margin: 32px 0;
           display: block;
         }
-        .jvl-prose hr { border: 0; border-top: 1px solid #D0CEC6; margin: 2.2em 0; }
-        .jvl-prose code {
-          background: #E8E6DF !important;
-          padding: 0.15em 0.4em;
-          border-radius: 3px;
-          font-size: 0.9em;
-          color: #101213 !important;
+
+        .jvl-prose hr {
+          border: 0;
+          border-top: 1px solid #D0CEC6;
+          margin: 40px 0;
         }
-        .jvl-prose pre {
-          background: #E8E6DF !important;
-          padding: 1em 1.2em;
-          border-radius: 6px;
-          overflow-x: auto;
-          margin: 1.4em 0;
-        }
-        .jvl-prose pre code { background: transparent !important; padding: 0; }
+
+        .jvl-prose strong, .jvl-prose b { color: #101213 !important; font-weight: 600; }
 
         /* Tables */
         .jvl-prose table {
           width: 100%;
           border-collapse: collapse;
-          margin: 1.8em 0;
           font-size: 15px;
-          display: block;
-          overflow-x: auto;
-        }
-        .jvl-prose table thead {
-          background: #E8E6DF !important;
+          border: 1px solid #D0CEC6;
+          border-radius: 8px;
+          overflow: hidden;
+          margin: 32px 0;
+          display: table;
         }
         .jvl-prose table th {
           text-align: left;
-          font-weight: 700;
+          font-weight: 600;
+          font-size: 13px;
           text-transform: uppercase;
-          font-size: 11px;
-          letter-spacing: 0.08em;
+          letter-spacing: 0.05em;
           color: #FB671F !important;
-          padding: 14px 16px;
+          padding: 12px 16px;
+          background: #EAE8E0 !important;
           border-bottom: 1px solid #D0CEC6;
         }
         .jvl-prose table td {
-          padding: 14px 16px;
-          border-bottom: 1px solid #D0CEC6;
+          padding: 12px 16px;
+          border-bottom: 1px solid #E8E6DF;
           color: #2A2A2A !important;
           vertical-align: top;
         }
         .jvl-prose table tr:last-child td { border-bottom: none; }
-        .jvl-prose table tbody tr:hover { background: rgba(0,0,0,0.03) !important; }
-        .jvl-prose strong, .jvl-prose b { color: #101213 !important; font-weight: 600; }
+        .jvl-prose table tbody tr:hover { background: rgba(0,0,0,0.02) !important; }
+
+        /* Code */
+        .jvl-prose code {
+          background: #E8E6DF !important;
+          padding: 2px 6px;
+          border-radius: 4px;
+          font-size: 0.9em;
+          color: #101213 !important;
+        }
+        .jvl-prose pre {
+          background: #E8E6DF !important;
+          padding: 16px 20px;
+          border-radius: 8px;
+          overflow-x: auto;
+          margin: 24px 0;
+        }
+        .jvl-prose pre code { background: transparent !important; padding: 0; }
+
+        /* Related grid */
+        .related-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 24px;
+        }
+        @media (min-width: 768px) { .related-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (min-width: 1024px) { .related-grid { grid-template-columns: repeat(3, 1fr); } }
+
+        /* Related card hover */
+        .related-card { transition: transform 0.2s ease; }
+        .related-card:hover { transform: translateY(-2px); }
       `}</style>
 
-      {/* HEADER */}
-      <header
-        style={{
-          maxWidth: 760,
-          margin: '0 auto',
-          padding: '4px 24px 40px',
-        }}
-      >
-        {/* Breadcrumb */}
-        <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
-          <Link
-            href={`/${locale}/blog-and-news`}
-            style={{ fontSize: 13, color: '#787878', textDecoration: 'none', letterSpacing: '0.02em' }}
-          >
-            Blog
-          </Link>
-          <span style={{ fontSize: 13, color: '#B0AEA8' }}>/</span>
-          <span style={{ fontSize: 13, color: '#B0AEA8', letterSpacing: '0.02em' }}>{category}</span>
-        </div>
+      {/* ── Section 1: Header ─────────────────────────────── */}
+      <div className="blog-container">
+        <div className="blog-header">
 
-        {/* Tag pill */}
-        <div style={{ marginBottom: 20, display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
-          <span
-            style={{
-              display: 'inline-block',
-              padding: '5px 14px',
-              border: '1px solid #B0AEA8',
-              borderRadius: 999,
-              fontSize: 12,
-              fontWeight: 500,
-              color: '#101213',
-              letterSpacing: '0.03em',
-            }}
-          >
-            {label}
-          </span>
-          {displayTags.map((t) => (
-            <span
-              key={t}
-              style={{
-                display: 'inline-block',
-                padding: '5px 14px',
-                border: '1px solid #B0AEA8',
-                borderRadius: 999,
-                fontSize: 12,
-                color: '#787878',
-                letterSpacing: '0.03em',
-              }}
-            >
-              {t}
-            </span>
-          ))}
-          {article.publishedAt && (
-            <span style={{ fontSize: 12, color: '#787878', letterSpacing: '0.03em', marginLeft: 4 }}>
-              {formatDate(article.publishedAt)}
-            </span>
-          )}
-        </div>
-
-        {/* H1 */}
-        <h1
-          style={{
-            fontSize: 'clamp(1.8rem, 4vw, 3rem)',
-            fontWeight: 700,
-            textTransform: 'uppercase',
-            letterSpacing: '-0.02em',
-            lineHeight: 1.15,
-            margin: '0 0 16px',
-            color: '#101213',
-          }}
-        >
-          {article.title}
-        </h1>
-
-        {/* Description / lead text */}
-        {article.description && (
-          <p
-            style={{
-              fontSize: 17,
-              fontWeight: 300,
-              lineHeight: 1.65,
-              color: '#4B4B4B',
-              margin: 0,
-            }}
-          >
-            {article.description}
-          </p>
-        )}
-      </header>
-
-      {/* HERO IMAGE */}
-      {(article.heroImage || article.heroImageMobile) && (
-        <div
-          style={{
-            maxWidth: 760,
-            margin: '0 auto 56px',
-            padding: '0 24px',
-          }}
-        >
-          <div style={{ borderRadius: 8, overflow: 'hidden' }}>
-            <picture>
-              {article.heroImageMobile && (
-                <source media="(max-width: 640px)" srcSet={article.heroImageMobile} />
-              )}
-              <img
-                src={article.heroImage ?? article.heroImageMobile ?? ''}
-                alt={article.title ?? ''}
-                style={{ width: '100%', display: 'block', objectFit: 'cover' }}
-              />
-            </picture>
+          {/* Breadcrumb */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
+            <Link href={`/${locale}/blog-and-news`} style={{ fontSize: 14, color: '#787878', textDecoration: 'none' }}>
+              Blog
+            </Link>
+            <span style={{ fontSize: 14, color: '#B0AEA8' }}>/</span>
+            <span style={{ fontSize: 14, color: '#B0AEA8' }}>{category}</span>
           </div>
-        </div>
-      )}
 
-      {/* CONTENT */}
-      <div
-        style={{
-          maxWidth: 760,
-          margin: '0 auto',
-          padding: '0 24px',
-        }}
-      >
-        <div className="jvl-prose">
-          {article.content1 && <div dangerouslySetInnerHTML={{ __html: article.content1 }} />}
-          {article.content2 && <div dangerouslySetInnerHTML={{ __html: article.content2 }} />}
+          {/* Category badge */}
+          <div style={{ marginBottom: 16 }}>
+            <span style={{
+              display: 'inline-block',
+              fontSize: 14,
+              fontWeight: 500,
+              padding: '6px 12px',
+              border: '1px solid #D0CEC6',
+              borderRadius: 6,
+              color: '#101213',
+              letterSpacing: '0.02em',
+            }}>
+              {label}
+            </span>
+          </div>
+
+          {/* H1 */}
+          <h1 className="blog-h1">{article.title}</h1>
+
+          {/* Lead / excerpt */}
+          {article.description && (
+            <p className="blog-lead">{article.description}</p>
+          )}
+
+          {/* Meta row: date · read time */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 8,
+            fontSize: 13,
+            color: '#787878',
+            marginBottom: 32,
+          }}>
+            {article.publishedAt && (
+              <span>{formatDate(article.publishedAt)}</span>
+            )}
+            {article.publishedAt && (
+              <span style={{ color: '#D0CEC6' }}>·</span>
+            )}
+            <span>{readTime} min read</span>
+          </div>
+
+          {/* Hero image */}
+          {(article.heroImage || article.heroImageMobile) && (
+            <div style={{ borderRadius: 12, overflow: 'hidden', marginBottom: 0 }}>
+              <picture>
+                {article.heroImageMobile && (
+                  <source media="(max-width: 640px)" srcSet={article.heroImageMobile} />
+                )}
+                <img
+                  src={article.heroImage ?? article.heroImageMobile ?? ''}
+                  alt={article.title ?? ''}
+                  style={{ width: '100%', display: 'block', objectFit: 'cover' }}
+                />
+              </picture>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* RELATED */}
-      {related.length > 0 && (
-        <section
-          style={{
-            maxWidth: 1200,
-            margin: '96px auto 0',
-            padding: '0 24px',
-            borderTop: '1px solid #D0CEC6',
-            paddingTop: 64,
-          }}
-        >
-          <div
-            style={{
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: '0.15em',
-              textTransform: 'uppercase',
-              color: '#FB671F',
-              marginBottom: 12,
-            }}
-          >
-            More from JVL
-          </div>
-          <h2
-            style={{
-              fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: '-0.01em',
-              color: '#101213',
-              margin: '0 0 40px',
-            }}
-          >
-            Related news
-          </h2>
+      {/* ── Section 2: Two-column body ────────────────────── */}
+      <div className="blog-container">
+        <div className="blog-body">
 
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-              gap: 28,
-            }}
-          >
-            {related.map((r) => (
-              <Link
-                key={r.id}
-                href={`/${locale}/blog-and-news/${r.slug}`}
-                style={{
-                  display: 'block',
+          {/* Left column: content */}
+          <div>
+            <div className="jvl-prose">
+              {content1 && <div dangerouslySetInnerHTML={{ __html: content1 }} />}
+              {content2 && <div dangerouslySetInnerHTML={{ __html: content2 }} />}
+            </div>
+
+            {/* Related articles */}
+            {related.length > 0 && (
+              <section style={{
+                marginTop: 48,
+                paddingTop: 48,
+                borderTop: '1px solid #D0CEC6',
+              }}>
+                <h2 style={{
+                  fontSize: 24,
+                  fontWeight: 700,
                   color: '#101213',
-                  textDecoration: 'none',
-                }}
-              >
-                <div
-                  style={{
-                    aspectRatio: '16 / 10',
-                    borderRadius: 6,
-                    overflow: 'hidden',
-                    background: '#D0CEC6',
-                    marginBottom: 14,
-                  }}
-                >
-                  {r.heroImage && (
-                    <img
-                      src={r.heroImage}
-                      alt={r.title ?? ''}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                    />
-                  )}
+                  margin: '0 0 32px',
+                }}>
+                  Related Articles
+                </h2>
+                <div className="related-grid">
+                  {related.map((r) => (
+                    <Link
+                      key={r.id}
+                      href={`/${locale}/blog-and-news/${r.slug}`}
+                      style={{ display: 'block', textDecoration: 'none', color: '#101213' }}
+                    >
+                      <article className="related-card" style={{
+                        border: '1px solid #D0CEC6',
+                        borderRadius: 8,
+                        overflow: 'hidden',
+                        background: '#FFFFFF',
+                      }}>
+                        <div style={{ height: 200, background: '#E8E6DF', overflow: 'hidden' }}>
+                          {r.heroImage && (
+                            <img
+                              src={r.heroImage}
+                              alt={r.title ?? ''}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            />
+                          )}
+                        </div>
+                        <div style={{ padding: 24 }}>
+                          <div style={{
+                            fontSize: 13,
+                            fontWeight: 500,
+                            padding: '6px 12px',
+                            border: '1px solid #D0CEC6',
+                            borderRadius: 6,
+                            display: 'inline-block',
+                            marginBottom: 12,
+                            color: '#787878',
+                          }}>
+                            {r.type === 1 ? 'Blog' : 'News'}
+                          </div>
+                          <h3 style={{
+                            fontSize: 20,
+                            fontWeight: 600,
+                            lineHeight: 1.3,
+                            color: '#101213',
+                            margin: '0 0 8px',
+                            display: '-webkit-box',
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                          }}>
+                            {r.title}
+                          </h3>
+                          {r.publishedAt && (
+                            <p style={{ fontSize: 13, color: '#787878', margin: 0 }}>
+                              {formatDate(r.publishedAt)}
+                            </p>
+                          )}
+                        </div>
+                      </article>
+                    </Link>
+                  ))}
                 </div>
-                {r.publishedAt && (
-                  <div
-                    style={{
-                      fontSize: 11,
-                      color: '#787878',
-                      letterSpacing: '0.04em',
-                      textTransform: 'uppercase',
-                      marginBottom: 6,
-                    }}
-                  >
-                    {formatDate(r.publishedAt)}
-                  </div>
-                )}
-                <div
-                  style={{
-                    fontSize: 17,
-                    fontWeight: 500,
-                    lineHeight: 1.3,
-                    color: '#101213',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                  }}
-                >
-                  {r.title}
-                </div>
-              </Link>
-            ))}
+              </section>
+            )}
           </div>
-        </section>
-      )}
+
+          {/* Right column: TOC */}
+          <div className="blog-toc">
+            <ArticleTOC items={toc} />
+          </div>
+
+        </div>
+      </div>
     </article>
   )
 }
