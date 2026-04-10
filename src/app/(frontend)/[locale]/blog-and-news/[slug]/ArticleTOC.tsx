@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback, useRef } from 'react'
 
 interface TOCItem {
   id: string
@@ -12,6 +12,8 @@ const HEADER_OFFSET = 100 // fixed header height + some buffer
 
 export default function ArticleTOC({ items }: { items: TOCItem[] }) {
   const [activeId, setActiveId] = useState<string>('')
+  const isScrollingRef = useRef(false)
+  const scrollTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const getActiveId = useCallback(() => {
     if (!items.length) return ''
@@ -37,7 +39,11 @@ export default function ArticleTOC({ items }: { items: TOCItem[] }) {
     // Small delay to let the page settle after render
     const timer = setTimeout(init, 100)
 
-    const onScroll = () => setActiveId(getActiveId())
+    const onScroll = () => {
+      // Ignore scroll events fired during programmatic smooth scroll
+      if (isScrollingRef.current) return
+      setActiveId(getActiveId())
+    }
     window.addEventListener('scroll', onScroll, { passive: true })
 
     return () => {
@@ -50,10 +56,19 @@ export default function ArticleTOC({ items }: { items: TOCItem[] }) {
     e.preventDefault()
     const el = document.getElementById(id)
     if (!el) return
-    // Immediately mark as active on click
+
+    // Mark active immediately and suppress scroll listener during animation
     setActiveId(id)
+    isScrollingRef.current = true
+    if (scrollTimerRef.current) clearTimeout(scrollTimerRef.current)
+
     const top = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET + 2
     window.scrollTo({ top, behavior: 'smooth' })
+
+    // Re-enable scroll listener after smooth scroll finishes (~700ms typical)
+    scrollTimerRef.current = setTimeout(() => {
+      isScrollingRef.current = false
+    }, 800)
   }
 
   if (!items.length) return null
