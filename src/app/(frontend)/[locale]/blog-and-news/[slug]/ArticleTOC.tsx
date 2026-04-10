@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 
 interface TOCItem {
   id: string
@@ -8,27 +8,53 @@ interface TOCItem {
   level: number
 }
 
+const HEADER_OFFSET = 100 // fixed header height + some buffer
+
 export default function ArticleTOC({ items }: { items: TOCItem[] }) {
   const [activeId, setActiveId] = useState<string>('')
 
+  const getActiveId = useCallback(() => {
+    if (!items.length) return ''
+    const headings = items
+      .map(({ id }) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null)
+
+    // Find the last heading whose top is at or above the offset line
+    let active = headings[0]
+    for (const heading of headings) {
+      if (heading.getBoundingClientRect().top <= HEADER_OFFSET + 10) {
+        active = heading
+      }
+    }
+    return active?.id ?? ''
+  }, [items])
+
   useEffect(() => {
     if (!items.length) return
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id)
-          }
-        }
-      },
-      { rootMargin: '-20% 0% -60% 0%', threshold: 0 }
-    )
-    items.forEach(({ id }) => {
-      const el = document.getElementById(id)
-      if (el) observer.observe(el)
-    })
-    return () => observer.disconnect()
-  }, [items])
+
+    // Set initial active heading on mount
+    const init = () => setActiveId(getActiveId())
+    // Small delay to let the page settle after render
+    const timer = setTimeout(init, 100)
+
+    const onScroll = () => setActiveId(getActiveId())
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    return () => {
+      clearTimeout(timer)
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [items, getActiveId])
+
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault()
+    const el = document.getElementById(id)
+    if (!el) return
+    // Immediately mark as active on click
+    setActiveId(id)
+    const top = el.getBoundingClientRect().top + window.scrollY - HEADER_OFFSET + 2
+    window.scrollTo({ top, behavior: 'smooth' })
+  }
 
   if (!items.length) return null
 
@@ -53,40 +79,45 @@ export default function ArticleTOC({ items }: { items: TOCItem[] }) {
           Contents
         </p>
         <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-          {items.map((item, i) => (
-            <li key={item.id} style={{ margin: '2px 0' }}>
-              <a
-                href={`#${item.id}`}
-                style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: 8,
-                  padding: '7px 10px',
-                  fontSize: 14,
-                  fontWeight: activeId === item.id ? 600 : 400,
-                  color: activeId === item.id ? '#FB671F' : '#4B4B4B',
-                  textDecoration: 'none',
-                  borderRadius: 4,
-                  background: activeId === item.id ? 'rgba(251,103,31,0.07)' : 'transparent',
-                  paddingLeft: item.level === 3 ? 22 : 10,
-                  lineHeight: 1.4,
-                  transition: 'color 0.15s, background 0.15s',
-                }}
-              >
-                <span style={{
-                  fontSize: 12,
-                  color: '#B0AEA8',
-                  flexShrink: 0,
-                  width: 16,
-                  fontVariantNumeric: 'tabular-nums',
-                  paddingTop: 1,
-                }}>
-                  {i + 1}
-                </span>
-                {item.text}
-              </a>
-            </li>
-          ))}
+          {items.map((item, i) => {
+            const isActive = activeId === item.id
+            return (
+              <li key={item.id} style={{ margin: '2px 0' }}>
+                <a
+                  href={`#${item.id}`}
+                  onClick={(e) => handleClick(e, item.id)}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: 8,
+                    padding: '7px 10px',
+                    paddingLeft: item.level === 3 ? 22 : 10,
+                    fontSize: 14,
+                    fontWeight: isActive ? 600 : 400,
+                    color: isActive ? '#FB671F' : '#4B4B4B',
+                    textDecoration: 'none',
+                    borderRadius: 4,
+                    background: isActive ? 'rgba(251,103,31,0.07)' : 'transparent',
+                    lineHeight: 1.4,
+                    transition: 'color 0.15s, background 0.15s',
+                  }}
+                >
+                  <span style={{
+                    fontSize: 12,
+                    color: isActive ? '#FB671F' : '#B0AEA8',
+                    flexShrink: 0,
+                    width: 16,
+                    fontVariantNumeric: 'tabular-nums',
+                    paddingTop: 1,
+                    transition: 'color 0.15s',
+                  }}>
+                    {i + 1}
+                  </span>
+                  {item.text}
+                </a>
+              </li>
+            )
+          })}
         </ul>
       </div>
     </aside>
