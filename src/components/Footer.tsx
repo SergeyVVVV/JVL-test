@@ -72,20 +72,49 @@ const socials = [
 export default function Footer() {
   return (
     <footer style={{ background: '#101213', borderTop: '1px solid #2a2a2a', paddingTop: 64, paddingBottom: 40 }}>
+      <style>{`
+        .footer-grid {
+          display: grid;
+          grid-template-columns: 1.5fr 1fr 1fr 1fr;
+          gap: 48px;
+          margin-bottom: 56px;
+        }
+        .footer-bottom {
+          border-top: 1px solid #2a2a2a;
+          padding-top: 28px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+        @media (max-width: 767px) {
+          .footer-grid {
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 40px;
+          }
+          .footer-brand {
+            grid-column: 1 / -1;
+          }
+          .footer-bottom {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 16px;
+          }
+        }
+      `}</style>
+
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 5vw' }}>
 
         {/* Top grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.5fr 1fr 1fr 1fr', gap: 48, marginBottom: 56 }}>
+        <div className="footer-grid">
 
           {/* Brand column */}
-          <div>
+          <div className="footer-brand">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 28, width: 'auto', marginBottom: 20 }} />
-            <p style={{ fontSize: 13, fontWeight: 300, color: '#787878', lineHeight: 1.75, marginBottom: 28 }}>
+            <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 28, width: 'auto', marginBottom: 16 }} />
+            <p style={{ fontSize: 13, fontWeight: 300, color: '#787878', lineHeight: 1.75, marginBottom: 20, maxWidth: 320 }}>
               A lifetime in gaming. Premium arcade and digital gaming solutions for home and business since 1983.
             </p>
-
-            {/* Social icons */}
             <div style={{ display: 'flex', gap: 14 }}>
               {socials.map((s) => (
                 <a
@@ -109,11 +138,11 @@ export default function Footer() {
             <div key={category}>
               <h4 style={{
                 fontSize: 11, fontWeight: 700, letterSpacing: '0.15em',
-                textTransform: 'uppercase', color: '#F4F3EC', marginBottom: 20,
+                textTransform: 'uppercase', color: '#F4F3EC', marginBottom: 16,
               }}>
                 {category}
               </h4>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {links.map((link) => (
                   <li key={link.label}>
                     <Link
@@ -132,7 +161,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div style={{ borderTop: '1px solid #2a2a2a', paddingTop: 28, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+        <div className="footer-bottom">
           <p style={{ fontSize: 12, fontWeight: 300, color: '#787878', margin: 0 }}>
             Copyright © {new Date().getFullYear()} JVL Labs Inc. and its licensors. All rights reserved.
           </p>

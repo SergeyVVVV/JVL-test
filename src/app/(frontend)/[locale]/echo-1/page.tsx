@@ -648,20 +648,13 @@ function UseCasesSection() {
       </div>
 
       {/* Text */}
-      <div style={{
+      <div className="echo-uc-text-wrap" style={{
         position: 'absolute', bottom: 0, left: 0, right: 0,
         padding: '50px 5vw 70px',
         opacity: fading ? 0 : 1,
         transition: 'opacity 0.28s ease',
       }}>
-        <p style={{
-          maxWidth: 600,
-          fontSize: 24,
-          fontWeight: 400,
-          lineHeight: 1.15,
-          color: '#F4F3EC',
-          margin: 0,
-        }}>
+        <p className="echo-uc-desc" style={{ maxWidth: 600, margin: 0 }}>
           {item.text}
         </p>
       </div>
@@ -1773,8 +1766,24 @@ export default function EchoPage1() {
 
         /* ── Games categories horizontal on mobile ── */
         @media (max-width: 767px) {
-          .echo-cat-vert { display: flex; flex-wrap: wrap; }
-          .echo-cat-btn { width: 50%; }
+          .echo-cat-vert { display: flex !important; flex-wrap: wrap; }
+          .echo-cat-btn { width: 50% !important; padding: 12px 8px !important; }
+          .echo-cat-btn span:last-child { font-size: 14px !important; }
+        }
+
+        /* ── Use Cases ── */
+        .echo-uc-desc { font-size: 24px; font-weight: 400; line-height: 1.15; color: #F4F3EC; margin: 0; }
+        @media (max-width: 767px) {
+          .echo-uc-desc { font-size: 16px !important; line-height: 1.4 !important; }
+          .echo-uc-text-wrap { padding: 24px 5vw 48px !important; }
+          .echo-uc-tabs { display: flex !important; overflow-x: auto; scrollbar-width: none; }
+          .echo-uc-tabs button { white-space: nowrap; flex-shrink: 0; }
+        }
+
+        /* ── Specs / Support section Amazon button fix ── */
+        @media (max-width: 767px) {
+          .echo-specs-hdr > a,
+          .echo-sup-hdr > a { justify-self: start; width: auto !important; }
         }
       `}</style>
       <Hero data={data.hero} />
