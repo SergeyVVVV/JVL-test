@@ -30,7 +30,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
   const article = await getNewsArticleBySlug(slug, locale)
   if (!article) notFound()
 
-  const related = await getRelatedNews(article.id, article.type, locale, 6)
+  const related = await getRelatedNews(article.id, article.type, locale, 3)
   const label = article.type === 1 ? 'Blog' : 'News'
   // Tags without the type label (to avoid duplication)
   const displayTags = article.tags.filter(t => t.toLowerCase() !== label.toLowerCase())
@@ -50,7 +50,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
       {/* Scoped prose styles for HTML content incl. tables */}
       <style>{`
         .jvl-prose {
-          font-size: 17px;
+          font-size: 19px;
           font-weight: 300;
           line-height: 1.75;
           color: #2A2A2A;
@@ -66,6 +66,11 @@ export default async function BlogArticlePage({ params }: PageProps) {
         .jvl-prose div {
           color: inherit !important;
         }
+        /* Force list text to be dark regardless of Summernote inline styles */
+        .jvl-prose ul,
+        .jvl-prose ol { color: #2A2A2A !important; }
+        .jvl-prose li,
+        .jvl-prose li * { color: #2A2A2A !important; }
         .jvl-prose > * + * { margin-top: 1.1em; }
         .jvl-prose p { margin: 0 0 1.1em; }
         .jvl-prose a { color: #059FFF; text-decoration: underline; text-underline-offset: 3px; }
