@@ -47,7 +47,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
   }, [])
 
   return (
-    <section style={{ position: 'relative', width: '100%', height: 'calc(100svh - 124px)', minHeight: 520, background: '#080a0b', overflow: 'hidden' }}>
+    <section className="echo-hero" style={{ position: 'relative', width: '100%', background: '#080a0b', overflow: 'hidden' }}>
       {/* Poster */}
       {data.desktopPoster && (
         <img src={data.desktopPoster} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -289,6 +289,7 @@ function LegacySection() {
               <button
                 key={t.year}
                 onClick={() => setActive(i)}
+                className="echo-timeline-btn"
                 style={{
                   flex: '0 0 calc(100% / 11)',
                   minWidth: 80,
@@ -450,7 +451,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
   const active = TABS[tab]
 
   return (
-    <section style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
+    <section className="echo-product-section" style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
         {/* Heading */}
         <h2 style={{
@@ -525,23 +526,25 @@ function ProductSection({ data }: { data: PageData['product'] }) {
               ))}
             </div>
 
-            {/* Price */}
-            <div style={{ fontSize: 36, fontWeight: 600, color: '#101213', margin: '24px 0' }}>
-              {active.price}
-            </div>
-
-            {/* CTAs */}
-            <div style={{ display: 'flex', gap: 32, alignItems: 'center', flexWrap: 'wrap' }}>
+            {/* Price + Amazon CTA in one row */}
+            <div className="echo-price-cta">
+              <div className="echo-price-val" style={{ fontSize: 36, fontWeight: 600, color: '#101213', flexShrink: 0 }}>
+                {active.price}
+              </div>
               <a
                 href={active.amazonUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-amazon"
-                style={{ padding: '14px 28px', textTransform: 'uppercase' }}
+                style={{ padding: '14px 28px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}
               >
                 Buy on Amazon
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </a>
+            </div>
+
+            {/* Secondary CTA */}
+            <div>
               <a
                 href="/en/contact-us"
                 style={{ fontSize: 14, color: '#101213', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6, fontWeight: 500, transition: 'color 0.2s' }}
@@ -677,7 +680,7 @@ const DESIGN_CARDS = [
 
 function DesignedSection() {
   return (
-    <section style={{ background: '#fff', padding: '96px 0' }}>
+    <section className="echo-designed-section" style={{ background: '#fff' }}>
       <style>{`
         .ds-grid {
           display: grid;
@@ -769,7 +772,7 @@ function DesignedSection() {
                 }}>
                   {card.label}
                 </div>
-                <div style={{
+                <div className="echo-ds-card-text" style={{
                   fontSize: i === 0 ? 13 : 12,
                   fontWeight: 300,
                   color: 'rgba(255,255,255,0.80)',
@@ -884,7 +887,7 @@ function GamesSection() {
   }
 
   return (
-    <section style={{ background: '#F4F3EC', padding: '80px 0' }}>
+    <section className="echo-games-section" style={{ background: '#F4F3EC', padding: '80px 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
         {/* Heading */}
@@ -949,14 +952,15 @@ function GamesSection() {
         <div className="echo-games-grid">
 
           {/* Category list */}
-          <div>
-            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#787878', marginBottom: 20 }}>
+          <div className="echo-cat-vert">
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#787878', marginBottom: 20, width: '100%' }}>
               Game Categories
             </div>
             {GAME_CATEGORIES.map((c, i) => (
               <button
                 key={c.label}
                 onClick={() => switchTab(i)}
+                className="echo-cat-btn"
                 style={{
                   display: 'flex', alignItems: 'center', gap: 12,
                   width: '100%', background: 'none', border: 'none', cursor: 'pointer',
@@ -1276,7 +1280,7 @@ function SupportSection() {
 
 function B2BSection() {
   return (
-    <section style={{ background: '#F4F3EC', padding: '80px 0 96px' }}>
+    <section className="echo-b2b-section" style={{ background: '#F4F3EC', padding: '80px 0 96px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
         {/* B2B icon */}
@@ -1716,6 +1720,50 @@ export default function EchoPage1() {
           .echo-stats-row { grid-template-columns: 1fr !important; }
           .echo-stats-row > div { border-left: none !important; border-top: 1px solid #D0CEC6; }
           .echo-stats-row > div:first-child { border-top: none; }
+        }
+
+        /* ── Hero ── */
+        .echo-hero { height: calc(100svh - 124px); min-height: 520px; }
+        @media (max-width: 767px) {
+          .echo-hero { height: 60vh; min-height: 420px; max-height: 580px; }
+        }
+
+        /* ── Price + CTA row ── */
+        .echo-price-cta { display: flex; align-items: center; gap: 24px; margin: 24px 0 16px; }
+        @media (max-width: 767px) {
+          .echo-price-cta { gap: 12px; justify-content: space-between; margin: 20px 0 12px; }
+          .echo-price-val { font-size: 26px !important; }
+          .echo-price-cta .btn-amazon { padding: 11px 16px !important; font-size: 12px !important; }
+        }
+
+        /* ── Section paddings on mobile ── */
+        @media (max-width: 767px) {
+          .echo-product-section { padding: 48px 0 !important; }
+          .echo-b2b-section { padding: 40px 0 56px !important; }
+          .echo-games-section { padding: 48px 0 !important; }
+          .echo-designed-section { padding: 48px 0 !important; }
+        }
+
+        /* ── Legacy timeline buttons ── */
+        @media (max-width: 767px) {
+          .echo-timeline-btn { flex: 0 0 auto !important; min-width: unset !important; padding: 18px 12px !important; font-size: 13px !important; }
+        }
+
+        /* ── UseCases tab bar ── */
+        @media (max-width: 767px) {
+          .echo-uc-tabs { width: 100%; overflow-x: auto; justify-content: flex-start; padding: 8px 16px; }
+          .echo-uc-tabs button { padding: 5px 12px !important; font-size: 13px !important; border-left-width: 1px !important; }
+        }
+
+        /* ── Designed section cards ── */
+        @media (max-width: 767px) {
+          .echo-ds-card-text { line-height: 1.4 !important; -webkit-line-clamp: 2 !important; }
+        }
+
+        /* ── Games categories horizontal on mobile ── */
+        @media (max-width: 767px) {
+          .echo-cat-vert { display: flex; flex-wrap: wrap; }
+          .echo-cat-btn { width: 50%; }
         }
       `}</style>
       <Hero data={data.hero} />

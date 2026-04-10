@@ -83,7 +83,9 @@ export default function Header() {
           {/* Logo */}
           <Link href="/en/echo" style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 36, width: 'auto' }} />
+            <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 36, width: 'auto' }} className="hidden md:block" />
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 22, width: 'auto' }} className="md:hidden" />
           </Link>
 
           {/* Desktop Nav */}
@@ -162,8 +164,8 @@ export default function Header() {
         )
       })()}
 
-      {/* ── Product switcher bar (echo pages only) ── */}
-      {showProductBar && <div style={{ background: '#101213', borderBottom: '1px solid #222' }}>
+      {/* ── Product switcher bar (echo pages only, desktop only) ── */}
+      {showProductBar && <div className="hidden md:block" style={{ background: '#101213', borderBottom: '1px solid #222' }}>
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
           height: 52, padding: '0 5vw', maxWidth: 1440, margin: '0 auto',
