@@ -97,13 +97,18 @@ export default function Footer() {
           }
           .footer-bottom {
             flex-direction: column;
-            align-items: flex-start;
+            align-items: center;
             gap: 16px;
+            text-align: center;
+          }
+          .footer-wrap {
+            padding-left: 6vw !important;
+            padding-right: 6vw !important;
           }
         }
       `}</style>
 
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 5vw' }}>
+      <div className="footer-wrap" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 5vw' }}>
 
         {/* Top grid */}
         <div className="footer-grid">

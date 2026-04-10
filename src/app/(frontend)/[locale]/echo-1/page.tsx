@@ -1668,8 +1668,10 @@ export default function EchoPage1() {
         .echo-specs-img { position: sticky; top: 140px; }
         @media (max-width: 767px) {
           .echo-specs-hdr { grid-template-columns: 1fr; gap: 20px; }
-          .echo-specs-grid { grid-template-columns: 1fr; gap: 0; }
-          .echo-specs-img { display: none; }
+          .echo-specs-hdr > a { justify-self: start; width: auto !important; }
+          .echo-specs-grid { grid-template-columns: 1fr; gap: 24px; }
+          .echo-specs-img { position: static; }
+          .echo-specs-img img { border-radius: 4px; }
         }
 
         /* ── Support Section ── */
@@ -1702,6 +1704,7 @@ export default function EchoPage1() {
         .echo-ds-hdr { display: grid; grid-template-columns: 1fr auto; gap: 48px; align-items: center; margin-bottom: 48px; }
         @media (max-width: 767px) {
           .echo-ds-hdr { grid-template-columns: 1fr; gap: 20px; }
+          .echo-ds-hdr > a { justify-self: start; width: auto !important; }
         }
 
         /* ── Use Cases tab bar ── */
@@ -1761,7 +1764,7 @@ export default function EchoPage1() {
 
         /* ── Designed section cards ── */
         @media (max-width: 767px) {
-          .echo-ds-card-text { line-height: 1.4 !important; -webkit-line-clamp: 2 !important; }
+          .echo-ds-card-text { line-height: 1.35 !important; -webkit-line-clamp: 2 !important; font-size: 11px !important; }
         }
 
         /* ── Games categories horizontal on mobile ── */
@@ -1774,10 +1777,11 @@ export default function EchoPage1() {
         /* ── Use Cases ── */
         .echo-uc-desc { font-size: 24px; font-weight: 400; line-height: 1.15; color: #F4F3EC; margin: 0; }
         @media (max-width: 767px) {
-          .echo-uc-desc { font-size: 14px !important; line-height: 1.45 !important; }
+          .echo-uc-desc { font-size: 15px !important; line-height: 1.45 !important; }
           .echo-uc-text-wrap { padding: 20px 5vw 36px !important; }
 
           /* 2×2 grid tabs on mobile */
+          .echo-uc-outer { padding: 0 16px !important; }
           .echo-uc-tabs {
             display: grid !important;
             grid-template-columns: 1fr 1fr;
@@ -1786,7 +1790,7 @@ export default function EchoPage1() {
             backdrop-filter: blur(6px);
           }
           .echo-uc-tabs button {
-            padding: 12px 8px !important;
+            padding: 8px 6px !important;
             font-size: 13px !important;
             border-left: none !important;
             border-bottom: 1px solid rgba(244,243,236,0.18) !important;
@@ -1799,8 +1803,6 @@ export default function EchoPage1() {
           .echo-uc-tabs button:nth-child(4) {
             border-bottom: none !important;
           }
-          /* Outer wrapper — full width on mobile */
-          .echo-uc-outer { justify-content: stretch !important; }
         }
 
         /* ── Specs / Support section Amazon button fix ── */
