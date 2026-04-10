@@ -135,10 +135,10 @@ export default async function BlogArticlePage({ params }: PageProps) {
           display: grid;
           grid-template-columns: 1fr;
           gap: 32px;
-          padding-top: 40px;
+          padding-top: 14px;
           padding-bottom: 64px;
         }
-        @media (min-width: 768px) { .blog-body { padding-top: 48px; gap: 48px; } }
+        @media (min-width: 768px) { .blog-body { padding-top: 16px; gap: 48px; } }
         @media (min-width: 1280px) { .blog-body { grid-template-columns: 1fr 300px; } }
 
         /* TOC hidden below xl */
@@ -336,7 +336,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
           )}
 
           {/* Meta row: date · read time · author */}
-          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px 20px', fontSize: 14, color: '#787878', marginBottom: 40 }}>
+          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '8px 20px', fontSize: 14, color: '#787878', marginBottom: 12 }}>
             {article.publishedAt && (
               <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
                 <svg width="15" height="15" viewBox="0 0 16 16" fill="none" style={{ flexShrink: 0, opacity: 0.6 }}>
