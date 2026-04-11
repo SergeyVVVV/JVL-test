@@ -198,6 +198,80 @@ export async function getRelatedNews(
   }
 }
 
+/** ── News listing (paginated) ────────────────────────────────────────────── */
+
+export interface NewsListItem {
+  id: number
+  slug: string
+  title: string | null
+  description: string | null
+  content1: string | null
+  publishedAt: string | null
+  type: number
+  heroImage: string | null
+}
+
+export async function getNewsList(
+  locale = 'en',
+  type?: number,
+  page = 1,
+  perPage = 7
+): Promise<{ items: NewsListItem[]; total: number }> {
+  try {
+    const db = getPool()
+    const offset = (Math.max(1, page) - 1) * perPage
+
+    const whereType = type !== undefined ? 'AND n.type = ?' : ''
+    const params: any[] = type !== undefined ? [type] : []
+
+    // Count
+    const [countRows] = await db.execute(
+      `SELECT COUNT(*) AS cnt FROM news n
+       INNER JOIN pages p ON p.id = n.page_id
+       WHERE n.active = 1 ${whereType}`,
+      params
+    )
+    const total = (countRows as any[])[0]?.cnt ?? 0
+
+    // Items
+    const [rows] = await db.execute(
+      `SELECT n.id AS news_id, n.type, n.published_at,
+              p.id AS page_id, p.slug, p.title, p.description, p.content1
+       FROM news n
+       INNER JOIN pages p ON p.id = n.page_id
+       WHERE n.active = 1 ${whereType}
+       ORDER BY n.published_at DESC
+       LIMIT ${perPage} OFFSET ${offset}`,
+      params
+    )
+
+    const items: NewsListItem[] = []
+    for (const r of rows as any[]) {
+      const heroImage = await getMediaUrl('App\\Models\\Page', r.page_id, 'main')
+      const publishedAt = r.published_at
+        ? (r.published_at instanceof Date
+            ? r.published_at.toISOString().slice(0, 10)
+            : String(r.published_at).slice(0, 10))
+        : null
+      items.push({
+        id: r.news_id,
+        slug: r.slug,
+        title: parseLocale(r.title, locale),
+        description: parseLocale(r.description, locale),
+        content1: parseLocale(r.content1, locale),
+        publishedAt,
+        type: Number(r.type ?? 0),
+        heroImage,
+      })
+    }
+
+    return { items, total }
+  } catch (err) {
+    console.error('[news] getNewsList failed:', err)
+    return { items: [], total: 0 }
+  }
+}
+
 /** Get a media file URL (served via /api/storage) for a Laravel MediaLibrary record */
 export async function getMediaUrl(
   modelType: string,
