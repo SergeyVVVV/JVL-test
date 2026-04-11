@@ -5,7 +5,7 @@ export const dynamic = 'force-dynamic'
 
 interface PageProps {
   params: Promise<{ locale: string }>
-  searchParams: Promise<{ type?: string; page?: string }>
+  searchParams: Promise<{ type?: string; page?: string; q?: string }>
 }
 
 /* ── Helpers ──────────────────────────────────────────────── */
@@ -41,10 +41,11 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
   const { locale } = await params
   const sp = await searchParams
   const typeFilter = sp.type === 'blog' ? 1 : sp.type === 'news' ? 2 : undefined
+  const searchQuery = sp.q?.trim() || undefined
   const page = Math.max(1, parseInt(sp.page ?? '1') || 1)
   const perPage = 7
 
-  const { items, total } = await getNewsList(locale, typeFilter, page, perPage)
+  const { items, total } = await getNewsList(locale, typeFilter, page, perPage, searchQuery)
   const totalPages = Math.ceil(total / perPage)
 
   const featured = items[0] ?? null
@@ -93,6 +94,21 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
         .bl-filter-inactive { background: transparent; color: #4B4B4B; border-color: #D0CEC6; }
         .bl-filter-inactive:hover { border-color: #101213; color: #101213; }
 
+        .bl-search { position: relative; max-width: 400px; }
+        .bl-search input {
+          width: 100%; padding: 10px 16px 10px 40px;
+          font-size: 14px; font-family: inherit;
+          border: 1px solid #D0CEC6; border-radius: 6px;
+          background: #fff; color: #101213;
+          outline: none; transition: border-color 0.2s;
+        }
+        .bl-search input:focus { border-color: #059FFF; }
+        .bl-search input::placeholder { color: #9A9790; }
+        .bl-search-icon {
+          position: absolute; left: 13px; top: 50%; transform: translateY(-50%);
+          pointer-events: none; color: #9A9790;
+        }
+
         .bl-pagination { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
         .bl-page-btn {
           display: inline-flex; align-items: center; justify-content: center;
@@ -120,12 +136,32 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
         </h1>
       </div>
 
+      {/* ── Search ──────────────────────────────────────── */}
+      <div className="bl-container" style={{ marginBottom: 20 }}>
+        <form action={`/${locale}/blog-and-news`} method="GET" className="bl-search">
+          {sp.type && <input type="hidden" name="type" value={sp.type} />}
+          <svg className="bl-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+          </svg>
+          <input
+            type="text"
+            name="q"
+            placeholder="Search articles..."
+            defaultValue={searchQuery ?? ''}
+          />
+        </form>
+      </div>
+
       {/* ── Filters ──────────────────────────────────────── */}
       <div className="bl-container" style={{ marginBottom: 40 }}>
         <div className="bl-filter">
           {filters.map((f) => {
             const isActive = sp.type === f.value || (!sp.type && !f.value)
-            const href = f.value ? `/${locale}/blog-and-news?type=${f.value}` : `/${locale}/blog-and-news`
+            const fp = new URLSearchParams()
+            if (f.value) fp.set('type', f.value)
+            if (searchQuery) fp.set('q', searchQuery)
+            const fqs = fp.toString()
+            const href = `/${locale}/blog-and-news${fqs ? `?${fqs}` : ''}`
             return (
               <Link
                 key={f.label}
@@ -138,6 +174,17 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
           })}
         </div>
       </div>
+
+      {/* ── No results ─────────────────────────────────── */}
+      {items.length === 0 && (
+        <div className="bl-container" style={{ paddingTop: 40, paddingBottom: 80, textAlign: 'center' }}>
+          <p style={{ fontSize: 18, color: '#787878' }}>
+            {searchQuery
+              ? `No articles found for "${searchQuery}"`
+              : 'No articles found'}
+          </p>
+        </div>
+      )}
 
       {/* ── Featured + First card ────────────────────────── */}
       {featured && (
@@ -297,10 +344,11 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
         <div className="bl-container" style={{ paddingBottom: 80 }}>
           <div className="bl-pagination">
             {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => {
-              const params = new URLSearchParams()
-              if (sp.type) params.set('type', sp.type)
-              if (p > 1) params.set('page', String(p))
-              const qs = params.toString()
+              const pp = new URLSearchParams()
+              if (sp.type) pp.set('type', sp.type)
+              if (searchQuery) pp.set('q', searchQuery)
+              if (p > 1) pp.set('page', String(p))
+              const qs = pp.toString()
               const href = `/${locale}/blog-and-news${qs ? `?${qs}` : ''}`
               return (
                 <Link

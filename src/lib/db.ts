@@ -215,20 +215,26 @@ export async function getNewsList(
   locale = 'en',
   type?: number,
   page = 1,
-  perPage = 7
+  perPage = 7,
+  search?: string
 ): Promise<{ items: NewsListItem[]; total: number }> {
   try {
     const db = getPool()
     const offset = (Math.max(1, page) - 1) * perPage
 
     const whereType = type !== undefined ? 'AND n.type = ?' : ''
+    const whereSearch = search ? 'AND (p.title LIKE ? OR p.description LIKE ?)' : ''
     const params: any[] = type !== undefined ? [type] : []
+    if (search) {
+      const like = `%${search}%`
+      params.push(like, like)
+    }
 
     // Count
     const [countRows] = await db.execute(
       `SELECT COUNT(*) AS cnt FROM news n
        INNER JOIN pages p ON p.id = n.page_id
-       WHERE n.active = 1 ${whereType}`,
+       WHERE n.active = 1 ${whereType} ${whereSearch}`,
       params
     )
     const total = (countRows as any[])[0]?.cnt ?? 0
@@ -239,7 +245,7 @@ export async function getNewsList(
               p.id AS page_id, p.slug, p.title, p.description, p.content1
        FROM news n
        INNER JOIN pages p ON p.id = n.page_id
-       WHERE n.active = 1 ${whereType}
+       WHERE n.active = 1 ${whereType} ${whereSearch}
        ORDER BY n.published_at DESC
        LIMIT ${perPage} OFFSET ${offset}`,
       params
