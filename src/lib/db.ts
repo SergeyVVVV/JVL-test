@@ -401,6 +401,38 @@ export async function getSlides(pageId: number, locale = 'en'): Promise<SlideIte
   }
 }
 
+export interface InlineEntity {
+  id: number
+  landing_block_id: number
+  type: string
+  title: string | null
+  text: string | null
+  icon_class: string | null
+  sort: number
+}
+
+/** Get inline entities for a landing block */
+export async function getLandingInlineEntities(blockId: number, locale = 'en'): Promise<InlineEntity[]> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      'SELECT id, landing_block_id, type, title, text, icon_class, sort FROM landing_inline_entities WHERE landing_block_id = ? ORDER BY sort ASC',
+      [blockId]
+    )
+    return (rows as any[]).map(r => ({
+      id: r.id,
+      landing_block_id: r.landing_block_id,
+      type: r.type,
+      title: parseLocale(r.title, locale),
+      text: parseLocale(r.text, locale),
+      icon_class: r.icon_class,
+      sort: r.sort,
+    }))
+  } catch {
+    return []
+  }
+}
+
 /** Get a media file URL (served via /api/storage) for a Laravel MediaLibrary record */
 export async function getMediaUrl(
   modelType: string,
