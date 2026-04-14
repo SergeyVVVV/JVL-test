@@ -35,7 +35,8 @@ const PRODUCTS = [
 
 export default function Header() {
   const pathname = usePathname()
-  const showProductBar = /\/echo/.test(pathname)
+  // Show product switcher only on /echo and /echo-1, not on /echo-b2b
+  const showProductBar = /\/echo(-1)?(\/|$)/.test(pathname)
 
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
@@ -44,9 +45,9 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  // Hide top bar on scroll (disabled on blog/news and homepage)
+  // Hide top bar on scroll (disabled on blog/news, homepage, and echo-b2b)
   const isHomePage = pathname.split('/').filter(Boolean).length <= 1
-  const disableHide = isHomePage || /\/blog-and-news/.test(pathname)
+  const disableHide = isHomePage || /\/blog-and-news/.test(pathname) || /\/echo-b2b/.test(pathname)
   useEffect(() => {
     if (disableHide) { setScrolled(false); return }
     const onScroll = () => setScrolled(window.scrollY > 60)

@@ -1,5 +1,6 @@
 import { getLandingBlock, getLandingInlineEntities, getMediaUrl } from '@/lib/db'
 import Link from 'next/link'
+import EchoB2bHero from '@/components/EchoB2bHero'
 
 export const dynamic = 'force-dynamic'
 
@@ -61,64 +62,15 @@ export default async function EchoB2bPage() {
     <main id="echo-b2b-page" style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit' }}>
 
       {/* ── 1. Hero ── */}
-      <section style={{ position: 'relative', width: '100%', background: '#080a0b', overflow: 'hidden', minHeight: '100svh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-        {/* Poster fallback */}
-        {heroPoster && !heroVideo && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img src={heroPoster} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-        )}
-        {/* Video */}
-        {heroVideo && (
-          // eslint-disable-next-line jsx-a11y/media-has-caption
-          <video
-            src={heroVideo}
-            poster={heroPoster ?? undefined}
-            autoPlay muted loop playsInline
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-          />
-        )}
-        {/* Fallback dark gradient bg when no video */}
-        {!heroVideo && !heroPoster && (
-          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 60% 40%, #0d1c2e 0%, #080a0b 100%)' }} />
-        )}
-
-        {/* Gradient overlays */}
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.05) 100%)' }} />
-        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 65%)' }} />
-
-        {/* Content */}
-        <div style={{ position: 'relative', padding: '0 6vw 96px', maxWidth: 1440, width: '100%', margin: '0 auto' }}>
-          {heroBadge && (
-            <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#059FFF', margin: '0 0 16px' }}>
-              {heroBadge}
-            </p>
-          )}
-          <h1 className="eb2b-hero-h1" style={{
-            fontFamily: 'inherit',
-            fontSize: 'clamp(1.9rem, 3.2vw, 3.6rem)',
-            fontWeight: 600, lineHeight: 1.08,
-            letterSpacing: '-0.01em', textTransform: 'uppercase',
-            color: '#fff', margin: '0 0 20px', maxWidth: 860,
-          }}>
-            {heroTitle}
-          </h1>
-          <p style={{ fontSize: 16, fontWeight: 300, color: 'rgba(255,255,255,0.70)', margin: '0 0 36px', maxWidth: 560, lineHeight: 1.65 }}>
-            {heroSub}
-          </p>
-          <a
-            href={heroBtnUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-amazon"
-            style={{ padding: '14px 28px', textTransform: 'uppercase' }}
-          >
-            {heroBtnText}
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-              <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </a>
-        </div>
-      </section>
+      <EchoB2bHero
+        title={heroTitle}
+        subtitle={heroSub}
+        badge={heroBadge}
+        buttonText={heroBtnText}
+        buttonUrl={heroBtnUrl}
+        videoSrc={heroVideo}
+        posterSrc={heroPoster}
+      />
 
       {/* ── 2. B2B Promise ── */}
       <section style={{ background: '#101213', borderTop: '1px solid #1e2022', padding: '96px 0' }}>
