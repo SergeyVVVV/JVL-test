@@ -51,10 +51,16 @@ export default async function EchoB2bPage() {
   const heroVideo = heroVideoDb ?? '/api/storage/3657/15.mp4'
   const heroPoster = heroPosterDb ?? '/api/storage/3653/15.jpg'
 
-  // Venue card images from inline entity media
-  const venueImages = await Promise.all(
+  // Venue card images — DB media with fallback to known production storage IDs
+  const VENUE_IMAGE_FALLBACKS = [
+    '/api/storage/3558/1920x1080_Lounge.jpg',
+    '/api/storage/3560/Bar_scene_4.jpg',
+    '/api/storage/3562/1920x1080_Game-Room.jpg',
+  ]
+  const venueImagesRaw = await Promise.all(
     venueItems.map(v => getMediaUrl('App\\Models\\LandingInlineEntity', v.id, 'image'))
   )
+  const venueImages = venueImagesRaw.map((img, i) => img ?? VENUE_IMAGE_FALLBACKS[i] ?? null)
 
   const heroTitle = heroBlock?.title ?? 'JVL ECHO HD3 – FREE PLAY and COMMERCIAL PREMIUM TABLETOP ARCADE MACHINE'
   const heroBtnText = heroBlock?.button_text ?? 'Explore on Amazon'
