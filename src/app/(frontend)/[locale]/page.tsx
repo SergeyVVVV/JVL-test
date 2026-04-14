@@ -91,6 +91,17 @@ export default async function HomePage() {
           #home-page .hp-products-grid { grid-template-columns: 1fr; gap: 12px; }
         }
 
+        /* ── About Us ── */
+        #home-page .hp-about-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr;
+          gap: 80px;
+          align-items: start;
+        }
+        @media (max-width: 767px) {
+          #home-page .hp-about-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+
         /* ── Games grid ── */
         #home-page .hp-games-header {
           display: grid;
@@ -171,16 +182,14 @@ export default async function HomePage() {
       {/* ── 1. Hero Carousel ─────────────────────────────────────────────────── */}
       <HomeHeroCarousel slides={slides} />
 
-      {/* ── 2. Products / Welcome ────────────────────────────────────────────── */}
+      {/* ── 2a. Our Products ─────────────────────────────────────────────────── */}
       <section style={{ background: '#101213', padding: '96px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
-          {/* Badge */}
           <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px' }}>
-            About Us
+            Our Products
           </p>
 
-          {/* Heading */}
           <h2 style={{
             fontSize: 'clamp(2rem, 4vw, 3.2rem)',
             fontWeight: 700, textTransform: 'uppercase',
@@ -190,11 +199,10 @@ export default async function HomePage() {
             Welcome to JVL!
           </h2>
 
-          {/* Body */}
           <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: '20px 0 0' }}>
             {historyBlock?.text
               ? stripHtml(historyBlock.text)
-              : 'For over 30 years, JVL has led the world in touchscreen arcade entertainment. From ENCORE to ECHO HD3 — elegant hardware, intelligent software, timeless gameplay.'}
+              : 'Three product lines built for different arenas — from casino floors and online platforms to home entertainment.'}
           </p>
 
           {/* Product cards */}
@@ -230,6 +238,48 @@ export default async function HomePage() {
                 </div>
               </a>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 2b. About Us ─────────────────────────────────────────────────────── */}
+      <section style={{ background: '#080a0b', padding: '96px 0', borderTop: '1px solid #1e2022' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+          <div className="hp-about-grid">
+
+            {/* Left: history text + CTA */}
+            <div>
+              <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 24px' }}>
+                About Us
+              </p>
+              <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.8, color: 'rgba(244,243,236,0.75)', margin: '0 0 20px' }}>
+                JVL, founded in 1984, is a family-owned supplier of land-based casino cabinets, slot games (for both cabinets and online), and coin-operated amusement machines.
+              </p>
+              <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.8, color: 'rgba(244,243,236,0.75)', margin: '0 0 40px' }}>
+                JVL is a trusted name in gaming worldwide — valued for our products, partnerships, expertise, and unwavering commitment to quality.
+              </p>
+              <a
+                href="/en/about-jvl"
+                className="btn-amazon"
+                style={{ padding: '14px 28px', textTransform: 'uppercase' }}
+              >
+                About JVL
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </a>
+            </div>
+
+            {/* Right: stat */}
+            <div>
+              <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.4)', margin: '0 0 8px' }}>
+                Years in the industry
+              </p>
+              <p style={{ fontSize: 'clamp(4rem, 8vw, 7rem)', fontWeight: 800, lineHeight: 1, color: '#F4F3EC', margin: 0, letterSpacing: '-0.03em' }}>
+                40+
+              </p>
+            </div>
+
           </div>
         </div>
       </section>
