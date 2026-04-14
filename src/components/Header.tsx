@@ -10,7 +10,7 @@ const navItems = [
     href: '/en/echo',
     children: [
       { label: 'Echo Home', href: '/en/echo' },
-      { label: 'Echo Amusement', href: '/en/echo-b2b' },
+      { label: 'Echo B2B', href: '/en/echo-b2b' },
     ],
   },
   { label: 'Flex', href: '/en/flex' },
@@ -44,6 +44,7 @@ export default function Header() {
   const [activeProduct, setActiveProduct] = useState(0)
   const [scrolled, setScrolled] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const dropdownMenuRef = useRef<HTMLDivElement>(null)
 
   // Hide top bar on scroll (disabled on blog/news, homepage, and echo-b2b)
   const isHomePage = pathname.split('/').filter(Boolean).length <= 1
@@ -58,7 +59,10 @@ export default function Header() {
   // Close dropdown on outside click
   useEffect(() => {
     function handleClick(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current && !dropdownRef.current.contains(e.target as Node) &&
+        (!dropdownMenuRef.current || !dropdownMenuRef.current.contains(e.target as Node))
+      ) {
         setOpenDropdown(null)
       }
     }
@@ -146,7 +150,7 @@ export default function Header() {
         const item = navItems.find(n => n.label === openDropdown)
         if (!item?.children) return null
         return (
-          <div style={{
+          <div ref={dropdownMenuRef} style={{
             position: 'fixed', top: 76, left: dropdownLeft,
             minWidth: 190, background: '#181818',
             border: '1px solid #2a2a2a', borderRadius: 10,

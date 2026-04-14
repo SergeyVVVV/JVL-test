@@ -4,7 +4,7 @@ import { useRef, useState, useEffect } from 'react'
 
 interface EchoB2bHeroProps {
   title: string
-  subtitle: string
+  subtitle?: string
   buttonText: string
   buttonUrl: string
   videoSrc?: string | null
@@ -55,17 +55,19 @@ export default function EchoB2bHero({
           fontSize: 'clamp(2rem, 3.5vw, 3.8rem)',
           fontWeight: 600, lineHeight: 1.1,
           letterSpacing: '-0.01em', textTransform: 'uppercase',
-          color: '#fff', margin: '0 0 18px', maxWidth: 860,
+          color: '#fff', margin: 0, maxWidth: 860,
         }}>
           {title}
         </h1>
-        <p style={{
-          fontSize: 16, fontWeight: 300,
-          color: 'rgba(255,255,255,0.68)', margin: 0,
-          maxWidth: 520, lineHeight: 1.65,
-        }}>
-          {subtitle}
-        </p>
+        {subtitle && (
+          <p style={{
+            fontSize: 16, fontWeight: 300,
+            color: 'rgba(255,255,255,0.68)', margin: 0,
+            maxWidth: 520, lineHeight: 1.65,
+          }}>
+            {subtitle}
+          </p>
+        )}
       </div>
 
       {/* Bottom bar */}
