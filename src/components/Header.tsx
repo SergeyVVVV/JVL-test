@@ -44,12 +44,15 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
-  // Hide top bar on scroll
+  // Hide top bar on scroll (disabled on blog/news and homepage)
+  const isHomePage = pathname.split('/').filter(Boolean).length <= 1
+  const disableHide = isHomePage || /\/blog-and-news/.test(pathname)
   useEffect(() => {
+    if (disableHide) { setScrolled(false); return }
     const onScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [disableHide])
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -81,7 +84,7 @@ export default function Header() {
           height: 72, padding: '0 5vw', maxWidth: 1440, margin: '0 auto', width: '100%',
         }}>
           {/* Logo */}
-          <Link href="/en/echo" style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+          <Link href="/en" style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 36, width: 'auto' }} className="hidden md:block" />
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -102,7 +105,7 @@ export default function Header() {
                     style={{
                       display: 'flex', alignItems: 'center', gap: 4,
                       background: 'none', border: 'none', cursor: 'pointer',
-                      fontSize: 14, fontWeight: 500,
+                      fontSize: 15, fontWeight: 500,
                       color: openDropdown === item.label ? '#059FFF' : '#F4F3EC',
                       padding: 0, transition: 'color 0.2s',
                     }}
@@ -114,7 +117,7 @@ export default function Header() {
                     </svg>
                   </button>
                 ) : (
-                  <Link href={item.href} style={{ fontSize: 14, fontWeight: 500, color: '#F4F3EC', textDecoration: 'none' }}>
+                  <Link href={item.href} style={{ fontSize: 15, fontWeight: 500, color: '#F4F3EC', textDecoration: 'none' }}>
                     {item.label}
                   </Link>
                 )}
@@ -143,9 +146,11 @@ export default function Header() {
         if (!item?.children) return null
         return (
           <div style={{
-            position: 'fixed', top: 72, left: dropdownLeft,
+            position: 'fixed', top: 76, left: dropdownLeft,
             minWidth: 190, background: '#181818',
-            border: '1px solid #2a2a2a', boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
+            border: '1px solid #2a2a2a', borderRadius: 10,
+            boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
+            overflow: 'hidden',
             zIndex: 300,
           }}>
             {item.children.map((child) => (
@@ -153,7 +158,7 @@ export default function Header() {
                 key={child.label}
                 href={child.href}
                 onClick={() => setOpenDropdown(null)}
-                style={{ display: 'block', padding: '12px 20px', fontSize: 14, color: '#F4F3EC', textDecoration: 'none' }}
+                style={{ display: 'block', padding: '11px 20px', fontSize: 15, fontWeight: 500, color: '#F4F3EC', textDecoration: 'none', transition: 'background 0.15s, color 0.15s' }}
                 onMouseEnter={e => { e.currentTarget.style.color = '#059FFF'; e.currentTarget.style.background = '#101213' }}
                 onMouseLeave={e => { e.currentTarget.style.color = '#F4F3EC'; e.currentTarget.style.background = 'transparent' }}
               >

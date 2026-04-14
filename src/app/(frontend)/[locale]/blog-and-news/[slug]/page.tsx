@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getNewsArticleBySlug, getRelatedNews } from '@/lib/db'
 import ArticleTOC from './ArticleTOC'
+import NewsCard from '@/components/NewsCard'
 
 export const dynamic = 'force-dynamic'
 
@@ -415,58 +416,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
             </h2>
             <div className="related-grid">
               {related.map((r) => (
-                <Link
-                  key={r.id}
-                  href={`/${locale}/blog-and-news/${r.slug}`}
-                  style={{ display: 'flex', textDecoration: 'none', color: '#101213' }}
-                >
-                  <article className="related-card" style={{
-                    border: '1px solid #D0CEC6',
-                    borderRadius: 8,
-                    overflow: 'hidden',
-                    background: '#FFFFFF',
-                    width: '100%',
-                  }}>
-                    <div style={{ height: 200, background: '#E8E6DF', overflow: 'hidden', flexShrink: 0 }}>
-                      {r.heroImage && (
-                        <img
-                          src={r.heroImage}
-                          alt={r.title ?? ''}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                        />
-                      )}
-                    </div>
-                    <div className="related-card-body" style={{ padding: 24 }}>
-                      <span style={{
-                        display: 'inline-block',
-                        fontSize: 13,
-                        fontWeight: 500,
-                        padding: '5px 10px',
-                        border: '1px solid #D0CEC6',
-                        borderRadius: 6,
-                        color: '#787878',
-                        marginBottom: 12,
-                      }}>
-                        {r.type === 1 ? 'Blog' : 'News'}
-                      </span>
-                      <h3 style={{
-                        fontSize: 18,
-                        fontWeight: 600,
-                        lineHeight: 1.3,
-                        color: '#101213',
-                        margin: '0 0 8px',
-                        flex: 1,
-                      }}>
-                        {r.title}
-                      </h3>
-                      {r.publishedAt && (
-                        <p style={{ fontSize: 13, color: '#787878', margin: '8px 0 0' }}>
-                          {formatDate(r.publishedAt)}
-                        </p>
-                      )}
-                    </div>
-                  </article>
-                </Link>
+                <NewsCard key={r.id} item={r} locale={locale} />
               ))}
             </div>
           </section>

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getNewsList } from '@/lib/db'
+import BlogSearchInput from '@/components/BlogSearchInput'
 
 export const dynamic = 'force-dynamic'
 
@@ -63,6 +64,8 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
       color: '#F4F3EC',
       fontFamily: 'var(--font-poppins), system-ui, sans-serif',
       minHeight: '100vh',
+      marginTop: -124,
+      paddingTop: 124,
     }}>
 
       <style>{`
@@ -125,6 +128,24 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
         .bl-page-active { background: #F4F3EC; color: #101213; border-color: #F4F3EC; }
         .bl-page-inactive { background: transparent; color: rgba(244,243,236,0.5); }
         .bl-page-inactive:hover { border-color: #555; color: #F4F3EC; }
+
+        .bl-echo-banner {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0;
+          border-radius: 12px;
+          overflow: hidden;
+          border: 1px solid #2a2a2a;
+        }
+        @media (max-width: 767px) {
+          .bl-echo-banner { grid-template-columns: 1fr; }
+        }
+        .bl-echo-btn {
+          display: inline-flex; align-items: center; justify-content: center;
+          padding: 12px 28px; border-radius: 6px;
+          font-size: 15px; font-weight: 600; text-decoration: none;
+          transition: all 0.2s ease; white-space: nowrap;
+        }
       `}</style>
 
       {/* ── Header ───────────────────────────────────────── */}
@@ -164,18 +185,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
               )
             })}
           </div>
-          <form action={`/${locale}/blog-and-news`} method="GET" className="bl-search">
-            {sp.type && <input type="hidden" name="type" value={sp.type} />}
-            <svg className="bl-search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-            </svg>
-            <input
-              type="text"
-              name="q"
-              placeholder="Search articles..."
-              defaultValue={searchQuery ?? ''}
-            />
-          </form>
+          <BlogSearchInput defaultValue={searchQuery} typeParam={sp.type} />
         </div>
       </div>
 
@@ -367,6 +377,47 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
           </div>
         </div>
       )}
+
+
+      {/* ── Echo CTA Banner ─────────────────────────────── */}
+      <div className="bl-container" style={{ paddingBottom: 80, paddingTop: 40 }}>
+        <div className="bl-echo-banner">
+          {/* B2C — синяя панель */}
+          <div style={{ background: '#059FFF', padding: '48px 40px', display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.7)' }}>
+              For Home
+            </span>
+            <h2 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, lineHeight: 1.2, color: '#fff', margin: 0 }}>
+              Echo HD3 — Premium Touchscreen Arcade
+            </h2>
+            <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.85)', lineHeight: 1.6, margin: 0 }}>
+              Bring the full arcade experience home. 100+ games, HD touchscreen, tournament-grade hardware.
+            </p>
+            <div>
+              <Link href={`/${locale}/echo`} className="bl-echo-btn" style={{ background: '#fff', color: '#059FFF' }}>
+                Explore Echo →
+              </Link>
+            </div>
+          </div>
+          {/* B2B — тёмная панель */}
+          <div style={{ background: '#181a1b', padding: '48px 40px', display: 'flex', flexDirection: 'column', gap: 16, borderLeft: '1px solid #2a2a2a' }}>
+            <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.45)' }}>
+              For Business
+            </span>
+            <h2 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, lineHeight: 1.2, color: '#F4F3EC', margin: 0 }}>
+              Echo B2B — Revenue-Generating Gaming
+            </h2>
+            <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.6)', lineHeight: 1.6, margin: 0 }}>
+              Designed for bars, lounges, and hospitality venues. Proven ROI with industry-leading support.
+            </p>
+            <div>
+              <Link href={`/${locale}/echo-b2b`} className="bl-echo-btn" style={{ background: '#059FFF', color: '#fff' }}>
+                Echo for Business →
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </div>
   )

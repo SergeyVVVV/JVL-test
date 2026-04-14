@@ -14,12 +14,12 @@ const footerLinks = {
     { label: 'About JVL', href: '/en/about-jvl' },
     { label: 'Partners', href: '/en/partners' },
     { label: 'Contact Us', href: '/en/contact-us' },
-    { label: 'Warranty', href: '/en/warranty' },
   ],
   Support: [
     { label: 'Register Product', href: '/en/register' },
     { label: 'Privacy Policy', href: '/en/privacy' },
     { label: 'Terms of Use', href: '/en/terms' },
+    { label: 'Warranty', href: '/en/warranty' },
   ],
 }
 
@@ -75,8 +75,8 @@ export default function Footer() {
       <style>{`
         .footer-grid {
           display: grid;
-          grid-template-columns: 1.5fr 1fr 1fr 1fr;
-          gap: 48px;
+          grid-template-columns: 1.5fr 2fr;
+          gap: 80px;
           margin-bottom: 56px;
         }
         .footer-bottom {
@@ -88,7 +88,7 @@ export default function Footer() {
         }
         @media (max-width: 767px) {
           .footer-grid {
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 32px;
             margin-bottom: 40px;
           }
@@ -117,7 +117,7 @@ export default function Footer() {
           <div className="footer-brand">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 28, width: 'auto', marginBottom: 16 }} />
-            <p style={{ fontSize: 13, fontWeight: 300, color: '#787878', lineHeight: 1.75, marginBottom: 20, maxWidth: 320 }}>
+            <p style={{ fontSize: 15, fontWeight: 300, color: '#787878', lineHeight: 1.75, marginBottom: 20, maxWidth: 320 }}>
               A lifetime in gaming. Premium arcade and digital gaming solutions for home and business since 1983.
             </p>
             <div style={{ display: 'flex', gap: 14 }}>
@@ -139,30 +139,32 @@ export default function Footer() {
           </div>
 
           {/* Link columns */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h4 style={{
-                fontSize: 11, fontWeight: 700, letterSpacing: '0.15em',
-                textTransform: 'uppercase', color: '#F4F3EC', marginBottom: 16,
-              }}>
-                {category}
-              </h4>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      style={{ fontSize: 15, fontWeight: 300, color: '#787878', textDecoration: 'none' }}
-                      onMouseEnter={e => (e.currentTarget.style.color = '#F4F3EC')}
-                      onMouseLeave={e => (e.currentTarget.style.color = '#787878')}
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
+            {Object.entries(footerLinks).map(([category, links]) => (
+              <div key={category}>
+                <h4 style={{
+                  fontSize: 13, fontWeight: 700, letterSpacing: '0.15em',
+                  textTransform: 'uppercase', color: '#F4F3EC', marginBottom: 16,
+                }}>
+                  {category}
+                </h4>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {links.map((link) => (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        style={{ fontSize: 15, fontWeight: 300, color: '#787878', textDecoration: 'none' }}
+                        onMouseEnter={e => (e.currentTarget.style.color = '#F4F3EC')}
+                        onMouseLeave={e => (e.currentTarget.style.color = '#787878')}
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* Bottom bar */}

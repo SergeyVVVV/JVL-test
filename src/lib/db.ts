@@ -278,6 +278,117 @@ export async function getNewsList(
   }
 }
 
+/** ── Game Themes ─────────────────────────────────────────────────────────── */
+
+export interface GameThemeItem {
+  id: number
+  name: string | null
+  url: string | null
+  sort: number
+  image: string | null
+}
+
+export async function getGameThemes(locale = 'en'): Promise<GameThemeItem[]> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      'SELECT id, text, url, sort FROM game_themes ORDER BY sort ASC'
+    )
+    const results: GameThemeItem[] = []
+    for (const r of rows as any[]) {
+      const image = await getMediaUrl('App\\Models\\GameTheme', r.id, 'image')
+      results.push({
+        id: r.id,
+        name: parseLocale(r.text, locale),
+        url: parseLocale(r.url, locale),
+        sort: r.sort,
+        image,
+      })
+    }
+    return results
+  } catch (err) {
+    console.error('[gameThemes] getGameThemes failed:', err)
+    return []
+  }
+}
+
+/** ── Hero Slides ──────────────────────────────────────────────────────────── */
+
+export interface SlideItem {
+  id: number
+  title: string | null
+  description: string | null
+  btnText: string | null
+  link: string | null
+  sort: number
+  desktopImage: string | null
+  mobileImage: string | null
+}
+
+/**
+ * Fetch slides for the page-level slider (homepage: pageId=1).
+ * Slider → Slides → Media (main + mainMobile).
+ */
+export async function getSlides(pageId: number, locale = 'en'): Promise<SlideItem[]> {
+  try {
+    const db = getPool()
+
+    // Find the slider attached to this page
+    const [sliderRows] = await db.execute(
+      "SELECT id FROM sliders WHERE model_type = 'App\\\\Models\\\\Page' AND model_id = ? LIMIT 1",
+      [pageId]
+    )
+    const slider = (sliderRows as any[])[0]
+    if (!slider) return []
+
+    // Get slides ordered by sort
+    const [rows] = await db.execute(
+      'SELECT id, title, description, btn_text, link, sort, active FROM slides WHERE slider_id = ? ORDER BY sort ASC',
+      [slider.id]
+    )
+    const slideRows = rows as any[]
+
+    const results: SlideItem[] = []
+    for (const r of slideRows) {
+      // Check active (JSON field): {"en":1} or just 1
+      let active = true
+      try {
+        const raw = r.active
+        if (raw !== null && raw !== undefined) {
+          const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw
+          if (typeof parsed === 'object') {
+            active = !!(parsed[locale] ?? parsed['en'] ?? 1)
+          } else {
+            active = !!parsed
+          }
+        }
+      } catch {}
+      if (!active) continue
+
+      const [desktop, mobile] = await Promise.all([
+        getMediaUrl('App\\Models\\Slide', r.id, 'main'),
+        getMediaUrl('App\\Models\\Slide', r.id, 'mainMobile'),
+      ])
+
+      results.push({
+        id: r.id,
+        title: parseLocale(r.title, locale),
+        description: parseLocale(r.description, locale),
+        btnText: parseLocale(r.btn_text, locale),
+        link: parseLocale(r.link, locale),
+        sort: r.sort,
+        desktopImage: desktop,
+        mobileImage: mobile,
+      })
+    }
+
+    return results
+  } catch (err) {
+    console.error('[slides] getSlides failed:', err)
+    return []
+  }
+}
+
 /** Get a media file URL (served via /api/storage) for a Laravel MediaLibrary record */
 export async function getMediaUrl(
   modelType: string,
