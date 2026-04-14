@@ -275,14 +275,23 @@ export default async function HomePage() {
               </a>
             </div>
 
-            {/* Right: stat */}
-            <div>
-              <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.4)', margin: '0 0 8px' }}>
-                Years in the industry
-              </p>
-              <p style={{ fontSize: 'clamp(4rem, 8vw, 7rem)', fontWeight: 800, lineHeight: 1, color: '#F4F3EC', margin: 0, letterSpacing: '-0.03em' }}>
-                40+
-              </p>
+            {/* Right: founder photo + stat */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
+              <div style={{ borderRadius: 8, overflow: 'hidden', background: '#1a1c1d' }}>
+                <img
+                  src="https://www.jvl.ca/storage/2086/about-05.jpg"
+                  alt="JVL Founder"
+                  style={{ width: '100%', display: 'block', objectFit: 'cover' }}
+                />
+              </div>
+              <div>
+                <p style={{ fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.4)', margin: '0 0 8px' }}>
+                  Years in the industry
+                </p>
+                <p style={{ fontSize: 'clamp(4rem, 8vw, 7rem)', fontWeight: 800, lineHeight: 1, color: '#F4F3EC', margin: 0, letterSpacing: '-0.03em' }}>
+                  40+
+                </p>
+              </div>
             </div>
 
           </div>
