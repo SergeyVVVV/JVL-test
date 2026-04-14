@@ -24,9 +24,14 @@ export default function EchoB2bHero({
   }, [])
 
   return (
-    <section className="echo-hero" style={{
+    <>
+    <style>{`
+      .eb2b-hero { height: calc(100svh - 124px); min-height: 520px; }
+      @media (max-width: 767px) { .eb2b-hero { height: 58vh; min-height: 380px; max-height: 520px; } }
+    `}</style>
+    <section className="echo-hero eb2b-hero" style={{
       position: 'relative', width: '100%', background: '#080a0b',
-      overflow: 'hidden', minHeight: '100svh', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+      overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
     }}>
       {/* Poster */}
       {posterSrc && !videoSrc && (
@@ -141,5 +146,6 @@ export default function EchoB2bHero({
         </div>
       </div>
     </section>
+    </>
   )
 }
