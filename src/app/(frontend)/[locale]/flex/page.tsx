@@ -166,7 +166,7 @@ export default function FlexPage() {
             <div style={{ borderRadius: 4, overflow: 'hidden', minHeight: 420 }}>
               <iframe
                 title="JVL Headquarters"
-                src="https://maps.google.com/maps?q=1380+Capital+Circle,+Lawrenceville,+GA+30043&z=15&output=embed"
+                src="https://maps.google.com/maps?q=33.9686468,-84.0560239&z=16&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0, display: 'block', minHeight: 420, filter: 'invert(90%) hue-rotate(180deg)' }}
