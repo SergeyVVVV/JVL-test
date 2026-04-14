@@ -291,15 +291,25 @@ export interface GameThemeItem {
 export async function getGameThemes(locale = 'en'): Promise<GameThemeItem[]> {
   try {
     const db = getPool()
+    // Join with taggables+tags to get the theme name (Spatie Tag of type 'Themes')
     const [rows] = await db.execute(
-      'SELECT id, text, url, sort FROM game_themes ORDER BY sort ASC'
+      `SELECT gt.id, gt.text, gt.url, gt.sort,
+              t.name AS tag_name, t.id AS tag_id
+       FROM game_themes gt
+       LEFT JOIN taggables tbl ON tbl.taggable_type = 'App\\\\Models\\\\GameTheme' AND tbl.taggable_id = gt.id
+       LEFT JOIN tags t ON t.id = tbl.tag_id AND t.type = 'Themes'
+       WHERE gt.page_id = 1
+       ORDER BY gt.sort ASC`
     )
     const results: GameThemeItem[] = []
     for (const r of rows as any[]) {
       const image = await getMediaUrl('App\\Models\\GameTheme', r.id, 'image')
+      // Use tag name as display label; fallback to text field
+      const tagName = r.tag_name ? parseLocale(r.tag_name, locale) : null
+      const bannerText = parseLocale(r.text, locale)
       results.push({
         id: r.id,
-        name: parseLocale(r.text, locale),
+        name: tagName ?? bannerText,
         url: parseLocale(r.url, locale),
         sort: r.sort,
         image,
