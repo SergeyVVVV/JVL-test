@@ -38,7 +38,7 @@ export default async function EchoB2bPage() {
     getLandingBlock('support_bottom_echo_b2b_landing_block'),
   ])
 
-  const [supportItems, venueItems, featureItems, bottomLinks, heroVideo, heroPoster] = await Promise.all([
+  const [supportItems, venueItems, featureItems, bottomLinks, heroVideoDb, heroPosterDb] = await Promise.all([
     supportBlock ? getLandingInlineEntities(supportBlock.id) : Promise.resolve([]),
     screensBlock ? getLandingInlineEntities(screensBlock.id) : Promise.resolve([]),
     engineeredBlock ? getLandingInlineEntities(engineeredBlock.id) : Promise.resolve([]),
@@ -46,6 +46,10 @@ export default async function EchoB2bPage() {
     getMediaUrl('App\\Models\\TopEcho2b2Block', 15, 'desktop_video'),
     getMediaUrl('App\\Models\\TopEcho2b2Block', 15, 'desktop_poster'),
   ])
+
+  // Fallback to known production storage IDs when DB media not yet linked
+  const heroVideo = heroVideoDb ?? '/api/storage/3657/15.mp4'
+  const heroPoster = heroPosterDb ?? '/api/storage/3653/15.jpg'
 
   // Venue card images from inline entity media
   const venueImages = await Promise.all(
