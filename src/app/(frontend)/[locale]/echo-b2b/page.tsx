@@ -76,7 +76,7 @@ export default async function EchoB2bPage() {
       <section style={{ background: '#101213', borderTop: '1px solid #1e2022', padding: '96px 0' }}>
         <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
           <div className="eb2b-promise-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px 80px', alignItems: 'start' }}>
-            {/* Left: heading + text + CTA */}
+            {/* Left: badge + heading, then description + CTA in same row */}
             <div>
               <p style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#059FFF', margin: '0 0 14px' }}>
                 B2B Partners
@@ -84,25 +84,27 @@ export default async function EchoB2bPage() {
               <h2 style={{
                 fontFamily: 'inherit', fontSize: 'clamp(1.7rem, 2.5vw, 2.8rem)',
                 fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
-                textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 20px',
+                textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 24px',
               }}>
                 {supportBlock?.title ?? "JVL's Promise to B2B Partners"}
               </h2>
-              <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.62)', lineHeight: 1.7, margin: '0 0 32px' }}>
-                {supportBlock?.text ?? 'Consistent support, fast response, and a team you can count on.'}
-              </p>
-              {supportBlock?.button_url && (
-                <Link
-                  href={supportBlock.button_url}
-                  className="btn-amazon"
-                  style={{ padding: '12px 24px', textTransform: 'uppercase', display: 'inline-flex' }}
-                >
-                  {supportBlock.button_text ?? 'Reach Out to JVL'}
-                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none" style={{ marginLeft: 6 }}>
-                    <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                  </svg>
-                </Link>
-              )}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
+                <p style={{ flex: 1, fontSize: 15, color: 'rgba(244,243,236,0.62)', lineHeight: 1.7, margin: 0 }}>
+                  {supportBlock?.text ?? 'Consistent support, fast response, and a team you can count on.'}
+                </p>
+                {supportBlock?.button_url && (
+                  <Link
+                    href={supportBlock.button_url}
+                    className="btn-amazon"
+                    style={{ padding: '12px 24px', textTransform: 'uppercase', display: 'inline-flex', whiteSpace: 'nowrap', flexShrink: 0 }}
+                  >
+                    {supportBlock.button_text ?? 'Reach Out to JVL'}
+                    <svg width="11" height="11" viewBox="0 0 12 12" fill="none" style={{ marginLeft: 6 }}>
+                      <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </Link>
+                )}
+              </div>
             </div>
 
             {/* Right: 2x2 feature cards */}
@@ -119,12 +121,12 @@ export default async function EchoB2bPage() {
                 }}>
                   {SUPPORT_ICONS[i] && (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img src={SUPPORT_ICONS[i]} alt="" style={{ width: 36, height: 36, marginBottom: 14, objectFit: 'contain' }} />
+                    <img src={SUPPORT_ICONS[i]} alt="" style={{ width: 40, height: 40, marginBottom: 16, objectFit: 'contain' }} />
                   )}
-                  <p style={{ fontSize: 14, fontWeight: 700, color: '#F4F3EC', margin: '0 0 8px', lineHeight: 1.3 }}>
+                  <p style={{ fontSize: 16, fontWeight: 700, color: '#F4F3EC', margin: '0 0 10px', lineHeight: 1.3, textTransform: 'uppercase', letterSpacing: '0.02em' }}>
                     {item.title}
                   </p>
-                  <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.52)', lineHeight: 1.6, margin: 0 }}>
+                  <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.58)', lineHeight: 1.65, margin: 0 }}>
                     {item.text}
                   </p>
                 </div>
@@ -172,10 +174,10 @@ export default async function EchoB2bPage() {
                   {/* Gradient overlay */}
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.1) 60%)' }} />
                   <div style={{ position: 'relative', padding: '28px 24px' }}>
-                    <p style={{ fontSize: 17, fontWeight: 700, color: '#F4F3EC', margin: '0 0 8px', lineHeight: 1.3 }}>
+                    <p style={{ fontSize: 18, fontWeight: 700, color: '#F4F3EC', margin: '0 0 10px', lineHeight: 1.2, textTransform: 'uppercase', letterSpacing: '0.02em' }}>
                       {item.title}
                     </p>
-                    <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.58)', lineHeight: 1.6, margin: 0 }}>
+                    <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.65)', lineHeight: 1.65, margin: 0 }}>
                       {item.text}
                     </p>
                   </div>
@@ -189,19 +191,17 @@ export default async function EchoB2bPage() {
       {/* ── 4. Features Built for Business ── */}
       <section style={{ background: '#101213', borderTop: '1px solid #1e2022', padding: '96px 0' }}>
         <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
-          {/* Header row */}
-          <div className="eb2b-features-header" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px 80px', alignItems: 'end', marginBottom: 56 }}>
-            <div>
-              <h2 style={{
-                fontFamily: 'inherit', fontSize: 'clamp(1.7rem, 2.5vw, 2.8rem)',
-                fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
-                textTransform: 'uppercase', color: '#F4F3EC', margin: 0,
-              }}>
-                {engineeredBlock?.title ?? 'ECHO Features Built for Business'}
-              </h2>
-            </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20, alignItems: 'flex-start' }}>
-              <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.62)', lineHeight: 1.7, margin: 0 }}>
+          {/* Header row: title left | description + button right (same row) */}
+          <div className="eb2b-features-header" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '32px 80px', alignItems: 'center', marginBottom: 56 }}>
+            <h2 style={{
+              fontFamily: 'inherit', fontSize: 'clamp(1.7rem, 2.5vw, 2.8rem)',
+              fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
+              textTransform: 'uppercase', color: '#F4F3EC', margin: 0,
+            }}>
+              {engineeredBlock?.title ?? 'ECHO Features Built for Business'}
+            </h2>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
+              <p style={{ flex: 1, fontSize: 15, color: 'rgba(244,243,236,0.62)', lineHeight: 1.7, margin: 0 }}>
                 {engineeredBlock?.text ?? 'Advanced controls and customizable settings to optimize each ECHO unit for any venue.'}
               </p>
               {engineeredBlock?.button_url && (
@@ -210,7 +210,7 @@ export default async function EchoB2bPage() {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-amazon"
-                  style={{ padding: '12px 24px', textTransform: 'uppercase' }}
+                  style={{ padding: '12px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', flexShrink: 0 }}
                 >
                   {engineeredBlock.button_text ?? 'Buy on Amazon'}
                   <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -245,10 +245,10 @@ export default async function EchoB2bPage() {
                 }}>
                   <span style={{ fontSize: 13, fontWeight: 800, color: '#059FFF' }}>{String(i + 1).padStart(2, '0')}</span>
                 </div>
-                <p style={{ fontSize: 14, fontWeight: 700, color: '#F4F3EC', margin: '0 0 10px', lineHeight: 1.35 }}>
+                <p style={{ fontSize: 16, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px', lineHeight: 1.3, textTransform: 'uppercase', letterSpacing: '0.02em' }}>
                   {item.title}
                 </p>
-                <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.52)', lineHeight: 1.6, margin: 0 }}>
+                <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.58)', lineHeight: 1.65, margin: 0 }}>
                   {stripHtml(item.text)}
                 </p>
               </div>
