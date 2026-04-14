@@ -7,10 +7,9 @@ export async function GET() {
   try {
     const db = getPool()
 
-    const [allTags] = await db.execute('SELECT id, name, type, slug FROM tags ORDER BY type, name ASC LIMIT 50')
-    const [tables] = await db.execute("SELECT TABLE_NAME FROM information_schema.TABLES WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME LIKE '%theme%' ORDER BY TABLE_NAME")
+    const [dbName] = await db.execute('SELECT DATABASE() as db')
 
-    return NextResponse.json({ allTags, tables })
+    return NextResponse.json({ db: (dbName as any[])[0]?.db, env_db: process.env.LARAVEL_DB_DATABASE })
   } catch (e: any) {
     return NextResponse.json({ error: e.message }, { status: 500 })
   }
