@@ -232,38 +232,59 @@ export default async function EchoB2bPage() {
           </div>
 
           {/* 6 features grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, border: '1px solid #252729', borderRadius: 16, overflow: 'hidden' }}>
-            {(featureItems.length > 0 ? featureItems : [
+          {(() => {
+            // Known production storage images per sort order (add more as found)
+            const FEATURE_IMAGES: Record<number, string> = {
+              1: '/api/storage/3564/Bills-and-Quarters.jpeg',
+              2: '/api/storage/3565/Secure-Bank.jpg',
+            }
+            const items = featureItems.length > 0 ? featureItems : [
               { id: 0, title: 'Bill Validator / Coin Acceptor', text: 'Accepts $1, $5, $10, and $20 bills with 500-bill capacity, plus a quarter acceptor and bank.', sort: 1, landing_block_id: 0, type: '', icon_class: null },
               { id: 1, title: 'Secure Quarters and Bills Bank', text: 'Unlocks with a secure physical key. Reinforced, vandal-resistant design protects your revenue.', sort: 2, landing_block_id: 0, type: '', icon_class: null },
               { id: 2, title: 'Credit Value and Free Play', text: 'Flexible credit settings — per game, by category, or one value across all titles. Free Play mode included.', sort: 3, landing_block_id: 0, type: '', icon_class: null },
               { id: 3, title: 'Customizable Idle Ad Screens', text: 'Display animated ads and promotions while idle — created directly on the unit.', sort: 4, landing_block_id: 0, type: '', icon_class: null },
               { id: 4, title: 'Flexible Game Setup and Bad Words Filter', text: 'Enable or disable any title. Built-in filter keeps content family-friendly across all locations.', sort: 5, landing_block_id: 0, type: '', icon_class: null },
               { id: 5, title: '"How to Play" Instructions', text: 'Every game includes built-in instructions for instant onboarding and a smooth first-time experience.', sort: 6, landing_block_id: 0, type: '', icon_class: null },
-            ]).map((item, i) => (
-              <div key={item.id} style={{
-                background: '#181a1b',
-                borderRight: (i + 1) % 3 !== 0 ? '1px solid #252729' : 'none',
-                borderBottom: i < 3 ? '1px solid #252729' : 'none',
-                padding: '32px 28px',
-              }}>
-                <div style={{
-                  width: 32, height: 32, borderRadius: 8,
-                  background: 'rgba(5,159,255,0.12)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  marginBottom: 16,
-                }}>
-                  <span style={{ fontSize: 13, fontWeight: 800, color: '#059FFF' }}>{String(i + 1).padStart(2, '0')}</span>
-                </div>
-                <p style={{ fontSize: 16, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px', lineHeight: 1.3, textTransform: 'uppercase', letterSpacing: '0.02em' }}>
-                  {item.title}
-                </p>
-                <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.58)', lineHeight: 1.65, margin: 0 }}>
-                  {stripHtml(item.text)}
-                </p>
+            ]
+            return (
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 1, border: '1px solid #252729', borderRadius: 16, overflow: 'hidden' }}>
+                {items.map((item, i) => {
+                  const featureImg = FEATURE_IMAGES[item.sort] ?? null
+                  return (
+                    <div key={item.id} style={{
+                      background: '#181a1b',
+                      borderRight: (i + 1) % 3 !== 0 ? '1px solid #252729' : 'none',
+                      borderBottom: i < 3 ? '1px solid #252729' : 'none',
+                      display: 'flex', flexDirection: 'column',
+                    }}>
+                      {/* Image */}
+                      {featureImg ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={featureImg}
+                          alt={item.title ?? ''}
+                          style={{ width: '100%', height: 180, objectFit: 'cover', display: 'block', borderBottom: '1px solid #252729' }}
+                        />
+                      ) : (
+                        <div style={{ height: 180, background: 'linear-gradient(135deg, #101213 0%, #0d1520 100%)', borderBottom: '1px solid #252729', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <span style={{ fontSize: 36, fontWeight: 800, color: 'rgba(5,159,255,0.15)' }}>{String(i + 1).padStart(2, '0')}</span>
+                        </div>
+                      )}
+                      {/* Text */}
+                      <div style={{ padding: '24px 24px 28px' }}>
+                        <p style={{ fontSize: 16, fontWeight: 700, color: '#F4F3EC', margin: '0 0 10px', lineHeight: 1.3, textTransform: 'uppercase', letterSpacing: '0.02em' }}>
+                          {item.title}
+                        </p>
+                        <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.58)', lineHeight: 1.65, margin: 0 }}>
+                          {stripHtml(item.text)}
+                        </p>
+                      </div>
+                    </div>
+                  )
+                })}
               </div>
-            ))}
-          </div>
+            )
+          })()}
         </div>
       </section>
 
