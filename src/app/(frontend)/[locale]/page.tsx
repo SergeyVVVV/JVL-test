@@ -52,7 +52,6 @@ export default async function HomePage() {
   const slides: HeroSlide[] = dbSlides.length > 0
     ? dbSlides.map((s) => ({
         bg: s.desktopImage,
-        eyebrow: 'JVL Entertainment',
         heading: s.title ?? '',
         body: s.description ?? '',
         cta: {
@@ -64,8 +63,7 @@ export default async function HomePage() {
     : [
         {
           bg: null,
-          eyebrow: 'JVL Entertainment',
-          heading: 'ECHO HD3 — Premium Touchscreen Arcade',
+            heading: 'ECHO HD3 — Premium Touchscreen Arcade',
           body: '22\u2033 touchscreen bartop arcade with 149 pre-installed games. Plug & play — no setup required.',
           cta: { text: 'Explore on Amazon', href: 'https://www.amazon.com/dp/B0DJ3BSJ4D', external: true },
         },

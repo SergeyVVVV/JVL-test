@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from 'react'
 export interface HeroSlide {
   bg: string | null
   video?: string | null
-  eyebrow: string
+  eyebrow?: string
   heading: string
   body: string
   cta: { text: string; href: string; external?: boolean }
@@ -77,12 +77,14 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
         opacity: transitioning ? 0 : 1,
         transition: 'opacity 0.35s ease',
       }}>
-        <p style={{
-          fontSize: 13, fontWeight: 700, letterSpacing: '0.15em',
-          textTransform: 'uppercase', color: '#FB671F', margin: '0 0 14px',
-        }}>
-          {slide.eyebrow}
-        </p>
+        {slide.eyebrow && (
+          <p style={{
+            fontSize: 13, fontWeight: 700, letterSpacing: '0.15em',
+            textTransform: 'uppercase', color: '#FB671F', margin: '0 0 14px',
+          }}>
+            {slide.eyebrow}
+          </p>
+        )}
         <h1 className="hp-hero-h1" style={{
           fontFamily: 'inherit',
           fontSize: 'clamp(2rem, 3.5vw, 3.8rem)',
