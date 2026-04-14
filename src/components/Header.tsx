@@ -16,7 +16,7 @@ const navItems = [
   { label: 'Flex', href: '/en/flex' },
   { label: 'Online Games', href: '/en/games' },
   { label: 'About JVL', href: '/en/about-jvl' },
-  { label: 'News', href: '/en/news' },
+  { label: 'News', href: '/en/blog-and-news' },
   { label: 'Contact', href: '/en/contact-us' },
 ]
 
