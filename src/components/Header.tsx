@@ -153,7 +153,7 @@ export default function Header() {
           <div ref={dropdownMenuRef} style={{
             position: 'fixed', top: 76, left: dropdownLeft,
             minWidth: 190, background: '#181818',
-            border: '1px solid #2a2a2a', borderRadius: 10,
+            border: '1px solid #2a2a2a', borderRadius: 4,
             boxShadow: '0 8px 32px rgba(0,0,0,0.5)',
             overflow: 'hidden',
             zIndex: 300,

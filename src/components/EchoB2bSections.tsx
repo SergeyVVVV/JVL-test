@@ -82,7 +82,7 @@ export function VenuesSection({ items }: { items: VenueItem[] }) {
       </div>
 
       <style>{`
-        .eb2b-uc-tabs { display: inline-flex; align-items: center; background: rgba(16,18,19,0.6); backdrop-filter: blur(5px); padding: 15px 20px; border-radius: 10px; }
+        .eb2b-uc-tabs { display: inline-flex; align-items: center; background: rgba(16,18,19,0.6); backdrop-filter: blur(5px); padding: 15px 20px; border-radius: 4px; }
         .eb2b-uc-desc { font-size: 24px; font-weight: 400; line-height: 1.15; color: #F4F3EC; }
         @media (max-width: 767px) {
           .eb2b-uc-section { height: 420px !important; }

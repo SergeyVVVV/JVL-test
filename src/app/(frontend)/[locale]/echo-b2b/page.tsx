@@ -156,7 +156,7 @@ export default async function EchoB2bPage() {
                 { id: 3, landing_block_id: 0, type: '', icon_class: null, sort: 4, title: 'Fast Maintenance', text: 'We prioritize uptime with fast support, a clear replacement policy, and parts always in stock.' },
               ]).map((item, i) => (
                 <div key={item.id} style={{
-                  background: '#181a1b', border: '1px solid #252729', borderRadius: 12,
+                  background: '#181a1b', border: '1px solid #252729', borderRadius: 4,
                   padding: '24px 20px',
                 }}>
                   {SUPPORT_ICONS[i] && (

@@ -1686,7 +1686,7 @@ export default function EchoPageClient({ data }: { data: PageData }) {
         }
 
         /* ── Use Cases tab bar ── */
-        .echo-uc-tabs { display: inline-flex; align-items: center; background: rgba(16,18,19,0.6); backdrop-filter: blur(5px); padding: 15px 20px; border-radius: 10px; }
+        .echo-uc-tabs { display: inline-flex; align-items: center; background: rgba(16,18,19,0.6); backdrop-filter: blur(5px); padding: 15px 20px; border-radius: 4px; }
         @media (max-width: 640px) {
           .echo-uc-tabs { display: flex; width: 100%; padding: 10px 0; overflow-x: auto; scrollbar-width: none; justify-content: center; }
           .echo-uc-tabs button { padding: 5px 14px !important; font-size: 14px !important; }
