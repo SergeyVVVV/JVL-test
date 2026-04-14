@@ -134,12 +134,7 @@ export default function FlexPage() {
                 <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.4)', margin: '0 0 10px' }}>
                   JVL Sales
                 </p>
-                <a
-                  href="tel:+14703041692"
-                  style={{ display: 'block', fontSize: 'clamp(1.5rem, 3vw, 2.2rem)', fontWeight: 700, color: '#F4F3EC', textDecoration: 'none', letterSpacing: '-0.02em', marginBottom: 16, transition: 'color 0.2s' }}
-                  onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#059FFF' }}
-                  onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.color = '#F4F3EC' }}
-                >
+                <a href="tel:+14703041692" className="flex-phone-link">
                   (470) 304-1692
                 </a>
               </div>
@@ -207,6 +202,17 @@ export default function FlexPage() {
         @media (max-width: 480px) {
           .flex-models-grid { grid-template-columns: 1fr; }
         }
+        .flex-phone-link {
+          display: block;
+          font-size: clamp(1.5rem, 3vw, 2.2rem);
+          font-weight: 700;
+          color: #F4F3EC;
+          text-decoration: none;
+          letter-spacing: -0.02em;
+          margin-bottom: 16px;
+          transition: color 0.2s;
+        }
+        .flex-phone-link:hover { color: #059FFF; }
       `}</style>
     </main>
   )
