@@ -25,7 +25,7 @@ const PRODUCTS = [
     label: 'ECHO',
     desc: '22" touchscreen countertop arcade with 149 built-in games — for home and commercial use.',
     img: '/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg',
-    href: '/en/echo-1',
+    href: '/en/echo',
     dark: false,
   },
 ]
@@ -200,9 +200,7 @@ export default async function HomePage() {
           </h2>
 
           <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: '20px 0 0' }}>
-            {historyBlock?.text
-              ? stripHtml(historyBlock.text)
-              : 'Three product lines built for different arenas — from casino floors and online platforms to home entertainment.'}
+            For over 40 years, JVL has created gaming products for casinos, venues, and the home. From FLEX and online games to the ECHO HD3, we combine proven performance, premium design, and modern simplicity.
           </p>
 
           {/* Product cards */}
@@ -249,9 +247,16 @@ export default async function HomePage() {
 
             {/* Left: history text + CTA */}
             <div>
-              <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 24px' }}>
+              <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px' }}>
                 About Us
               </p>
+              <h2 style={{
+                fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 700,
+                textTransform: 'uppercase', letterSpacing: '-0.02em',
+                lineHeight: 1.1, color: '#F4F3EC', margin: '0 0 24px',
+              }}>
+                Trusted Name in Gaming Since 1984
+              </h2>
               <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.8, color: 'rgba(244,243,236,0.75)', margin: '0 0 20px' }}>
                 JVL, founded in 1984, is a family-owned supplier of land-based casino cabinets, slot games (for both cabinets and online), and coin-operated amusement machines.
               </p>
