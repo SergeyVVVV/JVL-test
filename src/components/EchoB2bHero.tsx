@@ -5,7 +5,6 @@ import { useRef, useState, useEffect } from 'react'
 interface EchoB2bHeroProps {
   title: string
   subtitle: string
-  badge?: string | null
   buttonText: string
   buttonUrl: string
   videoSrc?: string | null
@@ -13,7 +12,7 @@ interface EchoB2bHeroProps {
 }
 
 export default function EchoB2bHero({
-  title, subtitle, badge, buttonText, buttonUrl, videoSrc, posterSrc,
+  title, subtitle, buttonText, buttonUrl, videoSrc, posterSrc,
 }: EchoB2bHeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
   const [muted, setMuted] = useState(true)
@@ -26,8 +25,8 @@ export default function EchoB2bHero({
   return (
     <>
     <style>{`
-      .eb2b-hero { height: calc(100svh - 124px); min-height: 520px; }
-      @media (max-width: 767px) { .eb2b-hero { height: 58vh; min-height: 380px; max-height: 520px; } }
+      .eb2b-hero { height: 100svh; min-height: 600px; }
+      @media (max-width: 767px) { .eb2b-hero { height: 75vh; min-height: 450px; }
     `}</style>
     <section className="echo-hero eb2b-hero" style={{
       position: 'relative', width: '100%', background: '#080a0b',
@@ -63,14 +62,6 @@ export default function EchoB2bHero({
 
       {/* Headline */}
       <div style={{ position: 'relative', bottom: 'auto', padding: '0 5vw 80px' }}>
-        {badge && (
-          <p style={{
-            fontSize: 12, fontWeight: 700, letterSpacing: '0.16em',
-            textTransform: 'uppercase', color: '#059FFF', margin: '0 0 16px',
-          }}>
-            {badge}
-          </p>
-        )}
         <h1 className="echo-hero-h1" style={{
           fontFamily: 'inherit',
           fontSize: 'clamp(2rem, 3.5vw, 3.8rem)',
