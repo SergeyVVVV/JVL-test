@@ -107,21 +107,16 @@ export default async function HomePage() {
           gap: 10px;
         }
         #home-page .hp-games-all-tile {
-          margin-top: 10px;
-          width: calc((100% - 20px) / 3);
-          align-self: flex-end;
-          margin-left: auto;
+          /* in-grid 6th slot */
         }
         #home-page .hp-game-cat-card img { transition: transform 0.5s ease; }
         #home-page .hp-game-cat-card:hover img { transform: scale(1.04); }
         @media (max-width: 960px) {
           #home-page .hp-games-grid { grid-template-columns: repeat(2, 1fr); }
           #home-page .hp-games-header { grid-template-columns: 1fr; }
-          #home-page .hp-games-all-tile { width: calc((100% - 10px) / 2); }
         }
         @media (max-width: 540px) {
           #home-page .hp-games-grid { grid-template-columns: 1fr 1fr; }
-          #home-page .hp-games-all-tile { width: 100%; }
         }
 
         /* ── News ── */
@@ -282,12 +277,12 @@ export default async function HomePage() {
             </form>
           </div>
 
-          {/* Category grid — from CMS */}
+          {/* Category grid — from CMS, 149+ tile always as last slot */}
           <div className="hp-games-grid">
-            {gameThemes.slice(0, 6).map((g) => (
+            {gameThemes.slice(0, 5).map((g) => (
               <a
                 key={g.id}
-                href={g.url || `/en/games?Themes=${g.id}`}
+                href={`/en/games?Themes=${g.tag_id ?? g.id}`}
                 className="hp-game-cat-card"
                 style={{
                   position: 'relative', display: 'block', borderRadius: 6,
@@ -313,27 +308,28 @@ export default async function HomePage() {
                 </div>
               </a>
             ))}
-          </div>
 
-          {/* "View all" tile — 1/3 width, right-aligned below grid */}
-          <a
-            href="/en/games"
-            className="hp-games-all-tile"
-            style={{
-              display: 'flex',
-              flexDirection: 'column', justifyContent: 'center',
-              borderRadius: 6, textDecoration: 'none',
-              aspectRatio: '4/1.5', background: '#059FFF',
-              padding: '20px 28px',
-            }}
-          >
-            <span style={{ fontSize: 'clamp(2rem, 3vw, 2.5rem)', fontWeight: 800, color: '#fff', lineHeight: 1, marginBottom: 6 }}>
-              149+
-            </span>
-            <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.9)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
-              View All Games →
-            </span>
-          </a>
+            {/* 149+ tile — always in grid as last slot */}
+            <a
+              href="/en/games"
+              className="hp-games-all-tile"
+              style={{
+                display: 'flex',
+                flexDirection: 'column', justifyContent: 'center',
+                borderRadius: 6, textDecoration: 'none',
+                background: '#059FFF',
+                padding: '20px 28px',
+                aspectRatio: '4/5',
+              }}
+            >
+              <span style={{ fontSize: 'clamp(2rem, 3vw, 2.5rem)', fontWeight: 800, color: '#fff', lineHeight: 1, marginBottom: 6 }}>
+                149+
+              </span>
+              <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.9)', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                View All Games →
+              </span>
+            </a>
+          </div>
         </div>
       </section>
 

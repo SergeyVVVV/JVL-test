@@ -284,6 +284,7 @@ export interface GameThemeItem {
   id: number
   name: string | null
   url: string | null
+  tag_id: number | null
   sort: number
   image: string | null
 }
@@ -311,6 +312,7 @@ export async function getGameThemes(locale = 'en'): Promise<GameThemeItem[]> {
         id: r.id,
         name: tagName ?? bannerText,
         url: parseLocale(r.url, locale),
+        tag_id: r.tag_id ?? null,
         sort: r.sort,
         image,
       })
