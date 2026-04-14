@@ -32,28 +32,16 @@ export default function EchoB2bHero({
       position: 'relative', width: '100%', background: '#080a0b',
       overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
     }}>
-      {/* Poster */}
-      {posterSrc && !videoSrc && (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img src={posterSrc} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
-      )}
-
-      {/* Video */}
+      {/* Video (no poster placeholder — dark bg until video loads) */}
       {videoSrc && (
         // eslint-disable-next-line jsx-a11y/media-has-caption
         <video
           ref={videoRef}
           src={videoSrc}
-          poster={posterSrc ?? undefined}
           autoPlay muted loop playsInline
           className="echo-hero-video"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
         />
-      )}
-
-      {/* Dark radial bg when no media */}
-      {!videoSrc && !posterSrc && (
-        <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse 80% 60% at 60% 40%, #0d1c2e 0%, #080a0b 100%)' }} />
       )}
 
       {/* Gradient overlays */}

@@ -46,6 +46,32 @@ html {
   box-shadow: none;
 }
 
+/* Outline button — transparent → white fill on hover */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 4px;
+  background: transparent;
+  color: #F4F3EC;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.22s ease, color 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.btn-outline:hover {
+  background: #fff;
+  color: #101213;
+  border-color: #fff;
+  box-shadow: 0 6px 20px rgba(255,255,255,0.15);
+}
+
 body {
   background-color: #101213;
   color: #F4F3EC;

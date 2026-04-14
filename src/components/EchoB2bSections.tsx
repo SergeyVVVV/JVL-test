@@ -57,7 +57,7 @@ export function VenuesSection({ items }: { items: VenueItem[] }) {
                 padding: '5px 20px',
                 fontSize: 16, fontWeight: 400,
                 lineHeight: 1.2,
-                color: active === i ? '#FB671F' : '#F4F3EC',
+                color: active === i ? '#059FFF' : '#F4F3EC',
                 opacity: active === i ? 1 : 0.4,
                 transition: 'color 0.2s, opacity 0.2s',
                 whiteSpace: 'nowrap',

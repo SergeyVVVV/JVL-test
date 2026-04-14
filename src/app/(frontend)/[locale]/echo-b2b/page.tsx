@@ -64,6 +64,10 @@ export default async function EchoB2bPage() {
   const FEATURE_IMAGES: Record<number, string> = {
     1: '/api/storage/3564/Bills-and-Quarters.jpeg',
     2: '/api/storage/3565/Secure-Bank.jpg',
+    3: '/api/storage/3566/Credit-Value.jpg',
+    4: '/api/storage/3567/Idle-Ad-Screens.jpg',
+    5: '/api/storage/3568/Bad-Words-Filter.jpg',
+    6: '/api/storage/3569/How-to-Play-(1).jpg',
   }
 
   const heroTitle = heroBlock?.title ?? 'JVL ECHO HD3 – FREE PLAY and COMMERCIAL PREMIUM TABLETOP ARCADE MACHINE'
@@ -187,7 +191,7 @@ export default async function EchoB2bPage() {
 
       {/* ── 5. Bottom CTA ── */}
       <section style={{ background: '#080a0b', borderTop: '1px solid #1e2022', padding: '96px 0' }}>
-        <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw', textAlign: 'center' }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
           <h2 style={{
             fontFamily: 'inherit', fontSize: 'clamp(1.9rem, 3vw, 3.2rem)',
             fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
@@ -195,45 +199,60 @@ export default async function EchoB2bPage() {
           }}>
             {bottomBlock?.title ?? 'Bring ECHO to your business'}
           </h2>
-          <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.58)', lineHeight: 1.65, margin: '0 auto 48px', maxWidth: 520 }}>
+          <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.58)', lineHeight: 1.65, margin: '0 0 40px', maxWidth: 520 }}>
             {bottomBlock?.text ?? 'Join our partner network and introduce ECHO to venues nationwide.'}
           </p>
 
-          <div className="eb2b-bottom-links" style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', alignItems: 'stretch' }}>
-            {/* Contact link */}
-            <Link
-              href="/en/contact-us"
-              className="btn-amazon"
-              style={{ padding: '14px 28px', textTransform: 'uppercase' }}
-            >
-              Reach Out to JVL
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none" style={{ marginLeft: 4 }}>
-                <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 28, maxWidth: 520 }}>
+            {/* Contact */}
+            <div>
+              <Link
+                href="/en/contact-us"
+                className="btn-amazon"
+                style={{ padding: '14px 28px', textTransform: 'uppercase', width: '100%', justifyContent: 'center' }}
+              >
+                Reach Out to JVL
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                  <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </div>
 
-            {/* Amazon link */}
-            {bottomLinks.find(l => l.icon_class === 'amazon_link') && (
+            {/* Amazon */}
+            <div>
+              <p style={{ fontSize: 18, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px' }}>
+                {bottomLinks.find(l => l.icon_class === 'amazon_link')?.title ?? 'Ready to place an order?'}
+              </p>
               <a
                 href={engineeredBlock?.button_url ?? 'https://www.amazon.com/dp/B0FHWY5P1L'}
                 target="_blank"
                 rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: 8,
-                  padding: '14px 28px',
-                  border: '1px solid rgba(255,255,255,0.22)',
-                  borderRadius: 4,
-                  color: '#F4F3EC', textDecoration: 'none',
-                  fontSize: 13, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase',
-                  transition: 'border-color 0.2s',
-                }}
+                className="btn-outline"
+                style={{ width: '100%', justifyContent: 'center' }}
               >
-                {bottomLinks.find(l => l.icon_class === 'amazon_link')?.title ?? 'Ready to place an order?'}
+                Buy on Amazon
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
                   <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </a>
-            )}
+            </div>
+
+            {/* Echo details */}
+            <div>
+              <p style={{ fontSize: 18, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px' }}>
+                Interested in exploring more details?
+              </p>
+              <Link
+                href="/en/echo"
+                className="btn-outline"
+                style={{ width: '100%', justifyContent: 'center' }}
+              >
+                View ECHO Details Page
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                  <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </Link>
+            </div>
           </div>
         </div>
       </section>
