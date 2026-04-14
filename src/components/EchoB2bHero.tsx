@@ -26,11 +26,11 @@ export default function EchoB2bHero({
     <>
     <style>{`
       .eb2b-hero { height: 100svh; min-height: 600px; }
-      @media (max-width: 767px) { .eb2b-hero { height: 75vh; min-height: 450px; }
+      @media (max-width: 767px) { .eb2b-hero { height: 75vh; min-height: 450px; } }
     `}</style>
     <section className="echo-hero eb2b-hero" style={{
       position: 'relative', width: '100%', background: '#080a0b',
-      overflow: 'hidden', display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+      overflow: 'hidden',
     }}>
       {/* Video (no poster placeholder — dark bg until video loads) */}
       {videoSrc && (
@@ -49,13 +49,13 @@ export default function EchoB2bHero({
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.0) 60%)' }} />
 
       {/* Headline */}
-      <div style={{ position: 'relative', bottom: 'auto', padding: '0 5vw 80px' }}>
+      <div style={{ position: 'absolute', bottom: 120, left: 0, right: 0, padding: '0 5vw' }}>
         <h1 className="echo-hero-h1" style={{
           fontFamily: 'inherit',
           fontSize: 'clamp(2rem, 3.5vw, 3.8rem)',
           fontWeight: 600, lineHeight: 1.1,
           letterSpacing: '-0.01em', textTransform: 'uppercase',
-          color: '#fff', margin: 0, maxWidth: 860,
+          color: '#fff', margin: 0,
         }}>
           {title}
         </h1>
@@ -71,7 +71,7 @@ export default function EchoB2bHero({
       </div>
 
       {/* Bottom bar */}
-      <div style={{ position: 'relative' }}>
+      <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
         <div style={{ height: 1, background: 'rgba(255,255,255,0.15)' }} />
         <div style={{
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
