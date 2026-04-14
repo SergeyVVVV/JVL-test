@@ -128,7 +128,7 @@ export default async function EchoB2bPage() {
               }}>
                 {supportBlock?.title ?? "JVL's Promise to B2B Partners"}
               </h2>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
+              <div className="eb2b-promise-desc-row" style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
                 <p style={{ flex: 1, fontSize: 15, color: 'rgba(244,243,236,0.62)', lineHeight: 1.7, margin: 0 }}>
                   {supportBlock?.text ?? 'Consistent support, fast response, and a team you can count on.'}
                 </p>
@@ -148,7 +148,7 @@ export default async function EchoB2bPage() {
             </div>
 
             {/* Right: 2x2 feature cards */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+            <div className="eb2b-support-cards" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
               {(supportItems.length > 0 ? supportItems : [
                 { id: 0, landing_block_id: 0, type: '', icon_class: null, sort: 1, title: 'Amazon B2B Prime', text: 'A special offer through Amazon Business Prime — enjoy free shipping, flexible payment terms, and hassle-free ordering.' },
                 { id: 1, landing_block_id: 0, type: '', icon_class: null, sort: 2, title: 'Personalized Discounts', text: 'A transparent, volume-based discount structure with customized programs for long-term partners.' },
@@ -269,6 +269,8 @@ export default async function EchoB2bPage() {
         .eb2b-bottom-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; }
         @media (max-width: 767px) {
           .eb2b-promise-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+          .eb2b-promise-desc-row { flex-direction: column !important; align-items: flex-start !important; gap: 20px !important; }
+          .eb2b-support-cards { grid-template-columns: 1fr !important; }
           .eb2b-bottom-grid { grid-template-columns: 1fr !important; gap: 48px !important; }
         }
       `}</style>

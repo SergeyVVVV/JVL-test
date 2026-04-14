@@ -85,9 +85,23 @@ export function VenuesSection({ items }: { items: VenueItem[] }) {
         .eb2b-uc-tabs { display: inline-flex; align-items: center; background: rgba(16,18,19,0.6); backdrop-filter: blur(5px); padding: 15px 20px; border-radius: 4px; }
         .eb2b-uc-desc { font-size: 24px; font-weight: 400; line-height: 1.15; color: #F4F3EC; }
         @media (max-width: 767px) {
-          .eb2b-uc-section { height: 420px !important; }
-          .eb2b-uc-tabs { display: flex; width: 100%; padding: 10px 0; overflow-x: auto; scrollbar-width: none; justify-content: center; }
-          .eb2b-uc-tabs button { padding: 5px 14px !important; font-size: 14px !important; }
+          .eb2b-uc-section { height: 520px !important; }
+          .eb2b-uc-outer { padding: 0 16px !important; }
+          .eb2b-uc-tabs {
+            display: flex !important;
+            flex-direction: column !important;
+            width: 100% !important;
+            padding: 0 !important;
+          }
+          .eb2b-uc-tabs button {
+            padding: 11px 16px !important;
+            font-size: 14px !important;
+            border-left: none !important;
+            border-bottom: 1px solid rgba(244,243,236,0.18) !important;
+            text-align: left !important;
+            white-space: normal !important;
+          }
+          .eb2b-uc-tabs button:last-child { border-bottom: none !important; }
           .eb2b-uc-desc { font-size: 15px !important; line-height: 1.45 !important; }
           .eb2b-uc-text-wrap { padding: 20px 5vw 36px !important; }
         }
