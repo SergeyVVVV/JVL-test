@@ -1,5 +1,5 @@
-import { getGamesList, getGameFilterTags, getPageIdBySlug, getSlides } from '@/lib/db'
-import HomeHeroCarousel, { HeroSlide } from '@/components/HomeHeroCarousel'
+import { getGamesList, getGameFilterTags, getPageIdBySlug, getGameSliderSlides } from '@/lib/db'
+import GamesHeroCarousel from '@/components/GamesHeroCarousel'
 import GamesGrid from '@/components/GamesGrid'
 
 export const dynamic = 'force-dynamic'
@@ -22,22 +22,9 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
     getGamesList({ locale, perPage: PER_PAGE }),
   ])
 
-  // Carousel slides (configured in AdminLTE for the "games" page)
-  let slides: HeroSlide[] = []
-  if (pageId) {
-    const raw = await getSlides(pageId, locale)
-    slides = raw.map(s => ({
-      bg:   s.desktopImage,
-      heading: s.title ?? '',
-      body:    s.description ?? '',
-      cta: {
-        text:     s.btnText   ?? 'View Game',
-        href:     s.link      ?? `/${locale}/games`,
-      },
-    }))
-  }
-
-  const hasCarousel = slides.length > 0
+  // Carousel: games configured in AdminLTE → Games Top Slider
+  const gameSlides = pageId ? await getGameSliderSlides(pageId, locale) : []
+  const hasCarousel = gameSlides.length > 0
   const topPad = hasCarousel ? '80px 6vw 0' : '204px 6vw 0'
 
   return (
@@ -45,8 +32,8 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
       id="games-page"
       style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', marginTop: -124, minHeight: '100vh' }}
     >
-      {/* ── Hero carousel (if slides configured in CMS) ── */}
-      {hasCarousel && <HomeHeroCarousel slides={slides} />}
+      {/* ── Hero carousel (games configured in AdminLTE) ── */}
+      {hasCarousel && <GamesHeroCarousel slides={gameSlides} locale={locale} />}
 
       {/* ── Content section ── */}
       <section style={{ padding: '0 0 120px' }}>
@@ -83,15 +70,9 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
       </section>
 
       <style>{`
-        /* Carousel height inside games page */
-        #games-page .hp-hero { height: 65vh; min-height: 440px; }
         @media (max-width: 767px) {
-          #games-page .hp-hero { height: 55vh; min-height: 320px; }
-          #games-page .hp-hero-h1 { font-size: clamp(1.1rem, 5vw, 1.5rem) !important; }
-          #games-page .hp-hero-ctas { flex-direction: column; align-items: flex-start; }
-          .gg-title-br { display: none; }
-          /* No-carousel top padding */
           #games-page .gp-top-inner { padding-top: 164px !important; }
+          .gg-title-br { display: none; }
         }
       `}</style>
     </main>

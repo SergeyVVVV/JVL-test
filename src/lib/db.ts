@@ -703,6 +703,86 @@ export interface GameScreenSlide {
   videoFile: string | null
 }
 
+/** ── Games Top Slider (used on /games listing page) ───────────────────────
+ *  game_sliders (polymorphic) → game_slides → games + pages + media
+ */
+export interface GameHeroSlide {
+  gameId: number
+  slug: string
+  title: string | null
+  description: string | null
+  playUrl: string | null
+  image: string | null      // horizontal image
+}
+
+export async function getGameSliderSlides(pageId: number, locale = 'en'): Promise<GameHeroSlide[]> {
+  try {
+    const db = getPool()
+
+    // 1. Find the game_slider attached to this page
+    const [sliderRows] = await db.execute(
+      "SELECT id FROM game_sliders WHERE model_type = 'App\\\\Models\\\\Page' AND model_id = ? LIMIT 1",
+      [pageId]
+    )
+    const slider = (sliderRows as any[])[0]
+    if (!slider) return []
+
+    // 2. Get game_slides ordered by sort, only active ones
+    const [slideRows] = await db.execute(
+      `SELECT gs.page_id, gs.sort, gs.active
+       FROM game_slides gs
+       WHERE gs.game_slider_id = ?
+       ORDER BY gs.sort ASC`,
+      [slider.id]
+    )
+
+    const results: GameHeroSlide[] = []
+
+    for (const s of slideRows as any[]) {
+      // Check active JSON field
+      try {
+        const raw = s.active
+        if (raw !== null && raw !== undefined) {
+          const parsed = typeof raw === 'string' ? JSON.parse(raw) : raw
+          const isActive = typeof parsed === 'object'
+            ? !!(parsed[locale] ?? parsed['en'] ?? 1)
+            : !!parsed
+          if (!isActive) continue
+        }
+      } catch {}
+
+      // 3. Get game + page data for this slide
+      const [gameRows] = await db.execute(
+        `SELECT g.id AS game_id, g.play_url, p.slug, p.title, p.description
+         FROM games g
+         INNER JOIN pages p ON p.id = g.page_id
+         WHERE g.page_id = ? AND g.active = 1
+         LIMIT 1`,
+        [s.page_id]
+      )
+      const game = (gameRows as any[])[0]
+      if (!game) continue
+
+      // 4. Get horizontal image
+      const image = await getMediaUrl('App\\Models\\Game', game.game_id, 'horizontal')
+
+      results.push({
+        gameId: game.game_id,
+        slug: game.slug,
+        title: parseLocale(game.title, locale),
+        description: parseLocale(game.description, locale),
+        playUrl: game.play_url,
+        image,
+      })
+    }
+
+    return results
+  } catch (err) {
+    console.error('[game_slider] getGameSliderSlides failed:', err)
+    return []
+  }
+}
+
 export async function getGameScreenSlides(pageId: number): Promise<GameScreenSlide[]> {
   try {
     const db = getPool()
