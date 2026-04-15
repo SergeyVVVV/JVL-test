@@ -15,166 +15,160 @@ export default function PrivacyPolicyPage() {
       lastUpdated="January 1, 2025"
       sections={[
         {
-          heading: '1. Introduction',
+          heading: 'Our Commitment',
           content: (
             <p style={pStyle}>
-              JVL Systems Inc. (&quot;JVL&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to
-              protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard
-              your information when you visit our website jvl.ca (the &quot;Site&quot;) or communicate with us.
-              Please read this policy carefully. If you disagree with its terms, please discontinue use of the Site.
+              JVL is committed to protecting user privacy online, and we pledge to give you as much control
+              as possible over your personal information.
             </p>
           ),
         },
         {
-          heading: '2. Information We Collect',
+          heading: 'Information We Collect',
           content: (
             <>
-              <p style={pStyle}>We may collect the following types of information:</p>
-              <ul style={ulStyle}>
-                <li>
-                  <strong style={{ color: '#F4F3EC' }}>Personal Information</strong> — name, email address,
-                  phone number, mailing address, and other identifiers you voluntarily provide when filling
-                  out contact forms, warranty registrations, or other submissions.
-                </li>
-                <li>
-                  <strong style={{ color: '#F4F3EC' }}>Device &amp; Usage Data</strong> — IP address, browser
-                  type, operating system, referring URLs, pages visited, and time spent on the Site, collected
-                  automatically via cookies and similar tracking technologies.
-                </li>
-                <li>
-                  <strong style={{ color: '#F4F3EC' }}>Communications</strong> — the content of messages you
-                  send us through contact forms or by email.
-                </li>
-              </ul>
-            </>
-          ),
-        },
-        {
-          heading: '3. How We Use Your Information',
-          content: (
-            <>
-              <p style={pStyle}>We use the information we collect to:</p>
-              <ul style={ulStyle}>
-                <li>Respond to your inquiries, requests, and warranty registrations.</li>
-                <li>Provide, operate, and improve the Site and our services.</li>
-                <li>Send administrative communications, such as confirmations and technical notices.</li>
-                <li>Send marketing communications where you have consented to receive them.</li>
-                <li>Analyze usage patterns and trends to enhance user experience.</li>
-                <li>Comply with legal obligations and enforce our Terms of Use.</li>
-              </ul>
-            </>
-          ),
-        },
-        {
-          heading: '4. Sharing of Information',
-          content: (
-            <>
+              <p style={{ ...pStyle, fontWeight: 600, color: '#F4F3EC', marginBottom: 6 }}>IP Address</p>
               <p style={pStyle}>
-                We do not sell, trade, or rent your personal information to third parties. We may share your
-                information in the following limited circumstances:
+                JVL logs IP addresses for system administration and server diagnostics. We track browser type,
+                operating system, and referring IP address in aggregate form only, without linking addresses
+                to personal identifiers.
               </p>
-              <ul style={ulStyle}>
-                <li>
-                  <strong style={{ color: '#F4F3EC' }}>Service Providers</strong> — trusted third-party vendors
-                  who assist us in operating the Site and conducting our business, subject to confidentiality agreements.
-                </li>
-                <li>
-                  <strong style={{ color: '#F4F3EC' }}>Legal Requirements</strong> — when required by law,
-                  regulation, or valid legal process.
-                </li>
-                <li>
-                  <strong style={{ color: '#F4F3EC' }}>Business Transfers</strong> — in connection with a merger,
-                  acquisition, or sale of all or a portion of our assets.
-                </li>
-              </ul>
-            </>
-          ),
-        },
-        {
-          heading: '5. Cookies & Tracking Technologies',
-          content: (
-            <>
+
+              <p style={{ ...pStyle, fontWeight: 600, color: '#F4F3EC', marginBottom: 6 }}>Usage</p>
               <p style={pStyle}>
-                The Site uses cookies and similar technologies to enhance your experience, analyse traffic, and
-                remember your preferences. Cookies are small data files stored on your device.
+                Interaction patterns are logged anonymously using session IDs only. We analyze what users
+                search for and which site areas they visit, reviewing data in aggregated form exclusively.
               </p>
+
+              <p style={{ ...pStyle, fontWeight: 600, color: '#F4F3EC', marginBottom: 6 }}>Registration</p>
               <p style={pStyle}>
-                You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.
-                However, some features of the Site may not function properly without cookies.
+                Required fields include full name, email, ZIP code, username, and password. Additional
+                information such as age, address, phone, and employer is optional. Users may provide
+                content for public posting at their own risk.
+              </p>
+
+              <p style={{ ...pStyle, fontWeight: 600, color: '#F4F3EC', marginBottom: 6 }}>Cookies</p>
+              <p style={pStyle}>
+                JVL uses a feature of your browser called a cookie to store your member ID and state
+                information. Cookies store no personal information and are necessary for site functionality.
+              </p>
+
+              <p style={{ ...pStyle, fontWeight: 600, color: '#F4F3EC', marginBottom: 6 }}>Third Party Use of Cookies</p>
+              <p style={pStyle}>
+                Third-party advertisers and content providers may use tracking technologies. Users can
+                opt out through provider websites, though this does not eliminate all advertising.
               </p>
             </>
           ),
         },
         {
-          heading: '6. Data Retention',
+          heading: 'Our Use of Your Information',
           content: (
             <p style={pStyle}>
-              We retain personal information only for as long as necessary to fulfil the purposes outlined in
-              this policy, unless a longer retention period is required or permitted by law. When personal
-              information is no longer needed, we securely delete or anonymise it.
+              Information collected supports improved customer service and targeted communications with
+              your permission. Financial information is held confidentially and is not shared.
             </p>
           ),
         },
         {
-          heading: '7. Your Rights',
-          content: (
-            <>
-              <p style={pStyle}>
-                Depending on your jurisdiction, you may have the following rights regarding your personal information:
-              </p>
-              <ul style={ulStyle}>
-                <li>The right to access the personal information we hold about you.</li>
-                <li>The right to request correction of inaccurate or incomplete information.</li>
-                <li>The right to request deletion of your personal information.</li>
-                <li>The right to withdraw consent for marketing communications at any time.</li>
-                <li>The right to lodge a complaint with a supervisory authority.</li>
-              </ul>
-              <p style={pStyle}>
-                To exercise any of these rights, please contact us using the details in Section 10.
-              </p>
-            </>
-          ),
-        },
-        {
-          heading: '8. Security',
+          heading: 'Information Distribution',
           content: (
             <p style={pStyle}>
-              We implement reasonable technical and organisational measures to protect your personal information
-              against unauthorised access, alteration, disclosure, or destruction. However, no method of
-              transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee
-              absolute security.
+              JVL will never wilfully disclose personally identifiable information to a third party without
+              your permission. Exceptions include legal compliance, enforcement of our Terms of Use, and
+              protecting the rights or safety of JVL or others.
             </p>
           ),
         },
         {
-          heading: '9. Third-Party Links',
+          heading: 'Links',
           content: (
             <p style={pStyle}>
-              The Site may contain links to third-party websites. We are not responsible for the privacy
-              practices or content of those sites. We encourage you to review the privacy policies of any
-              third-party sites you visit.
+              JVL is not responsible for the privacy practices of other websites. We encourage you to
+              review the privacy policies of any external sites you visit.
             </p>
           ),
         },
         {
-          heading: '10. Changes to This Policy',
+          heading: 'Opt-Out Features',
           content: (
             <p style={pStyle}>
-              We may update this Privacy Policy from time to time. We will indicate the date of the most recent
-              revision at the top of this page. We encourage you to review this policy periodically to stay
-              informed about how we protect your information.
+              You may decline communications by contacting us at{' '}
+              <a href="mailto:webmaster@jvl.ca" style={{ color: '#059FFF', textDecoration: 'none' }}>
+                webmaster@jvl.ca
+              </a>{' '}
+              or by adjusting your registration settings.
             </p>
           ),
         },
         {
-          heading: '11. Contact Us',
+          heading: 'Security',
           content: (
             <p style={pStyle}>
-              If you have questions, concerns, or requests regarding this Privacy Policy or our data practices,
-              please contact us at{' '}
-              <a href="mailto:info@jvl.ca" style={{ color: '#059FFF', textDecoration: 'none' }}>info@jvl.ca</a>
-              {' '}or through our{' '}
-              <a href="/en/contact-us" style={{ color: '#059FFF', textDecoration: 'none' }}>Contact page</a>.
+              JVL uses firewalls, secure socket layers, and encryption to protect your information.
+              Users are responsible for maintaining the security of their own passwords.
+            </p>
+          ),
+        },
+        {
+          heading: 'Data Retention',
+          content: (
+            <p style={pStyle}>
+              Personal information is retained only as long as necessary for the purposes for which
+              it was collected.
+            </p>
+          ),
+        },
+        {
+          heading: 'Accessing and Correcting Information',
+          content: (
+            <p style={pStyle}>
+              You may request access to or correction of your personal information by contacting us at{' '}
+              <a href="mailto:privacy@jvl.ca" style={{ color: '#059FFF', textDecoration: 'none' }}>
+                privacy@jvl.ca
+              </a>.
+            </p>
+          ),
+        },
+        {
+          heading: 'Withdrawing Consent',
+          content: (
+            <p style={pStyle}>
+              You may withdraw your consent for us to use your personal information at any time by
+              contacting us at{' '}
+              <a href="mailto:privacy@jvl.ca" style={{ color: '#059FFF', textDecoration: 'none' }}>
+                privacy@jvl.ca
+              </a>.
+            </p>
+          ),
+        },
+        {
+          heading: 'Third Party Collectors',
+          content: (
+            <p style={pStyle}>
+              We encourage users to review the privacy statements of any third parties that may collect
+              information through our site.
+            </p>
+          ),
+        },
+        {
+          heading: 'General',
+          content: (
+            <p style={pStyle}>
+              Questions or concerns regarding our compliance with this Privacy Policy should be directed
+              to our Privacy Officer at{' '}
+              <a href="mailto:privacy@jvl.ca" style={{ color: '#059FFF', textDecoration: 'none' }}>
+                privacy@jvl.ca
+              </a>.
+            </p>
+          ),
+        },
+        {
+          heading: 'Notification of Changes',
+          content: (
+            <p style={pStyle}>
+              Any changes to this Privacy Policy will be posted on this page and communicated to users
+              via email where appropriate.
             </p>
           ),
         },

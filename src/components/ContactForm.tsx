@@ -55,7 +55,7 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div style={{
+      <div className="cf-success" style={{
         background: '#181a1b', border: '1px solid #252729', borderRadius: 4,
         padding: '48px 40px', textAlign: 'center', maxWidth: 560, margin: '0 auto',
       }}>
@@ -212,6 +212,7 @@ export default function ContactForm() {
         .cf-row { display: flex; gap: 16px; }
         @media (max-width: 600px) {
           .cf-row { flex-direction: column; gap: 28px; }
+          .cf-success { padding: 40px 24px !important; }
         }
       `}</style>
     </form>

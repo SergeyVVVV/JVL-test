@@ -50,7 +50,7 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
 
       {/* ── Content section ── */}
       <section style={{ padding: '0 0 120px' }}>
-        <div style={{ maxWidth: 1440, margin: '0 auto', padding: topPad }}>
+        <div className="gp-top-inner" style={{ maxWidth: 1440, margin: '0 auto', padding: topPad }}>
 
           {/* Page header */}
           <p style={{
@@ -90,6 +90,8 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
           #games-page .hp-hero-h1 { font-size: clamp(1.1rem, 5vw, 1.5rem) !important; }
           #games-page .hp-hero-ctas { flex-direction: column; align-items: flex-start; }
           .gg-title-br { display: none; }
+          /* No-carousel top padding */
+          #games-page .gp-top-inner { padding-top: 164px !important; }
         }
       `}</style>
     </main>

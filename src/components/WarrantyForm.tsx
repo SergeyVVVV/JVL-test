@@ -149,7 +149,7 @@ function StepBar({ current, maxReached }: { current: number; maxReached: number 
               </span>
             </div>
             {i < STEPS.length - 1 && (
-              <div style={{
+              <div className="wf-step-connector" style={{
                 width: 48, height: 1, margin: '0 8px', marginBottom: 22,
                 background: done ? 'rgba(251,103,31,0.4)' : 'rgba(244,243,236,0.12)',
                 transition: 'background 0.2s',
@@ -235,7 +235,7 @@ export default function WarrantyForm() {
   /* ── Step 4: Thank You ── */
   if (status === 'success') {
     return (
-      <div style={{
+      <div className="wf-success" style={{
         background: '#181a1b', border: '1px solid #252729', borderRadius: 4,
         padding: '56px 40px', textAlign: 'center', maxWidth: 560, margin: '0 auto',
       }}>
@@ -519,6 +519,8 @@ export default function WarrantyForm() {
         .wf-dd-item:hover { background: rgba(244,243,236,0.06) !important; }
         @media (max-width: 600px) {
           .wf-row { flex-direction: column; gap: 28px; }
+          .wf-success { padding: 40px 20px !important; }
+          .wf-step-connector { width: 24px !important; }
         }
       `}</style>
     </form>

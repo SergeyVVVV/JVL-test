@@ -56,6 +56,11 @@ export default function WarrantyPage() {
         </p>
 
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          #warranty-page > div { padding-top: 164px !important; padding-bottom: 80px !important; }
+        }
+      `}</style>
     </main>
   )
 }

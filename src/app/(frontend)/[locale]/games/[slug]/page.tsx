@@ -80,7 +80,7 @@ export default async function GameDetailPage({
         <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(8,10,11,0.8) 0%, rgba(8,10,11,0) 60%)' }} />
 
         {/* Content */}
-        <div style={{ position: 'relative', zIndex: 1, width: '100%', padding: '140px 6vw 60px', maxWidth: 1440, margin: '0 auto' }}>
+        <div className="gd-hero-content" style={{ position: 'relative', zIndex: 1, width: '100%', padding: '140px 6vw 60px', maxWidth: 1440, margin: '0 auto' }}>
           {/* Breadcrumb */}
           <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', margin: '0 0 20px' }}>
             <Link href={`/${locale}/games`} style={{ color: 'rgba(244,243,236,0.45)', textDecoration: 'none' }}>
@@ -444,14 +444,17 @@ export default async function GameDetailPage({
 
         /* Mobile */
         @media (max-width: 767px) {
-          .gd-stat-cell { padding: 20px 16px; min-width: 100px; }
+          .gd-stat-cell { padding: 20px 16px; min-width: 80px; }
           .gd-story-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
           .gd-reviews-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .gd-also-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          #game-detail-page section { padding-top: 56px !important; padding-bottom: 56px !important; }
+          #game-detail-page section:not(:first-child) { padding-top: 56px !important; padding-bottom: 56px !important; }
+          .gd-hero-content { padding-top: 100px !important; padding-bottom: 48px !important; }
         }
         @media (max-width: 480px) {
           .gd-reviews-grid { grid-template-columns: 1fr !important; }
+          .gd-also-grid { grid-template-columns: 1fr !important; }
+          .gd-stat-cell { min-width: 60px; }
         }
       `}</style>
     </main>

@@ -13,7 +13,7 @@ interface Props {
 }
 
 const h2Style: React.CSSProperties = {
-  fontSize: 'clamp(1rem, 1.5vw, 1.15rem)',
+  fontSize: 'clamp(1rem, 2.5vw, 1.15rem)',
   fontWeight: 700,
   color: '#F4F3EC',
   textTransform: 'uppercase',
@@ -49,7 +49,7 @@ export default function LegalLayout({ badge, title, lastUpdated, sections }: Pro
         marginTop: -124,
       }}
     >
-      <div style={{ maxWidth: 820, margin: '0 auto', padding: '204px 6vw 120px' }}>
+      <div className="legal-container" style={{ maxWidth: 820, margin: '0 auto', padding: '204px 6vw 120px' }}>
 
         {/* Badge */}
         <p style={{
@@ -97,15 +97,25 @@ export default function LegalLayout({ badge, title, lastUpdated, sections }: Pro
         <div style={{ height: 1, background: 'rgba(244,243,236,0.08)', margin: '56px 0 40px' }} />
 
         {/* Footer nav */}
-        <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', textAlign: 'center' }}>
+        <div className="legal-footer-nav" style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', textAlign: 'center' }}>
           <Link href="/en/privacy-policy" style={{ color: 'rgba(244,243,236,0.45)', textDecoration: 'none' }}>Privacy Policy</Link>
-          <span style={{ margin: '0 12px', opacity: 0.3 }}>·</span>
+          <span className="legal-sep" style={{ margin: '0 12px', opacity: 0.3 }}>·</span>
           <Link href="/en/terms-of-use" style={{ color: 'rgba(244,243,236,0.45)', textDecoration: 'none' }}>Terms of Use</Link>
-          <span style={{ margin: '0 12px', opacity: 0.3 }}>·</span>
+          <span className="legal-sep" style={{ margin: '0 12px', opacity: 0.3 }}>·</span>
           <Link href="/en/contact-us" style={{ color: 'rgba(244,243,236,0.45)', textDecoration: 'none' }}>Contact Us</Link>
-        </p>
+        </div>
 
       </div>
+
+      <style>{`
+        @media (max-width: 640px) {
+          .legal-container { padding: 164px 5vw 80px !important; }
+        }
+        @media (max-width: 480px) {
+          .legal-footer-nav { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+          .legal-sep { display: none; }
+        }
+      `}</style>
     </main>
   )
 }

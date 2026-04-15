@@ -52,6 +52,11 @@ export default function ContactUsPage() {
         </div>
 
       </div>
+      <style>{`
+        @media (max-width: 640px) {
+          #contact-page > div { padding-top: 164px !important; padding-bottom: 80px !important; }
+        }
+      `}</style>
     </main>
   )
 }

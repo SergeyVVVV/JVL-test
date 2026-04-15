@@ -15,124 +15,133 @@ export default function TermsOfUsePage() {
       lastUpdated="January 1, 2025"
       sections={[
         {
-          heading: '1. Acceptance of Terms',
-          content: (
-            <>
-              <p style={pStyle}>
-                By accessing or using the JVL website located at jvl.ca (the &quot;Site&quot;), you agree to be bound
-                by these Terms of Use (&quot;Terms&quot;). If you do not agree to these Terms, please do not use the Site.
-              </p>
-              <p style={pStyle}>
-                JVL Systems Inc. (&quot;JVL&quot;, &quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) reserves the right to
-                update or modify these Terms at any time without prior notice. Your continued use of the Site following
-                any changes constitutes your acceptance of the revised Terms.
-              </p>
-            </>
-          ),
-        },
-        {
-          heading: '2. Use of the Site',
-          content: (
-            <>
-              <p style={pStyle}>You agree to use the Site only for lawful purposes and in accordance with these Terms. You agree not to:</p>
-              <ul style={ulStyle}>
-                <li>Use the Site in any way that violates applicable federal, provincial, or international laws or regulations.</li>
-                <li>Transmit any unsolicited or unauthorized advertising or promotional material.</li>
-                <li>Attempt to gain unauthorized access to any portion of the Site or its related systems.</li>
-                <li>Use any automated means to access the Site without our express written permission.</li>
-                <li>Reproduce, duplicate, copy, sell, or exploit any portion of the Site without our written consent.</li>
-              </ul>
-            </>
-          ),
-        },
-        {
-          heading: '3. Intellectual Property',
-          content: (
-            <>
-              <p style={pStyle}>
-                The Site and all of its content — including but not limited to text, graphics, logos, images, audio
-                clips, and software — are the property of JVL Systems Inc. or its content suppliers and are protected
-                by Canadian and international copyright, trademark, and other intellectual property laws.
-              </p>
-              <p style={pStyle}>
-                You may not reproduce, distribute, modify, create derivative works of, publicly display, or exploit
-                any content from the Site without our prior written permission.
-              </p>
-            </>
-          ),
-        },
-        {
-          heading: '4. Disclaimer of Warranties',
+          heading: 'Agreement',
           content: (
             <p style={pStyle}>
-              The Site and its content are provided on an &quot;as is&quot; and &quot;as available&quot; basis without
-              any warranties of any kind, either express or implied, including but not limited to implied warranties
-              of merchantability, fitness for a particular purpose, or non-infringement. JVL does not warrant that
-              the Site will be uninterrupted, error-free, or free of viruses or other harmful components.
+              BY USING THIS SITE, YOU AGREE TO THESE TERMS OF USE AND OUR PRIVACY POLICY.
             </p>
           ),
         },
         {
-          heading: '5. Limitation of Liability',
+          heading: '1. General',
           content: (
             <p style={pStyle}>
-              To the fullest extent permitted by applicable law, JVL Systems Inc. shall not be liable for any
-              indirect, incidental, special, consequential, or punitive damages arising from your use of, or
-              inability to use, the Site or its content — even if JVL has been advised of the possibility of
-              such damages.
+              JVL Labs Inc. owns and operates this website and retains the right to modify or discontinue any
+              features at any time. The information and material on this site may be changed, withdrawn, or
+              terminated at any time in our sole discretion without notice.
             </p>
           ),
         },
         {
-          heading: '6. Third-Party Links',
+          heading: '2. Your Use of the Site',
+          content: (
+            <ul style={ulStyle}>
+              <li>You are responsible for obtaining the equipment and bearing the costs necessary to access and use this site.</li>
+              <li>All the information you provide on the site must be correct, current, and complete. You are responsible for the security and accuracy of your account information.</li>
+              <li>You transmit any information to or through this site at your own risk.</li>
+              <li>You must not provide any other person with access to this site or portions of it using your username, password, or other security information.</li>
+              <li>You must not frame this site or link to any page other than the homepage without our written permission.</li>
+            </ul>
+          ),
+        },
+        {
+          heading: '3. Restrictions on Use',
+          content: (
+            <ul style={ulStyle}>
+              <li>You may only use this site for lawful purposes. You may not post or transmit any material that is unlawful, threatening, abusive, defamatory, invasive of privacy or publicity rights.</li>
+              <li>No copying, redistribution, retransmission, publication, or commercial exploitation of any content is permitted without our prior written permission.</li>
+              <li>By submitting material to this site, you grant JVL a royalty-free, worldwide, perpetual, irrevocable, non-exclusive right and license to use, reproduce, modify, and distribute that material.</li>
+              <li>You must not attempt to circumvent site security, gain unauthorized access, or introduce malicious software.</li>
+              <li>JVL reserves the right to remove any content or terminate accounts at its sole discretion.</li>
+            </ul>
+          ),
+        },
+        {
+          heading: '4. Disclaimer of Warranty; Limitation of Liability',
+          content: (
+            <ul style={ulStyle}>
+              <li>This site is used AT YOUR SOLE RISK. We do not warrant uninterrupted or error-free service.</li>
+              <li>This site is provided &quot;AS IS&quot; without warranties of any kind, either express or implied.</li>
+              <li>IN NO EVENT WILL JVL BE LIABLE FOR ANY INCIDENTAL, SPECIAL, PUNITIVE, CONSEQUENTIAL, OR SIMILAR DAMAGES arising from your use of this site.</li>
+              <li>This limitation applies to all damages regardless of their cause or the form of action.</li>
+            </ul>
+          ),
+        },
+        {
+          heading: '5. Monitoring',
           content: (
             <p style={pStyle}>
-              The Site may contain links to third-party websites. These links are provided for your convenience only.
-              JVL has no control over the content of those sites and accepts no responsibility for them or for any
-              loss or damage that may arise from your use of them. Linking to any other site is at your own risk.
+              JVL reserves the right to monitor all content submitted to or through this site and to remove
+              any material that violates these Terms of Use.
             </p>
           ),
         },
         {
-          heading: '7. Online Games',
+          heading: '6. Indemnification',
           content: (
             <p style={pStyle}>
-              Demo versions of online games made available through the Site are provided for informational and
-              entertainment purposes only. They do not involve real money and are intended solely to showcase
-              JVL&apos;s gaming products to potential business partners and operators. Any actual deployment of
-              games for real-money play is subject to separate licensing agreements and applicable gaming regulations.
+              You agree to defend, indemnify, and hold harmless JVL and its affiliates from and against any
+              claims, damages, costs, and expenses (including legal fees) arising from your use of this site
+              or your violation of these Terms.
             </p>
           ),
         },
         {
-          heading: '8. Governing Law',
+          heading: '7. Trademarks',
           content: (
             <p style={pStyle}>
-              These Terms are governed by and construed in accordance with the laws of the Province of Ontario
-              and the federal laws of Canada applicable therein, without regard to its conflict of law provisions.
-              Any disputes arising under these Terms shall be subject to the exclusive jurisdiction of the courts
-              located in Ontario, Canada.
+              JVL retains all rights to its trademarks, logos, and graphic elements. All other marks
+              referenced on this site belong to their respective owners.
             </p>
           ),
         },
         {
-          heading: '9. Changes to These Terms',
+          heading: '8. No Reliance',
           content: (
             <p style={pStyle}>
-              We reserve the right to modify these Terms at any time. We will indicate the date of the most recent
-              revision at the top of this page. It is your responsibility to check this page periodically for changes.
-              Your continued use of the Site after changes are posted constitutes your acceptance of the updated Terms.
+              Content on this site is provided for general information purposes only. It is not intended to
+              amount to advice on which you should rely. You must obtain professional advice before taking
+              any action based on content from this site.
             </p>
           ),
         },
         {
-          heading: '10. Contact Us',
+          heading: '9. Third Party Content',
           content: (
             <p style={pStyle}>
-              If you have any questions about these Terms of Use, please contact us at{' '}
-              <a href="mailto:info@jvl.ca" style={{ color: '#059FFF', textDecoration: 'none' }}>info@jvl.ca</a>
-              {' '}or visit our{' '}
-              <a href="/en/contact-us" style={{ color: '#059FFF', textDecoration: 'none' }}>Contact page</a>.
+              JVL does not endorse third-party opinions expressed on this site and assumes no responsibility
+              for the content of external sites accessed through links on this site.
+            </p>
+          ),
+        },
+        {
+          heading: '10. Changed Terms',
+          content: (
+            <p style={pStyle}>
+              JVL may modify these Terms of Use at any time. Changes are effective immediately upon notice.
+              Your continued use of the site following any changes constitutes your acceptance of the
+              revised Terms.
+            </p>
+          ),
+        },
+        {
+          heading: '11. Miscellaneous',
+          content: (
+            <p style={pStyle}>
+              These Terms are governed by the laws of the Province of Ontario. If any provision of these
+              Terms is found to be invalid or unenforceable, the remaining provisions shall continue in
+              full force and effect.
+            </p>
+          ),
+        },
+        {
+          heading: '12. Reporting',
+          content: (
+            <p style={pStyle}>
+              To report any misuse of this site, please contact us at{' '}
+              <a href="mailto:webmaster@jvl.ca" style={{ color: '#059FFF', textDecoration: 'none' }}>
+                webmaster@jvl.ca
+              </a>.
             </p>
           ),
         },

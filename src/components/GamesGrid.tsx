@@ -195,7 +195,7 @@ export default function GamesGrid({
         <FilterDropdown label="Volatility" options={volatility} value={volId}     onChange={handleVol}  allLabel="All Volatility" />
 
         {/* Search */}
-        <div style={{ flex: 1, minWidth: 200, position: 'relative' }}>
+        <div className="gg-search-wrap" style={{ flex: 1, minWidth: 200, position: 'relative' }}>
           <input
             type="text"
             placeholder="Find a game"
@@ -358,6 +358,11 @@ export default function GamesGrid({
         @media (max-width: 767px) {
           .gg-filters-row { gap: 8px; }
           .gg-filter-wrap { min-width: 0 !important; flex: 1; }
+          .gg-search-wrap { min-width: 0 !important; width: 100%; flex-basis: 100%; }
+          .gg-page-btn { width: 40px !important; height: 40px !important; }
+        }
+        @media (max-width: 480px) {
+          .gg-card-overlay p { font-size: 18px !important; }
         }
       `}</style>
     </div>
