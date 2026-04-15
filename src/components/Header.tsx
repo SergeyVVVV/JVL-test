@@ -48,7 +48,7 @@ export default function Header() {
 
   // Hide top bar on scroll (disabled on blog/news, homepage, and echo-b2b)
   const isHomePage = pathname.split('/').filter(Boolean).length <= 1
-  const disableHide = isHomePage || /\/blog-and-news/.test(pathname) || /\/echo-b2b/.test(pathname) || /\/flex/.test(pathname)
+  const disableHide = isHomePage || /\/blog-and-news/.test(pathname) || /\/echo-b2b/.test(pathname) || /\/flex/.test(pathname) || /\/games/.test(pathname)
   useEffect(() => {
     if (disableHide) { setScrolled(false); return }
     const onScroll = () => setScrolled(window.scrollY > 60)

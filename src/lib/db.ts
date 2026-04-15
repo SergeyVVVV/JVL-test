@@ -433,6 +433,165 @@ export async function getLandingInlineEntities(blockId: number, locale = 'en'): 
   }
 }
 
+/** ── Games ───────────────────────────────────────────────────────────────── */
+
+export interface FilterTag {
+  id: number
+  name: string | null
+}
+
+export interface GameFilterTags {
+  themes: FilterTag[]
+  features: FilterTag[]
+  volatility: FilterTag[]
+}
+
+/** Fetch all tag options for the games filters */
+export async function getGameFilterTags(locale = 'en'): Promise<GameFilterTags> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      `SELECT id, name, type FROM tags WHERE type IN ('Themes','Features','Volatility') ORDER BY type, name`
+    )
+    const themes: FilterTag[] = []
+    const features: FilterTag[] = []
+    const volatility: FilterTag[] = []
+    for (const r of rows as any[]) {
+      const item: FilterTag = { id: r.id, name: parseLocale(r.name, locale) }
+      if (r.type === 'Themes') themes.push(item)
+      else if (r.type === 'Features') features.push(item)
+      else if (r.type === 'Volatility') volatility.push(item)
+    }
+    return { themes, features, volatility }
+  } catch (err) {
+    console.error('[tags] getGameFilterTags failed:', err)
+    return { themes: [], features: [], volatility: [] }
+  }
+}
+
+export interface GameListItem {
+  id: number
+  pageId: number
+  slug: string
+  title: string | null
+  image: string | null
+}
+
+/** Fetch a paginated, filterable list of active games */
+export async function getGamesList(options: {
+  locale?: string
+  page?: number
+  perPage?: number
+  themeId?: number | null
+  featuresId?: number | null
+  volatilityId?: number | null
+  search?: string
+}): Promise<{ items: GameListItem[]; total: number }> {
+  const {
+    locale = 'en',
+    page = 1,
+    perPage = 24,
+    themeId,
+    featuresId,
+    volatilityId,
+    search,
+  } = options
+  try {
+    const db = getPool()
+    const safeOffset = (Math.max(1, page) - 1) * perPage
+    const safeLimit  = Math.max(1, Math.min(100, perPage))
+
+    let joins = ''
+    const params: any[] = []
+    const where: string[] = ['g.active = 1']
+
+    if (themeId) {
+      joins += ` INNER JOIN taggables tbl_th
+        ON tbl_th.taggable_type = 'App\\\\Models\\\\Game'
+        AND tbl_th.taggable_id = g.id
+        AND tbl_th.tag_id = ?`
+      params.push(themeId)
+    }
+    if (volatilityId) {
+      joins += ` INNER JOIN taggables tbl_vol
+        ON tbl_vol.taggable_type = 'App\\\\Models\\\\Game'
+        AND tbl_vol.taggable_id = g.id
+        AND tbl_vol.tag_id = ?`
+      params.push(volatilityId)
+    }
+    if (featuresId) {
+      joins += ` INNER JOIN features feat ON feat.game_id = g.id
+        INNER JOIN taggables tbl_feat
+          ON tbl_feat.taggable_type = 'App\\\\Models\\\\Feature'
+          AND tbl_feat.taggable_id = feat.id
+          AND tbl_feat.tag_id = ?`
+      params.push(featuresId)
+    }
+    if (search) {
+      where.push(
+        `LOWER(COALESCE(JSON_UNQUOTE(JSON_EXTRACT(p.title,'$."${locale}"')),p.title,'')) LIKE ?`
+      )
+      params.push(`%${search.toLowerCase()}%`)
+    }
+
+    const whereClause = 'WHERE ' + where.join(' AND ')
+
+    const [countRows] = await db.execute(
+      `SELECT COUNT(DISTINCT g.id) AS cnt
+       FROM games g
+       INNER JOIN pages p ON p.id = g.page_id
+       ${joins}
+       ${whereClause}`,
+      params
+    )
+    const total = Number((countRows as any[])[0]?.cnt ?? 0)
+
+    const [rows] = await db.execute(
+      `SELECT DISTINCT g.id AS game_id, p.id AS page_id, p.slug, p.title
+       FROM games g
+       INNER JOIN pages p ON p.id = g.page_id
+       ${joins}
+       ${whereClause}
+       ORDER BY g.id DESC
+       LIMIT ${safeLimit} OFFSET ${safeOffset}`,
+      params
+    )
+
+    const items: GameListItem[] = []
+    for (const r of rows as any[]) {
+      // Prefer vertical image, fallback to square
+      const image =
+        (await getMediaUrl('App\\Models\\Game', r.game_id, 'vertical')) ??
+        (await getMediaUrl('App\\Models\\Game', r.game_id, 'square'))
+      items.push({
+        id: r.game_id,
+        pageId: r.page_id,
+        slug: r.slug,
+        title: parseLocale(r.title, locale),
+        image,
+      })
+    }
+    return { items, total }
+  } catch (err) {
+    console.error('[games] getGamesList failed:', err)
+    return { items: [], total: 0 }
+  }
+}
+
+/** Find a page's numeric ID by its slug */
+export async function getPageIdBySlug(slug: string): Promise<number | null> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      'SELECT id FROM pages WHERE slug = ? LIMIT 1',
+      [slug]
+    )
+    return (rows as any[])[0]?.id ?? null
+  } catch {
+    return null
+  }
+}
+
 /** Get a media file URL (served via /api/storage) for a Laravel MediaLibrary record */
 export async function getMediaUrl(
   modelType: string,
