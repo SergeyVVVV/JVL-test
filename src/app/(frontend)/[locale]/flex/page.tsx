@@ -171,7 +171,7 @@ export default function FlexPage() {
             <div style={{ borderRadius: 4, overflow: 'hidden', minHeight: 420 }}>
               <iframe
                 title="JVL Headquarters"
-                src="https://maps.google.com/maps?q=33.9686468,-84.0560239&z=16&output=embed"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3315.749!2d-84.0560239!3d33.9686468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5a7839d623dd3%3A0xde3dab4fb99be20!2sJVL%20SYSTEMS%20INC!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
                 width="100%"
                 height="100%"
                 style={{ border: 0, display: 'block', minHeight: 420, filter: 'invert(90%) hue-rotate(180deg)' }}
