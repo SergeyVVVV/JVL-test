@@ -592,6 +592,219 @@ export async function getPageIdBySlug(slug: string): Promise<number | null> {
   }
 }
 
+/** ── Game Detail ─────────────────────────────────────────────────────────── */
+
+export interface GameDetail {
+  id: number
+  pageId: number
+  slug: string
+  title: string | null
+  description: string | null
+  reels: string | null
+  paylines: string | null
+  playUrl: string | null
+  storyTitle: string | null
+  storyText: string | null
+  storySymbolName: string | null
+  storyAboutSymbol: string | null
+  rtps: string | null
+  minBet: string | null
+  maxBet: string | null
+  maxWin: string | null
+  themes: string[]
+  volatility: string | null
+  gameTags: string[]
+  horizontalImage: string | null
+  verticalImage: string | null
+  squareImage: string | null
+  symbolImage: string | null
+}
+
+export async function getGameBySlug(slug: string, locale = 'en'): Promise<GameDetail | null> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      `SELECT p.id AS page_id, p.slug, p.title, p.description,
+              g.id AS game_id, g.reels, g.paylines, g.play_url,
+              g.story_title, g.story_text, g.story_symbol_name, g.story_about_symbol,
+              g.rtps, g.min_bet, g.max_bet, g.max_win
+       FROM pages p
+       INNER JOIN games g ON g.page_id = p.id
+       WHERE p.slug = ? AND g.active = 1
+       LIMIT 1`,
+      [slug]
+    )
+    const r = (rows as any[])[0]
+    if (!r) return null
+
+    // Tags: themes, volatility, game tags
+    const [tagRows] = await db.execute(
+      `SELECT t.name, t.type
+       FROM taggables tbl
+       INNER JOIN tags t ON t.id = tbl.tag_id
+       WHERE tbl.taggable_type = 'App\\\\Models\\\\Game' AND tbl.taggable_id = ?
+       AND t.type IN ('Themes','Volatility','Game Tags')`,
+      [r.game_id]
+    )
+    const themes: string[] = []
+    const gameTags: string[] = []
+    let volatility: string | null = null
+    for (const t of tagRows as any[]) {
+      const name = parseLocale(t.name, locale)
+      if (!name) continue
+      if (t.type === 'Themes') themes.push(name)
+      else if (t.type === 'Volatility') volatility = name
+      else if (t.type === 'Game Tags') gameTags.push(name)
+    }
+
+    const [horizontal, vertical, square, symbol] = await Promise.all([
+      getMediaUrl('App\\Models\\Game', r.game_id, 'horizontal'),
+      getMediaUrl('App\\Models\\Game', r.game_id, 'vertical'),
+      getMediaUrl('App\\Models\\Game', r.game_id, 'square'),
+      getMediaUrl('App\\Models\\Game', r.game_id, 'symbol'),
+    ])
+
+    return {
+      id: r.game_id,
+      pageId: r.page_id,
+      slug: r.slug,
+      title: parseLocale(r.title, locale),
+      description: parseLocale(r.description, locale),
+      reels: parseLocale(r.reels, locale),
+      paylines: parseLocale(r.paylines, locale),
+      playUrl: r.play_url,
+      storyTitle: parseLocale(r.story_title, locale),
+      storyText: parseLocale(r.story_text, locale),
+      storySymbolName: parseLocale(r.story_symbol_name, locale),
+      storyAboutSymbol: parseLocale(r.story_about_symbol, locale),
+      rtps: r.rtps,
+      minBet: r.min_bet,
+      maxBet: r.max_bet,
+      maxWin: r.max_win,
+      themes,
+      volatility,
+      gameTags,
+      horizontalImage: horizontal,
+      verticalImage: vertical,
+      squareImage: square,
+      symbolImage: symbol,
+    }
+  } catch (err) {
+    console.error('[game] getGameBySlug failed:', err)
+    return null
+  }
+}
+
+export interface GameScreenSlide {
+  id: number
+  url: string | null       // YouTube/external video URL
+  mainImage: string | null
+  mobileImage: string | null
+  videoFile: string | null
+}
+
+export async function getGameScreenSlides(pageId: number): Promise<GameScreenSlide[]> {
+  try {
+    const db = getPool()
+    // Find the game_screen_slider for this page
+    const [sliderRows] = await db.execute(
+      `SELECT id FROM game_screen_sliders
+       WHERE model_type = 'App\\\\Models\\\\Page' AND model_id = ?
+       LIMIT 1`,
+      [pageId]
+    )
+    const slider = (sliderRows as any[])[0]
+    if (!slider) return []
+
+    const [rows] = await db.execute(
+      `SELECT id, url, sort FROM game_screen_slides
+       WHERE game_screen_slider_id = ?
+       ORDER BY sort ASC`,
+      [slider.id]
+    )
+
+    const results: GameScreenSlide[] = []
+    for (const r of rows as any[]) {
+      const [main, mobile, video] = await Promise.all([
+        getMediaUrl('App\\Models\\GameScreenSlide', r.id, 'main'),
+        getMediaUrl('App\\Models\\GameScreenSlide', r.id, 'mainMobile'),
+        getMediaUrl('App\\Models\\GameScreenSlide', r.id, 'video'),
+      ])
+      results.push({ id: r.id, url: r.url || null, mainImage: main, mobileImage: mobile, videoFile: video })
+    }
+    return results
+  } catch (err) {
+    console.error('[game] getGameScreenSlides failed:', err)
+    return []
+  }
+}
+
+export interface GameFeature {
+  id: number
+  name: string | null
+  text: string | null
+  image: string | null
+}
+
+export async function getGameFeatures(gameId: number, locale = 'en'): Promise<GameFeature[]> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      `SELECT id, text FROM features WHERE game_id = ? ORDER BY sort ASC`,
+      [gameId]
+    )
+    const results: GameFeature[] = []
+    for (const r of rows as any[]) {
+      // Feature name = first tag of type 'Features'
+      const [tagRows] = await db.execute(
+        `SELECT t.name FROM taggables tbl
+         INNER JOIN tags t ON t.id = tbl.tag_id
+         WHERE tbl.taggable_type = 'App\\\\Models\\\\Feature' AND tbl.taggable_id = ?
+         LIMIT 1`,
+        [r.id]
+      )
+      const tagName = (tagRows as any[])[0]?.name
+      const image = await getMediaUrl('App\\Models\\Feature', r.id, 'main')
+      results.push({
+        id: r.id,
+        name: tagName ? parseLocale(tagName, locale) : null,
+        text: parseLocale(r.text, locale),
+        image,
+      })
+    }
+    return results
+  } catch (err) {
+    console.error('[game] getGameFeatures failed:', err)
+    return []
+  }
+}
+
+export interface GameReview {
+  id: number
+  title: string | null
+  url: string | null
+  image: string | null
+}
+
+export async function getGameReviews(gameId: number, locale = 'en'): Promise<GameReview[]> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      `SELECT id, title, url FROM game_reviews WHERE game_id = ? AND active = 1 ORDER BY sort ASC`,
+      [gameId]
+    )
+    const results: GameReview[] = []
+    for (const r of rows as any[]) {
+      const image = await getMediaUrl('App\\Models\\GameReview', r.id, 'image')
+      results.push({ id: r.id, title: parseLocale(r.title, locale), url: r.url, image })
+    }
+    return results
+  } catch (err) {
+    console.error('[game] getGameReviews failed:', err)
+    return []
+  }
+}
+
 /** Get a media file URL (served via /api/storage) for a Laravel MediaLibrary record */
 export async function getMediaUrl(
   modelType: string,
