@@ -17,8 +17,8 @@ const footerLinks = {
   ],
   Support: [
     { label: 'Register Product', href: '/en/register' },
-    { label: 'Privacy Policy', href: '/en/privacy' },
-    { label: 'Terms of Use', href: '/en/terms' },
+    { label: 'Privacy Policy', href: '/en/privacy-policy' },
+    { label: 'Terms of Use', href: '/en/terms-of-use' },
     { label: 'Warranty', href: '/en/warranty' },
   ],
 }
