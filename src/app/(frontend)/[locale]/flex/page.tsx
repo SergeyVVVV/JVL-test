@@ -144,10 +144,15 @@ export default function FlexPage() {
                 <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.4)', margin: '0 0 10px' }}>
                   USA Headquarters
                 </p>
-                <p style={{ fontSize: 16, color: '#F4F3EC', lineHeight: 1.6, margin: 0 }}>
+                <a
+                  href="https://maps.app.goo.gl/PyebsVRyexkpcgvA6"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-address-link"
+                >
                   1380 Capital Circle<br />
                   Lawrenceville, GA 30043
-                </p>
+                </a>
               </div>
 
               <Link
@@ -213,6 +218,15 @@ export default function FlexPage() {
           transition: color 0.2s;
         }
         .flex-phone-link:hover { color: #059FFF; }
+        .flex-address-link {
+          display: block;
+          font-size: 16px;
+          color: #F4F3EC;
+          text-decoration: none;
+          line-height: 1.6;
+          transition: color 0.2s;
+        }
+        .flex-address-link:hover { color: #059FFF; }
       `}</style>
     </main>
   )
