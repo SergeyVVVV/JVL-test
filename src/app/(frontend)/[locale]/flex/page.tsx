@@ -188,7 +188,7 @@ export default function FlexPage() {
       <style>{`
         .flex-models-grid {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 16px;
         }
         .flex-contact-grid {
@@ -196,9 +196,6 @@ export default function FlexPage() {
           grid-template-columns: 1fr 1fr;
           gap: 80px;
           align-items: start;
-        }
-        @media (max-width: 1100px) {
-          .flex-models-grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (max-width: 767px) {
           .flex-models-grid { grid-template-columns: repeat(2, 1fr); }
