@@ -59,7 +59,8 @@ function FilterDropdown({ label, options, value, onChange, allLabel }: DropdownP
       {open && (
         <div style={{
           position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0, zIndex: 200,
-          background: '#222527', border: '1px solid #2a2c2e', borderRadius: 4, overflow: 'hidden',
+          background: '#222527', border: '1px solid #2a2c2e', borderRadius: 4,
+          maxHeight: 320, overflowY: 'auto',
           boxShadow: '0 8px 24px rgba(0,0,0,0.5)',
         }}>
           {/* "All" option */}
