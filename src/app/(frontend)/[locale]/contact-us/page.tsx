@@ -9,19 +9,17 @@ export async function generateMetadata() {
 
 export default function ContactUsPage() {
   return (
-    <main id="contact-page" style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', minHeight: '100vh' }}>
-      <div style={{ maxWidth: 800, margin: '0 auto', padding: '80px 6vw 120px' }}>
+    <main id="contact-page" style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', minHeight: '100vh', marginTop: -124 }}>
+      <div style={{ maxWidth: 960, margin: '0 auto', padding: '204px 6vw 120px' }}>
 
         {/* Badge */}
-        <div style={{ textAlign: 'center', marginBottom: 24 }}>
-          <span style={{
-            display: 'inline-block', fontSize: 12, fontWeight: 700, letterSpacing: '0.15em',
-            textTransform: 'uppercase', color: '#fff', background: '#FB671F',
-            padding: '5px 14px', borderRadius: 4,
-          }}>
-            Connect
-          </span>
-        </div>
+        <p style={{
+          fontSize: 13, fontWeight: 700, letterSpacing: '0.15em',
+          textTransform: 'uppercase', color: '#FB671F',
+          margin: '0 0 14px', textAlign: 'center',
+        }}>
+          Connect
+        </p>
 
         {/* Title */}
         <h1 style={{

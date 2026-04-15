@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, FormEvent } from 'react'
+import { useState, FormEvent, useRef, useEffect } from 'react'
 
 const DEPARTMENTS = [
   { value: 'flex',         label: 'FLEX' },
@@ -16,6 +16,18 @@ export default function ContactForm() {
   const [message, setMessage]     = useState('')
   const [status, setStatus]       = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
   const [errorMsg, setErrorMsg]   = useState('')
+  const [deptOpen, setDeptOpen]   = useState(false)
+  const deptRef                   = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    function handleClick(e: MouseEvent) {
+      if (deptRef.current && !deptRef.current.contains(e.target as Node)) {
+        setDeptOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    return () => document.removeEventListener('mousedown', handleClick)
+  }, [])
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault()
@@ -60,11 +72,11 @@ export default function ContactForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ maxWidth: 680, margin: '0 auto' }}>
+    <form onSubmit={handleSubmit} style={{ maxWidth: 816, margin: '0 auto' }}>
 
       {/* Name */}
       <div style={{ marginBottom: 28 }}>
-        <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.45)', marginBottom: 8, letterSpacing: '0.04em' }}>
+        <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.04em' }}>
           Name
         </label>
         <input
@@ -80,7 +92,7 @@ export default function ContactForm() {
       {/* Email + Department row */}
       <div className="cf-row" style={{ marginBottom: 28 }}>
         <div style={{ flex: 1 }}>
-          <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.45)', marginBottom: 8, letterSpacing: '0.04em' }}>
+          <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.04em' }}>
             E-mail address
           </label>
           <input
@@ -93,26 +105,54 @@ export default function ContactForm() {
           />
         </div>
         <div style={{ flex: 1 }}>
-          <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.45)', marginBottom: 8, letterSpacing: '0.04em' }}>
+          <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.04em' }}>
             Department
           </label>
-          <select
-            required
-            value={department}
-            onChange={e => setDept(e.target.value)}
-            className="cf-input cf-select"
-          >
-            <option value="">Select department...</option>
-            {DEPARTMENTS.map(d => (
-              <option key={d.value} value={d.value}>{d.label}</option>
-            ))}
-          </select>
+          <div ref={deptRef} style={{ position: 'relative' }}>
+            <button
+              type="button"
+              onClick={() => setDeptOpen(o => !o)}
+              className="cf-input cf-select-btn"
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', textAlign: 'left' }}
+            >
+              <span style={{ color: department ? '#F4F3EC' : 'rgba(244,243,236,0.28)' }}>
+                {department ? DEPARTMENTS.find(d => d.value === department)?.label : 'Select department...'}
+              </span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style={{ flexShrink: 0, transition: 'transform 0.2s', transform: deptOpen ? 'rotate(180deg)' : 'rotate(0deg)' }}>
+                <path d="M2 4.5L6 8.5L10 4.5" stroke="rgba(244,243,236,0.5)" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </button>
+            {deptOpen && (
+              <div className="cf-dropdown" style={{
+                position: 'absolute', top: 'calc(100% + 4px)', left: 0, right: 0, zIndex: 100,
+                background: '#222527', border: '1px solid #2a2c2e', borderRadius: 4,
+                overflow: 'hidden',
+              }}>
+                {DEPARTMENTS.map(d => (
+                  <button
+                    key={d.value}
+                    type="button"
+                    onClick={() => { setDept(d.value); setDeptOpen(false) }}
+                    className="cf-dropdown-item"
+                    style={{
+                      display: 'block', width: '100%', textAlign: 'left',
+                      padding: '11px 16px', fontSize: 15, fontFamily: 'inherit',
+                      color: d.value === department ? '#059FFF' : '#F4F3EC',
+                      background: 'transparent', border: 'none', cursor: 'pointer',
+                    }}
+                  >
+                    {d.label}
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       {/* Message */}
       <div style={{ marginBottom: 36 }}>
-        <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.45)', marginBottom: 8, letterSpacing: '0.04em' }}>
+        <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.04em' }}>
           Write a message
         </label>
         <textarea
@@ -166,9 +206,9 @@ export default function ContactForm() {
         }
         .cf-input::placeholder { color: rgba(244,243,236,0.28); }
         .cf-input:focus { border-color: #059FFF; }
-        .cf-select { cursor: pointer; }
-        .cf-select option { background: #181a1b; color: #F4F3EC; }
+        .cf-select-btn { appearance: none; -webkit-appearance: none; }
         .cf-textarea { resize: vertical; min-height: 140px; }
+        .cf-dropdown-item:hover { background: rgba(244,243,236,0.06) !important; }
         .cf-row { display: flex; gap: 16px; }
         @media (max-width: 600px) {
           .cf-row { flex-direction: column; gap: 28px; }
