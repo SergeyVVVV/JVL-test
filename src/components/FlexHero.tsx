@@ -45,9 +45,11 @@ export default function FlexHero({ title, buttonText, buttonUrl, desktopVideoSrc
         .flex-hero-video-desktop { display: block; }
         .flex-hero-video-mobile  { display: none; }
         @media (max-width: 767px) {
-          .flex-hero { height: 75vh; min-height: 480px; }
+          .flex-hero { height: 70vh; min-height: 420px; }
           .flex-hero-video-desktop { display: none; }
           .flex-hero-video-mobile  { display: block; }
+          .flex-hero .echo-hero-h1 { font-size: clamp(1.2rem, 5.5vw, 1.6rem) !important; line-height: 1.15 !important; }
+          .flex-hero-bottom-cta { padding: 11px 20px !important; font-size: 11px !important; }
         }
       `}</style>
 
@@ -110,7 +112,7 @@ export default function FlexHero({ title, buttonText, buttonUrl, desktopVideoSrc
             </div>
 
             {/* CTA */}
-            <a href={buttonUrl} className="btn-amazon" style={{ padding: '14px 28px', textTransform: 'uppercase' }}>
+            <a href={buttonUrl} className="btn-amazon flex-hero-bottom-cta" style={{ padding: '14px 28px', textTransform: 'uppercase' }}>
               {buttonText}
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
                 <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>

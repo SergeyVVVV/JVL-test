@@ -59,7 +59,7 @@ export default function FlexPage() {
           <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 14px' }}>
             Product Line
           </p>
-          <h2 style={{
+          <h2 className="flex-section-h2" style={{
             fontFamily: 'inherit', fontSize: 'clamp(1.7rem, 2.5vw, 2.8rem)',
             fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
             textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 52px',
@@ -75,7 +75,7 @@ export default function FlexPage() {
                 overflow: 'hidden', display: 'flex', flexDirection: 'column',
               }}>
                 {/* Machine image */}
-                <div style={{ background: '#0d0f10', padding: '32px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 220 }}>
+                <div className="flex-card-img" style={{ background: '#0d0f10', padding: '32px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 220 }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={model.image}
@@ -118,14 +118,14 @@ export default function FlexPage() {
               <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 14px' }}>
                 Contact
               </p>
-              <h2 style={{
+              <h2 className="flex-section-h2" style={{
                 fontFamily: 'inherit', fontSize: 'clamp(1.7rem, 2.5vw, 2.8rem)',
                 fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
                 textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 20px',
               }}>
                 Get in Touch With Our Team
               </h2>
-              <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.62)', lineHeight: 1.7, margin: '0 0 48px', maxWidth: 440 }}>
+              <p className="flex-contact-desc" style={{ fontSize: 16, color: 'rgba(244,243,236,0.62)', lineHeight: 1.7, margin: '0 0 48px', maxWidth: 440 }}>
                 Our experts are ready to answer your questions, provide product details, and help you find the perfect solution for your needs.
               </p>
 
@@ -168,7 +168,7 @@ export default function FlexPage() {
             </div>
 
             {/* Right: Google Map */}
-            <div style={{ borderRadius: 4, overflow: 'hidden', minHeight: 420 }}>
+            <div className="flex-map" style={{ borderRadius: 4, overflow: 'hidden', minHeight: 420 }}>
               <iframe
                 title="JVL Headquarters"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3315.749!2d-84.0560239!3d33.9686468!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88f5a7839d623dd3%3A0xde3dab4fb99be20!2sJVL%20SYSTEMS%20INC!5e0!3m2!1sen!2sus!4v1700000000000!5m2!1sen!2sus"
@@ -199,7 +199,14 @@ export default function FlexPage() {
         }
         @media (max-width: 767px) {
           .flex-models-grid { grid-template-columns: repeat(2, 1fr); }
-          .flex-contact-grid { grid-template-columns: 1fr; gap: 48px; }
+          .flex-contact-grid { grid-template-columns: 1fr; gap: 40px; }
+          #flex-page section { padding-top: 56px !important; padding-bottom: 56px !important; }
+          .flex-section-h2 { margin-bottom: 28px !important; }
+          .flex-card-img { min-height: 160px !important; padding: 20px 16px !important; }
+          .flex-card-img img { max-height: 140px !important; }
+          .flex-map { min-height: 280px !important; }
+          .flex-map iframe { min-height: 280px !important; }
+          .flex-contact-desc { margin-bottom: 28px !important; }
         }
         @media (max-width: 480px) {
           .flex-models-grid { grid-template-columns: 1fr; }
