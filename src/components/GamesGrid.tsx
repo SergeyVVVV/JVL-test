@@ -261,11 +261,11 @@ export default function GamesGrid({
                   {/* Bottom overlay with title */}
                   <div className="gg-card-overlay" style={{
                     position: 'absolute', bottom: 0, left: 0, right: 0,
-                    padding: '32px 12px 14px',
-                    background: 'linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0) 100%)',
+                    padding: '60px 14px 18px',
+                    background: 'linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.5) 50%, rgba(0,0,0,0) 100%)',
                     opacity: 0, transition: 'opacity 0.22s',
                   }}>
-                    <p style={{ margin: 0, fontSize: 13, fontWeight: 700, color: '#F4F3EC', textTransform: 'uppercase', letterSpacing: '0.04em', lineHeight: 1.3 }}>
+                    <p style={{ margin: 0, fontSize: 26, fontWeight: 700, color: '#F4F3EC', textTransform: 'uppercase', letterSpacing: '0.04em', lineHeight: 1.2 }}>
                       {game.title}
                     </p>
                   </div>
