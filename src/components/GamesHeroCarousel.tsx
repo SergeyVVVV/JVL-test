@@ -103,8 +103,8 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
           </h2>
 
           {current.description && (
-            <p style={{
-              fontSize: 17, color: 'rgba(244,243,236,0.65)', lineHeight: 1.65,
+            <p className="ghc-body" style={{
+              color: 'rgba(244,243,236,0.65)', lineHeight: 1.65,
               margin: '0 0 28px', maxWidth: 460,
             }}>
               {current.description}
@@ -114,8 +114,8 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
             <a
               href={`/${locale}/games/${current.slug}`}
-              className="btn-amazon"
-              style={{ padding: '13px 28px', textTransform: 'uppercase' }}
+              className="btn-amazon ghc-btn"
+              style={{ textTransform: 'uppercase' }}
             >
               View Game
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -127,8 +127,8 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
                 href={current.playUrl}
                 target="_blank"
                 rel="nofollow noopener noreferrer"
-                className="btn-outline"
-                style={{ padding: '13px 28px', textTransform: 'uppercase' }}
+                className="btn-outline ghc-btn"
+                style={{ textTransform: 'uppercase' }}
               >
                 Play Demo
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -149,6 +149,7 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
             padding: '16px 6vw',
           }}>
             <button
+              className="ghc-scroll-btn"
               onClick={() => {
                 const hero = document.querySelector('.ghc-wrap')
                 if (hero) window.scrollTo({ top: hero.getBoundingClientRect().bottom + window.scrollY, behavior: 'smooth' })
@@ -220,7 +221,7 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
               </button>
 
               {/* Counter */}
-              <span style={{ fontSize: 15, fontWeight: 500, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em' }}>
+              <span className="ghc-counter" style={{ fontSize: 15, fontWeight: 500, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em' }}>
                 {String(active + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
               </span>
             </div>
@@ -229,8 +230,14 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
       )}
 
       <style>{`
+        .ghc-body { font-size: 17px; }
+        .ghc-btn { padding: 13px 28px !important; font-size: 15px !important; }
         @media (max-width: 767px) {
           .ghc-wrap { height: 65vh !important; min-height: 380px !important; }
+          .ghc-scroll-btn { display: none !important; }
+          .ghc-counter { display: none !important; }
+          .ghc-body { font-size: 14px !important; margin-bottom: 20px !important; }
+          .ghc-btn { padding: 11px 20px !important; font-size: 13px !important; }
         }
       `}</style>
     </div>

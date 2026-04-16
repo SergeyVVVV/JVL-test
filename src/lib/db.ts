@@ -618,6 +618,7 @@ export interface GameDetail {
   verticalImage: string | null
   squareImage: string | null
   symbolImage: string | null
+  backgroundImage: string | null
 }
 
 export async function getGameBySlug(slug: string, locale = 'en'): Promise<GameDetail | null> {
@@ -657,11 +658,12 @@ export async function getGameBySlug(slug: string, locale = 'en'): Promise<GameDe
       else if (t.type === 'Game Tags') gameTags.push(name)
     }
 
-    const [horizontal, vertical, square, symbol] = await Promise.all([
+    const [horizontal, vertical, square, symbol, background] = await Promise.all([
       getMediaUrl('App\\Models\\Game', r.game_id, 'horizontal'),
       getMediaUrl('App\\Models\\Game', r.game_id, 'vertical'),
       getMediaUrl('App\\Models\\Game', r.game_id, 'square'),
       getMediaUrl('App\\Models\\Game', r.game_id, 'symbol'),
+      getMediaUrl('App\\Models\\Game', r.game_id, 'background'),
     ])
 
     return {
@@ -688,6 +690,7 @@ export async function getGameBySlug(slug: string, locale = 'en'): Promise<GameDe
       verticalImage: vertical,
       squareImage: square,
       symbolImage: symbol,
+      backgroundImage: background,
     }
   } catch (err) {
     console.error('[game] getGameBySlug failed:', err)

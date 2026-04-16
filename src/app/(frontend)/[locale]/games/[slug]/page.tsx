@@ -43,7 +43,7 @@ export default async function GameDetailPage({
   // Exclude self from also-like
   const alsoLike = alsoLikeData.items.filter(g => g.slug !== slug).slice(0, 3)
 
-  const heroBg = game.horizontalImage ?? game.verticalImage ?? game.squareImage
+  const heroBg = game.backgroundImage ?? game.horizontalImage ?? game.verticalImage ?? game.squareImage
 
   // Parse RTP lines
   const rtpLines = game.rtps ? game.rtps.split('\n').filter(Boolean) : []

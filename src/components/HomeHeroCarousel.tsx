@@ -46,7 +46,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
   function onTouchEnd(e: React.TouchEvent) {
     if (touchStartX.current === null) return
     const delta = touchStartX.current - e.changedTouches[0].clientX
-    if (Math.abs(delta) > 50) delta > 0 ? goNext() : goPrev()
+    if (Math.abs(delta) > 30) delta > 0 ? goNext() : goPrev()
     touchStartX.current = null
   }
 
@@ -57,7 +57,21 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      {/* Background layer — fades on transition */}
+      <style>{`
+        .hc-scroll-btn { display: block; }
+        .hc-counter { display: block; }
+        .hc-body { font-size: 17px; }
+        .hc-btn { padding: 14px 28px !important; font-size: 15px !important; }
+        @media (max-width: 767px) {
+          .hc-scroll-btn { display: none !important; }
+          .hc-counter { display: none !important; }
+          .hc-body { font-size: 14px !important; margin-bottom: 20px !important; }
+          .hc-btn { padding: 11px 20px !important; font-size: 13px !important; }
+          .hc-content { bottom: 72px !important; }
+        }
+      `}</style>
+
+      {/* Background layer */}
       <div style={{
         position: 'absolute', inset: 0,
         opacity: transitioning ? 0 : 1,
@@ -85,12 +99,15 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.22) 55%, rgba(0,0,0,0.04) 100%)' }} />
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0) 65%)' }} />
 
-      {/* Content — also fades */}
-      <div style={{
-        position: 'absolute', bottom: 96, left: 0, right: 0, padding: '0 6vw',
-        opacity: transitioning ? 0 : 1,
-        transition: 'opacity 0.35s ease',
-      }}>
+      {/* Content */}
+      <div
+        className="hc-content"
+        style={{
+          position: 'absolute', bottom: 96, left: 0, right: 0, padding: '0 6vw',
+          opacity: transitioning ? 0 : 1,
+          transition: 'opacity 0.35s ease',
+        }}
+      >
         {slide.eyebrow && (
           <p style={{
             fontSize: 13, fontWeight: 700, letterSpacing: '0.15em',
@@ -108,20 +125,20 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
         }}>
           {slide.heading}
         </h1>
-        <p style={{
-          fontSize: 17, fontWeight: 300,
+        <p className="hc-body" style={{
+          fontWeight: 300,
           color: 'rgba(255,255,255,0.72)', margin: '0 0 32px',
           maxWidth: 500, lineHeight: 1.65,
         }}>
           {slide.body}
         </p>
-        <div className="hp-hero-ctas" style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+        <div className="hp-hero-ctas" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
           <a
             href={slide.cta.href}
             target={slide.cta.external ? '_blank' : undefined}
             rel={slide.cta.external ? 'noopener noreferrer' : undefined}
-            className="btn-amazon"
-            style={{ padding: '14px 28px', textTransform: 'uppercase' }}
+            className="btn-amazon hc-btn"
+            style={{ textTransform: 'uppercase' }}
           >
             {slide.cta.text}
             <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -131,13 +148,13 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
           {slide.ctaSecondary && (
             <a
               href={slide.ctaSecondary.href}
+              className="hc-btn"
               style={{
                 display: 'inline-flex', alignItems: 'center', gap: 8,
-                padding: '14px 28px',
                 border: '1px solid rgba(255,255,255,0.32)',
                 borderRadius: 4,
                 color: '#fff', textDecoration: 'none',
-                fontSize: 13, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase',
+                fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase',
               }}
             >
               {slide.ctaSecondary.text}
@@ -149,7 +166,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
         </div>
       </div>
 
-      {/* Bottom bar: scroll hint + slide indicators */}
+      {/* Bottom bar */}
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
         <div style={{ height: 1, background: 'rgba(255,255,255,0.12)' }} />
         <div style={{
@@ -157,6 +174,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
           padding: '16px 6vw',
         }}>
           <button
+            className="hc-scroll-btn"
             onClick={() => {
               const hero = document.querySelector('.hp-hero')
               if (hero) window.scrollTo({ top: hero.getBoundingClientRect().bottom + window.scrollY, behavior: 'smooth' })
@@ -173,9 +191,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
             Scroll to Explore ↓
           </button>
 
-          {/* Prev/Next arrows + dots + counter */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-            {/* Prev arrow */}
             <button
               onClick={goPrev}
               aria-label="Previous slide"
@@ -183,8 +199,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 background: 'none', border: 'none',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer', color: 'rgba(255,255,255,0.55)', padding: 4,
-                transition: 'color 0.2s',
-                flexShrink: 0,
+                transition: 'color 0.2s', flexShrink: 0,
               }}
               onMouseEnter={e => { e.currentTarget.style.color = '#fff' }}
               onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.55)' }}
@@ -194,7 +209,6 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
               </svg>
             </button>
 
-            {/* Dots */}
             <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
               {slides.map((_, i) => (
                 <button
@@ -203,8 +217,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
                   aria-label={`Slide ${i + 1}`}
                   style={{
                     width: active === i ? 28 : 8,
-                    height: 8,
-                    borderRadius: 4,
+                    height: 8, borderRadius: 4,
                     background: active === i ? '#fff' : 'rgba(255,255,255,0.28)',
                     border: 'none', cursor: 'pointer', padding: 0,
                     transition: 'width 0.3s ease, background 0.3s ease',
@@ -213,7 +226,6 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
               ))}
             </div>
 
-            {/* Next arrow */}
             <button
               onClick={goNext}
               aria-label="Next slide"
@@ -221,8 +233,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
                 background: 'none', border: 'none',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer', color: 'rgba(255,255,255,0.55)', padding: 4,
-                transition: 'color 0.2s',
-                flexShrink: 0,
+                transition: 'color 0.2s', flexShrink: 0,
               }}
               onMouseEnter={e => { e.currentTarget.style.color = '#fff' }}
               onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.55)' }}
@@ -232,8 +243,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
               </svg>
             </button>
 
-            {/* Counter */}
-            <span style={{ fontSize: 15, fontWeight: 500, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em' }}>
+            <span className="hc-counter" style={{ fontSize: 15, fontWeight: 500, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em' }}>
               {String(active + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
             </span>
           </div>
