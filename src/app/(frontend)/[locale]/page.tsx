@@ -282,7 +282,7 @@ export default async function HomePage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 32 }}>
               <div style={{ borderRadius: 8, overflow: 'hidden', background: '#1a1c1d' }}>
                 <img
-                  src="https://www.jvl.ca/storage/2086/about-05.jpg"
+                  src="/api/storage/2086/about-05.jpg"
                   alt="JVL Founder"
                   style={{ width: '100%', display: 'block', objectFit: 'cover' }}
                 />

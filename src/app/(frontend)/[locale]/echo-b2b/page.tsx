@@ -14,10 +14,10 @@ export async function generateMetadata() {
 
 // Icon SVGs for support cards (mapped by inline entity sort order)
 const SUPPORT_ICONS = [
-  'https://www.jvl.ca/storage/3500/jvl-prime.svg',
-  'https://www.jvl.ca/storage/3501/discounts.svg',
-  'https://www.jvl.ca/storage/3502/account-manager.svg',
-  'https://www.jvl.ca/storage/3503/replacements.svg',
+  '/api/storage/3500/jvl-prime.svg',
+  '/api/storage/3501/discounts.svg',
+  '/api/storage/3502/account-manager.svg',
+  '/api/storage/3503/replacements.svg',
 ]
 
 // Strip HTML tags for plain text
@@ -267,7 +267,7 @@ export default async function EchoB2bPage() {
                   ECHO User Manual
                 </p>
                 <a
-                  href="https://www.jvl.ca/api/storage/3491/ECHO_user-manual.pdf"
+                  href="/api/storage/3491/ECHO_user-manual.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-outline"
