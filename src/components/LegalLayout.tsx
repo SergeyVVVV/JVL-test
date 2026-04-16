@@ -13,16 +13,16 @@ interface Props {
 }
 
 const h2Style: React.CSSProperties = {
-  fontSize: 'clamp(1rem, 2.5vw, 1.15rem)',
+  fontSize: 'clamp(1.4rem, 2.5vw, 2.4rem)',
   fontWeight: 700,
   color: '#F4F3EC',
   textTransform: 'uppercase',
   letterSpacing: '0.08em',
-  margin: '40px 0 12px',
+  margin: '48px 0 16px',
 }
 
 const pStyle: React.CSSProperties = {
-  fontSize: 15,
+  fontSize: 16,
   color: 'rgba(244,243,236,0.65)',
   lineHeight: 1.8,
   margin: '0 0 14px',
@@ -32,7 +32,7 @@ const ulStyle: React.CSSProperties = {
   margin: '0 0 14px',
   paddingLeft: 22,
   color: 'rgba(244,243,236,0.65)',
-  fontSize: 15,
+  fontSize: 16,
   lineHeight: 1.8,
 }
 

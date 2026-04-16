@@ -346,6 +346,13 @@ export default function GamesGrid({
         .gg-filter-btn:hover { border-color: rgba(244,243,236,0.45) !important; }
         .gg-dd-item:hover    { background: rgba(244,243,236,0.06) !important; }
 
+        /* Thin custom scrollbar for filter dropdowns */
+        .gg-filter-wrap div::-webkit-scrollbar { width: 4px; }
+        .gg-filter-wrap div::-webkit-scrollbar-track { background: transparent; }
+        .gg-filter-wrap div::-webkit-scrollbar-thumb { background: rgba(244,243,236,0.18); border-radius: 2px; }
+        .gg-filter-wrap div::-webkit-scrollbar-thumb:hover { background: rgba(244,243,236,0.35); }
+        .gg-filter-wrap div { scrollbar-width: thin; scrollbar-color: rgba(244,243,236,0.18) transparent; }
+
         .gg-page-btn {
           display: flex; align-items: center; justify-content: center;
           border-radius: 4px; border: 1px solid rgba(244,243,236,0.15);
