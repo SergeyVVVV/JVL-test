@@ -258,7 +258,7 @@ function LegacySection() {
             }}>
               {item.name}
             </h3>
-            <p className="echo-legacy-desc" style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: 0 }}>
+            <p className="echo-legacy-desc" style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: 0 }}>
               {item.desc}
             </p>
           </div>
@@ -349,7 +349,7 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
             ECHO ruled bars across the U.S. in the '90s and early 2000s — now, it's back, reimagined for home.
             Transform your living room or basement into your own personal arcade. Plug-and-play fun — no downloads, no Wi-Fi.
           </p>
-          <p style={{ fontSize: 15, fontWeight: 300, fontStyle: 'italic', color: '#9A9790', margin: 0 }}>
+          <p style={{ fontSize: 17, fontWeight: 300, fontStyle: 'italic', color: '#9A9790', margin: 0 }}>
             &ldquo;It&rsquo;s like owning a piece of arcade history — built for your home.&rdquo;
           </p>
         </div>
@@ -507,14 +507,14 @@ function ProductSection({ data }: { data: PageData['product'] }) {
             </h3>
 
             {/* Subtitle */}
-            <p style={{ fontSize: 15, color: '#6B6B6B', marginBottom: 24, lineHeight: 1.6 }}>{active.subtitle}</p>
+            <p style={{ fontSize: 17, color: '#6B6B6B', marginBottom: 24, lineHeight: 1.6 }}>{active.subtitle}</p>
 
             {/* Features */}
             <div style={{ borderTop: '1px solid #E0DDD4' }}>
               {active.features.map((f, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: '1px solid #E0DDD4' }}>
                   <Icon type={f.icon} />
-                  <span style={{ fontSize: 15, color: '#4B4B4B' }}>{f.text}</span>
+                  <span style={{ fontSize: 17, color: '#4B4B4B' }}>{f.text}</span>
                 </div>
               ))}
             </div>
@@ -706,7 +706,7 @@ function DesignedSection() {
             <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 12px' }}>
               Every curve, light, and pixel was designed to feel exceptional.
             </p>
-            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', fontStyle: 'italic', margin: 0 }}>
+            <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', fontStyle: 'italic', margin: 0 }}>
               Compact yet powerful — redefining what a mini arcade cabinet can be.
             </p>
           </div>
@@ -907,7 +907,7 @@ function GamesSection() {
 
         {/* Supporting text */}
         <div style={{ maxWidth: 560, margin: '0 auto 40px', textAlign: 'center' }}>
-          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
+          <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
             With ECHO HD3, you get 149 built-in timeless games covering every genre — from action and puzzles to strategy-packed poker.
             No downloads, no installs, no subscriptions — just non-stop entertainment.
           </p>
@@ -1004,7 +1004,7 @@ function GamesSection() {
               )}
             </div>
             <div style={{ fontSize: 16, fontWeight: 500, color: '#101213', marginBottom: 10 }}>{cat.label}</div>
-            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>{cat.desc}</p>
+            <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>{cat.desc}</p>
           </div>
 
         </div>
@@ -1083,7 +1083,7 @@ function SpecsSection() {
             Mini Arcade Cabinet with Games – Compact Power, Endless Fun
           </h2>
           <div className="echo-specs-hdr">
-            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
+            <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
               Every detail refined. Every feature designed to deliver performance, beauty, and timeless play.
             </p>
             <a
@@ -1152,7 +1152,7 @@ function SpecsSection() {
                         </tbody>
                       </table>
                     ) : (
-                      <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
+                      <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
                         {'text' in item ? item.text : ''}
                       </p>
                     )}
@@ -1250,7 +1250,7 @@ function SupportSection() {
               <div style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#F4F3EC', marginBottom: 12, lineHeight: 1.3 }}>
                 {card.title}
               </div>
-              <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.7, color: 'rgba(244,243,236,0.6)', margin: 0 }}>
+              <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.7, color: 'rgba(244,243,236,0.6)', margin: 0 }}>
                 {card.desc}
               </p>
             </div>
@@ -1297,7 +1297,7 @@ function B2BSection() {
             Interested in bringing Echo to your business?
           </h3>
           <p style={{
-            fontSize: 15,
+            fontSize: 17,
             fontWeight: 300,
             lineHeight: 1.75,
             color: '#4B4B4B',
@@ -1418,7 +1418,7 @@ function FeatureGrid() {
               <h3 style={{ fontSize: 13, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.12em', color: '#F4F3EC', margin: '0 0 10px' }}>
                 {f.title}
               </h3>
-              <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.7, color: '#787878', margin: 0 }}>
+              <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.7, color: '#787878', margin: 0 }}>
                 {f.body}
               </p>
             </div>
@@ -1498,7 +1498,7 @@ function FooterCTA() {
             <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.1, color: '#F4F3EC', margin: 0 }}>
               Be Part of the Experience
             </h3>
-            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.7)', margin: 0 }}>
+            <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.7)', margin: 0 }}>
               Stay in the loop — join us on social media for product updates, exclusive offers and discounts.
             </p>
             <div style={{ display: 'flex', gap: 16, marginTop: 'auto' }}>
@@ -1586,7 +1586,7 @@ function FooterCTA() {
             <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.01em', lineHeight: 1.1, color: '#F4F3EC', margin: 0 }}>
               Bring Echo to Your Business
             </h3>
-            <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.7)', margin: 0 }}>
+            <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.7)', margin: 0 }}>
               Bring the timeless appeal of modern arcade entertainment to your business. We offer tailored purchasing options, reseller-friendly pricing, and dedicated support built for professional environments.
             </p>
             <a
