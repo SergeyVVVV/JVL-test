@@ -12,6 +12,7 @@ export default function AboutJVLPage() {
       style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', minHeight: '100vh', marginTop: -124 }}
     >
       <div style={{ maxWidth: 1440, margin: '0 auto', padding: '204px 6vw 120px' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
         {/* Badge */}
         <p style={{
@@ -186,6 +187,7 @@ export default function AboutJVLPage() {
           ))}
         </div>
 
+      </div>
       </div>
 
       <style>{`

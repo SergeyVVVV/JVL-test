@@ -377,7 +377,7 @@ export default async function GameDetailPage({
                 >
                   <div style={{
                     position: 'relative', background: '#101213',
-                    borderRadius: 4, overflow: 'hidden', aspectRatio: '2/3',
+                    borderRadius: 4, overflow: 'hidden', aspectRatio: '3/4',
                   }}>
                     {g.image && (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -437,7 +437,7 @@ export default async function GameDetailPage({
         /* Also Like */
         .gd-also-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
+          grid-template-columns: repeat(4, 1fr);
           gap: 16px;
         }
         .gd-also-card:hover div { outline: 2px solid #FB671F; }
