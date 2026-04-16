@@ -53,7 +53,7 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
   return (
     <div
       className="ghc-wrap"
-      style={{ position: 'relative', height: '65vh', minHeight: 440, overflow: 'hidden' }}
+      style={{ position: 'relative', height: 'calc(100svh - 72px)', minHeight: 520, overflow: 'hidden' }}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
@@ -145,9 +145,25 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
         <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 3 }}>
           <div style={{ height: 1, background: 'rgba(255,255,255,0.12)' }} />
           <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
-            padding: '14px 6vw',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: '16px 6vw',
           }}>
+            <button
+              onClick={() => {
+                const hero = document.querySelector('.ghc-wrap')
+                if (hero) window.scrollTo({ top: hero.getBoundingClientRect().bottom + window.scrollY, behavior: 'smooth' })
+              }}
+              style={{
+                background: 'none', border: 'none', cursor: 'pointer', padding: 0,
+                fontSize: 13, fontWeight: 600, letterSpacing: '0.14em',
+                textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)',
+                transition: 'color 0.2s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.8)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.35)')}
+            >
+              Scroll to Explore More ↓
+            </button>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
               {/* Prev */}
               <button
@@ -214,7 +230,7 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
 
       <style>{`
         @media (max-width: 767px) {
-          .ghc-wrap { height: 55vh !important; min-height: 320px !important; }
+          .ghc-wrap { height: 65vh !important; min-height: 380px !important; }
         }
       `}</style>
     </div>

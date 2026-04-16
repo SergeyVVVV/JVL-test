@@ -196,7 +196,7 @@ export default function GamesGrid({
         <FilterDropdown label="Volatility" options={volatility} value={volId}     onChange={handleVol}  allLabel="All Volatility" />
 
         {/* Search — separated from filters */}
-        <div className="gg-search-wrap" style={{ width: 260, marginLeft: 'auto', position: 'relative', borderLeft: '1px solid #2a2c2e', paddingLeft: 16 }}>
+        <div className="gg-search-wrap" style={{ width: 338, marginLeft: 'auto', position: 'relative', borderLeft: '1px solid #2a2c2e', paddingLeft: 16 }}>
           <input
             type="text"
             placeholder="Find a game"
