@@ -260,6 +260,25 @@ export default async function EchoB2bPage() {
                   </svg>
                 </Link>
               </div>
+
+              {/* Manual */}
+              <div style={{ borderTop: '1px solid #1e2022', paddingTop: 24 }}>
+                <p style={{ fontSize: 13, fontWeight: 500, color: 'rgba(244,243,236,0.45)', margin: '0 0 14px', textTransform: 'uppercase', letterSpacing: '0.08em' }}>
+                  ECHO User Manual
+                </p>
+                <a
+                  href="https://www.jvl.ca/api/storage/3491/ECHO_user-manual.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-outline"
+                  style={{ padding: '13px 24px' }}
+                >
+                  Download Manual
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
+                    <path d="M6 1.5V8.5M2.5 6L6 9.5L9.5 6" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </a>
+              </div>
             </div>
           </div>
         </div>
