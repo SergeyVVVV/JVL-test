@@ -49,7 +49,7 @@ export default function LegalLayout({ badge, title, lastUpdated, sections }: Pro
         marginTop: -124,
       }}
     >
-      <div className="legal-container" style={{ maxWidth: 960, margin: '0 auto', padding: '204px 6vw 120px' }}>
+      <div className="legal-container" style={{ maxWidth: 1440, margin: '0 auto', padding: '204px 6vw 120px' }}>
 
         {/* Badge */}
         <p style={{

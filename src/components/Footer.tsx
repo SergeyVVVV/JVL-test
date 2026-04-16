@@ -108,7 +108,7 @@ export default function Footer() {
         }
       `}</style>
 
-      <div className="footer-wrap" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 5vw' }}>
+      <div className="footer-wrap" style={{ maxWidth: 1440, margin: '0 auto', padding: '0 5vw' }}>
 
         {/* Top grid */}
         <div className="footer-grid">

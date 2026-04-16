@@ -32,8 +32,29 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
 
   const current = slides[active]
 
+  // Swipe support
+  const touchStartX = useRef<number | null>(null)
+  function onTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.touches[0].clientX
+  }
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current === null) return
+    const delta = touchStartX.current - e.changedTouches[0].clientX
+    if (Math.abs(delta) > 50) {
+      delta > 0
+        ? go((active + 1) % slides.length)
+        : go((active - 1 + slides.length) % slides.length)
+    }
+    touchStartX.current = null
+  }
+
   return (
-    <div className="ghc-wrap" style={{ position: 'relative', height: '65vh', minHeight: 440, overflow: 'hidden' }}>
+    <div
+      className="ghc-wrap"
+      style={{ position: 'relative', height: '65vh', minHeight: 440, overflow: 'hidden' }}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
 
       {/* Slides */}
       {slides.map((s, i) => (

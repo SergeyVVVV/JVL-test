@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 export interface HeroSlide {
   bg: string | null
@@ -38,10 +38,24 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
 
   const slide = slides[active]
 
+  // Swipe support
+  const touchStartX = useRef<number | null>(null)
+  function onTouchStart(e: React.TouchEvent) {
+    touchStartX.current = e.touches[0].clientX
+  }
+  function onTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current === null) return
+    const delta = touchStartX.current - e.changedTouches[0].clientX
+    if (Math.abs(delta) > 50) delta > 0 ? goNext() : goPrev()
+    touchStartX.current = null
+  }
+
   return (
     <section
       className="hp-hero"
       style={{ position: 'relative', background: '#080a0b', overflow: 'hidden' }}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
     >
       {/* Background layer — fades on transition */}
       <div style={{

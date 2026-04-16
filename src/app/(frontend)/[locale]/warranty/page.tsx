@@ -14,7 +14,7 @@ export default function WarrantyPage() {
       id="warranty-page"
       style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', minHeight: '100vh', marginTop: -124 }}
     >
-      <div style={{ maxWidth: 960, margin: '0 auto', padding: '204px 6vw 120px' }}>
+      <div style={{ maxWidth: 1440, margin: '0 auto', padding: '204px 6vw 120px' }}>
 
         {/* Badge */}
         <p style={{
