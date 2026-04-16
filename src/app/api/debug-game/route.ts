@@ -54,9 +54,9 @@ export async function GET(request: Request) {
       [page.game_id]
     )
 
-    // 6. Game screen slider
+    // 6. Game screen slider (uses model_type + model_id)
     const [screenSliderRows] = await db.execute(
-      `SELECT id FROM game_screen_sliders WHERE page_id = ? LIMIT 1`,
+      `SELECT id FROM game_screen_sliders WHERE model_type = 'App\\\\Models\\\\Page' AND model_id = ? LIMIT 1`,
       [page.page_id]
     )
     let screenSlides: any[] = []
