@@ -437,7 +437,7 @@ export default async function GameDetailPage({
         /* Also Like */
         .gd-also-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 16px;
         }
         .gd-also-card:hover div { outline: 2px solid #FB671F; }

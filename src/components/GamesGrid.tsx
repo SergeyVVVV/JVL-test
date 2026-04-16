@@ -332,10 +332,9 @@ export default function GamesGrid({
       <style>{`
         .gg-grid {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
+          grid-template-columns: repeat(4, 1fr);
           gap: 12px;
         }
-        @media (max-width: 1280px) { .gg-grid { grid-template-columns: repeat(4, 1fr); } }
         @media (max-width: 1023px) { .gg-grid { grid-template-columns: repeat(3, 1fr); } }
         @media (max-width: 639px)  { .gg-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
 

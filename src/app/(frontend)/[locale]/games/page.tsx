@@ -38,6 +38,7 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
       {/* ── Content section ── */}
       <section style={{ padding: '0 0 120px' }}>
         <div className="gp-top-inner" style={{ maxWidth: 1440, margin: '0 auto', padding: topPad }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
           {/* Page header */}
           <p style={{
@@ -66,6 +67,7 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
             locale={locale}
             perPage={PER_PAGE}
           />
+        </div>
         </div>
       </section>
 

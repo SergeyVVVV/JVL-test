@@ -135,7 +135,7 @@ export function FeaturesSection({
 
   return (
     <section style={{ background: '#F4F3EC', padding: '80px 0' }}>
-      <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
         {/* Heading + desc + CTA */}
         <div style={{ marginBottom: 52 }}>
