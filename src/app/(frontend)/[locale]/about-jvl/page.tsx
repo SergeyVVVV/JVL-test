@@ -38,14 +38,6 @@ export default function AboutJVLPage() {
         {/* Content with float image */}
         <div className="about-content">
 
-          {/* Image — float right */}
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src="/api/storage/3567/about-jvl.jpg"
-            alt="Joseph Levitan, founder of JVL"
-            className="about-photo"
-          />
-
           <h2 style={{
             fontFamily: 'inherit',
             fontSize: 'clamp(1.3rem, 2.5vw, 1.9rem)',
@@ -56,6 +48,17 @@ export default function AboutJVLPage() {
             A Family Tradition of Precision, Passion, and Play
           </h2>
 
+          {/* Image — float right, inside body text */}
+          <figure className="about-photo-wrap">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/api/storage/2086/about-05.jpg"
+              alt="Joseph Levitan, founder of JVL"
+              className="about-photo"
+            />
+            <figcaption className="about-caption">Joseph Levitan, founder of JVL</figcaption>
+          </figure>
+
           <p className="about-body">
             In 1984, Joseph Levitan opened a modest coin-operated machine repair shop in a small
             garage in Canada, laying the cornerstone for what would become a multigenerational family
@@ -64,24 +67,101 @@ export default function AboutJVLPage() {
           </p>
           <p className="about-body">
             When Joseph&apos;s son Val joined the business, he quickly learned from his father&apos;s extensive
-            expertise. Joseph patiently guided every aspect of the business through its early
-            stages — meticulously fixing buttons, polishing cabinets, and fine-tuning mechanics until
-            each machine felt brand new. Together, their days were filled with the steady hum of
-            machines, the scent of solder, and the quiet satisfaction of bringing broken games back to life.
+            expertise. Joseph patiently guided Val through every aspect of machine repair — meticulously
+            fixing buttons, polishing cabinets, and fine-tuning mechanics until each machine felt brand
+            new. Together, their days were filled with the steady hum of machines, the scent of solder,
+            and the quiet satisfaction of bringing broken games back to life.
           </p>
           <p className="about-body">
             Word spread about Joseph and Val&apos;s commitment to craftsmanship. Customers returned
             repeatedly, appreciating the genuine care Joseph instilled into every project. Each machine
             they worked on reflected Joseph&apos;s lifelong commitment to excellence.
           </p>
-          <p className="about-body">
-            By the early 1990s, the company expanded from repairs into designing and creating its own games —
-            combining hardware, software, and aesthetics into a unique product line. Today, three generations
-            of the Levitan family operate the business, upholding Joseph&apos;s founding values while
-            embracing innovation. <em style={{ color: 'rgba(244,243,236,0.55)', fontStyle: 'italic' }}>We Take Our Games Seriously.</em>
-          </p>
 
           <div style={{ clear: 'both' }} />
+
+          <h2 style={{
+            fontFamily: 'inherit',
+            fontSize: 'clamp(1.3rem, 2.5vw, 1.9rem)',
+            fontWeight: 700, lineHeight: 1.15, letterSpacing: '-0.01em',
+            textTransform: 'uppercase', color: '#F4F3EC',
+            margin: '48px 0 32px',
+          }}>
+            Shaping the Future of Gaming — One Machine at a Time
+          </h2>
+
+          <p className="about-body">
+            As their reputation grew, Val&apos;s vision for growth complemented Joseph&apos;s experience,
+            laying the foundation for greater ambitions.
+          </p>
+          <p className="about-body">
+            By the early 1990s, Joseph and Val recognized the potential to expand beyond simple repairs.
+            Under Val&apos;s direction and Joseph&apos;s guiding influence, JVL began designing and creating
+            its own games, driven by innovation and technical excellence — where hardware, software, and
+            aesthetics converged seamlessly, setting new standards in entertainment technology.
+          </p>
+          <p className="about-body">
+            The company strategically positioned JVL to focus on creating games that emphasized fairness,
+            quality, and entertainment, earning widespread industry respect.
+          </p>
+
+          <h2 style={{
+            fontFamily: 'inherit',
+            fontSize: 'clamp(1.3rem, 2.5vw, 1.9rem)',
+            fontWeight: 700, lineHeight: 1.15, letterSpacing: '-0.01em',
+            textTransform: 'uppercase', color: '#F4F3EC',
+            margin: '48px 0 32px',
+          }}>
+            Tradition, Innovation, and a Personal Touch
+          </h2>
+
+          <p className="about-body">
+            Joseph and Val approached game design with the mindset of master craftsmen. Just as
+            watchmakers carefully assemble each intricate part, Joseph mentored JVL&apos;s engineers,
+            artists, and designers, instilling a philosophy of continuous refinement. Math models,
+            graphics, and responsive interfaces were developed with precise attention, always seeking
+            to elevate player experience. Innovation was paramount, consistently guided by Joseph&apos;s
+            belief in the pursuit of excellence.
+          </p>
+          <p className="about-body">
+            Today, over four decades since Joseph&apos;s modest beginnings, JVL has evolved into a
+            true family enterprise. Joseph&apos;s legacy endures strongly, with Val now joined by his
+            own children — the third generation — who bring fresh perspectives balanced by Joseph&apos;s
+            foundational values.
+          </p>
+          <p className="about-body">
+            When considering JVL, the answer reflects Joseph&apos;s original values: direct access to
+            decision-makers, a commitment to collaborative partnerships, and a dedication to innovation
+            rooted firmly in tradition. Unlike larger corporations, JVL maintains the close-knit
+            environment Joseph established, respecting their coin-operated gaming heritage while
+            embracing future possibilities.
+          </p>
+
+          <h2 style={{
+            fontFamily: 'inherit',
+            fontSize: 'clamp(1.3rem, 2.5vw, 1.9rem)',
+            fontWeight: 700, lineHeight: 1.15, letterSpacing: '-0.01em',
+            textTransform: 'uppercase', color: '#F4F3EC',
+            margin: '48px 0 32px',
+          }}>
+            Three Generations, One Vision
+          </h2>
+
+          <p className="about-body">
+            At the heart of JVL&apos;s identity lies their slogan, <em style={{ color: 'rgba(244,243,236,0.55)', fontStyle: 'italic' }}>We Take Our Games Seriously.</em> For
+            Joseph Levitan, it was more than just a motto — it was a guiding principle.
+          </p>
+          <p className="about-body">
+            Joseph believed deeply in hiring only the best talent — individuals who shared his values
+            of excellence, integrity, and meticulous craftsmanship. This commitment remains central
+            to JVL today, ensuring every game created meets the highest standards and reflects the
+            passion and dedication of an exceptional team.
+          </p>
+          <p className="about-body">
+            Joseph Levitan&apos;s enduring legacy continues through Val&apos;s children — the third
+            generation — and future generations of the Levitan family, who carry forward the
+            family&apos;s unwavering commitment to innovation, excellence, and integrity.
+          </p>
         </div>
 
         {/* Stats */}
@@ -111,13 +191,26 @@ export default function AboutJVLPage() {
       <style>{`
         .about-content { overflow: hidden; }
 
-        .about-photo {
+        .about-photo-wrap {
           float: right;
           width: 340px;
           margin: 4px 0 32px 48px;
+        }
+
+        .about-photo {
+          width: 100%;
           border-radius: 4px;
           display: block;
           filter: grayscale(100%) contrast(1.05);
+        }
+
+        .about-caption {
+          font-size: 12px;
+          color: rgba(244,243,236,0.35);
+          text-align: center;
+          margin-top: 10px;
+          font-style: italic;
+          letter-spacing: 0.02em;
         }
 
         .about-body {
@@ -134,7 +227,7 @@ export default function AboutJVLPage() {
         }
 
         @media (max-width: 767px) {
-          .about-photo { float: none; width: 100%; margin: 0 0 32px 0; }
+          .about-photo-wrap { float: none; width: 100%; margin: 0 0 32px 0; }
           #about-page > div { padding-top: 164px !important; }
         }
         @media (max-width: 540px) {
