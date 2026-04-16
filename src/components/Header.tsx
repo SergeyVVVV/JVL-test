@@ -4,6 +4,11 @@ import { useState, useRef, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 
+function isNavActive(pathname: string, item: { href: string; children?: { href: string }[] }): boolean {
+  if (item.children) return item.children.some(child => pathname.startsWith(child.href))
+  return pathname.startsWith(item.href)
+}
+
 const navItems = [
   {
     label: 'Echo',
@@ -111,7 +116,7 @@ export default function Header() {
                       display: 'flex', alignItems: 'center', gap: 4,
                       background: 'none', border: 'none', cursor: 'pointer',
                       fontSize: 15, fontWeight: 500,
-                      color: openDropdown === item.label ? '#059FFF' : '#F4F3EC',
+                      color: (openDropdown === item.label || isNavActive(pathname, item)) ? '#059FFF' : '#F4F3EC',
                       padding: 0, transition: 'color 0.2s',
                     }}
                   >
@@ -122,7 +127,7 @@ export default function Header() {
                     </svg>
                   </button>
                 ) : (
-                  <Link href={item.href} style={{ fontSize: 15, fontWeight: 500, color: '#F4F3EC', textDecoration: 'none' }}>
+                  <Link href={item.href} style={{ fontSize: 15, fontWeight: 500, color: isNavActive(pathname, item) ? '#059FFF' : '#F4F3EC', textDecoration: 'none' }}>
                     {item.label}
                   </Link>
                 )}
@@ -238,7 +243,7 @@ export default function Header() {
                 <Link
                   href={item.href}
                   onClick={() => setMobileOpen(false)}
-                  style={{ display: 'block', padding: '12px 0', fontSize: 14, fontWeight: 500, color: '#F4F3EC', textDecoration: 'none' }}
+                  style={{ display: 'block', padding: '12px 0', fontSize: 14, fontWeight: 500, color: isNavActive(pathname, item) ? '#059FFF' : '#F4F3EC', textDecoration: 'none' }}
                 >
                   {item.label}
                 </Link>
