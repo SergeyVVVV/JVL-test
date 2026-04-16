@@ -115,7 +115,7 @@ export default function Header() {
                     style={{
                       display: 'flex', alignItems: 'center', gap: 4,
                       background: 'none', border: 'none', cursor: 'pointer',
-                      fontSize: 15, fontWeight: 500,
+                      fontSize: 16, fontWeight: 500,
                       color: (openDropdown === item.label || isNavActive(pathname, item)) ? '#059FFF' : '#F4F3EC',
                       padding: 0, transition: 'color 0.2s',
                     }}
@@ -127,7 +127,7 @@ export default function Header() {
                     </svg>
                   </button>
                 ) : (
-                  <Link href={item.href} style={{ fontSize: 15, fontWeight: 500, color: isNavActive(pathname, item) ? '#059FFF' : '#F4F3EC', textDecoration: 'none' }}>
+                  <Link href={item.href} style={{ fontSize: 16, fontWeight: 500, color: isNavActive(pathname, item) ? '#059FFF' : '#F4F3EC', textDecoration: 'none' }}>
                     {item.label}
                   </Link>
                 )}
@@ -254,7 +254,7 @@ export default function Header() {
                         key={child.label}
                         href={child.href}
                         onClick={() => setMobileOpen(false)}
-                        style={{ display: 'block', padding: '8px 0', fontSize: 13, color: '#787878', textDecoration: 'none' }}
+                        style={{ display: 'block', padding: '8px 0', fontSize: 15, color: '#787878', textDecoration: 'none' }}
                       >
                         {child.label}
                       </Link>

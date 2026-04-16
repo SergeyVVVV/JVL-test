@@ -75,18 +75,18 @@ export default function FlexPage() {
                 overflow: 'hidden', display: 'flex', flexDirection: 'column',
               }}>
                 {/* Machine image */}
-                <div className="flex-card-img" style={{ background: '#0d0f10', padding: '32px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 220 }}>
+                <div className="flex-card-img" style={{ background: '#0d0f10', padding: '32px 24px', display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: 340 }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={model.image}
                     alt={model.name}
-                    style={{ maxHeight: 200, maxWidth: '100%', objectFit: 'contain', display: 'block' }}
+                    style={{ maxHeight: 300, maxWidth: '100%', objectFit: 'contain', display: 'block' }}
                   />
                 </div>
 
                 {/* Card footer */}
                 <div style={{ padding: '20px 20px 24px', display: 'flex', flexDirection: 'column', gap: 16, flex: 1, justifyContent: 'space-between' }}>
-                  <p style={{ fontSize: 15, fontWeight: 700, color: '#F4F3EC', margin: 0, textTransform: 'uppercase', letterSpacing: '0.04em', lineHeight: 1.3 }}>
+                  <p style={{ fontSize: 17, fontWeight: 700, color: '#F4F3EC', margin: 0, textTransform: 'uppercase', letterSpacing: '0.04em', lineHeight: 1.3 }}>
                     {model.name}
                   </p>
                   <a
@@ -94,7 +94,7 @@ export default function FlexPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-outline"
-                    style={{ fontSize: 12, padding: '10px 16px', justifyContent: 'center' }}
+                    style={{ fontSize: 14, padding: '13px 16px', justifyContent: 'center' }}
                   >
                     Download PDF
                     <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -202,8 +202,8 @@ export default function FlexPage() {
           .flex-contact-grid { grid-template-columns: 1fr; gap: 40px; }
           #flex-page section { padding-top: 56px !important; padding-bottom: 56px !important; }
           .flex-section-h2 { margin-bottom: 28px !important; }
-          .flex-card-img { min-height: 160px !important; padding: 20px 16px !important; }
-          .flex-card-img img { max-height: 140px !important; }
+          .flex-card-img { min-height: 220px !important; padding: 20px 16px !important; }
+          .flex-card-img img { max-height: 190px !important; }
           .flex-map { min-height: 280px !important; }
           .flex-map iframe { min-height: 280px !important; }
           .flex-contact-desc { margin-bottom: 28px !important; }

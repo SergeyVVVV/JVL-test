@@ -69,7 +69,7 @@ export default function NewsCard({ item, locale, dark = false }: { item: NewsCar
         <div style={{ padding: 24, flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
           <span style={{
             display: 'inline-block',
-            fontSize: 13, fontWeight: 500,
+            fontSize: 13, fontWeight: 600,
             padding: '5px 10px',
             border: badgeBorder,
             borderRadius: 6,
@@ -86,7 +86,7 @@ export default function NewsCard({ item, locale, dark = false }: { item: NewsCar
           </h3>
           {item.description && (
             <p style={{
-              fontSize: 14, color: textColor, lineHeight: 1.6,
+              fontSize: 15, color: textColor, lineHeight: 1.6,
               margin: '0 0 8px',
               display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as const,
               overflow: 'hidden',
@@ -95,7 +95,7 @@ export default function NewsCard({ item, locale, dark = false }: { item: NewsCar
             </p>
           )}
           {item.publishedAt && (
-            <p style={{ fontSize: 13, color: dateColor, margin: '8px 0 0' }}>
+            <p style={{ fontSize: 14, color: dateColor, margin: '8px 0 0' }}>
               {formatDate(item.publishedAt)}
             </p>
           )}

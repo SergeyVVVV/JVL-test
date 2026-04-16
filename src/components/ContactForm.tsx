@@ -76,7 +76,7 @@ export default function ContactForm() {
 
       {/* Name */}
       <div style={{ marginBottom: 28 }}>
-        <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.04em' }}>
+        <label style={{ display: 'block', fontSize: 15, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.03em' }}>
           Name
         </label>
         <input
@@ -92,7 +92,7 @@ export default function ContactForm() {
       {/* Email + Department row */}
       <div className="cf-row" style={{ marginBottom: 28 }}>
         <div style={{ flex: 1 }}>
-          <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.04em' }}>
+          <label style={{ display: 'block', fontSize: 15, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.03em' }}>
             E-mail address
           </label>
           <input
@@ -105,7 +105,7 @@ export default function ContactForm() {
           />
         </div>
         <div style={{ flex: 1 }}>
-          <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.04em' }}>
+          <label style={{ display: 'block', fontSize: 15, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.03em' }}>
             Department
           </label>
           <div ref={deptRef} style={{ position: 'relative' }}>
@@ -152,7 +152,7 @@ export default function ContactForm() {
 
       {/* Message */}
       <div style={{ marginBottom: 36 }}>
-        <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.04em' }}>
+        <label style={{ display: 'block', fontSize: 15, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.03em' }}>
           Write a message
         </label>
         <textarea

@@ -94,7 +94,7 @@ export default function GameScreensCarousel({ slides, title }: { slides: GameScr
         {/* Counter */}
         <div style={{
           position: 'absolute', bottom: 12, right: 14,
-          fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.55)', letterSpacing: '0.08em',
+          fontSize: 15, fontWeight: 600, color: 'rgba(255,255,255,0.55)', letterSpacing: '0.08em',
         }}>
           {String(active + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
         </div>

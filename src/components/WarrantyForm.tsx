@@ -87,7 +87,7 @@ function Expandable({ title, children }: { title: string; children: React.ReactN
         style={{
           background: 'none', border: '1px solid rgba(244,243,236,0.2)',
           borderRadius: 4, padding: '9px 16px', cursor: 'pointer',
-          fontSize: 13, fontWeight: 600, color: 'rgba(244,243,236,0.65)',
+          fontSize: 15, fontWeight: 600, color: 'rgba(244,243,236,0.65)',
           display: 'flex', alignItems: 'center', gap: 8,
           transition: 'border-color 0.18s, color 0.18s',
         }}
@@ -165,7 +165,7 @@ function StepBar({ current, maxReached }: { current: number; maxReached: number 
 /* ── Label helper ───────────────────────────────────────────────────────── */
 function Label({ children, required }: { children: React.ReactNode; required?: boolean }) {
   return (
-    <label style={{ display: 'block', fontSize: 13, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.04em' }}>
+    <label style={{ display: 'block', fontSize: 15, color: 'rgba(244,243,236,0.70)', marginBottom: 8, letterSpacing: '0.02em' }}>
       {children}{required && <span style={{ color: '#FB671F', marginLeft: 4 }}>*</span>}
     </label>
   )
@@ -354,7 +354,7 @@ export default function WarrantyForm() {
             onClick={() => goStep(1)}
             style={{
               background: 'none', border: 'none', cursor: 'pointer', padding: '0 0 24px',
-              fontSize: 13, color: 'rgba(244,243,236,0.5)', display: 'flex', alignItems: 'center', gap: 6,
+              fontSize: 15, color: 'rgba(244,243,236,0.5)', display: 'flex', alignItems: 'center', gap: 6,
               transition: 'color 0.18s',
             }}
           >
@@ -436,7 +436,7 @@ export default function WarrantyForm() {
             onClick={() => goStep(2)}
             style={{
               background: 'none', border: 'none', cursor: 'pointer', padding: '0 0 24px',
-              fontSize: 13, color: 'rgba(244,243,236,0.5)', display: 'flex', alignItems: 'center', gap: 6,
+              fontSize: 15, color: 'rgba(244,243,236,0.5)', display: 'flex', alignItems: 'center', gap: 6,
             }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

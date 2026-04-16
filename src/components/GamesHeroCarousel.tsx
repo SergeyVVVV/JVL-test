@@ -111,7 +111,7 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 className="btn-outline"
-                style={{ padding: '13px 28px', textTransform: 'uppercase', fontSize: 13 }}
+                style={{ padding: '13px 28px', textTransform: 'uppercase' }}
               >
                 Play Demo
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none">

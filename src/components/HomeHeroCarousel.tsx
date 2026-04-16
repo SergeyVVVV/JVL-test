@@ -221,7 +221,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
             </button>
 
             {/* Counter */}
-            <span style={{ fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em' }}>
+            <span style={{ fontSize: 15, fontWeight: 500, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em' }}>
               {String(active + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
             </span>
           </div>
