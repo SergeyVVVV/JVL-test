@@ -233,10 +233,10 @@ function LegacySection() {
 
         {/* Centered description */}
         <div style={{ maxWidth: 600, margin: '0 auto 80px', textAlign: 'center' }}>
-          <p style={{ fontSize: 16, fontWeight: 300, color: 'rgba(244,243,236,0.65)', margin: '0 0 16px', lineHeight: 1.7 }}>
+          <p style={{ fontSize: 17, fontWeight: 300, color: 'rgba(244,243,236,0.65)', margin: '0 0 16px', lineHeight: 1.7 }}>
             Explore the JVL legacy in gaming — from ENCORE to ECHO HD3.
           </p>
-          <p style={{ fontSize: 16, fontWeight: 300, color: 'rgba(244,243,236,0.8)', margin: '0 0 16px', lineHeight: 1.7 }}>
+          <p style={{ fontSize: 17, fontWeight: 300, color: 'rgba(244,243,236,0.8)', margin: '0 0 16px', lineHeight: 1.7 }}>
             For over 30 years, JVL has led the world in touchscreen arcade entertainment. The Echo HD3 continues that legacy — elegant hardware, intelligent software, timeless gameplay.
           </p>
           <p style={{ fontSize: 16, fontWeight: 300, fontStyle: 'italic', color: 'rgba(244,243,236,0.45)', margin: 0 }}>
@@ -1250,7 +1250,7 @@ function SupportSection() {
               <div style={{ fontSize: 14, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#F4F3EC', marginBottom: 12, lineHeight: 1.3 }}>
                 {card.title}
               </div>
-              <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.7, color: 'rgba(244,243,236,0.6)', margin: 0 }}>
+              <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.7, color: 'rgba(244,243,236,0.6)', margin: 0 }}>
                 {card.desc}
               </p>
             </div>

@@ -107,7 +107,7 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
           {/* Description */}
           {current.description && (
             <p style={{
-              fontSize: 15, color: 'rgba(244,243,236,0.65)', lineHeight: 1.65,
+              fontSize: 17, color: 'rgba(244,243,236,0.65)', lineHeight: 1.65,
               margin: '0 0 28px', maxWidth: 460,
             }}>
               {current.description}

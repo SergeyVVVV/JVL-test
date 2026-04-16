@@ -109,7 +109,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
           {slide.heading}
         </h1>
         <p style={{
-          fontSize: 16, fontWeight: 300,
+          fontSize: 17, fontWeight: 300,
           color: 'rgba(255,255,255,0.72)', margin: '0 0 32px',
           maxWidth: 500, lineHeight: 1.65,
         }}>

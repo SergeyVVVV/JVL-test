@@ -200,7 +200,7 @@ export default async function HomePage() {
             Welcome to JVL!
           </h2>
 
-          <p style={{ fontSize: 15, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: '20px 0 0' }}>
+          <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: '20px 0 0' }}>
             For over 40 years, JVL has created gaming products for casinos, venues, and the home. From FLEX and online games to the ECHO HD3, we combine proven performance, premium design, and modern simplicity.
           </p>
 
@@ -260,10 +260,10 @@ export default async function HomePage() {
               }}>
                 Trusted Name in Gaming Since 1984
               </h2>
-              <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.8, color: 'rgba(244,243,236,0.75)', margin: '0 0 20px' }}>
+              <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.8, color: 'rgba(244,243,236,0.75)', margin: '0 0 20px' }}>
                 JVL, founded in 1984, is a family-owned supplier of land-based casino cabinets, slot games (for both cabinets and online), and coin-operated amusement machines.
               </p>
-              <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.8, color: 'rgba(244,243,236,0.75)', margin: '0 0 40px' }}>
+              <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.8, color: 'rgba(244,243,236,0.75)', margin: '0 0 40px' }}>
                 JVL is a trusted name in gaming worldwide — valued for our products, partnerships, expertise, and unwavering commitment to quality.
               </p>
               <a
