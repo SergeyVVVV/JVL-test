@@ -9,6 +9,7 @@ import {
 } from '@/lib/db'
 import GameScreensCarousel from '@/components/GameScreensCarousel'
 import GameFeatures from '@/components/GameFeatures'
+import GameCard from '@/components/GameCard'
 
 export const dynamic = 'force-dynamic'
 
@@ -369,35 +370,7 @@ export default async function GameDetailPage({
             </div>
             <div className="gd-also-grid">
               {alsoLike.map(g => (
-                <a
-                  key={g.id}
-                  href={`/${locale}/games/${g.slug}`}
-                  className="gd-also-card"
-                  style={{ display: 'block', textDecoration: 'none' }}
-                >
-                  <div style={{
-                    position: 'relative', background: '#101213',
-                    borderRadius: 4, overflow: 'hidden', aspectRatio: '3/4',
-                  }}>
-                    {g.image && (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img
-                        src={g.image}
-                        alt={g.title ?? ''}
-                        style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                      />
-                    )}
-                    <div style={{
-                      position: 'absolute', bottom: 0, left: 0, right: 0,
-                      padding: '48px 14px 16px',
-                      background: 'linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0) 100%)',
-                    }}>
-                      <p style={{ margin: 0, fontSize: 14, fontWeight: 700, color: '#F4F3EC', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-                        {g.title}
-                      </p>
-                    </div>
-                  </div>
-                </a>
+                <GameCard key={g.id} slug={g.slug ?? ''} image={g.image} title={g.title} locale={locale} />
               ))}
             </div>
           </div>
@@ -437,10 +410,11 @@ export default async function GameDetailPage({
         /* Also Like */
         .gd-also-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 12px;
         }
-        .gd-also-card:hover div { outline: 2px solid #FB671F; }
+        @media (max-width: 1023px) { .gd-also-grid { grid-template-columns: repeat(3, 1fr); } }
+        @media (max-width: 639px)  { .gd-also-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; } }
 
         /* Mobile */
         @media (max-width: 767px) {

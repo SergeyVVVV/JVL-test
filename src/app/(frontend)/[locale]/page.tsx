@@ -112,20 +112,17 @@ export default async function HomePage() {
         }
         #home-page .hp-games-grid {
           display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 10px;
-        }
-        #home-page .hp-games-all-tile {
-          /* in-grid 6th slot */
+          grid-template-columns: repeat(4, 1fr);
+          gap: 12px;
         }
         #home-page .hp-game-cat-card img { transition: transform 0.5s ease; }
         #home-page .hp-game-cat-card:hover img { transform: scale(1.04); }
-        @media (max-width: 960px) {
-          #home-page .hp-games-grid { grid-template-columns: repeat(2, 1fr); }
+        @media (max-width: 1023px) {
+          #home-page .hp-games-grid { grid-template-columns: repeat(3, 1fr); }
           #home-page .hp-games-header { grid-template-columns: 1fr; }
         }
-        @media (max-width: 540px) {
-          #home-page .hp-games-grid { grid-template-columns: 1fr 1fr; }
+        @media (max-width: 639px) {
+          #home-page .hp-games-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
         }
 
         /* ── News ── */
@@ -353,7 +350,7 @@ export default async function HomePage() {
                 className="hp-game-cat-card"
                 style={{
                   position: 'relative', display: 'block', borderRadius: 6,
-                  overflow: 'hidden', textDecoration: 'none', aspectRatio: '4/5',
+                  overflow: 'hidden', textDecoration: 'none', aspectRatio: '3/4',
                   background: '#1a1c1d',
                 }}
               >
@@ -386,7 +383,7 @@ export default async function HomePage() {
                 borderRadius: 6, textDecoration: 'none',
                 background: '#059FFF',
                 padding: '20px 28px',
-                aspectRatio: '4/5',
+                aspectRatio: '3/4',
               }}
             >
               <span style={{ fontSize: 'clamp(2rem, 3vw, 2.5rem)', fontWeight: 800, color: '#fff', lineHeight: 1, marginBottom: 6 }}>
