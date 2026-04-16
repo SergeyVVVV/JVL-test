@@ -24,7 +24,7 @@ export async function GET(request: Request) {
 
     // 2. Raw features rows
     const [featRows] = await db.execute(
-      `SELECT id, game_id, text, sort FROM features WHERE game_id = ? ORDER BY sort ASC`,
+      `SELECT id, game_id, text FROM features WHERE game_id = ?`,
       [page.game_id]
     )
 

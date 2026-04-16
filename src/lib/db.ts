@@ -833,7 +833,7 @@ export async function getGameFeatures(gameId: number, locale = 'en'): Promise<Ga
   try {
     const db = getPool()
     const [rows] = await db.execute(
-      `SELECT id, text FROM features WHERE game_id = ? ORDER BY sort ASC`,
+      `SELECT id, text FROM features WHERE game_id = ?`,
       [gameId]
     )
     const results: GameFeature[] = []
