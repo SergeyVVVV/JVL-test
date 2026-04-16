@@ -16,10 +16,9 @@ const footerLinks = {
     { label: 'Contact Us', href: '/en/contact-us' },
   ],
   Support: [
-    { label: 'Register Product', href: '/en/warranty' },
+    { label: 'Warranty Registration', href: '/en/warranty' },
     { label: 'Privacy Policy', href: '/en/privacy-policy' },
     { label: 'Terms of Use', href: '/en/terms-of-use' },
-    { label: 'Warranty', href: '/en/warranty' },
   ],
 }
 

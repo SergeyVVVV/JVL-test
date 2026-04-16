@@ -345,7 +345,7 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
 
         {/* Body */}
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
-          <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 16px' }}>
+          <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 16px' }}>
             ECHO ruled bars across the U.S. in the '90s and early 2000s — now, it's back, reimagined for home.
             Transform your living room or basement into your own personal arcade. Plug-and-play fun — no downloads, no Wi-Fi.
           </p>
@@ -703,7 +703,7 @@ function DesignedSection() {
         {/* ── Text left + CTA right ── */}
         <div className="echo-ds-hdr">
           <div>
-            <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 12px' }}>
+            <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: '0 0 12px' }}>
               Every curve, light, and pixel was designed to feel exceptional.
             </p>
             <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.7, color: '#9A9790', fontStyle: 'italic', margin: 0 }}>
@@ -1230,7 +1230,7 @@ function SupportSection() {
             Secure Amazon Checkout, Warranty & Support You Can Trust
           </h2>
           <div className="echo-sup-hdr">
-            <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: 0 }}>
+            <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: 0 }}>
               Buy securely through Amazon with official JVL warranty and North American support. Fast delivery, verified authenticity, and peace of mind included.
             </p>
             <a href="/en/contact-us" className="btn-amazon" style={{ padding: '10px 20px', whiteSpace: 'nowrap' }}>
