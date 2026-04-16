@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import type { GameHeroSlide } from '@/lib/db'
 
 interface Props {
@@ -10,23 +10,29 @@ interface Props {
 
 export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
   const [active, setActive] = useState(0)
-  const [animating, setAnimating] = useState(false)
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [transitioning, setTransitioning] = useState(false)
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  function go(idx: number) {
-    if (animating || idx === active) return
-    setAnimating(true)
-    setActive(idx)
-    setTimeout(() => setAnimating(false), 600)
-  }
+  const goTo = useCallback((i: number) => {
+    if (i === active || transitioning) return
+    setTransitioning(true)
+    setTimeout(() => {
+      setActive(i)
+      setTransitioning(false)
+    }, 350)
+  }, [active, transitioning])
 
+  const goPrev = useCallback(() => goTo((active - 1 + slides.length) % slides.length), [active, slides.length, goTo])
+  const goNext = useCallback(() => goTo((active + 1) % slides.length), [active, slides.length, goTo])
+
+  // Auto-advance
   useEffect(() => {
     if (slides.length < 2) return
     timerRef.current = setInterval(() => {
-      setActive(prev => (prev + 1) % slides.length)
+      goTo((active + 1) % slides.length)
     }, 5000)
     return () => { if (timerRef.current) clearInterval(timerRef.current) }
-  }, [slides.length])
+  }, [active, slides.length, goTo])
 
   if (!slides.length) return null
 
@@ -40,11 +46,7 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
   function onTouchEnd(e: React.TouchEvent) {
     if (touchStartX.current === null) return
     const delta = touchStartX.current - e.changedTouches[0].clientX
-    if (Math.abs(delta) > 50) {
-      delta > 0
-        ? go((active + 1) % slides.length)
-        : go((active - 1 + slides.length) % slides.length)
-    }
+    if (Math.abs(delta) > 30) delta > 0 ? goNext() : goPrev()
     touchStartX.current = null
   }
 
@@ -62,12 +64,11 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
           key={s.gameId}
           style={{
             position: 'absolute', inset: 0,
-            opacity: i === active ? 1 : 0,
-            transition: 'opacity 0.6s ease',
+            opacity: i === active ? (transitioning ? 0 : 1) : 0,
+            transition: 'opacity 0.35s ease',
             pointerEvents: i === active ? 'auto' : 'none',
           }}
         >
-          {/* Background image */}
           {s.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -78,8 +79,6 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
           ) : (
             <div style={{ position: 'absolute', inset: 0, background: '#101213' }} />
           )}
-
-          {/* Gradient overlays */}
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(8,10,11,0.95) 0%, rgba(8,10,11,0.4) 50%, rgba(8,10,11,0.15) 100%)' }} />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(8,10,11,0.75) 0%, rgba(8,10,11,0) 55%)' }} />
         </div>
@@ -89,22 +88,20 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
       <div style={{
         position: 'relative', zIndex: 2, height: '100%',
         display: 'flex', alignItems: 'flex-end',
+        opacity: transitioning ? 0 : 1,
+        transition: 'opacity 0.35s ease',
       }}>
-        <div style={{ maxWidth: 1440, width: '100%', margin: '0 auto', padding: '0 6vw 56px' }}>
-
-          {/* Title */}
+        <div style={{ maxWidth: 1440, width: '100%', margin: '0 auto', padding: '0 6vw 72px' }}>
           <h2 style={{
             fontFamily: 'inherit',
             fontSize: 'clamp(1.8rem, 4vw, 4rem)',
             fontWeight: 700, lineHeight: 1.05,
             letterSpacing: '-0.02em', textTransform: 'uppercase',
             color: '#F4F3EC', margin: '0 0 12px', maxWidth: 640,
-            transition: 'opacity 0.4s',
           }}>
             {current.title}
           </h2>
 
-          {/* Description */}
           {current.description && (
             <p style={{
               fontSize: 17, color: 'rgba(244,243,236,0.65)', lineHeight: 1.65,
@@ -114,7 +111,6 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
             </p>
           )}
 
-          {/* CTAs */}
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
             <a
               href={`/${locale}/games/${current.slug}`}
@@ -144,56 +140,76 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
         </div>
       </div>
 
-      {/* Dots / thumbnails */}
+      {/* Bottom bar — same style as HomeHeroCarousel */}
       {slides.length > 1 && (
-        <div style={{
-          position: 'absolute', bottom: 20, right: '6vw', zIndex: 3,
-          display: 'flex', gap: 8, alignItems: 'center',
-        }}>
-          {slides.map((s, i) => (
-            <button
-              key={s.gameId}
-              onClick={() => go(i)}
-              aria-label={s.title ?? `Slide ${i + 1}`}
-              style={{
-                width: i === active ? 28 : 8,
-                height: 8, borderRadius: 4, border: 'none', cursor: 'pointer', padding: 0,
-                background: i === active ? '#FB671F' : 'rgba(244,243,236,0.35)',
-                transition: 'width 0.3s, background 0.3s',
-              }}
-            />
-          ))}
-        </div>
-      )}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, zIndex: 3 }}>
+          <div style={{ height: 1, background: 'rgba(255,255,255,0.12)' }} />
+          <div style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'flex-end',
+            padding: '14px 6vw',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+              {/* Prev */}
+              <button
+                onClick={goPrev}
+                aria-label="Previous slide"
+                style={{
+                  background: 'none', border: 'none',
+                  cursor: 'pointer', color: 'rgba(255,255,255,0.55)', padding: 4,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'color 0.2s', flexShrink: 0,
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M15 18L9 12L15 6"/>
+                </svg>
+              </button>
 
-      {/* Prev / Next arrows */}
-      {slides.length > 1 && (
-        <>
-          <button
-            onClick={() => go((active - 1 + slides.length) % slides.length)}
-            aria-label="Previous"
-            style={{
-              position: 'absolute', left: 20, top: '50%', transform: 'translateY(-50%)',
-              zIndex: 3, width: 40, height: 40, borderRadius: '50%',
-              background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.18)',
-              color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18L9 12L15 6"/></svg>
-          </button>
-          <button
-            onClick={() => go((active + 1) % slides.length)}
-            aria-label="Next"
-            style={{
-              position: 'absolute', right: 20, top: '50%', transform: 'translateY(-50%)',
-              zIndex: 3, width: 40, height: 40, borderRadius: '50%',
-              background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.18)',
-              color: '#fff', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}
-          >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 6L15 12L9 18"/></svg>
-          </button>
-        </>
+              {/* Dots */}
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                {slides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => goTo(i)}
+                    aria-label={`Slide ${i + 1}`}
+                    style={{
+                      width: active === i ? 28 : 8,
+                      height: 8, borderRadius: 4,
+                      background: active === i ? '#fff' : 'rgba(255,255,255,0.28)',
+                      border: 'none', cursor: 'pointer', padding: 0,
+                      transition: 'width 0.3s ease, background 0.3s ease',
+                    }}
+                  />
+                ))}
+              </div>
+
+              {/* Next */}
+              <button
+                onClick={goNext}
+                aria-label="Next slide"
+                style={{
+                  background: 'none', border: 'none',
+                  cursor: 'pointer', color: 'rgba(255,255,255,0.55)', padding: 4,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  transition: 'color 0.2s', flexShrink: 0,
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
+                onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.55)')}
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M9 6L15 12L9 18"/>
+                </svg>
+              </button>
+
+              {/* Counter */}
+              <span style={{ fontSize: 15, fontWeight: 500, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.08em' }}>
+                {String(active + 1).padStart(2, '0')} / {String(slides.length).padStart(2, '0')}
+              </span>
+            </div>
+          </div>
+        </div>
       )}
 
       <style>{`

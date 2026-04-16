@@ -180,17 +180,16 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
               onClick={goPrev}
               aria-label="Previous slide"
               style={{
-                background: 'none', border: '1px solid rgba(255,255,255,0.22)',
-                borderRadius: '50%', width: 32, height: 32,
+                background: 'none', border: 'none',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                cursor: 'pointer', color: 'rgba(255,255,255,0.55)', padding: 0,
-                transition: 'border-color 0.2s, color 0.2s',
+                cursor: 'pointer', color: 'rgba(255,255,255,0.55)', padding: 4,
+                transition: 'color 0.2s',
                 flexShrink: 0,
               }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.6)'; e.currentTarget.style.color = '#fff' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.22)'; e.currentTarget.style.color = 'rgba(255,255,255,0.55)' }}
+              onMouseEnter={e => { e.currentTarget.style.color = '#fff' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.55)' }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M15 18L9 12L15 6"/>
               </svg>
             </button>
@@ -219,17 +218,16 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
               onClick={goNext}
               aria-label="Next slide"
               style={{
-                background: 'none', border: '1px solid rgba(255,255,255,0.22)',
-                borderRadius: '50%', width: 32, height: 32,
+                background: 'none', border: 'none',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                cursor: 'pointer', color: 'rgba(255,255,255,0.55)', padding: 0,
-                transition: 'border-color 0.2s, color 0.2s',
+                cursor: 'pointer', color: 'rgba(255,255,255,0.55)', padding: 4,
+                transition: 'color 0.2s',
                 flexShrink: 0,
               }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.6)'; e.currentTarget.style.color = '#fff' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.22)'; e.currentTarget.style.color = 'rgba(255,255,255,0.55)' }}
+              onMouseEnter={e => { e.currentTarget.style.color = '#fff' }}
+              onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.55)' }}
             >
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M9 6L15 12L9 18"/>
               </svg>
             </button>

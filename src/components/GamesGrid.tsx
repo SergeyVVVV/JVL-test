@@ -195,8 +195,8 @@ export default function GamesGrid({
         <FilterDropdown label="Features"   options={features}   value={featuresId} onChange={handleFeat}  allLabel="All Features" />
         <FilterDropdown label="Volatility" options={volatility} value={volId}     onChange={handleVol}  allLabel="All Volatility" />
 
-        {/* Search */}
-        <div className="gg-search-wrap" style={{ flex: 1, minWidth: 200, position: 'relative' }}>
+        {/* Search — separated from filters */}
+        <div className="gg-search-wrap" style={{ width: 260, marginLeft: 'auto', position: 'relative', borderLeft: '1px solid #2a2c2e', paddingLeft: 16 }}>
           <input
             type="text"
             placeholder="Find a game"
@@ -366,7 +366,7 @@ export default function GamesGrid({
         @media (max-width: 767px) {
           .gg-filters-row { gap: 8px; }
           .gg-filter-wrap { min-width: 0 !important; flex: 1; }
-          .gg-search-wrap { min-width: 0 !important; width: 100%; flex-basis: 100%; }
+          .gg-search-wrap { min-width: 0 !important; width: 100% !important; flex-basis: 100%; margin-left: 0 !important; border-left: none !important; padding-left: 0 !important; }
           .gg-page-btn { width: 40px !important; height: 40px !important; }
         }
         @media (max-width: 480px) {
