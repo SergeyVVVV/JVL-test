@@ -1,6 +1,7 @@
 import { getGamesList, getGameFilterTags, getPageIdBySlug, getGameSliderSlides } from '@/lib/db'
 import GamesHeroCarousel from '@/components/GamesHeroCarousel'
 import GamesGrid from '@/components/GamesGrid'
+import EchoBanner from '@/components/EchoBanner'
 
 export const dynamic = 'force-dynamic'
 
@@ -68,6 +69,15 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
             perPage={PER_PAGE}
           />
         </div>
+        </div>
+      </section>
+
+      {/* ── Echo CTA Banner ── */}
+      <section style={{ background: '#080a0b', padding: '0 0 96px' }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
+          <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+            <EchoBanner locale={locale} />
+          </div>
         </div>
       </section>
 
