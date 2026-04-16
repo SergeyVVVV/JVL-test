@@ -10,13 +10,13 @@ const footerLinks = {
     { label: 'Games', href: '/en/games' },
   ],
   Company: [
-    { label: 'News', href: '/en/news' },
+    { label: 'News', href: '/en/blog-and-news' },
     { label: 'About JVL', href: '/en/about-jvl' },
     { label: 'Partners', href: '/en/partners' },
     { label: 'Contact Us', href: '/en/contact-us' },
   ],
   Support: [
-    { label: 'Register Product', href: '/en/register' },
+    { label: 'Register Product', href: '/en/warranty' },
     { label: 'Privacy Policy', href: '/en/privacy-policy' },
     { label: 'Terms of Use', href: '/en/terms-of-use' },
     { label: 'Warranty', href: '/en/warranty' },
