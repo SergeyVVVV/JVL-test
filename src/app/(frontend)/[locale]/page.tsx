@@ -184,7 +184,8 @@ export default async function HomePage() {
 
       {/* ── 2a. Our Products ─────────────────────────────────────────────────── */}
       <section style={{ background: '#101213', padding: '96px 0' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
           <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px' }}>
             Our Products
@@ -238,11 +239,13 @@ export default async function HomePage() {
             ))}
           </div>
         </div>
+        </div>
       </section>
 
       {/* ── 2b. About Us ─────────────────────────────────────────────────────── */}
       <section style={{ background: '#080a0b', padding: '96px 0', borderTop: '1px solid #1e2022' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <div className="hp-about-grid">
 
             {/* Left: history text + CTA */}
@@ -296,11 +299,13 @@ export default async function HomePage() {
 
           </div>
         </div>
+        </div>
       </section>
 
       {/* ── 3. Discover Our Games ────────────────────────────────────────────── */}
       <section style={{ background: '#101213', padding: '96px 0', borderTop: '1px solid #222' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
           {/* Badge */}
           <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px' }}>
@@ -393,11 +398,13 @@ export default async function HomePage() {
             </a>
           </div>
         </div>
+        </div>
       </section>
 
       {/* ── 4. News ──────────────────────────────────────────────────────────── */}
       <section style={{ background: '#080a0b', padding: '96px 0', borderTop: '1px solid #1e2022' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+        <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
           {/* Header row */}
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', marginBottom: 52, gap: 24 }}>
@@ -439,6 +446,7 @@ export default async function HomePage() {
           ) : (
             <p style={{ color: 'rgba(244,243,236,0.35)', fontSize: 15 }}>No articles yet.</p>
           )}
+        </div>
         </div>
       </section>
 
