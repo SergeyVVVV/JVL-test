@@ -91,9 +91,9 @@ export default async function GameDetailPage({
           </p>
 
           {/* Tags / badges */}
-          {[...game.themes, ...game.gameTags].length > 0 && (
+          {[...new Set([...game.themes, ...game.gameTags])].length > 0 && (
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 16 }}>
-              {[...game.themes, ...game.gameTags].map(tag => (
+              {[...new Set([...game.themes, ...game.gameTags])].map(tag => (
                 <span
                   key={tag}
                   style={{

@@ -8,8 +8,9 @@ interface Section {
 interface Props {
   badge: string
   title: string
-  lastUpdated: string
-  sections: Section[]
+  lastUpdated?: string
+  sections?: Section[]
+  htmlContent?: string
 }
 
 const h2Style: React.CSSProperties = {
@@ -38,7 +39,7 @@ const ulStyle: React.CSSProperties = {
 
 export { h2Style, pStyle, ulStyle }
 
-export default function LegalLayout({ badge, title, lastUpdated, sections }: Props) {
+export default function LegalLayout({ badge, title, lastUpdated, sections, htmlContent }: Props) {
   return (
     <main
       style={{
@@ -73,26 +74,35 @@ export default function LegalLayout({ badge, title, lastUpdated, sections }: Pro
         </h1>
 
         {/* Last updated */}
-        <p style={{
-          fontSize: 13, color: 'rgba(244,243,236,0.35)',
-          textAlign: 'center', margin: '0 0 64px',
-          letterSpacing: '0.04em',
-        }}>
-          Last updated: {lastUpdated}
-        </p>
+        {lastUpdated && (
+          <p style={{
+            fontSize: 13, color: 'rgba(244,243,236,0.35)',
+            textAlign: 'center', margin: '0 0 64px',
+            letterSpacing: '0.04em',
+          }}>
+            Last updated: {lastUpdated}
+          </p>
+        )}
 
         {/* Divider */}
         <div style={{ height: 1, background: 'rgba(244,243,236,0.08)', marginBottom: 48 }} />
 
-        {/* Sections */}
-        <div>
-          {sections.map((s, i) => (
-            <div key={i}>
-              <h2 style={h2Style}>{s.heading}</h2>
-              {s.content}
-            </div>
-          ))}
-        </div>
+        {/* Sections or raw HTML */}
+        {htmlContent ? (
+          <div
+            className="legal-html-content"
+            dangerouslySetInnerHTML={{ __html: htmlContent }}
+          />
+        ) : sections ? (
+          <div>
+            {sections.map((s, i) => (
+              <div key={i}>
+                <h2 style={h2Style}>{s.heading}</h2>
+                {s.content}
+              </div>
+            ))}
+          </div>
+        ) : null}
 
         {/* Divider */}
         <div style={{ height: 1, background: 'rgba(244,243,236,0.08)', margin: '56px 0 40px' }} />
@@ -110,6 +120,14 @@ export default function LegalLayout({ badge, title, lastUpdated, sections }: Pro
       </div>
 
       <style>{`
+        .legal-html-content p { font-size: 16px; color: rgba(244,243,236,0.65); line-height: 1.8; margin: 0 0 14px; }
+        .legal-html-content h2 { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 700; color: #F4F3EC; text-transform: uppercase; letter-spacing: 0.08em; margin: 48px 0 16px; }
+        .legal-html-content h3 { font-size: 1rem; font-weight: 700; color: #F4F3EC; letter-spacing: 0.04em; margin: 28px 0 10px; }
+        .legal-html-content ul, .legal-html-content ol { margin: 0 0 14px; padding-left: 22px; color: rgba(244,243,236,0.65); font-size: 16px; line-height: 1.8; }
+        .legal-html-content li { margin-bottom: 6px; }
+        .legal-html-content a { color: #059FFF; text-decoration: none; }
+        .legal-html-content a:hover { text-decoration: underline; }
+        .legal-html-content strong { color: #F4F3EC; font-weight: 600; }
         @media (max-width: 640px) {
           .legal-container { padding: 164px 5vw 80px !important; }
         }

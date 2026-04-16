@@ -888,6 +888,33 @@ export async function getGameReviews(gameId: number, locale = 'en'): Promise<Gam
   }
 }
 
+/** Get a static page by its ID (for legal pages like privacy-policy, terms-of-use) */
+export async function getStaticPage(pageId: number, locale = 'en'): Promise<{
+  title: string | null
+  content1: string | null
+  content2: string | null
+  updatedAt: string | null
+} | null> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      `SELECT title, content1, content2, updated_at FROM pages WHERE id = ? LIMIT 1`,
+      [pageId]
+    )
+    const r = (rows as any[])[0]
+    if (!r) return null
+    return {
+      title: parseLocale(r.title, locale),
+      content1: parseLocale(r.content1, locale),
+      content2: parseLocale(r.content2, locale),
+      updatedAt: r.updated_at ? new Date(r.updated_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : null,
+    }
+  } catch (err) {
+    console.error('[getStaticPage] failed:', err)
+    return null
+  }
+}
+
 /** Get a media file URL (served via /api/storage) for a Laravel MediaLibrary record */
 export async function getMediaUrl(
   modelType: string,
