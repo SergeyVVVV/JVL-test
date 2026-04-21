@@ -3,6 +3,10 @@ import EchoHomeClient from './EchoHomeClient'
 
 export const dynamic = 'force-dynamic'
 
+export const metadata = {
+  robots: { index: false, follow: false },
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const meta = await getPageMeta('echo', locale)
