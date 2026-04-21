@@ -71,6 +71,8 @@ export interface NewsArticle {
   pageId: number
   slug: string
   title: string | null
+  metaTitle: string | null
+  metaDescription: string | null
   content1: string | null
   content2: string | null
   description: string | null
@@ -96,6 +98,7 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
     const db = getPool()
     const [rows] = await db.execute(
       `SELECT p.id AS page_id, p.slug, p.title, p.content1, p.content2, p.description,
+              p.meta_title, p.meta_description,
               n.id AS news_id, n.type, n.published_at
        FROM pages p
        INNER JOIN news n ON n.page_id = p.id
@@ -139,6 +142,8 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
       pageId: row.page_id,
       slug: row.slug,
       title: parseLocale(row.title, locale),
+      metaTitle: parseLocale(row.meta_title, locale),
+      metaDescription: parseLocale(row.meta_description, locale),
       content1: parseLocale(row.content1, locale),
       content2: parseLocale(row.content2, locale),
       description: parseLocale(row.description, locale),
@@ -599,6 +604,8 @@ export interface GameDetail {
   pageId: number
   slug: string
   title: string | null
+  metaTitle: string | null
+  metaDescription: string | null
   description: string | null
   reels: string | null
   paylines: string | null
@@ -625,7 +632,7 @@ export async function getGameBySlug(slug: string, locale = 'en'): Promise<GameDe
   try {
     const db = getPool()
     const [rows] = await db.execute(
-      `SELECT p.id AS page_id, p.slug, p.title, p.description,
+      `SELECT p.id AS page_id, p.slug, p.title, p.description, p.meta_title, p.meta_description,
               g.id AS game_id, g.reels, g.paylines, g.play_url,
               g.story_title, g.story_text, g.story_symbol_name, g.story_about_symbol,
               g.rtps, g.min_bet, g.max_bet, g.max_win
@@ -671,6 +678,8 @@ export async function getGameBySlug(slug: string, locale = 'en'): Promise<GameDe
       pageId: r.page_id,
       slug: r.slug,
       title: parseLocale(r.title, locale),
+      metaTitle: parseLocale(r.meta_title, locale),
+      metaDescription: parseLocale(r.meta_description, locale),
       description: parseLocale(r.description, locale),
       reels: parseLocale(r.reels, locale),
       paylines: parseLocale(r.paylines, locale),
@@ -891,6 +900,8 @@ export async function getGameReviews(gameId: number, locale = 'en'): Promise<Gam
 /** Get a static page by its ID (for legal pages like privacy-policy, terms-of-use) */
 export async function getStaticPage(pageId: number, locale = 'en'): Promise<{
   title: string | null
+  metaTitle: string | null
+  metaDescription: string | null
   content1: string | null
   content2: string | null
   updatedAt: string | null
@@ -898,19 +909,44 @@ export async function getStaticPage(pageId: number, locale = 'en'): Promise<{
   try {
     const db = getPool()
     const [rows] = await db.execute(
-      `SELECT title, content1, content2, updated_at FROM pages WHERE id = ? LIMIT 1`,
+      `SELECT title, meta_title, meta_description, content1, content2, updated_at FROM pages WHERE id = ? LIMIT 1`,
       [pageId]
     )
     const r = (rows as any[])[0]
     if (!r) return null
     return {
       title: parseLocale(r.title, locale),
+      metaTitle: parseLocale(r.meta_title, locale),
+      metaDescription: parseLocale(r.meta_description, locale),
       content1: parseLocale(r.content1, locale),
       content2: parseLocale(r.content2, locale),
       updatedAt: r.updated_at ? new Date(r.updated_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : null,
     }
   } catch (err) {
     console.error('[getStaticPage] failed:', err)
+    return null
+  }
+}
+
+/** Get SEO meta (meta_title + meta_description) for any page by its URL slug */
+export async function getPageMeta(slug: string, locale = 'en'): Promise<{
+  title: string | null
+  description: string | null
+} | null> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      `SELECT meta_title, meta_description FROM pages WHERE slug = ? LIMIT 1`,
+      [slug]
+    )
+    const r = (rows as any[])[0]
+    if (!r) return null
+    return {
+      title: parseLocale(r.meta_title, locale),
+      description: parseLocale(r.meta_description, locale),
+    }
+  } catch (err) {
+    console.error('[getPageMeta] failed:', err)
     return null
   }
 }
@@ -924,7 +960,7 @@ export async function getMediaUrl(
   try {
     const db = getPool()
     const [rows] = await db.execute(
-      'SELECT id, file_name FROM media WHERE model_type = ? AND model_id = ? AND collection_name = ? LIMIT 1',
+      'SELECT id, file_name FROM media WHERE model_type = ? AND model_id = ? AND collection_name = ? ORDER BY id DESC LIMIT 1',
       [modelType, modelId, collection]
     )
     const media = (rows as any[])[0]
