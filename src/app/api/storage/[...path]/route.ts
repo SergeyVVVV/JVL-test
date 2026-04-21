@@ -2,16 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createReadStream, statSync } from 'fs'
 import { join } from 'path'
 
-// Primary storage path (set via env)
 const STORAGE_ROOT =
   process.env.LARAVEL_STORAGE_PATH ||
   '/var/www/vhosts/jvl.ca/httpdocs/storage/app/public'
-
-// Fallback storage paths to check if file not found in primary
-const FALLBACK_ROOTS = [
-  '/var/www/vhosts/jvl.ca/httpdocs/storage/app/public',
-  '/var/www/vhosts/jvl.ca/devsite-seo.jvl.ca/storage/app/public',
-].filter((p) => p !== STORAGE_ROOT)
 
 const MIME_TYPES: Record<string, string> = {
   jpg: 'image/jpeg',
@@ -28,32 +21,17 @@ const MIME_TYPES: Record<string, string> = {
   gltf: 'model/gltf+json',
 }
 
-function findFile(relativePath: string): string | null {
-  // Try primary storage first
-  const primary = join(STORAGE_ROOT, relativePath)
-  if (primary.startsWith(STORAGE_ROOT)) {
-    try { statSync(primary); return primary } catch {}
-  }
-  // Try fallback paths
-  for (const root of FALLBACK_ROOTS) {
-    const p = join(root, relativePath)
-    if (p.startsWith(root)) {
-      try { statSync(p); return p } catch {}
-    }
-  }
-  return null
-}
-
 export async function GET(
   request: NextRequest,
   { params }: { params: Promise<{ path: string[] }> }
 ) {
   const { path } = await params
   const relativePath = path.join('/')
+  const filePath = join(STORAGE_ROOT, relativePath)
 
-  const filePath = findFile(relativePath)
-  if (!filePath) {
-    return new NextResponse('Not found', { status: 404 })
+  // Prevent path traversal
+  if (!filePath.startsWith(STORAGE_ROOT)) {
+    return new NextResponse('Forbidden', { status: 403 })
   }
 
   let stats
@@ -95,7 +73,6 @@ export async function GET(
     })
   }
 
-  // Full file
   const stream = createReadStream(filePath)
   const readable = streamToWeb(stream)
 
