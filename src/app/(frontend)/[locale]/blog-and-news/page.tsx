@@ -30,10 +30,13 @@ function extractExcerpt(html: string | null, maxLen = 160): string | null {
 
 /* ── Metadata ─────────────────────────────────────────────── */
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const { getPageMeta } = await import('@/lib/db')
+  const meta = await getPageMeta('blog-and-news', locale)
   return {
-    title: 'Blog, News & Offers — JVL',
-    description: 'Read the latest JVL articles, news and special offers about arcade gaming.',
+    title: meta?.title ?? 'Blog, News & Offers — JVL',
+    description: meta?.description ?? 'Read the latest JVL articles, news and special offers about arcade gaming.',
   }
 }
 
@@ -212,34 +215,36 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
               </article>
             </Link>
 
-            {/* Second card */}
-            {rest[0] && (
-              <Link href={`/${locale}/blog-and-news/${rest[0].slug}`} style={{ display: 'flex', textDecoration: 'none', color: '#F4F3EC' }}>
-                <article className="bl-card" style={{ width: '100%' }}>
-                  <div style={{ height: 180, background: '#1a1c1d', overflow: 'hidden', flexShrink: 0 }}>
-                    {rest[0].heroImage && <img src={rest[0].heroImage} alt={rest[0].title ?? ''} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
-                  </div>
-                  <div className="bl-card-body">
-                    <span style={{ display: 'inline-block', fontSize: 13, fontWeight: 500, padding: '5px 10px', border: '1px solid #3a3a3a', borderRadius: 6, color: 'rgba(244,243,236,0.5)', marginBottom: 12 }}>
-                      {rest[0].type === 1 ? 'Blog' : 'News'}
-                    </span>
-                    <h3 style={{ fontSize: 17, fontWeight: 600, lineHeight: 1.3, color: '#F4F3EC', margin: '0 0 8px', flex: 1 }}>
-                      {rest[0].title}
-                    </h3>
-                    <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: 'auto 0 0' }}>{formatDate(rest[0].publishedAt)}</p>
-                  </div>
-                </article>
-              </Link>
-            )}
+            {/* Two stacked cards (magazine layout) */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+              {[rest[0], rest[1]].filter(Boolean).map((item) => (
+                <Link key={item.id} href={`/${locale}/blog-and-news/${item.slug}`} style={{ display: 'flex', textDecoration: 'none', color: '#F4F3EC', flex: 1 }}>
+                  <article className="bl-card" style={{ width: '100%' }}>
+                    <div style={{ height: 120, background: '#1a1c1d', overflow: 'hidden', flexShrink: 0 }}>
+                      {item.heroImage && <img src={item.heroImage} alt={item.title ?? ''} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
+                    </div>
+                    <div className="bl-card-body">
+                      <span style={{ display: 'inline-block', fontSize: 13, fontWeight: 500, padding: '5px 10px', border: '1px solid #3a3a3a', borderRadius: 6, color: 'rgba(244,243,236,0.5)', marginBottom: 12 }}>
+                        {item.type === 1 ? 'Blog' : 'News'}
+                      </span>
+                      <h3 style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.3, color: '#F4F3EC', margin: '0 0 8px', flex: 1 }}>
+                        {item.title}
+                      </h3>
+                      <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: 'auto 0 0' }}>{formatDate(item.publishedAt)}</p>
+                    </div>
+                  </article>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       )}
 
       {/* ── Remaining articles — 3-column ────────────────── */}
-      {rest.length > 1 && (
+      {rest.length > 2 && (
         <div className="bl-container" style={{ marginBottom: 56 }}>
           <div className="bl-grid">
-            {rest.slice(1).map((item) => (
+            {rest.slice(2).map((item) => (
               <Link
                 key={item.id}
                 href={`/${locale}/blog-and-news/${item.slug}`}
