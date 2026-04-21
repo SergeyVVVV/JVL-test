@@ -98,9 +98,11 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
     const db = getPool()
     const [rows] = await db.execute(
       `SELECT p.id AS page_id, p.slug, p.title, p.content1, p.content2, p.description,
-              n.id AS news_id, n.type, n.published_at
+              n.id AS news_id, n.type, n.published_at,
+              m.title AS meta_title, m.description AS meta_description
        FROM pages p
        INNER JOIN news n ON n.page_id = p.id
+       LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
        WHERE p.slug = ? AND n.active = 1
        LIMIT 1`,
       [slug]
@@ -141,8 +143,8 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
       pageId: row.page_id,
       slug: row.slug,
       title: parseLocale(row.title, locale),
-      metaTitle: null,
-      metaDescription: null,
+      metaTitle: parseLocale(row.meta_title, locale),
+      metaDescription: parseLocale(row.meta_description, locale),
       content1: parseLocale(row.content1, locale),
       content2: parseLocale(row.content2, locale),
       description: parseLocale(row.description, locale),
