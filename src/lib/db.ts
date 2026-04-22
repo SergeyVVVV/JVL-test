@@ -175,10 +175,11 @@ export async function getRelatedNews(
            SELECT 1 FROM taggables tbl
            INNER JOIN tags t ON t.id = tbl.tag_id
            WHERE tbl.taggable_type = 'App\\\\Models\\\\News'
-           AND tbl.taggable_id = n.id AND t.type = 'Game Tags' AND t.name = ?
+           AND tbl.taggable_id = n.id AND t.type = 'Game Tags'
+           AND (t.name = ? OR JSON_UNQUOTE(JSON_EXTRACT(t.name, '$.en')) = ?)
          )`
       : ''
-    const params: any[] = category ? [category, excludeNewsId] : [excludeNewsId]
+    const params: any[] = category ? [category, category, excludeNewsId] : [excludeNewsId]
     const [rows] = await db.execute(
       `SELECT n.id AS news_id, n.type, n.published_at,
               p.id AS page_id, p.slug, p.title
@@ -263,11 +264,12 @@ export async function getNewsList(
            SELECT 1 FROM taggables tbl2
            INNER JOIN tags t2 ON t2.id = tbl2.tag_id
            WHERE tbl2.taggable_type = 'App\\\\Models\\\\News'
-           AND tbl2.taggable_id = n.id AND t2.type = 'Game Tags' AND t2.name = ?
+           AND tbl2.taggable_id = n.id AND t2.type = 'Game Tags'
+           AND (t2.name = ? OR JSON_UNQUOTE(JSON_EXTRACT(t2.name, '$.en')) = ?)
          )`
       : ''
     const whereSearch = search ? 'AND (p.title LIKE ? OR p.description LIKE ?)' : ''
-    const params: any[] = category ? [category] : []
+    const params: any[] = category ? [category, category] : []
     if (search) {
       const like = `%${search}%`
       params.push(like, like)
