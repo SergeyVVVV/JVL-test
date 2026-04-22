@@ -211,6 +211,7 @@ export interface NewsListItem {
   slug: string
   title: string | null
   description: string | null
+  metaDescription: string | null
   content1: string | null
   publishedAt: string | null
   type: number
@@ -248,9 +249,11 @@ export async function getNewsList(
     // Items
     const [rows] = await db.execute(
       `SELECT n.id AS news_id, n.type, n.published_at,
-              p.id AS page_id, p.slug, p.title, p.description, p.content1
+              p.id AS page_id, p.slug, p.title, p.description, p.content1,
+              m.description AS meta_description
        FROM news n
        INNER JOIN pages p ON p.id = n.page_id
+       LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
        WHERE n.active = 1 ${whereType} ${whereSearch}
        ORDER BY n.published_at DESC
        LIMIT ${perPage} OFFSET ${offset}`,
@@ -270,6 +273,7 @@ export async function getNewsList(
         slug: r.slug,
         title: parseLocale(r.title, locale),
         description: parseLocale(r.description, locale),
+        metaDescription: parseLocale(r.meta_description, locale),
         content1: parseLocale(r.content1, locale),
         publishedAt,
         type: Number(r.type ?? 0),

@@ -217,7 +217,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
               </h2>
               {(featured.description || featured.content1) && (
                 <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: '0 0 24px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as const, overflow: 'hidden' }}>
-                  {featured.description || extractExcerpt(featured.content1, 240)}
+                  {featured.description || featured.metaDescription || extractExcerpt(featured.content1, 240)}
                 </p>
               )}
               <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: '0 0 24px' }}>{formatDate(featured.publishedAt)}</p>
@@ -269,7 +269,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
                         display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as const,
                         overflow: 'hidden',
                       }}>
-                        {item.description || extractExcerpt(item.content1)}
+                        {item.description || item.metaDescription || extractExcerpt(item.content1)}
                       </p>
                     )}
                     <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: 'auto 0 0' }}>
