@@ -1,4 +1,5 @@
 import { getPageMeta } from '@/lib/db'
+import { buildMeta } from '@/lib/seo'
 
 interface PageProps {
   params: Promise<{ locale: string }>
@@ -7,10 +8,9 @@ interface PageProps {
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const meta = await getPageMeta('about-jvl', locale)
-  return {
-    title: meta?.title ?? 'About JVL — A Family Tradition of Precision, Passion, and Play',
-    description: meta?.description ?? 'Since 1984, JVL has been a family-owned supplier of gaming cabinets, slot games, and coin-operated amusement machines — built on integrity and craftsmanship.',
-  }
+  const title = meta?.title ?? 'About JVL — A Family Tradition of Precision, Passion, and Play'
+  const description = meta?.metaDescription ?? meta?.description ?? 'Since 1984, JVL has been a family-owned supplier of gaming cabinets, slot games, and coin-operated amusement machines — built on integrity and craftsmanship.'
+  return buildMeta({ title, description, path: '/en/about-jvl', ogImage: meta?.ogImage })
 }
 
 export default async function AboutJVLPage({ params }: PageProps) {

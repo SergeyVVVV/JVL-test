@@ -1,15 +1,15 @@
 import { getStaticPage } from '@/lib/db'
 import LegalLayout from '@/components/LegalLayout'
+import { buildMeta } from '@/lib/seo'
 
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const page = await getStaticPage(5, locale)
-  return {
-    title: page?.metaTitle ?? page?.title ?? 'Privacy Policy — JVL',
-    description: page?.metaDescription ?? 'Learn how JVL collects, uses, and protects your personal information.',
-  }
+  const title = page?.metaTitle ?? page?.title ?? 'Privacy Policy — JVL'
+  const description = page?.metaDescription ?? 'Learn how JVL collects, uses, and protects your personal information.'
+  return buildMeta({ title, description, path: '/en/privacy-policy', ogImage: page?.ogImage })
 }
 
 export default async function PrivacyPolicyPage({ params }: { params: Promise<{ locale: string }> }) {

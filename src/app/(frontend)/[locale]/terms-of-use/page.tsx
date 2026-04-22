@@ -1,15 +1,15 @@
 import { getStaticPage } from '@/lib/db'
 import LegalLayout from '@/components/LegalLayout'
+import { buildMeta } from '@/lib/seo'
 
 export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const page = await getStaticPage(4, locale)
-  return {
-    title: page?.metaTitle ?? page?.title ?? 'Terms of Use — JVL',
-    description: page?.metaDescription ?? 'Terms and conditions governing your use of the JVL website and services.',
-  }
+  const title = page?.metaTitle ?? page?.title ?? 'Terms of Use — JVL'
+  const description = page?.metaDescription ?? 'Terms and conditions governing your use of the JVL website and services.'
+  return buildMeta({ title, description, path: '/en/terms-of-use', ogImage: page?.ogImage })
 }
 
 export default async function TermsOfUsePage({ params }: { params: Promise<{ locale: string }> }) {

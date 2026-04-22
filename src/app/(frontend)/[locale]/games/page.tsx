@@ -1,4 +1,5 @@
 import { getGamesList, getGameFilterTags, getPageIdBySlug, getGameSliderSlides, getPageMeta } from '@/lib/db'
+import { buildMeta } from '@/lib/seo'
 import GamesHeroCarousel from '@/components/GamesHeroCarousel'
 import GamesGrid from '@/components/GamesGrid'
 import EchoBanner from '@/components/EchoBanner'
@@ -8,10 +9,9 @@ export const dynamic = 'force-dynamic'
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const meta = await getPageMeta('games', locale)
-  return {
-    title: meta?.title ?? 'Online Slot Games — JVL',
-    description: meta?.description ?? 'Browse JVL\'s full collection of online slot games and video slots — crafted for casinos worldwide with 40+ years of gaming expertise.',
-  }
+  const title = meta?.title ?? 'Online Slot Games — JVL'
+  const description = meta?.metaDescription ?? meta?.description ?? 'Browse JVL\'s full collection of online slot games and video slots — crafted for casinos worldwide with 40+ years of gaming expertise.'
+  return buildMeta({ title, description, path: '/en/games', ogImage: meta?.ogImage })
 }
 
 const PER_PAGE = 24

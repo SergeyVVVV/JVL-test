@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { getNewsList, getNewsCategories, getPageMeta } from '@/lib/db'
+import { buildMeta } from '@/lib/seo'
 import BlogSearchInput from '@/components/BlogSearchInput'
 import EchoBanner from '@/components/EchoBanner'
 
@@ -32,12 +33,10 @@ function extractExcerpt(html: string | null, maxLen = 160): string | null {
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const { getPageMeta } = await import('@/lib/db')
   const meta = await getPageMeta('blog-and-news', locale)
-  return {
-    title: meta?.title ?? 'Blog, News & Offers — JVL',
-    description: meta?.description ?? 'Read the latest JVL articles, news and special offers about arcade gaming.',
-  }
+  const title = meta?.title ?? 'Blog, News & Offers — JVL'
+  const description = meta?.metaDescription ?? meta?.description ?? 'Read the latest JVL articles, news and special offers about arcade gaming.'
+  return buildMeta({ title, description, path: '/en/blog-and-news', ogImage: meta?.ogImage })
 }
 
 /* ── Page ─────────────────────────────────────────────────── */

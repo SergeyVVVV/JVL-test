@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getNewsArticleBySlug, getRelatedNews } from '@/lib/db'
+import { buildMeta, BASE_URL } from '@/lib/seo'
 import ArticleTOC from './ArticleTOC'
 import NewsCard from '@/components/NewsCard'
 
@@ -87,10 +88,17 @@ export async function generateMetadata({ params }: PageProps) {
   const { locale, slug } = await params
   const article = await getNewsArticleBySlug(slug, locale)
   if (!article) return { title: 'Article not found — JVL' }
-  return {
-    title: article.metaTitle ?? `${article.title ?? 'JVL Blog'} — JVL`,
-    description: article.metaDescription ?? article.description ?? undefined,
-  }
+  const title = article.metaTitle ?? `${article.title ?? 'JVL Blog'} — JVL`
+  const description = article.metaDescription ?? article.description ?? ''
+  const ogImage = article.heroImage ? `${BASE_URL}${article.heroImage}` : null
+  return buildMeta({
+    title,
+    description,
+    path: `/en/blog-and-news/${slug}`,
+    ogImage,
+    type: 'article',
+    publishedTime: article.publishedAt,
+  })
 }
 
 /* ── Page ──────────────────────────────────────────────────── */

@@ -683,12 +683,14 @@ export async function getGameBySlug(slug: string, locale = 'en'): Promise<GameDe
   try {
     const db = getPool()
     const [rows] = await db.execute(
-      `SELECT p.id AS page_id, p.slug, p.title, p.description, p.meta_title, p.meta_description,
+      `SELECT p.id AS page_id, p.slug, p.title, p.description,
+              m.title AS meta_title, m.description AS meta_description,
               g.id AS game_id, g.reels, g.paylines, g.play_url,
               g.story_title, g.story_text, g.story_symbol_name, g.story_about_symbol,
               g.rtps, g.min_bet, g.max_bet, g.max_win
        FROM pages p
        INNER JOIN games g ON g.page_id = p.id
+       LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
        WHERE p.slug = ? AND g.active = 1
        LIMIT 1`,
       [slug]
@@ -953,6 +955,7 @@ export async function getStaticPage(pageId: number, locale = 'en'): Promise<{
   title: string | null
   metaTitle: string | null
   metaDescription: string | null
+  ogImage: string | null
   content1: string | null
   content2: string | null
   updatedAt: string | null
@@ -960,15 +963,22 @@ export async function getStaticPage(pageId: number, locale = 'en'): Promise<{
   try {
     const db = getPool()
     const [rows] = await db.execute(
-      `SELECT title, meta_title, meta_description, content1, content2, updated_at FROM pages WHERE id = ? LIMIT 1`,
+      `SELECT p.title, p.description, m.title AS meta_title, m.description AS meta_description,
+              p.content1, p.content2, p.updated_at
+       FROM pages p
+       LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
+       WHERE p.id = ?
+       LIMIT 1`,
       [pageId]
     )
     const r = (rows as any[])[0]
     if (!r) return null
+    const ogImage = await getMediaUrl('App\\Models\\Page', pageId, 'main')
     return {
       title: parseLocale(r.title, locale),
       metaTitle: parseLocale(r.meta_title, locale),
       metaDescription: parseLocale(r.meta_description, locale),
+      ogImage,
       content1: parseLocale(r.content1, locale),
       content2: parseLocale(r.content2, locale),
       updatedAt: r.updated_at ? new Date(r.updated_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : null,
@@ -984,11 +994,12 @@ export async function getPageMeta(slug: string, locale = 'en'): Promise<{
   title: string | null
   description: string | null
   metaDescription: string | null
+  ogImage: string | null
 } | null> {
   try {
     const db = getPool()
     const [rows] = await db.execute(
-      `SELECT p.description, m.title AS meta_title, m.description AS meta_description
+      `SELECT p.id, p.description, m.title AS meta_title, m.description AS meta_description
        FROM pages p
        LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
        WHERE p.slug = ?
@@ -997,10 +1008,12 @@ export async function getPageMeta(slug: string, locale = 'en'): Promise<{
     )
     const r = (rows as any[])[0]
     if (!r) return null
+    const ogImage = await getMediaUrl('App\\Models\\Page', r.id, 'main')
     return {
       title: parseLocale(r.meta_title, locale),
       description: parseLocale(r.description, locale),
       metaDescription: parseLocale(r.meta_description, locale),
+      ogImage,
     }
   } catch (err) {
     console.error('[getPageMeta] failed:', err)
