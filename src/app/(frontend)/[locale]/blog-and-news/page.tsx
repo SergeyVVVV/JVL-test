@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getNewsList, getNewsCategories } from '@/lib/db'
+import { getNewsList, getNewsCategories, getPageMeta } from '@/lib/db'
 import BlogSearchInput from '@/components/BlogSearchInput'
 import EchoBanner from '@/components/EchoBanner'
 
@@ -50,9 +50,10 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
   const page = Math.max(1, parseInt(sp.page ?? '1') || 1)
   const perPage = 7
 
-  const [{ items, total }, categories] = await Promise.all([
+  const [{ items, total }, categories, pageMeta] = await Promise.all([
     getNewsList(locale, categoryFilter, page, perPage, searchQuery),
-    getNewsCategories(),
+    getNewsCategories(locale),
+    getPageMeta('blog-and-news', locale),
   ])
   const totalPages = Math.ceil(total / perPage)
 
@@ -160,10 +161,15 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
           letterSpacing: '-0.02em',
           textTransform: 'uppercase',
           color: '#F4F3EC',
-          margin: 0,
+          margin: '0 0 16px',
         }}>
           Blog, News &amp; Offers
         </h1>
+        {(pageMeta?.description || pageMeta?.metaDescription) && (
+          <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.55)', lineHeight: 1.6, margin: 0, maxWidth: 720 }}>
+            {pageMeta.description || pageMeta.metaDescription}
+          </p>
+        )}
       </div>
 
       {/* ── Filters + Search ─────────────────────────────── */}

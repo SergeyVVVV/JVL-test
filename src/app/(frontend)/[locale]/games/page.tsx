@@ -19,10 +19,11 @@ const PER_PAGE = 24
 export default async function GamesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
 
-  const [pageId, tags, initial] = await Promise.all([
+  const [pageId, tags, initial, pageMeta] = await Promise.all([
     getPageIdBySlug('games'),
     getGameFilterTags(locale),
     getGamesList({ locale, perPage: PER_PAGE }),
+    getPageMeta('games', locale),
   ])
 
   // Carousel: games configured in AdminLTE → Games Top Slider
@@ -55,10 +56,15 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
             fontSize: 'clamp(1.6rem, 3vw, 3rem)',
             fontWeight: 600, lineHeight: 1.1,
             letterSpacing: '-0.02em', textTransform: 'uppercase',
-            color: '#F4F3EC', margin: '0 0 48px',
+            color: '#F4F3EC', margin: (pageMeta?.description || pageMeta?.metaDescription) ? '0 0 16px' : '0 0 48px',
           }}>
             Online Slot Games<br className="gg-title-br" /> and Video Slots
           </h1>
+          {(pageMeta?.description || pageMeta?.metaDescription) && (
+            <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.55)', lineHeight: 1.6, margin: '0 0 48px', maxWidth: 720 }}>
+              {pageMeta.description || pageMeta.metaDescription}
+            </p>
+          )}
 
           {/* Grid + filters */}
           <GamesGrid

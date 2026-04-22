@@ -228,7 +228,7 @@ export interface NewsListItem {
   heroImage: string | null
 }
 
-export async function getNewsCategories(): Promise<string[]> {
+export async function getNewsCategories(locale = 'en'): Promise<string[]> {
   try {
     const db = getPool()
     const [rows] = await db.execute(
@@ -239,7 +239,9 @@ export async function getNewsCategories(): Promise<string[]> {
        WHERE tbl.taggable_type = 'App\\\\Models\\\\News' AND t.type = 'Game Tags' AND n.active = 1
        ORDER BY t.name`
     )
-    return (rows as any[]).map((r: any) => r.name).filter(Boolean)
+    return (rows as any[])
+      .map((r: any) => parseLocale(r.name, locale))
+      .filter((v): v is string => !!v)
   } catch {
     return []
   }
@@ -973,22 +975,28 @@ export async function getStaticPage(pageId: number, locale = 'en'): Promise<{
   }
 }
 
-/** Get SEO meta (meta_title + meta_description) for any page by its URL slug */
+/** Get SEO meta + description for any page by its URL slug */
 export async function getPageMeta(slug: string, locale = 'en'): Promise<{
   title: string | null
   description: string | null
+  metaDescription: string | null
 } | null> {
   try {
     const db = getPool()
     const [rows] = await db.execute(
-      `SELECT meta_title, meta_description FROM pages WHERE slug = ? LIMIT 1`,
+      `SELECT p.description, m.title AS meta_title, m.description AS meta_description
+       FROM pages p
+       LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
+       WHERE p.slug = ?
+       LIMIT 1`,
       [slug]
     )
     const r = (rows as any[])[0]
     if (!r) return null
     return {
       title: parseLocale(r.meta_title, locale),
-      description: parseLocale(r.meta_description, locale),
+      description: parseLocale(r.description, locale),
+      metaDescription: parseLocale(r.meta_description, locale),
     }
   } catch (err) {
     console.error('[getPageMeta] failed:', err)

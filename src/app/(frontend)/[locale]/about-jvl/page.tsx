@@ -1,5 +1,9 @@
 import { getPageMeta } from '@/lib/db'
 
+interface PageProps {
+  params: Promise<{ locale: string }>
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   const meta = await getPageMeta('about-jvl', locale)
@@ -9,7 +13,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   }
 }
 
-export default function AboutJVLPage() {
+export default async function AboutJVLPage({ params }: PageProps) {
+  const { locale } = await params
+  const pageMeta = await getPageMeta('about-jvl', locale)
+
   return (
     <main
       id="about-page"
@@ -32,10 +39,15 @@ export default function AboutJVLPage() {
           fontSize: 'clamp(1.8rem, 4vw, 3rem)',
           fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.02em',
           textTransform: 'uppercase', color: '#F4F3EC',
-          margin: '0 0 64px',
+          margin: (pageMeta?.description || pageMeta?.metaDescription) ? '0 0 20px' : '0 0 64px',
         }}>
           About JVL
         </h1>
+        {(pageMeta?.description || pageMeta?.metaDescription) && (
+          <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.55)', lineHeight: 1.6, margin: '0 0 48px', maxWidth: 720 }}>
+            {pageMeta.description || pageMeta.metaDescription}
+          </p>
+        )}
 
         {/* Divider */}
         <div style={{ height: 1, background: 'rgba(244,243,236,0.08)', marginBottom: 64 }} />
