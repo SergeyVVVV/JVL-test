@@ -269,17 +269,12 @@ export async function getNewsList(
          )`
       : ''
     const whereSearch = search
-      ? `AND (
-           p.title LIKE ? OR
-           JSON_UNQUOTE(JSON_EXTRACT(p.title, '$.en')) LIKE ? OR
-           p.description LIKE ? OR
-           p.content1 LIKE ?
-         )`
+      ? `AND (LOWER(p.title) LIKE ? OR LOWER(p.description) LIKE ?)`
       : ''
     const params: any[] = category ? [category, category] : []
     if (search) {
-      const like = `%${search}%`
-      params.push(like, like, like, like)
+      const like = `%${search.toLowerCase()}%`
+      params.push(like, like)
     }
 
     // Count
