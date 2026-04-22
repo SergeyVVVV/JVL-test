@@ -1,10 +1,15 @@
 import WarrantyForm from '@/components/WarrantyForm'
 import Link from 'next/link'
+import { getPageMeta } from '@/lib/db'
 
-export async function generateMetadata() {
+export const dynamic = 'force-dynamic'
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const meta = await getPageMeta('warranty', locale)
   return {
-    title: 'Warranty Registration — JVL',
-    description: 'Register your JVL ECHO device warranty. Quick 3-step process to activate your coverage.',
+    title: meta?.title ?? 'Warranty Registration — JVL',
+    description: meta?.description ?? 'Register your JVL ECHO device warranty. Quick 3-step process to activate your coverage.',
   }
 }
 

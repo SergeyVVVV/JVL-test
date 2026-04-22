@@ -8,6 +8,7 @@ export interface NewsCardItem {
   title: string | null
   publishedAt: string | null
   type: number
+  category?: string | null
   heroImage: string | null
   description?: string | null
 }
@@ -76,7 +77,7 @@ export default function NewsCard({ item, locale, dark = false }: { item: NewsCar
             color: badgeColor,
             marginBottom: 12,
           }}>
-            {item.type === 1 ? 'Blog' : 'News'}
+            {item.category ?? (item.type === 1 ? 'Blog' : 'News')}
           </span>
           <h3 style={{
             fontSize: 18, fontWeight: 600, lineHeight: 1.3,

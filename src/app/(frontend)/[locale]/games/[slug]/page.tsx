@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const game = await getGameBySlug(slug, locale)
   if (!game) return {}
   return {
-    title: `${game.title} — JVL Online Games`,
-    description: game.description ?? undefined,
+    title: game.metaTitle ?? `${game.title} — JVL Online Games`,
+    description: game.metaDescription ?? game.description ?? undefined,
   }
 }
 

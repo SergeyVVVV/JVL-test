@@ -1,9 +1,14 @@
 import Link from 'next/link'
+import { getPageMeta } from '@/lib/db'
 
-export async function generateMetadata() {
+export const dynamic = 'force-dynamic'
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const meta = await getPageMeta('partners', locale)
   return {
-    title: 'Partners — JVL',
-    description: 'JVL works with platform providers and operators worldwide to design and build personalized slot games that match your brand and objectives.',
+    title: meta?.title ?? 'Partners — JVL',
+    description: meta?.description ?? 'JVL works with platform providers and operators worldwide to design and build personalized slot games that match your brand and objectives.',
   }
 }
 

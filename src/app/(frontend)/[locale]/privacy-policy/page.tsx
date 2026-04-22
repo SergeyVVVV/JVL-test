@@ -3,10 +3,12 @@ import LegalLayout from '@/components/LegalLayout'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const page = await getStaticPage(5, locale)
   return {
-    title: 'Privacy Policy — JVL',
-    description: 'Learn how JVL collects, uses, and protects your personal information.',
+    title: page?.metaTitle ?? page?.title ?? 'Privacy Policy — JVL',
+    description: page?.metaDescription ?? 'Learn how JVL collects, uses, and protects your personal information.',
   }
 }
 

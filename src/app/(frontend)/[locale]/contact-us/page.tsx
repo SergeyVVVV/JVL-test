@@ -1,9 +1,14 @@
 import ContactForm from '@/components/ContactForm'
+import { getPageMeta } from '@/lib/db'
 
-export async function generateMetadata() {
+export const dynamic = 'force-dynamic'
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const meta = await getPageMeta('contact-us', locale)
   return {
-    title: 'Contact Us — JVL',
-    description: 'Contact us with any questions — we\'re here to help. Whether it\'s about partnerships, our cabinets and games, or just to say hello.',
+    title: meta?.title ?? 'Contact Us — JVL',
+    description: meta?.description ?? 'Contact us with any questions — we\'re here to help. Whether it\'s about partnerships, our cabinets and games, or just to say hello.',
   }
 }
 

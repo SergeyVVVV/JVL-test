@@ -1,14 +1,16 @@
-import { getLandingBlock, getLandingInlineEntities, getMediaUrl } from '@/lib/db'
+import { getLandingBlock, getLandingInlineEntities, getMediaUrl, getPageMeta } from '@/lib/db'
 import Link from 'next/link'
 import EchoB2bHero from '@/components/EchoB2bHero'
 import { VenuesSection, FeaturesSection } from '@/components/EchoB2bSections'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const meta = await getPageMeta('echo-b2b', locale)
   return {
-    title: 'JVL Echo Amusement — Commercial Tabletop Arcade Machine for Business',
-    description: 'Free Play and commercial-grade tabletop arcade machine engineered for bars, lounges, and amusement venues. 40+ years of proven performance.',
+    title: meta?.title ?? 'JVL Echo Amusement — Commercial Tabletop Arcade Machine for Business',
+    description: meta?.description ?? 'Free Play and commercial-grade tabletop arcade machine engineered for bars, lounges, and amusement venues. 40+ years of proven performance.',
   }
 }
 

@@ -160,25 +160,34 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
   }
 }
 
-/** Fetch related news (same type, excluding the current article) */
+/** Fetch related news (same category tag, excluding the current article) */
 export async function getRelatedNews(
   excludeNewsId: number,
-  type: number,
+  category: string | null,
   locale = 'en',
   limit = 6
 ): Promise<RelatedNewsItem[]> {
   try {
     const db = getPool()
     const safeLimit = Math.max(1, Math.min(20, Math.floor(limit)))
+    const whereCategory = category
+      ? `AND EXISTS (
+           SELECT 1 FROM taggables tbl
+           INNER JOIN tags t ON t.id = tbl.tag_id
+           WHERE tbl.taggable_type = 'App\\\\Models\\\\News'
+           AND tbl.taggable_id = n.id AND t.type = 'Game Tags' AND t.name = ?
+         )`
+      : ''
+    const params: any[] = category ? [category, excludeNewsId] : [excludeNewsId]
     const [rows] = await db.execute(
       `SELECT n.id AS news_id, n.type, n.published_at,
               p.id AS page_id, p.slug, p.title
        FROM news n
        INNER JOIN pages p ON p.id = n.page_id
-       WHERE n.active = 1 AND n.type = ? AND n.id != ?
+       WHERE n.active = 1 ${whereCategory} AND n.id != ?
        ORDER BY n.published_at DESC
        LIMIT ${safeLimit}`,
-      [type, excludeNewsId]
+      params
     )
     const items = rows as any[]
     const results: RelatedNewsItem[] = []
@@ -215,12 +224,30 @@ export interface NewsListItem {
   content1: string | null
   publishedAt: string | null
   type: number
+  category: string | null
   heroImage: string | null
+}
+
+export async function getNewsCategories(): Promise<string[]> {
+  try {
+    const db = getPool()
+    const [rows] = await db.execute(
+      `SELECT DISTINCT t.name
+       FROM taggables tbl
+       INNER JOIN tags t ON t.id = tbl.tag_id
+       INNER JOIN news n ON n.id = tbl.taggable_id
+       WHERE tbl.taggable_type = 'App\\\\Models\\\\News' AND t.type = 'Game Tags' AND n.active = 1
+       ORDER BY t.name`
+    )
+    return (rows as any[]).map((r: any) => r.name).filter(Boolean)
+  } catch {
+    return []
+  }
 }
 
 export async function getNewsList(
   locale = 'en',
-  type?: number,
+  category?: string,
   page = 1,
   perPage = 7,
   search?: string
@@ -229,9 +256,16 @@ export async function getNewsList(
     const db = getPool()
     const offset = (Math.max(1, page) - 1) * perPage
 
-    const whereType = type !== undefined ? 'AND n.type = ?' : ''
+    const whereCategory = category
+      ? `AND EXISTS (
+           SELECT 1 FROM taggables tbl2
+           INNER JOIN tags t2 ON t2.id = tbl2.tag_id
+           WHERE tbl2.taggable_type = 'App\\\\Models\\\\News'
+           AND tbl2.taggable_id = n.id AND t2.type = 'Game Tags' AND t2.name = ?
+         )`
+      : ''
     const whereSearch = search ? 'AND (p.title LIKE ? OR p.description LIKE ?)' : ''
-    const params: any[] = type !== undefined ? [type] : []
+    const params: any[] = category ? [category] : []
     if (search) {
       const like = `%${search}%`
       params.push(like, like)
@@ -241,7 +275,7 @@ export async function getNewsList(
     const [countRows] = await db.execute(
       `SELECT COUNT(*) AS cnt FROM news n
        INNER JOIN pages p ON p.id = n.page_id
-       WHERE n.active = 1 ${whereType} ${whereSearch}`,
+       WHERE n.active = 1 ${whereCategory} ${whereSearch}`,
       params
     )
     const total = (countRows as any[])[0]?.cnt ?? 0
@@ -250,11 +284,16 @@ export async function getNewsList(
     const [rows] = await db.execute(
       `SELECT n.id AS news_id, n.type, n.published_at,
               p.id AS page_id, p.slug, p.title, p.description, p.content1,
-              m.description AS meta_description
+              m.description AS meta_description,
+              (SELECT t3.name FROM taggables tbl3
+               INNER JOIN tags t3 ON t3.id = tbl3.tag_id
+               WHERE tbl3.taggable_type = 'App\\\\Models\\\\News'
+               AND tbl3.taggable_id = n.id AND t3.type = 'Game Tags'
+               LIMIT 1) AS tag_name
        FROM news n
        INNER JOIN pages p ON p.id = n.page_id
        LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
-       WHERE n.active = 1 ${whereType} ${whereSearch}
+       WHERE n.active = 1 ${whereCategory} ${whereSearch}
        ORDER BY n.published_at DESC
        LIMIT ${perPage} OFFSET ${offset}`,
       params
@@ -277,6 +316,7 @@ export async function getNewsList(
         content1: parseLocale(r.content1, locale),
         publishedAt,
         type: Number(r.type ?? 0),
+        category: parseLocale(r.tag_name, locale),
         heroImage,
       })
     }

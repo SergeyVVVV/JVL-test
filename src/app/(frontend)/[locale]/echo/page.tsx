@@ -1,12 +1,14 @@
-import { getLandingBlock, getMediaUrl } from '@/lib/db'
+import { getLandingBlock, getMediaUrl, getPageMeta } from '@/lib/db'
 import EchoPageClient from '../echo-1/EchoPageClient'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const meta = await getPageMeta('echo', locale)
   return {
-    title: 'JVL Echo HD3 — Premium Tabletop Arcade Machine',
-    description: 'The ultimate tabletop arcade machine for home and business. 40+ years of gaming excellence.',
+    title: meta?.title ?? 'JVL Echo HD3 — Premium Tabletop Arcade Machine',
+    description: meta?.description ?? 'The ultimate tabletop arcade machine for home and business. 40+ years of gaming excellence.',
   }
 }
 

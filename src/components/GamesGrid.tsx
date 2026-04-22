@@ -118,6 +118,7 @@ export default function GamesGrid({
   const [searchInput, setInput]   = useState('')
   const [loading, setLoading]     = useState(false)
   const gridRef                   = useRef<HTMLDivElement>(null)
+  const didInit                   = useRef(false)
 
   const totalPages = Math.ceil(total / perPage)
 
@@ -146,8 +147,47 @@ export default function GamesGrid({
     }
   }, [locale, perPage])
 
+  // ── URL sync helpers ──────────────────────────────────────────────────────
+  function buildUrlParams(p: number, theme: number | null, feat: number | null, vol: number | null, q: string) {
+    const params = new URLSearchParams()
+    if (p > 1)   params.set('page',       String(p))
+    if (theme)   params.set('Themes',     String(theme))
+    if (feat)    params.set('Features',   String(feat))
+    if (vol)     params.set('Volatility', String(vol))
+    if (q)       params.set('q',          q)
+    return params.toString()
+  }
+
+  function pushUrl(p: number, theme: number | null, feat: number | null, vol: number | null, q: string) {
+    const qs = buildUrlParams(p, theme, feat, vol, q)
+    window.history.pushState(null, '', window.location.pathname + (qs ? `?${qs}` : ''))
+  }
+
+  function replaceUrl(p: number, theme: number | null, feat: number | null, vol: number | null, q: string) {
+    const qs = buildUrlParams(p, theme, feat, vol, q)
+    window.history.replaceState(null, '', window.location.pathname + (qs ? `?${qs}` : ''))
+  }
+
+  // Read URL params on first mount and restore state
+  useEffect(() => {
+    if (didInit.current) return
+    didInit.current = true
+    const sp = new URLSearchParams(window.location.search)
+    const urlPage  = parseInt(sp.get('page') || '1')
+    const urlTheme = sp.get('Themes')     ? parseInt(sp.get('Themes')!)     : null
+    const urlFeat  = sp.get('Features')   ? parseInt(sp.get('Features')!)   : null
+    const urlVol   = sp.get('Volatility') ? parseInt(sp.get('Volatility')!) : null
+    const urlQ     = sp.get('q') || ''
+    if (urlPage > 1 || urlTheme || urlFeat || urlVol || urlQ) {
+      setPage(urlPage); setThemeId(urlTheme); setFeatId(urlFeat); setVolId(urlVol)
+      setSearch(urlQ); setInput(urlQ)
+      fetchGames({ page: urlPage, themeId: urlTheme, featuresId: urlFeat, volId: urlVol, search: urlQ || undefined })
+    }
+  }, [fetchGames])
+
   function applyFilter(newTheme: number | null, newFeat: number | null, newVol: number | null, newSearch: string) {
     setPage(1)
+    replaceUrl(1, newTheme, newFeat, newVol, newSearch)
     fetchGames({ page: 1, themeId: newTheme, featuresId: newFeat, volId: newVol, search: newSearch || undefined })
   }
 
@@ -158,6 +198,7 @@ export default function GamesGrid({
   function handleSearchSubmit() {
     setSearch(searchInput)
     setPage(1)
+    replaceUrl(1, themeId, featuresId, volId, searchInput)
     fetchGames({ page: 1, themeId, featuresId, volId, search: searchInput || undefined })
   }
 
@@ -168,6 +209,7 @@ export default function GamesGrid({
   function goToPage(p: number) {
     if (p === page || p < 1 || p > totalPages) return
     setPage(p)
+    pushUrl(p, themeId, featuresId, volId, search)
     fetchGames({ page: p, themeId, featuresId, volId, search: search || undefined })
     // Scroll to grid top
     if (gridRef.current) {

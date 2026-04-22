@@ -1,14 +1,16 @@
-import { getGamesList, getGameFilterTags, getPageIdBySlug, getGameSliderSlides } from '@/lib/db'
+import { getGamesList, getGameFilterTags, getPageIdBySlug, getGameSliderSlides, getPageMeta } from '@/lib/db'
 import GamesHeroCarousel from '@/components/GamesHeroCarousel'
 import GamesGrid from '@/components/GamesGrid'
 import EchoBanner from '@/components/EchoBanner'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const meta = await getPageMeta('games', locale)
   return {
-    title: 'Online Slot Games — JVL',
-    description: 'Browse JVL\'s full collection of online slot games and video slots — crafted for casinos worldwide with 40+ years of gaming expertise.',
+    title: meta?.title ?? 'Online Slot Games — JVL',
+    description: meta?.description ?? 'Browse JVL\'s full collection of online slot games and video slots — crafted for casinos worldwide with 40+ years of gaming expertise.',
   }
 }
 

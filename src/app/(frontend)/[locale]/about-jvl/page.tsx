@@ -1,7 +1,11 @@
-export async function generateMetadata() {
+import { getPageMeta } from '@/lib/db'
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const meta = await getPageMeta('about-jvl', locale)
   return {
-    title: 'About JVL — A Family Tradition of Precision, Passion, and Play',
-    description: 'Since 1984, JVL has been a family-owned supplier of gaming cabinets, slot games, and coin-operated amusement machines — built on integrity and craftsmanship.',
+    title: meta?.title ?? 'About JVL — A Family Tradition of Precision, Passion, and Play',
+    description: meta?.description ?? 'Since 1984, JVL has been a family-owned supplier of gaming cabinets, slot games, and coin-operated amusement machines — built on integrity and craftsmanship.',
   }
 }
 

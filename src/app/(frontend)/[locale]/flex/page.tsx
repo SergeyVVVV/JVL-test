@@ -1,12 +1,15 @@
 import FlexHero from '@/components/FlexHero'
 import Link from 'next/link'
+import { getPageMeta } from '@/lib/db'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata() {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  const meta = await getPageMeta('flex', locale)
   return {
-    title: 'JVL Flex — Land-Based Casino Cabinets',
-    description: 'Land-based casino cabinets engineered for performance, revenue, and operator peace of mind. 40+ years of proven gaming excellence.',
+    title: meta?.title ?? 'JVL Flex — Land-Based Casino Cabinets',
+    description: meta?.description ?? 'Land-based casino cabinets engineered for performance, revenue, and operator peace of mind. 40+ years of proven gaming excellence.',
   }
 }
 

@@ -88,8 +88,8 @@ export async function generateMetadata({ params }: PageProps) {
   const article = await getNewsArticleBySlug(slug, locale)
   if (!article) return { title: 'Article not found — JVL' }
   return {
-    title: `${article.title ?? 'JVL Blog'} — JVL`,
-    description: article.description ?? undefined,
+    title: article.metaTitle ?? `${article.title ?? 'JVL Blog'} — JVL`,
+    description: article.metaDescription ?? article.description ?? undefined,
   }
 }
 
@@ -100,10 +100,8 @@ export default async function BlogArticlePage({ params }: PageProps) {
   const article = await getNewsArticleBySlug(slug, locale)
   if (!article) notFound()
 
-  const related = await getRelatedNews(article.id, article.type, locale, 3)
-  const label = article.type === 1 ? 'Blog' : 'News'
-  const displayTags = article.tags.filter(t => t.toLowerCase() !== label.toLowerCase())
-  const category = displayTags[0] ?? label
+  const category = article.tags[0] ?? (article.type === 1 ? 'Blog' : 'News')
+  const related = await getRelatedNews(article.id, category, locale, 3)
 
   const combinedHtml = (article.content1 ?? '') + (article.content2 ?? '')
   const readTime = calculateReadTime(combinedHtml)
@@ -292,25 +290,31 @@ export default async function BlogArticlePage({ params }: PageProps) {
           {/* Breadcrumb */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 20 }}>
             <Link href={`/${locale}/blog-and-news`} style={{ fontSize: 14, color: '#787878', textDecoration: 'none' }}>
-              Blog
+              Blog &amp; News
             </Link>
             <span style={{ fontSize: 14, color: '#B0AEA8' }}>/</span>
-            <span style={{ fontSize: 14, color: '#B0AEA8' }}>{category}</span>
+            <Link href={`/${locale}/blog-and-news?type=${encodeURIComponent(category)}`} style={{ fontSize: 14, color: '#B0AEA8', textDecoration: 'none' }}>
+              {category}
+            </Link>
           </div>
 
           {/* Category badge */}
           <div style={{ marginBottom: 16 }}>
-            <span style={{
-              display: 'inline-block',
-              fontSize: 14,
-              fontWeight: 500,
-              padding: '6px 12px',
-              border: '1px solid #D0CEC6',
-              borderRadius: 6,
-              color: '#101213',
-            }}>
-              {label}
-            </span>
+            <Link
+              href={`/${locale}/blog-and-news?type=${encodeURIComponent(category)}`}
+              style={{
+                display: 'inline-block',
+                fontSize: 14,
+                fontWeight: 500,
+                padding: '6px 12px',
+                border: '1px solid #D0CEC6',
+                borderRadius: 6,
+                color: '#101213',
+                textDecoration: 'none',
+              }}
+            >
+              {category}
+            </Link>
           </div>
 
           {/* H1 */}

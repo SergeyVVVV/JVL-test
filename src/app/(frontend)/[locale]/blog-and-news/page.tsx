@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getNewsList } from '@/lib/db'
+import { getNewsList, getNewsCategories } from '@/lib/db'
 import BlogSearchInput from '@/components/BlogSearchInput'
 import EchoBanner from '@/components/EchoBanner'
 
@@ -45,12 +45,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function BlogListingPage({ params, searchParams }: PageProps) {
   const { locale } = await params
   const sp = await searchParams
-  const typeFilter = sp.type === 'blog' ? 1 : sp.type === 'news' ? 0 : undefined
+  const categoryFilter = sp.type || undefined
   const searchQuery = sp.q?.trim() || undefined
   const page = Math.max(1, parseInt(sp.page ?? '1') || 1)
   const perPage = 7
 
-  const { items, total } = await getNewsList(locale, typeFilter, page, perPage, searchQuery)
+  const [{ items, total }, categories] = await Promise.all([
+    getNewsList(locale, categoryFilter, page, perPage, searchQuery),
+    getNewsCategories(),
+  ])
   const totalPages = Math.ceil(total / perPage)
 
   const featured = items[0] ?? null
@@ -58,8 +61,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
 
   const filters = [
     { label: 'All', value: undefined },
-    { label: 'Blog', value: 'blog' },
-    { label: 'News', value: 'news' },
+    ...categories.map(c => ({ label: c, value: c })),
   ]
 
   return (
@@ -210,7 +212,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
             </div>
             <div className="bl-featured-body">
               <span style={{ display: 'inline-block', fontSize: 13, fontWeight: 500, padding: '5px 10px', border: '1px solid #3a3a3a', borderRadius: 6, color: 'rgba(244,243,236,0.5)', marginBottom: 16 }}>
-                {featured.type === 1 ? 'Blog' : 'News'}
+                {featured.category ?? (featured.type === 1 ? 'Blog' : 'News')}
               </span>
               <h2 style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.75rem)', fontWeight: 700, lineHeight: 1.2, color: '#F4F3EC', margin: '0 0 14px', textTransform: 'uppercase' }}>
                 {featured.title}
@@ -255,7 +257,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
                       padding: '5px 10px', border: '1px solid #3a3a3a', borderRadius: 6,
                       color: 'rgba(244,243,236,0.5)', marginBottom: 12,
                     }}>
-                      {item.type === 1 ? 'Blog' : 'News'}
+                      {item.category ?? (item.type === 1 ? 'Blog' : 'News')}
                     </span>
                     <h3 style={{
                       fontSize: 18, fontWeight: 600, lineHeight: 1.3,
