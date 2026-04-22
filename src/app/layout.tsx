@@ -15,7 +15,7 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: {
     default: 'Tabletop Arcade Machine for Home — JVL Echo HD3',
-    template: '%s | JVL',
+    template: '%s',
   },
   description: 'Discover JVL Echo HD3 – a premium countertop home arcade with 149 built-in games and HD touchscreen in a stylish bartop design.',
   icons: {

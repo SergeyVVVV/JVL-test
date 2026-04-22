@@ -6,12 +6,16 @@ import EchoBanner from '@/components/EchoBanner'
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({ params, searchParams }: { params: Promise<{ locale: string }>, searchParams: Promise<Record<string, string>> }) {
   const { locale } = await params
+  const sp = await searchParams
+  const page = Math.max(1, parseInt(sp.page ?? '1') || 1)
   const meta = await getPageMeta('games', locale)
-  const title = meta?.title ?? 'Online Slot Games — JVL'
-  const description = meta?.metaDescription ?? meta?.description ?? 'Browse JVL\'s full collection of online slot games and video slots — crafted for casinos worldwide with 40+ years of gaming expertise.'
-  return buildMeta({ title, description, path: '/en/games', ogImage: meta?.ogImage })
+  const baseTitle = meta?.title ?? 'Online Slot Games — JVL'
+  const baseDescription = meta?.metaDescription ?? meta?.description ?? 'Browse JVL\'s full collection of online slot games and video slots — crafted for casinos worldwide with 40+ years of gaming expertise.'
+  const title = page > 1 ? `${baseTitle} – Page ${page}` : baseTitle
+  const description = page > 1 ? `${baseDescription} Page ${page}` : baseDescription
+  return buildMeta({ title, description, path: page > 1 ? `/en/games?page=${page}` : '/en/games', ogImage: meta?.ogImage })
 }
 
 const PER_PAGE = 24

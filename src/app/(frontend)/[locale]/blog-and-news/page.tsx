@@ -31,12 +31,16 @@ function extractExcerpt(html: string | null, maxLen = 160): string | null {
 
 /* ── Metadata ─────────────────────────────────────────────── */
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export async function generateMetadata({ params, searchParams }: { params: Promise<{ locale: string }>, searchParams: Promise<Record<string, string>> }) {
   const { locale } = await params
+  const sp = await searchParams
+  const page = Math.max(1, parseInt(sp.page ?? '1') || 1)
   const meta = await getPageMeta('blog-and-news', locale)
-  const title = meta?.title ?? 'Blog, News & Offers — JVL'
-  const description = meta?.metaDescription ?? meta?.description ?? 'Read the latest JVL articles, news and special offers about arcade gaming.'
-  return buildMeta({ title, description, path: '/en/blog-and-news', ogImage: meta?.ogImage })
+  const baseTitle = meta?.title ?? 'Blog, News & Offers — JVL'
+  const baseDescription = meta?.metaDescription ?? meta?.description ?? 'Read the latest JVL articles, news and special offers about arcade gaming.'
+  const title = page > 1 ? `${baseTitle} – Page ${page}` : baseTitle
+  const description = page > 1 ? `${baseDescription} Page ${page}` : baseDescription
+  return buildMeta({ title, description, path: page > 1 ? `/en/blog-and-news?page=${page}` : '/en/blog-and-news', ogImage: meta?.ogImage })
 }
 
 /* ── Page ─────────────────────────────────────────────────── */
