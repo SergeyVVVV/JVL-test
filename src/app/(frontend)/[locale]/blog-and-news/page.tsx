@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default async function BlogListingPage({ params, searchParams }: PageProps) {
   const { locale } = await params
   const sp = await searchParams
-  const typeFilter = sp.type === 'blog' ? 1 : sp.type === 'news' ? 2 : undefined
+  const typeFilter = sp.type === 'blog' ? 1 : sp.type === 'news' ? 0 : undefined
   const searchQuery = sp.q?.trim() || undefined
   const page = Math.max(1, parseInt(sp.page ?? '1') || 1)
   const perPage = 7
@@ -76,9 +76,22 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
         .bl-container { max-width: 1200px; margin: 0 auto; padding-inline: 16px; }
         @media (min-width: 768px) { .bl-container { padding-inline: 24px; } }
 
-        /* First row: 2/3 + 1/3 */
-        .bl-featured-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
-        @media (max-width: 767px) { .bl-featured-grid { grid-template-columns: 1fr; } }
+        /* Featured full-width horizontal card */
+        .bl-featured-card {
+          display: flex; flex-direction: row;
+          border: 1px solid #2a2a2a; border-radius: 8px; overflow: hidden;
+          background: #181a1b; transition: transform 0.2s ease, border-color 0.2s ease;
+          text-decoration: none; color: #F4F3EC;
+        }
+        .bl-featured-card:hover { transform: translateY(-2px); border-color: #3a3a3a; }
+        .bl-featured-img { width: 45%; flex-shrink: 0; min-height: 360px; background: #1a1c1d; overflow: hidden; }
+        .bl-featured-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .bl-featured-body { flex: 1; display: flex; flex-direction: column; align-items: flex-start; padding: 40px; justify-content: center; }
+        @media (max-width: 767px) {
+          .bl-featured-card { flex-direction: column; }
+          .bl-featured-img { width: 100%; min-height: 220px; }
+          .bl-featured-body { padding: 24px; }
+        }
 
         .bl-grid { display: grid; grid-template-columns: 1fr; gap: 24px; }
         @media (min-width: 768px) { .bl-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -188,63 +201,39 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
         </div>
       )}
 
-      {/* ── First row: featured (2/3) + second card (1/3) ── */}
+      {/* ── Featured — full-width horizontal card ────────── */}
       {featured && (
         <div className="bl-container" style={{ marginBottom: 24 }}>
-          <div className="bl-featured-grid">
-            {/* Featured — large card */}
-            <Link href={`/${locale}/blog-and-news/${featured.slug}`} style={{ display: 'flex', textDecoration: 'none', color: '#F4F3EC' }}>
-              <article className="bl-card" style={{ width: '100%' }}>
-                <div style={{ height: 300, background: '#1a1c1d', overflow: 'hidden', flexShrink: 0 }}>
-                  {featured.heroImage && <img src={featured.heroImage} alt={featured.title ?? ''} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
-                </div>
-                <div className="bl-card-body">
-                  <span style={{ display: 'inline-block', fontSize: 13, fontWeight: 500, padding: '5px 10px', border: '1px solid #3a3a3a', borderRadius: 6, color: 'rgba(244,243,236,0.5)', marginBottom: 12 }}>
-                    {featured.type === 1 ? 'Blog' : 'News'}
-                  </span>
-                  <h2 style={{ fontSize: 22, fontWeight: 600, lineHeight: 1.25, color: '#F4F3EC', margin: '0 0 10px' }}>
-                    {featured.title}
-                  </h2>
-                  {(featured.description || featured.content1) && (
-                    <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.6)', lineHeight: 1.6, margin: '0 0 12px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as const, overflow: 'hidden' }}>
-                      {featured.description || extractExcerpt(featured.content1, 220)}
-                    </p>
-                  )}
-                  <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: 'auto 0 0' }}>{formatDate(featured.publishedAt)}</p>
-                </div>
-              </article>
-            </Link>
-
-            {/* Two stacked cards (magazine layout) */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
-              {[rest[0], rest[1]].filter(Boolean).map((item) => (
-                <Link key={item.id} href={`/${locale}/blog-and-news/${item.slug}`} style={{ display: 'flex', textDecoration: 'none', color: '#F4F3EC', flex: 1 }}>
-                  <article className="bl-card" style={{ width: '100%' }}>
-                    <div style={{ height: 120, background: '#1a1c1d', overflow: 'hidden', flexShrink: 0 }}>
-                      {item.heroImage && <img src={item.heroImage} alt={item.title ?? ''} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
-                    </div>
-                    <div className="bl-card-body">
-                      <span style={{ display: 'inline-block', fontSize: 13, fontWeight: 500, padding: '5px 10px', border: '1px solid #3a3a3a', borderRadius: 6, color: 'rgba(244,243,236,0.5)', marginBottom: 12 }}>
-                        {item.type === 1 ? 'Blog' : 'News'}
-                      </span>
-                      <h3 style={{ fontSize: 16, fontWeight: 600, lineHeight: 1.3, color: '#F4F3EC', margin: '0 0 8px', flex: 1 }}>
-                        {item.title}
-                      </h3>
-                      <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: 'auto 0 0' }}>{formatDate(item.publishedAt)}</p>
-                    </div>
-                  </article>
-                </Link>
-              ))}
+          <Link href={`/${locale}/blog-and-news/${featured.slug}`} className="bl-featured-card">
+            <div className="bl-featured-img">
+              {featured.heroImage && <img src={featured.heroImage} alt={featured.title ?? ''} />}
             </div>
-          </div>
+            <div className="bl-featured-body">
+              <span style={{ display: 'inline-block', fontSize: 13, fontWeight: 500, padding: '5px 10px', border: '1px solid #3a3a3a', borderRadius: 6, color: 'rgba(244,243,236,0.5)', marginBottom: 16 }}>
+                {featured.type === 1 ? 'Blog' : 'News'}
+              </span>
+              <h2 style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.75rem)', fontWeight: 700, lineHeight: 1.2, color: '#F4F3EC', margin: '0 0 14px', textTransform: 'uppercase' }}>
+                {featured.title}
+              </h2>
+              {(featured.description || featured.content1) && (
+                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: '0 0 24px', display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as const, overflow: 'hidden' }}>
+                  {featured.description || extractExcerpt(featured.content1, 240)}
+                </p>
+              )}
+              <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: '0 0 24px' }}>{formatDate(featured.publishedAt)}</p>
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 14, fontWeight: 600, color: '#F4F3EC', background: '#FB671F', padding: '10px 22px', borderRadius: 6 }}>
+                Read Article →
+              </span>
+            </div>
+          </Link>
         </div>
       )}
 
       {/* ── Remaining articles — 3-column ────────────────── */}
-      {rest.length > 2 && (
+      {rest.length > 0 && (
         <div className="bl-container" style={{ marginBottom: 56 }}>
           <div className="bl-grid">
-            {rest.slice(2).map((item) => (
+            {rest.map((item) => (
               <Link
                 key={item.id}
                 href={`/${locale}/blog-and-news/${item.slug}`}
@@ -270,7 +259,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
                     </span>
                     <h3 style={{
                       fontSize: 18, fontWeight: 600, lineHeight: 1.3,
-                      color: '#F4F3EC', margin: '0 0 8px', flex: 1,
+                      color: '#F4F3EC', margin: '0 0 8px', flex: 1, textTransform: 'uppercase',
                     }}>
                       {item.title}
                     </h3>
