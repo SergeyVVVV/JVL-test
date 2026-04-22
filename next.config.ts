@@ -12,6 +12,9 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Non-English locales → /en (site is English-only)
+      { source: '/es/:path*',    destination: '/en/:path*', permanent: true },
+      { source: '/pt_br/:path*', destination: '/en/:path*', permanent: true },
       // Laravel-style pagination → Next.js query param pagination
       {
         source: '/:locale/blog-and-news/page-:num',

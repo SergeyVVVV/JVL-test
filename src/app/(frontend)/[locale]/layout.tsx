@@ -2,7 +2,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export function generateStaticParams() {
-  return [{ locale: 'en' }, { locale: 'es' }, { locale: 'pt_br' }]
+  return [{ locale: 'en' }]
 }
 
 export default function LocaleLayout({ children }: { children: React.ReactNode }) {
