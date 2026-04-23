@@ -71,15 +71,18 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // ── Static pages ─────────────────────────────────────────────
   const staticPages: MetadataRoute.Sitemap = [
-    { url: `${BASE_URL}/${LOCALE}`,              lastModified: today, changeFrequency: 'daily', priority: 1.0 },
-    { url: `${BASE_URL}/${LOCALE}/echo`,         lastModified: today, changeFrequency: 'daily', priority: 0.9 },
-    { url: `${BASE_URL}/${LOCALE}/echo-b2b`,     lastModified: today, changeFrequency: 'daily', priority: 0.8 },
-    { url: `${BASE_URL}/${LOCALE}/flex`,         lastModified: today, changeFrequency: 'daily', priority: 0.8 },
-    { url: `${BASE_URL}/${LOCALE}/games`,        lastModified: today, changeFrequency: 'daily', priority: 0.8 },
-    { url: `${BASE_URL}/${LOCALE}/blog-and-news`,lastModified: today, changeFrequency: 'daily', priority: 0.7 },
-    { url: `${BASE_URL}/${LOCALE}/about-jvl`,   lastModified: today, changeFrequency: 'daily', priority: 0.6 },
-    { url: `${BASE_URL}/${LOCALE}/contact-us`,  lastModified: today, changeFrequency: 'daily', priority: 0.6 },
-    { url: `${BASE_URL}/${LOCALE}/warranty`,    lastModified: today, changeFrequency: 'daily', priority: 0.5 },
+    { url: `${BASE_URL}/${LOCALE}`,                lastModified: today, changeFrequency: 'daily',   priority: 1.0 },
+    { url: `${BASE_URL}/${LOCALE}/echo`,           lastModified: today, changeFrequency: 'weekly',  priority: 0.9 },
+    { url: `${BASE_URL}/${LOCALE}/echo-b2b`,       lastModified: today, changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${BASE_URL}/${LOCALE}/flex`,           lastModified: today, changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${BASE_URL}/${LOCALE}/games`,          lastModified: today, changeFrequency: 'weekly',  priority: 0.8 },
+    { url: `${BASE_URL}/${LOCALE}/blog-and-news`,  lastModified: today, changeFrequency: 'daily',   priority: 0.7 },
+    { url: `${BASE_URL}/${LOCALE}/about-jvl`,      lastModified: today, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE_URL}/${LOCALE}/partners`,       lastModified: today, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${BASE_URL}/${LOCALE}/contact-us`,     lastModified: today, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${BASE_URL}/${LOCALE}/warranty`,       lastModified: today, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${BASE_URL}/${LOCALE}/privacy-policy`, lastModified: today, changeFrequency: 'yearly',  priority: 0.3 },
+    { url: `${BASE_URL}/${LOCALE}/terms-of-use`,   lastModified: today, changeFrequency: 'yearly',  priority: 0.3 },
   ]
 
   // ── Blog articles ─────────────────────────────────────────────
