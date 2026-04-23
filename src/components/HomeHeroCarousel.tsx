@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from 'react'
 
 export interface HeroSlide {
   bg: string | null
+  mobileBg?: string | null
   video?: string | null
   eyebrow?: string
   heading: string
@@ -78,11 +79,16 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
         transition: 'opacity 0.35s ease',
       }}>
         {slide.bg && (
-          <img
-            src={slide.bg}
-            alt=""
-            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-          />
+          <picture style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+            {slide.mobileBg && (
+              <source media="(max-width: 767px)" srcSet={slide.mobileBg} />
+            )}
+            <img
+              src={slide.bg}
+              alt=""
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+          </picture>
         )}
         {slide.video && (
           // eslint-disable-next-line jsx-a11y/media-has-caption

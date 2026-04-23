@@ -61,6 +61,7 @@ export default async function HomePage() {
   const slides: HeroSlide[] = dbSlides.length > 0
     ? dbSlides.map((s) => ({
         bg: s.desktopImage,
+        mobileBg: s.mobileImage,
         heading: s.title ?? '',
         body: s.description ?? '',
         cta: {
