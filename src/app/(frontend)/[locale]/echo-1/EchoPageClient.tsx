@@ -31,50 +31,51 @@ interface PageData {
 
 function Hero({ data }: { data: PageData['hero'] }) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const mobileVideoRef = useRef<HTMLVideoElement>(null)
   const [muted, setMuted] = useState(true)
   const [playing, setPlaying] = useState(true)
 
   useEffect(() => {
     videoRef.current?.play().catch(() => {})
-    mobileVideoRef.current?.play().catch(() => {})
   }, [])
+
+  // Pick poster for the LCP <img>: mobile poster is prioritized via CSS picture
+  const hasAnyVideo = !!(data.desktopVideo || data.mobileVideo)
 
   return (
     <section className="echo-hero" style={{ position: 'relative', width: '100%', background: '#080a0b', overflow: 'hidden' }}>
-      {/* Desktop poster */}
-      {data.desktopPoster && (
-        <img src={data.desktopPoster} alt="" fetchPriority="high" className="echo-hero-desktop-video" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+      {/* Poster (LCP target — loads instantly, stays behind video) */}
+      {(data.desktopPoster || data.mobilePoster) && (
+        <picture style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
+          {data.mobilePoster && (
+            <source media="(max-width: 767px)" srcSet={data.mobilePoster} />
+          )}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={data.desktopPoster ?? data.mobilePoster ?? ''}
+            alt=""
+            fetchPriority="high"
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+          />
+        </picture>
       )}
 
-      {/* Desktop video */}
-      {data.desktopVideo && (
-        <video
-          ref={videoRef}
-          src={data.desktopVideo}
-          poster={data.desktopPoster ?? undefined}
-          autoPlay muted loop playsInline
-          className="echo-hero-video echo-hero-desktop-video"
-          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-      )}
-
-      {/* Mobile video (shown on ≤767px) */}
-      {data.mobileVideo && (
+      {/* Single video — browser picks correct source by media query */}
+      {hasAnyVideo && (
         // eslint-disable-next-line jsx-a11y/media-has-caption
         <video
-          ref={mobileVideoRef}
-          src={data.mobileVideo}
-          poster={data.mobilePoster ?? undefined}
+          ref={videoRef}
+          poster={data.desktopPoster ?? undefined}
           autoPlay muted loop playsInline
-          className="echo-hero-video echo-hero-mobile-video"
+          className="echo-hero-video"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-        />
-      )}
-
-      {/* Mobile poster fallback (shown on ≤767px when no mobile video) */}
-      {!data.mobileVideo && data.mobilePoster && (
-        <img src={data.mobilePoster} alt="" fetchPriority="high" className="echo-hero-mobile-video" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+        >
+          {data.mobileVideo && (
+            <source media="(max-width: 767px)" src={data.mobileVideo} type="video/mp4" />
+          )}
+          {data.desktopVideo && (
+            <source src={data.desktopVideo} type="video/mp4" />
+          )}
+        </video>
       )}
 
       {/* Gradient overlays */}
@@ -104,13 +105,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
           {/* Controls */}
           <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
             <button
-              onClick={() => {
-                const next = !playing
-                ;[videoRef, mobileVideoRef].forEach(r => {
-                  if (r.current) next ? r.current.play() : r.current.pause()
-                })
-                setPlaying(next)
-              }}
+              onClick={() => { if (videoRef.current) { playing ? videoRef.current.pause() : videoRef.current.play(); setPlaying(!playing) } }}
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', padding: 0, display: 'flex' }}
             >
               {playing
@@ -119,13 +114,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
               }
             </button>
             <button
-              onClick={() => {
-                const next = !muted
-                ;[videoRef, mobileVideoRef].forEach(r => {
-                  if (r.current) r.current.muted = next
-                })
-                setMuted(next)
-              }}
+              onClick={() => { if (videoRef.current) { videoRef.current.muted = !muted; setMuted(!muted) } }}
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', padding: 0, display: 'flex' }}
             >
               {muted
@@ -1733,14 +1722,11 @@ export default function EchoPageClient({ data }: { data: PageData }) {
 
         /* ── Hero ── */
         .echo-hero { height: calc(100svh - 124px); min-height: 520px; }
-        .echo-hero-mobile-video { display: none !important; }
         @media (max-width: 767px) {
           .echo-hero { height: 58vh; min-height: 380px; max-height: 520px; margin-top: -52px; }
           .echo-hero-h1 { font-size: clamp(1.15rem, 5vw, 1.5rem) !important; line-height: 1.15 !important; }
           .echo-hero-video { object-position: 70% center !important; }
           .echo-countertop-section { padding: 40px 0 !important; }
-          .echo-hero-desktop-video { display: none !important; }
-          .echo-hero-mobile-video { display: block !important; }
         }
 
         /* ── H2 sizes on mobile ── */
