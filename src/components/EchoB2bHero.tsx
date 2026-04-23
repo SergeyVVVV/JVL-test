@@ -9,39 +9,68 @@ interface EchoB2bHeroProps {
   buttonUrl: string
   videoSrc?: string | null
   posterSrc?: string | null
+  mobileVideoSrc?: string | null
+  mobilePosterSrc?: string | null
 }
 
 export default function EchoB2bHero({
-  title, subtitle, buttonText, buttonUrl, videoSrc, posterSrc,
+  title, subtitle, buttonText, buttonUrl, videoSrc, posterSrc, mobileVideoSrc, mobilePosterSrc,
 }: EchoB2bHeroProps) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const mobileVideoRef = useRef<HTMLVideoElement>(null)
   const [muted, setMuted] = useState(true)
   const [playing, setPlaying] = useState(true)
 
   useEffect(() => {
     videoRef.current?.play().catch(() => {})
+    mobileVideoRef.current?.play().catch(() => {})
   }, [])
 
   return (
     <>
     <style>{`
       .eb2b-hero { height: 100svh; min-height: 600px; }
-      @media (max-width: 767px) { .eb2b-hero { height: 75vh; min-height: 450px; } }
+      .eb2b-mobile-video { display: none !important; }
+      @media (max-width: 767px) {
+        .eb2b-hero { height: 75vh; min-height: 450px; }
+        .eb2b-desktop-video { display: none !important; }
+        .eb2b-mobile-video { display: block !important; }
+      }
     `}</style>
     <section className="echo-hero eb2b-hero" style={{
       position: 'relative', width: '100%', background: '#080a0b',
       overflow: 'hidden',
     }}>
-      {/* Video (no poster placeholder — dark bg until video loads) */}
+      {/* Desktop video */}
       {videoSrc && (
         // eslint-disable-next-line jsx-a11y/media-has-caption
         <video
           ref={videoRef}
           src={videoSrc}
+          poster={posterSrc ?? undefined}
           autoPlay muted loop playsInline
-          className="echo-hero-video"
+          className="echo-hero-video eb2b-desktop-video"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
         />
+      )}
+
+      {/* Mobile video (shown on ≤767px) */}
+      {mobileVideoSrc && (
+        // eslint-disable-next-line jsx-a11y/media-has-caption
+        <video
+          ref={mobileVideoRef}
+          src={mobileVideoSrc}
+          poster={mobilePosterSrc ?? undefined}
+          autoPlay muted loop playsInline
+          className="echo-hero-video eb2b-mobile-video"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      )}
+
+      {/* Mobile poster fallback */}
+      {!mobileVideoSrc && mobilePosterSrc && (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img src={mobilePosterSrc} alt="" className="eb2b-mobile-video" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
       )}
 
       {/* Gradient overlays */}
@@ -81,10 +110,11 @@ export default function EchoB2bHero({
           <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
             <button
               onClick={() => {
-                if (videoRef.current) {
-                  playing ? videoRef.current.pause() : videoRef.current.play()
-                  setPlaying(!playing)
-                }
+                const next = !playing
+                ;[videoRef, mobileVideoRef].forEach(r => {
+                  if (r.current) next ? r.current.play() : r.current.pause()
+                })
+                setPlaying(next)
               }}
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', padding: 0, display: 'flex' }}
               aria-label={playing ? 'Pause' : 'Play'}
@@ -96,10 +126,11 @@ export default function EchoB2bHero({
             </button>
             <button
               onClick={() => {
-                if (videoRef.current) {
-                  videoRef.current.muted = !muted
-                  setMuted(!muted)
-                }
+                const next = !muted
+                ;[videoRef, mobileVideoRef].forEach(r => {
+                  if (r.current) r.current.muted = next
+                })
+                setMuted(next)
               }}
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', padding: 0, display: 'flex' }}
               aria-label={muted ? 'Unmute' : 'Mute'}

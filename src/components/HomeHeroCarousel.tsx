@@ -86,6 +86,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
             <img
               src={slide.bg}
               alt=""
+              fetchPriority="high"
               style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </picture>

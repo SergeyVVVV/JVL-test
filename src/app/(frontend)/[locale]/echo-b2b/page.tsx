@@ -40,18 +40,22 @@ export default async function EchoB2bPage() {
     getLandingBlock('support_bottom_echo_b2b_landing_block'),
   ])
 
-  const [supportItems, venueItems, featureItems, bottomLinks, heroVideoDb, heroPosterDb] = await Promise.all([
+  const [supportItems, venueItems, featureItems, bottomLinks, heroVideoDb, heroPosterDb, heroMobileVideoDb, heroMobilePosterDb] = await Promise.all([
     supportBlock ? getLandingInlineEntities(supportBlock.id) : Promise.resolve([]),
     screensBlock ? getLandingInlineEntities(screensBlock.id) : Promise.resolve([]),
     engineeredBlock ? getLandingInlineEntities(engineeredBlock.id) : Promise.resolve([]),
     bottomBlock ? getLandingInlineEntities(bottomBlock.id) : Promise.resolve([]),
     getMediaUrl('App\\Models\\TopEcho2b2Block', 15, 'desktop_video'),
     getMediaUrl('App\\Models\\TopEcho2b2Block', 15, 'desktop_poster'),
+    getMediaUrl('App\\Models\\TopEcho2b2Block', 15, 'phone_video'),
+    getMediaUrl('App\\Models\\TopEcho2b2Block', 15, 'phone_poster'),
   ])
 
   // Fallback to known production storage IDs when DB media not yet linked
   const heroVideo = heroVideoDb ?? '/api/storage/3657/15.mp4'
   const heroPoster = heroPosterDb ?? '/api/storage/3653/15.jpg'
+  const heroMobileVideo = heroMobileVideoDb ?? null
+  const heroMobilePoster = heroMobilePosterDb ?? null
 
   // Venue card images
   const VENUE_IMAGE_FALLBACKS = [
@@ -128,6 +132,8 @@ export default async function EchoB2bPage() {
         buttonUrl={heroBtnUrl}
         videoSrc={heroVideo}
         posterSrc={heroPoster}
+        mobileVideoSrc={heroMobileVideo}
+        mobilePosterSrc={heroMobilePoster}
       />
 
       {/* ── 2. B2B Promise ── */}
