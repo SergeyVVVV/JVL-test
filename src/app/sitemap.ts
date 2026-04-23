@@ -81,8 +81,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${BASE_URL}/${LOCALE}/partners`,       lastModified: today, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${BASE_URL}/${LOCALE}/contact-us`,     lastModified: today, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${BASE_URL}/${LOCALE}/warranty`,       lastModified: today, changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${BASE_URL}/${LOCALE}/privacy-policy`, lastModified: today, changeFrequency: 'yearly',  priority: 0.3 },
-    { url: `${BASE_URL}/${LOCALE}/terms-of-use`,   lastModified: today, changeFrequency: 'yearly',  priority: 0.3 },
   ]
 
   // ── Blog articles ─────────────────────────────────────────────
