@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
+import { imgSrc } from '@/lib/imgSrc'
 
 interface EchoB2bHeroProps {
   title: string
@@ -38,11 +39,11 @@ export default function EchoB2bHero({
       {(posterSrc || mobilePosterSrc) && (
         <picture style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
           {mobilePosterSrc && (
-            <source media="(max-width: 767px)" srcSet={mobilePosterSrc} />
+            <source media="(max-width: 767px)" srcSet={imgSrc(mobilePosterSrc, { w: 900, q: 75 })} />
           )}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={posterSrc ?? mobilePosterSrc ?? ''}
+            src={imgSrc(posterSrc ?? mobilePosterSrc, { w: 1920, q: 80 })}
             alt=""
             fetchPriority="high"
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -55,7 +56,7 @@ export default function EchoB2bHero({
         // eslint-disable-next-line jsx-a11y/media-has-caption
         <video
           ref={videoRef}
-          poster={posterSrc ?? undefined}
+          poster={posterSrc ? imgSrc(posterSrc, { w: 1920, q: 80 }) : undefined}
           autoPlay muted loop playsInline
           className="echo-hero-video"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}

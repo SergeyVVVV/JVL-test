@@ -65,7 +65,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
         // eslint-disable-next-line jsx-a11y/media-has-caption
         <video
           ref={videoRef}
-          poster={data.desktopPoster ?? undefined}
+          poster={data.desktopPoster ? imgSrc(data.desktopPoster, { w: 1920, q: 80 }) : undefined}
           autoPlay muted loop playsInline
           className="echo-hero-video"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}

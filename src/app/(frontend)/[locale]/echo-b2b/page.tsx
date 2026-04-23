@@ -6,7 +6,7 @@ import { buildBreadcrumb, buildProduct, buildGraph } from '@/lib/jsonld'
 import EchoB2bHero from '@/components/EchoB2bHero'
 import { VenuesSection, FeaturesSection } from '@/components/EchoB2bSections'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params

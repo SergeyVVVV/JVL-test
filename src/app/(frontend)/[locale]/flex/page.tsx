@@ -5,7 +5,7 @@ import { buildMeta, BASE_URL } from '@/lib/seo'
 import JsonLd from '@/components/JsonLd'
 import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params

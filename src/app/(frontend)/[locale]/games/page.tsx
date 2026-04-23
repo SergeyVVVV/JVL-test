@@ -6,7 +6,7 @@ import EchoBanner from '@/components/EchoBanner'
 import JsonLd from '@/components/JsonLd'
 import { buildBreadcrumb, buildCollectionPage, buildGraph } from '@/lib/jsonld'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 export async function generateMetadata({ params, searchParams }: { params: Promise<{ locale: string }>, searchParams: Promise<Record<string, string>> }) {
   const { locale } = await params

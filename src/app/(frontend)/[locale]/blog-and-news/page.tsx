@@ -6,7 +6,7 @@ import EchoBanner from '@/components/EchoBanner'
 import JsonLd from '@/components/JsonLd'
 import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 interface PageProps {
   params: Promise<{ locale: string }>

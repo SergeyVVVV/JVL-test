@@ -12,7 +12,7 @@ const partnersJsonLd = buildGraph([
   buildWebPage({ url: `${BASE_URL}/en/partners`, name: 'Partners — JVL' }),
 ])
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params

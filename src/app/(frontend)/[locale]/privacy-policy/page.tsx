@@ -12,7 +12,7 @@ const privacyJsonLd = buildGraph([
   buildWebPage({ url: `${BASE_URL}/en/privacy-policy`, name: 'Privacy Policy — JVL' }),
 ])
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params

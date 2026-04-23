@@ -1,7 +1,7 @@
 import { getLandingBlock, getMediaUrl, getPageMeta } from '@/lib/db'
 import EchoHomeClient from './EchoHomeClient'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
