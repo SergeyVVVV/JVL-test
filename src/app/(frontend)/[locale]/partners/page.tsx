@@ -1,6 +1,16 @@
 import Link from 'next/link'
 import { getPageMeta } from '@/lib/db'
-import { buildMeta } from '@/lib/seo'
+import { buildMeta, BASE_URL } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
+
+const partnersJsonLd = buildGraph([
+  buildBreadcrumb(`${BASE_URL}/en/partners`, [
+    { name: 'Home', item: `${BASE_URL}/en` },
+    { name: 'Partners', item: `${BASE_URL}/en/partners` },
+  ]),
+  buildWebPage({ url: `${BASE_URL}/en/partners`, name: 'Partners — JVL' }),
+])
 
 export const dynamic = 'force-dynamic'
 
@@ -18,6 +28,7 @@ export default function PartnersPage() {
       id="partners-page"
       style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', minHeight: '100vh', marginTop: -124 }}
     >
+      <JsonLd data={partnersJsonLd} />
 
       {/* ── Hero ── */}
       <section style={{ padding: '204px 6vw 96px', maxWidth: 1440, margin: '0 auto' }}>

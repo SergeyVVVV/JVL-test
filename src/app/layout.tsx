@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import { Poppins } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
+import JsonLd from '@/components/JsonLd'
+import { buildOrganization, buildGraph } from '@/lib/jsonld'
 
 const GA_ID = 'G-7FWN801MS4'
 
@@ -46,6 +48,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={poppins.variable}>
       <body className="bg-jvl-dark text-jvl-light font-poppins antialiased">
         {children}
+        <JsonLd data={buildGraph([buildOrganization()])} />
       </body>
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}

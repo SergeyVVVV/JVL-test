@@ -1,5 +1,7 @@
 import { getPageMeta } from '@/lib/db'
-import { buildMeta } from '@/lib/seo'
+import { buildMeta, BASE_URL } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
 
 interface PageProps {
   params: Promise<{ locale: string }>
@@ -17,11 +19,21 @@ export default async function AboutJVLPage({ params }: PageProps) {
   const { locale } = await params
   const pageMeta = await getPageMeta('about-jvl', locale)
 
+  const pageUrl = `${BASE_URL}/en/about-jvl`
+  const jsonLd = buildGraph([
+    buildBreadcrumb(pageUrl, [
+      { name: 'Home', item: `${BASE_URL}/en` },
+      { name: 'About JVL', item: pageUrl },
+    ]),
+    buildWebPage({ url: pageUrl, name: pageMeta?.title ?? 'About JVL' }),
+  ])
+
   return (
     <main
       id="about-page"
       style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', minHeight: '100vh', marginTop: -124 }}
     >
+      <JsonLd data={jsonLd} />
       <div style={{ maxWidth: 1440, margin: '0 auto', padding: '204px 6vw 120px' }}>
       <div style={{ maxWidth: 1000, margin: '0 auto' }}>
 

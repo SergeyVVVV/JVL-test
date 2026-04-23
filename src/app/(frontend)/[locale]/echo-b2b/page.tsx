@@ -1,6 +1,8 @@
 import { getLandingBlock, getLandingInlineEntities, getMediaUrl, getPageMeta } from '@/lib/db'
-import { buildMeta } from '@/lib/seo'
+import { buildMeta, BASE_URL } from '@/lib/seo'
 import Link from 'next/link'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildProduct, buildGraph } from '@/lib/jsonld'
 import EchoB2bHero from '@/components/EchoB2bHero'
 import { VenuesSection, FeaturesSection } from '@/components/EchoB2bSections'
 
@@ -102,8 +104,22 @@ export default async function EchoB2bPage() {
     image: FEATURE_IMAGES[item.sort] ?? null,
   }))
 
+  const pageUrl = `${BASE_URL}/en/echo-b2b`
+  const jsonLd = buildGraph([
+    buildBreadcrumb(pageUrl, [
+      { name: 'Home', item: `${BASE_URL}/en` },
+      { name: 'Echo HD3 Commercial', item: pageUrl },
+    ]),
+    buildProduct({
+      url: pageUrl,
+      name: 'JVL Echo Amusement — Commercial Tabletop Arcade',
+      description: 'Free Play and commercial-grade tabletop arcade machine engineered for bars, lounges, and amusement venues.',
+    }),
+  ])
+
   return (
     <main id="echo-b2b-page" style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', marginTop: -124 }}>
+      <JsonLd data={jsonLd} />
 
       {/* ── 1. Hero ── */}
       <EchoB2bHero

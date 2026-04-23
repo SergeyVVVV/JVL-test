@@ -1,6 +1,16 @@
 import ContactForm from '@/components/ContactForm'
 import { getPageMeta } from '@/lib/db'
-import { buildMeta } from '@/lib/seo'
+import { buildMeta, BASE_URL } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
+
+const contactJsonLd = buildGraph([
+  buildBreadcrumb(`${BASE_URL}/en/contact-us`, [
+    { name: 'Home', item: `${BASE_URL}/en` },
+    { name: 'Contact Us', item: `${BASE_URL}/en/contact-us` },
+  ]),
+  buildWebPage({ url: `${BASE_URL}/en/contact-us`, name: 'Contact Us — JVL' }),
+])
 
 export const dynamic = 'force-dynamic'
 
@@ -15,6 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 export default function ContactUsPage() {
   return (
     <main id="contact-page" style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', minHeight: '100vh', marginTop: -124 }}>
+      <JsonLd data={contactJsonLd} />
       <div style={{ maxWidth: 1440, margin: '0 auto', padding: '204px 6vw 120px' }}>
 
         {/* Badge */}

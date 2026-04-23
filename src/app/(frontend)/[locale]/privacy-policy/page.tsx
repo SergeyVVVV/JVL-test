@@ -1,6 +1,16 @@
 import { getStaticPage } from '@/lib/db'
 import LegalLayout from '@/components/LegalLayout'
-import { buildMeta } from '@/lib/seo'
+import { buildMeta, BASE_URL } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
+
+const privacyJsonLd = buildGraph([
+  buildBreadcrumb(`${BASE_URL}/en/privacy-policy`, [
+    { name: 'Home', item: `${BASE_URL}/en` },
+    { name: 'Privacy Policy', item: `${BASE_URL}/en/privacy-policy` },
+  ]),
+  buildWebPage({ url: `${BASE_URL}/en/privacy-policy`, name: 'Privacy Policy — JVL' }),
+])
 
 export const dynamic = 'force-dynamic'
 
@@ -18,17 +28,22 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
 
   if (page?.content1) {
     return (
-      <LegalLayout
-        badge="Legal"
-        title={page.title ?? 'Privacy Policy'}
-        lastUpdated={page.updatedAt ?? undefined}
-        htmlContent={page.content1}
-      />
+      <>
+        <JsonLd data={privacyJsonLd} />
+        <LegalLayout
+          badge="Legal"
+          title={page.title ?? 'Privacy Policy'}
+          lastUpdated={page.updatedAt ?? undefined}
+          htmlContent={page.content1}
+        />
+      </>
     )
   }
 
   // Fallback to static content if CMS is unavailable
   return (
+    <>
+      <JsonLd data={privacyJsonLd} />
     <LegalLayout
       badge="Legal"
       title="Privacy Policy"
@@ -46,5 +61,6 @@ export default async function PrivacyPolicyPage({ params }: { params: Promise<{ 
         <p>Questions or concerns may be directed to <a href="mailto:privacy@jvl.ca">privacy@jvl.ca</a>.</p>
       `}
     />
+    </>
   )
 }

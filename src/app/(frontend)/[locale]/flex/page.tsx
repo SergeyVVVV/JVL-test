@@ -1,7 +1,9 @@
 import FlexHero from '@/components/FlexHero'
 import Link from 'next/link'
 import { getPageMeta } from '@/lib/db'
-import { buildMeta } from '@/lib/seo'
+import { buildMeta, BASE_URL } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
 
 export const dynamic = 'force-dynamic'
 
@@ -41,9 +43,18 @@ const MODELS = [
   },
 ]
 
+const flexJsonLd = buildGraph([
+  buildBreadcrumb(`${BASE_URL}/en/flex`, [
+    { name: 'Home', item: `${BASE_URL}/en` },
+    { name: 'Flex', item: `${BASE_URL}/en/flex` },
+  ]),
+  buildWebPage({ url: `${BASE_URL}/en/flex`, name: 'JVL Flex — Land-Based Casino Cabinets' }),
+])
+
 export default function FlexPage() {
   return (
     <main id="flex-page" style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', marginTop: -124 }}>
+      <JsonLd data={flexJsonLd} />
 
       {/* ── 1. Hero ── */}
       <FlexHero

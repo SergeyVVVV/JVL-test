@@ -10,6 +10,9 @@ import {
 import GameScreensCarousel from '@/components/GameScreensCarousel'
 import GameFeatures from '@/components/GameFeatures'
 import GameCard from '@/components/GameCard'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildVideoGame, buildGraph } from '@/lib/jsonld'
+import { BASE_URL } from '@/lib/seo'
 
 export const dynamic = 'force-dynamic'
 
@@ -45,6 +48,22 @@ export default async function GameDetailPage({
   const alsoLike = alsoLikeData.items.filter(g => g.slug !== slug).slice(0, 3)
 
   const heroBg = game.backgroundImage ?? game.horizontalImage ?? game.verticalImage ?? game.squareImage
+  const pageUrl = `${BASE_URL}/en/games/${game.slug}`
+  const jsonLd = buildGraph([
+    buildBreadcrumb(pageUrl, [
+      { name: 'Home', item: `${BASE_URL}/en` },
+      { name: 'Games', item: `${BASE_URL}/en/games` },
+      { name: game.title ?? '', item: pageUrl },
+    ]),
+    buildVideoGame({
+      url: pageUrl,
+      title: game.title ?? '',
+      description: game.metaDescription ?? game.description,
+      genre: game.themes[0] ?? null,
+      image: game.horizontalImage ?? game.squareImage ?? game.verticalImage,
+      playUrl: game.playUrl,
+    }),
+  ])
 
   // Parse RTP lines
   const rtpLines = game.rtps ? game.rtps.split('\n').filter(Boolean) : []
@@ -59,6 +78,8 @@ export default async function GameDetailPage({
   }
 
   return (
+    <>
+      <JsonLd data={jsonLd} />
     <main
       id="game-detail-page"
       style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', marginTop: -124, minHeight: '100vh' }}
@@ -432,5 +453,6 @@ export default async function GameDetailPage({
         }
       `}</style>
     </main>
+    </>
   )
 }

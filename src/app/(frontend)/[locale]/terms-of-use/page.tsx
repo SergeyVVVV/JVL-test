@@ -1,6 +1,16 @@
 import { getStaticPage } from '@/lib/db'
 import LegalLayout from '@/components/LegalLayout'
-import { buildMeta } from '@/lib/seo'
+import { buildMeta, BASE_URL } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
+
+const termsJsonLd = buildGraph([
+  buildBreadcrumb(`${BASE_URL}/en/terms-of-use`, [
+    { name: 'Home', item: `${BASE_URL}/en` },
+    { name: 'Terms of Use', item: `${BASE_URL}/en/terms-of-use` },
+  ]),
+  buildWebPage({ url: `${BASE_URL}/en/terms-of-use`, name: 'Terms of Use — JVL' }),
+])
 
 export const dynamic = 'force-dynamic'
 
@@ -18,17 +28,22 @@ export default async function TermsOfUsePage({ params }: { params: Promise<{ loc
 
   if (page?.content1) {
     return (
-      <LegalLayout
-        badge="Legal"
-        title={page.title ?? 'Terms of Use'}
-        lastUpdated={page.updatedAt ?? undefined}
-        htmlContent={page.content1}
-      />
+      <>
+        <JsonLd data={termsJsonLd} />
+        <LegalLayout
+          badge="Legal"
+          title={page.title ?? 'Terms of Use'}
+          lastUpdated={page.updatedAt ?? undefined}
+          htmlContent={page.content1}
+        />
+      </>
     )
   }
 
   // Fallback to static content if CMS is unavailable
   return (
+    <>
+      <JsonLd data={termsJsonLd} />
     <LegalLayout
       badge="Legal"
       title="Terms of Use"
@@ -50,5 +65,6 @@ export default async function TermsOfUsePage({ params }: { params: Promise<{ loc
         <p>To report any misuse of this site, please contact us at <a href="mailto:webmaster@jvl.ca">webmaster@jvl.ca</a>.</p>
       `}
     />
+    </>
   )
 }

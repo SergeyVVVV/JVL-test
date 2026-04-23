@@ -1,7 +1,17 @@
 import WarrantyForm from '@/components/WarrantyForm'
 import Link from 'next/link'
 import { getPageMeta } from '@/lib/db'
-import { buildMeta } from '@/lib/seo'
+import { buildMeta, BASE_URL } from '@/lib/seo'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
+
+const warrantyJsonLd = buildGraph([
+  buildBreadcrumb(`${BASE_URL}/en/warranty`, [
+    { name: 'Home', item: `${BASE_URL}/en` },
+    { name: 'Warranty Registration', item: `${BASE_URL}/en/warranty` },
+  ]),
+  buildWebPage({ url: `${BASE_URL}/en/warranty`, name: 'Warranty Registration — JVL' }),
+])
 
 export const dynamic = 'force-dynamic'
 
@@ -19,6 +29,7 @@ export default function WarrantyPage() {
       id="warranty-page"
       style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', minHeight: '100vh', marginTop: -124 }}
     >
+      <JsonLd data={warrantyJsonLd} />
       <div style={{ maxWidth: 1440, margin: '0 auto', padding: '204px 6vw 120px' }}>
 
         {/* Badge */}

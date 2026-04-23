@@ -1,6 +1,8 @@
 import { getLandingBlock, getMediaUrl, getPageMeta } from '@/lib/db'
-import { buildMeta } from '@/lib/seo'
+import { buildMeta, BASE_URL } from '@/lib/seo'
 import EchoPageClient from '../echo-1/EchoPageClient'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildProduct, buildGraph } from '@/lib/jsonld'
 
 export const dynamic = 'force-dynamic'
 
@@ -51,5 +53,24 @@ export default async function EchoPage() {
     },
   }
 
-  return <EchoPageClient data={data} />
+  const pageUrl = `${BASE_URL}/en/echo`
+  const jsonLd = buildGraph([
+    buildBreadcrumb(pageUrl, [
+      { name: 'Home', item: `${BASE_URL}/en` },
+      { name: 'Echo HD3', item: pageUrl },
+    ]),
+    buildProduct({
+      url: pageUrl,
+      name: 'JVL Echo HD3',
+      description: 'Premium countertop arcade machine for home and business with 149 built-in games and HD touchscreen.',
+      image: `${BASE_URL}/api/storage/3522/194.jpg`,
+    }),
+  ])
+
+  return (
+    <>
+      <JsonLd data={jsonLd} />
+      <EchoPageClient data={data} />
+    </>
+  )
 }

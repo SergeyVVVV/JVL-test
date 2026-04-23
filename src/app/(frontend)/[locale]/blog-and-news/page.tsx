@@ -1,8 +1,10 @@
 import Link from 'next/link'
 import { getNewsList, getNewsCategories, getPageMeta } from '@/lib/db'
-import { buildMeta } from '@/lib/seo'
+import { buildMeta, BASE_URL } from '@/lib/seo'
 import BlogSearchInput from '@/components/BlogSearchInput'
 import EchoBanner from '@/components/EchoBanner'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
 
 export const dynamic = 'force-dynamic'
 
@@ -68,6 +70,15 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
     ...categories.map(c => ({ label: c, value: c })),
   ]
 
+  const pageUrl = `${BASE_URL}/en/blog-and-news`
+  const jsonLd = buildGraph([
+    buildBreadcrumb(pageUrl, [
+      { name: 'Home', item: `${BASE_URL}/en` },
+      { name: 'Blog & News', item: pageUrl },
+    ]),
+    buildWebPage({ url: pageUrl, name: pageMeta?.title ?? 'Blog, News & Offers — JVL' }),
+  ])
+
   return (
     <div style={{
       background: '#101213',
@@ -77,6 +88,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
       marginTop: -124,
       paddingTop: 124,
     }}>
+      <JsonLd data={jsonLd} />
 
       <style>{`
         .bl-container { max-width: 1200px; margin: 0 auto; padding-inline: 16px; }

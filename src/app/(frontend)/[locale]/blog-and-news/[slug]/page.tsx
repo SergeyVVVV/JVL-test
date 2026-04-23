@@ -4,6 +4,8 @@ import { getNewsArticleBySlug, getRelatedNews } from '@/lib/db'
 import { buildMeta, BASE_URL } from '@/lib/seo'
 import ArticleTOC from './ArticleTOC'
 import NewsCard from '@/components/NewsCard'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildBlogPosting, buildGraph } from '@/lib/jsonld'
 
 export const dynamic = 'force-dynamic'
 
@@ -120,7 +122,25 @@ export default async function BlogArticlePage({ params }: PageProps) {
   // Lead text: description from DB or first paragraph of content
   const leadText = article.description || extractExcerpt(article.content1)
 
+  const pageUrl = `${BASE_URL}/en/blog-and-news/${slug}`
+  const jsonLd = buildGraph([
+    buildBreadcrumb(pageUrl, [
+      { name: 'Home', item: `${BASE_URL}/en` },
+      { name: 'Blog & News', item: `${BASE_URL}/en/blog-and-news` },
+      { name: article.title ?? '', item: pageUrl },
+    ]),
+    buildBlogPosting({
+      url: pageUrl,
+      title: article.title ?? '',
+      description: article.metaDescription ?? article.description,
+      publishedAt: article.publishedAt,
+      image: article.heroImage ? `${BASE_URL}${article.heroImage}` : null,
+    }),
+  ])
+
   return (
+    <>
+      <JsonLd data={jsonLd} />
     <article style={{
       background: '#F4F3EC',
       color: '#101213',
@@ -436,5 +456,6 @@ export default async function BlogArticlePage({ params }: PageProps) {
       )}
 
     </article>
+    </>
   )
 }

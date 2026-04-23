@@ -1,8 +1,10 @@
 import { getGamesList, getGameFilterTags, getPageIdBySlug, getGameSliderSlides, getPageMeta } from '@/lib/db'
-import { buildMeta } from '@/lib/seo'
+import { buildMeta, BASE_URL } from '@/lib/seo'
 import GamesHeroCarousel from '@/components/GamesHeroCarousel'
 import GamesGrid from '@/components/GamesGrid'
 import EchoBanner from '@/components/EchoBanner'
+import JsonLd from '@/components/JsonLd'
+import { buildBreadcrumb, buildCollectionPage, buildGraph } from '@/lib/jsonld'
 
 export const dynamic = 'force-dynamic'
 
@@ -35,11 +37,21 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
   const hasCarousel = gameSlides.length > 0
   const topPad = hasCarousel ? '80px 6vw 0' : '204px 6vw 0'
 
+  const pageUrl = `${BASE_URL}/en/games`
+  const jsonLd = buildGraph([
+    buildBreadcrumb(pageUrl, [
+      { name: 'Home', item: `${BASE_URL}/en` },
+      { name: 'Games', item: pageUrl },
+    ]),
+    buildCollectionPage({ url: pageUrl, name: pageMeta?.title ?? 'Online Slot Games — JVL' }),
+  ])
+
   return (
     <main
       id="games-page"
       style={{ background: '#080a0b', color: '#F4F3EC', fontFamily: 'inherit', marginTop: -124, minHeight: '100vh' }}
     >
+      <JsonLd data={jsonLd} />
       {/* ── Hero carousel (games configured in AdminLTE) ── */}
       {hasCarousel && <GamesHeroCarousel slides={gameSlides} locale={locale} />}
 
