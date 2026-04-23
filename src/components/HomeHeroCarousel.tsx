@@ -38,6 +38,22 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
     return () => clearInterval(t)
   }, [active, slides.length, goTo])
 
+  // Preload non-active slide images in background so switching feels instant
+  // (first-time Sharp transform takes ~200-500ms; this warms browser+Sharp cache)
+  useEffect(() => {
+    slides.forEach((s, i) => {
+      if (i === 0) return // first slide already loading
+      if (s.bg) {
+        const img = new Image()
+        img.src = imgSrc(s.bg, { w: 1920, q: 80 })
+      }
+      if (s.mobileBg) {
+        const img = new Image()
+        img.src = imgSrc(s.mobileBg, { w: 900, q: 75 })
+      }
+    })
+  }, [slides])
+
   const slide = slides[active]
 
   // Swipe support
