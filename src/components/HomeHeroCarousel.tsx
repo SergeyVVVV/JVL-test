@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { imgSrc } from '@/lib/imgSrc'
 
 export interface HeroSlide {
   bg: string | null
@@ -81,10 +82,10 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
         {slide.bg && (
           <picture style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
             {slide.mobileBg && (
-              <source media="(max-width: 767px)" srcSet={slide.mobileBg} />
+              <source media="(max-width: 767px)" srcSet={imgSrc(slide.mobileBg, { w: 900, q: 75 })} />
             )}
             <img
-              src={slide.bg}
+              src={imgSrc(slide.bg, { w: 1920, q: 80 })}
               alt=""
               fetchPriority="high"
               style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}

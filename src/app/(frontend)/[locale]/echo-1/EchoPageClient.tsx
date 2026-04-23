@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
+import { imgSrc } from '@/lib/imgSrc'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -47,11 +48,11 @@ function Hero({ data }: { data: PageData['hero'] }) {
       {(data.desktopPoster || data.mobilePoster) && (
         <picture style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}>
           {data.mobilePoster && (
-            <source media="(max-width: 767px)" srcSet={data.mobilePoster} />
+            <source media="(max-width: 767px)" srcSet={imgSrc(data.mobilePoster, { w: 900, q: 75 })} />
           )}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={data.desktopPoster ?? data.mobilePoster ?? ''}
+            src={imgSrc(data.desktopPoster ?? data.mobilePoster, { w: 1920, q: 80 })}
             alt=""
             fetchPriority="high"
             style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
@@ -360,7 +361,7 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
         {/* Image */}
         {data.image && (
           <div style={{ borderRadius: 4, overflow: 'hidden', marginBottom: 40 }}>
-            <img src={data.image} alt="" style={{ width: '100%', display: 'block', objectFit: 'cover' }} />
+            <img src={imgSrc(data.image, { w: 1600, q: 80 })} alt="" style={{ width: '100%', display: 'block', objectFit: 'cover' }} />
           </div>
         )}
 
@@ -623,7 +624,7 @@ function UseCasesSection() {
       {/* Background image with fade */}
       <div style={{
         position: 'absolute', inset: 0,
-        backgroundImage: `url(${item.img})`,
+        backgroundImage: `url(${imgSrc(item.img, { w: 1600, q: 78 })})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         opacity: fading ? 0 : 1,
@@ -753,7 +754,7 @@ function DesignedSection() {
               style={{ position: 'relative', borderRadius: 4, overflow: 'hidden' }}
             >
               <img
-                src={card.img}
+                src={imgSrc(card.img, { w: 800, q: 78 })}
                 alt={card.label}
                 style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
               />
@@ -1298,7 +1299,7 @@ function B2BSection() {
         {/* Photo */}
         <div style={{ borderRadius: 4, overflow: 'hidden', marginBottom: 48 }}>
           <img
-            src="/api/storage/3544/12.png"
+            src={imgSrc('/api/storage/3544/12.png', { w: 1200, q: 78 })}
             alt="Interested in bringing ECHO to your business?"
             style={{ width: '100%', display: 'block', objectFit: 'cover' }}
           />
@@ -1498,7 +1499,7 @@ function FooterCTA() {
   return (
     <section style={{
       position: 'relative',
-      backgroundImage: 'url(/api/storage/3485/jvl-echo-bartop-arcade-machine-office.jpg)',
+      backgroundImage: `url(${imgSrc('/api/storage/3485/jvl-echo-bartop-arcade-machine-office.jpg', { w: 1920, q: 78 })})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       padding: '80px 0',
