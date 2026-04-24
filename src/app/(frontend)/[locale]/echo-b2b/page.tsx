@@ -119,7 +119,7 @@ export default async function EchoB2bPage() {
       name: 'JVL Echo Amusement — Commercial Tabletop Arcade',
       description: 'Free Play and commercial-grade tabletop arcade machine engineered for bars, lounges, and amusement venues.',
       price: process.env.ECHO_PRICE_B2B ?? '4250',
-      priceCurrency: process.env.ECHO_PRICE_CURRENCY ?? 'CAD',
+      priceCurrency: process.env.ECHO_PRICE_CURRENCY ?? 'USD',
     }),
   ])
 

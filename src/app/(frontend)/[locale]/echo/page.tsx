@@ -67,7 +67,7 @@ export default async function EchoPage() {
       description: 'Premium countertop arcade machine for home and business with 149 built-in games and HD touchscreen.',
       image: `${BASE_URL}/api/storage/3522/194.jpg`,
       price: process.env.ECHO_PRICE_B2C ?? '3990',
-      priceCurrency: process.env.ECHO_PRICE_CURRENCY ?? 'CAD',
+      priceCurrency: process.env.ECHO_PRICE_CURRENCY ?? 'USD',
     }),
   ])
 

@@ -161,7 +161,7 @@ export function buildProduct({
   description,
   image,
   price = '3990',
-  priceCurrency = 'CAD',
+  priceCurrency = 'USD',
 }: {
   url: string
   name: string
