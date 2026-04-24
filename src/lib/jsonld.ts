@@ -108,6 +108,12 @@ export function buildVideoGame({
     image: image ?? DEFAULT_OG_IMAGE,
     applicationCategory: 'ArcadeGame',
     isAccessibleForFree: true,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+      availability: 'https://schema.org/InStock',
+    },
     publisher: { '@id': ORG_ID },
     ...(playUrl
       ? {
@@ -154,11 +160,15 @@ export function buildProduct({
   name,
   description,
   image,
+  price = '3990',
+  priceCurrency = 'CAD',
 }: {
   url: string
   name: string
   description?: string | null
   image?: string | null
+  price?: string
+  priceCurrency?: string
 }) {
   return {
     '@type': 'Product',
@@ -172,6 +182,13 @@ export function buildProduct({
       name: 'JVL',
     },
     manufacturer: { '@id': ORG_ID },
+    offers: {
+      '@type': 'Offer',
+      price,
+      priceCurrency,
+      availability: 'https://schema.org/InStock',
+      url: 'https://www.amazon.com/dp/B0D7KQNLNC',
+    },
   }
 }
 
