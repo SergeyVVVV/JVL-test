@@ -125,13 +125,14 @@ function Hero({ data }: { data: PageData['hero'] }) {
             </button>
           </div>
 
-          {/* CTA */}
+          {/* CTA — fires echo_hero_buy (GTM also fires wg_go_to_amazon via Amazon link trigger) */}
           <a
             href={data.buttonUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-amazon"
             style={{ padding: '14px 28px', textTransform: 'uppercase' }}
+            data-ga-event="echo_hero_buy"
           >
             {data.buttonText}
             <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -552,6 +553,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
                 rel="noopener noreferrer"
                 className="btn-amazon"
                 style={{ padding: '14px 28px', textTransform: 'uppercase', whiteSpace: 'nowrap' }}
+                data-ga-event="echo_purchase_buy"
               >
                 Buy on Amazon
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -737,6 +739,7 @@ function DesignedSection() {
             target="_blank" rel="noopener noreferrer"
             className="btn-amazon"
             style={{ padding: '11px 22px', whiteSpace: 'nowrap' }}
+            data-ga-event="echo_major_features_buy"
           >
             Explore on Amazon
             <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -1113,6 +1116,7 @@ function SpecsSection() {
               target="_blank" rel="noopener noreferrer"
               className="btn-amazon"
               style={{ padding: '10px 20px', whiteSpace: 'nowrap' }}
+              data-ga-event="echo_minor_features_buy"
             >
               Buy on Amazon
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
@@ -1255,7 +1259,7 @@ function SupportSection() {
             <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: 0 }}>
               Buy securely through Amazon with official JVL warranty and North American support. Fast delivery, verified authenticity, and peace of mind included.
             </p>
-            <a href="/en/contact-us" className="btn-amazon" style={{ padding: '10px 20px', whiteSpace: 'nowrap' }}>
+            <a href="/en/contact-us" className="btn-amazon" style={{ padding: '10px 20px', whiteSpace: 'nowrap' }} data-ga-event="echo_support_contact">
               Contact Us!
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
                 <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
