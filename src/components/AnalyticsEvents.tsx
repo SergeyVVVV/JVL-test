@@ -50,21 +50,25 @@ export default function AnalyticsEvents() {
     document.addEventListener('click', onClick, { capture: true })
 
     // ─── Scroll-into-view events via data-ga-block-view ──────────────
+    // Matches the GTM-MXFJV2DZ built-in block-view tag: fires as
+    //   { event: 'block_view', block_name: <attribute value> }
+    // on 50% visibility, once per element per page.
     const seen = new WeakSet<Element>()
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (!entry.isIntersecting) continue
+          if (entry.intersectionRatio < 0.5) continue
           if (seen.has(entry.target)) continue
           seen.add(entry.target)
 
           const el = entry.target as HTMLElement
-          const eventName = el.dataset.gaBlockView
-          if (eventName) trackEvent(eventName)
+          const blockName = el.dataset.gaBlockView
+          if (blockName) trackEvent('block_view', { block_name: blockName })
           observer.unobserve(entry.target)
         }
       },
-      { threshold: 0.3 }
+      { threshold: 0.5 }
     )
 
     // Observe existing + any that mount later (MutationObserver for SPA)

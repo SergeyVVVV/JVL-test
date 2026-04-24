@@ -337,7 +337,7 @@ function LegacySection() {
 
 function CountertopSection({ data }: { data: PageData['countertop'] }) {
   return (
-    <section className="echo-countertop-section" style={{ background: '#F4F3EC', padding: '80px 0' }}>
+    <section className="echo-countertop-section" data-ga-block-view="echo_scroll_superiority" style={{ background: '#F4F3EC', padding: '80px 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
         {/* Eyebrow */}
         <p style={{ textAlign: 'center', fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 12px' }}>
@@ -467,7 +467,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
   const active = TABS[tab]
 
   return (
-    <section className="echo-product-section" style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
+    <section className="echo-product-section" data-ga-block-view="echo_scroll_purchase" style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
         {/* Heading */}
         <h2 style={{
@@ -622,7 +622,7 @@ function UseCasesSection() {
   const item = USE_CASES[displayed]
 
   return (
-    <section className="echo-uc-section" style={{ position: 'relative', width: '100%', height: 'clamp(500px, 75vh, 70vw)', overflow: 'hidden' }}>
+    <section className="echo-uc-section" data-ga-block-view="echo_scroll_lifestyle" style={{ position: 'relative', width: '100%', height: 'clamp(500px, 75vh, 70vw)', overflow: 'hidden' }}>
       {/* Background image with fade */}
       <div style={{
         position: 'absolute', inset: 0,
@@ -690,7 +690,7 @@ const DESIGN_CARDS = [
 
 function DesignedSection() {
   return (
-    <section className="echo-designed-section" style={{ background: '#fff', padding: '80px 0' }}>
+    <section className="echo-designed-section" data-ga-block-view="echo_scroll_major_features" style={{ background: '#fff', padding: '80px 0' }}>
       <style>{`
         .ds-grid {
           display: grid;
@@ -898,7 +898,7 @@ function GamesSection() {
   }
 
   return (
-    <section className="echo-games-section" style={{ background: '#F4F3EC', padding: '80px 0' }}>
+    <section className="echo-games-section" data-ga-block-view="echo_scroll_games" style={{ background: '#F4F3EC', padding: '80px 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
         {/* Heading */}
@@ -1292,7 +1292,7 @@ function SupportSection() {
 
 function B2BSection() {
   return (
-    <section className="echo-b2b-section" style={{ background: '#F4F3EC', padding: '80px 0 96px' }}>
+    <section className="echo-b2b-section" data-ga-block-view="echo_scroll_business" style={{ background: '#F4F3EC', padding: '80px 0 96px' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
         {/* B2B icon */}
