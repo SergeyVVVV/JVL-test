@@ -77,10 +77,28 @@ function StateDropdown({ value, onChange }: { value: string; onChange: (v: strin
 }
 
 /* ── Disclaimer / How to Find SN toggles ────────────────────────────────── */
-function Expandable({ title, children }: { title: string; children: React.ReactNode }) {
+function Expandable({
+  title,
+  children,
+  align = 'left',
+}: {
+  title: string
+  children: React.ReactNode
+  align?: 'left' | 'right'
+}) {
   const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const h = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    document.addEventListener('mousedown', h)
+    return () => document.removeEventListener('mousedown', h)
+  }, [])
+
   return (
-    <div style={{ marginBottom: 8 }}>
+    <div ref={ref} style={{ position: 'relative', flexShrink: 0 }}>
       <button
         type="button"
         onClick={() => setOpen(o => !o)}
@@ -88,7 +106,7 @@ function Expandable({ title, children }: { title: string; children: React.ReactN
           background: 'none', border: '1px solid rgba(244,243,236,0.2)',
           borderRadius: 4, padding: '9px 16px', cursor: 'pointer',
           fontSize: 15, fontWeight: 600, color: 'rgba(244,243,236,0.65)',
-          display: 'flex', alignItems: 'center', gap: 8,
+          display: 'flex', alignItems: 'center', gap: 8, whiteSpace: 'nowrap',
           transition: 'border-color 0.18s, color 0.18s',
         }}
       >
@@ -100,8 +118,14 @@ function Expandable({ title, children }: { title: string; children: React.ReactN
       </button>
       {open && (
         <div style={{
-          marginTop: 8, padding: '16px 20px',
-          background: '#101213', border: '1px solid #252729', borderRadius: 4,
+          position: 'absolute',
+          top: 'calc(100% + 6px)',
+          ...(align === 'right' ? { right: 0 } : { left: 0 }),
+          zIndex: 300,
+          width: 'min(380px, 90vw)',
+          padding: '16px 20px',
+          background: '#181a1b', border: '1px solid #2a2c2e', borderRadius: 4,
+          boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
           fontSize: 14, color: 'rgba(244,243,236,0.72)', lineHeight: 1.7,
         }}>
           {children}
@@ -272,7 +296,7 @@ export default function WarrantyForm() {
           <div style={{ marginBottom: 28 }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
               <Label required>Serial Number</Label>
-              <Expandable title="How to find it?">
+              <Expandable title="How to find it?" align="right">
                 <ol style={{ margin: 0, paddingLeft: 18 }}>
                   <li style={{ marginBottom: 6 }}>Check for a metallic sticker near the bottom of your unit, on either the left or right side.</li>
                   <li style={{ marginBottom: 6 }}>The label will display &quot;Serial No.&quot; or &quot;S/N&quot; followed by a sequence of numbers.</li>
@@ -323,7 +347,7 @@ export default function WarrantyForm() {
           </div>
 
           {/* Footer row */}
-          <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+          <div style={{ display: 'flex', gap: 12, justifyContent: 'space-between', alignItems: 'center' }}>
             <Expandable title="Warranty Disclaimer">
               <h5 style={{ color: '#F4F3EC', margin: '0 0 8px' }}>Warranty Period:</h5>
               <p style={{ margin: '0 0 12px' }}>One (1) year for the machine/parts and one (1) year for the touchscreen from the date of original purchase. Proof of purchase required.</p>
