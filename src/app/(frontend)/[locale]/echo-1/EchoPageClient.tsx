@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Component, useEffect, useRef, useState } from 'react'
 import { imgSrc } from '@/lib/imgSrc'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -425,37 +425,85 @@ function Icon({ type }: { type: string }) {
 
 // ─── 3D Model Viewer ─────────────────────────────────────────────────────────
 
+const MODEL_POSTER = '/api/storage/3372/echo_3d_01.jpg'
+
+class ModelViewerErrorBoundary extends Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false }
+  }
+  static getDerivedStateFromError() {
+    return { hasError: true }
+  }
+  render() {
+    if (this.state.hasError) {
+      return (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={MODEL_POSTER}
+          alt="JVL Echo HD3"
+          style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+        />
+      )
+    }
+    return this.props.children
+  }
+}
+
 function ModelViewer3D() {
   const containerRef = useRef<HTMLDivElement>(null)
+  const [failed, setFailed] = useState(false)
 
   useEffect(() => {
-    // Inject model-viewer script once
+    // Inject model-viewer script once; fall back if Google CDN is blocked
     const scriptId = 'model-viewer-script'
     if (!document.getElementById(scriptId)) {
       const script = document.createElement('script')
       script.id = scriptId
       script.type = 'module'
       script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js'
+      script.onerror = () => setFailed(true)
       document.head.appendChild(script)
     }
 
+    if (!containerRef.current) return
+
     // Create element via innerHTML so boolean attrs like camera-controls are correct
-    if (containerRef.current) {
-      containerRef.current.innerHTML = `
-        <model-viewer
-          src="/api/storage/3486/3.glb"
-          poster="/api/storage/3372/echo_3d_01.jpg"
-          alt="JVL Echo HD3"
-          ar-modes="webxr scene-viewer quick-look"
-          camera-controls
-          tone-mapping="neutral"
-          shadow-intensity="1"
-          environment-image="legacy"
-          style="width:100%;height:100%;background:transparent;"
-        ></model-viewer>
-      `
+    containerRef.current.innerHTML = `
+      <model-viewer
+        src="/api/storage/3486/3.glb"
+        poster="${MODEL_POSTER}"
+        alt="JVL Echo HD3"
+        loading="lazy"
+        reveal="auto"
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        tone-mapping="neutral"
+        shadow-intensity="1"
+        environment-image="legacy"
+        style="width:100%;height:100%;background:transparent;"
+      ></model-viewer>
+    `
+
+    const mv = containerRef.current.querySelector('model-viewer')
+    if (mv) {
+      mv.addEventListener('error', () => setFailed(true))
     }
   }, [])
+
+  if (failed) {
+    return (
+      // eslint-disable-next-line @next/next/no-img-element
+      <img
+        src={MODEL_POSTER}
+        alt="JVL Echo HD3"
+        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
+      />
+    )
+  }
 
   return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
 }
@@ -498,7 +546,9 @@ function ProductSection({ data }: { data: PageData['product'] }) {
             }}>
               <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', color: '#101213' }}>3D</span>
             </div>
-            <ModelViewer3D />
+            <ModelViewerErrorBoundary>
+              <ModelViewer3D />
+            </ModelViewerErrorBoundary>
           </div>
 
           {/* Details */}
