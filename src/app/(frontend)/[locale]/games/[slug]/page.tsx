@@ -11,7 +11,7 @@ import GameScreensCarousel from '@/components/GameScreensCarousel'
 import GameFeatures from '@/components/GameFeatures'
 import GameCard from '@/components/GameCard'
 import JsonLd from '@/components/JsonLd'
-import { buildBreadcrumb, buildVideoGame, buildGraph } from '@/lib/jsonld'
+import { buildBreadcrumb, buildGraph } from '@/lib/jsonld'
 import { BASE_URL } from '@/lib/seo'
 
 export const dynamic = 'force-dynamic'
@@ -55,14 +55,8 @@ export default async function GameDetailPage({
       { name: 'Games', item: `${BASE_URL}/en/games` },
       { name: game.title ?? '', item: pageUrl },
     ]),
-    buildVideoGame({
-      url: pageUrl,
-      title: game.title ?? '',
-      description: game.metaDescription ?? game.description,
-      genre: game.themes[0] ?? null,
-      image: game.horizontalImage ?? game.squareImage ?? game.verticalImage,
-      playUrl: game.playUrl,
-    }),
+    // VideoGame/SoftwareApp schema removed — slot games don't benefit from it
+    // and it caused aggregateRating/review validation errors with no fix available.
   ])
 
   // Parse RTP lines
