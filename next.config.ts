@@ -26,6 +26,12 @@ const nextConfig: NextConfig = {
         destination: '/:locale/games?page=:num',
         permanent: true,
       },
+      // Partners page hidden — redirect to homepage
+      {
+        source: '/:locale/partners',
+        destination: '/:locale',
+        permanent: true,
+      },
     ]
   },
 }

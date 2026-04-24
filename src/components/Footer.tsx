@@ -12,7 +12,6 @@ const footerLinks = {
   Company: [
     { label: 'News', href: '/en/blog-and-news' },
     { label: 'About JVL', href: '/en/about-jvl' },
-    { label: 'Partners', href: '/en/partners' },
     { label: 'Contact Us', href: '/en/contact-us' },
   ],
   Support: [
