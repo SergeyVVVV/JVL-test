@@ -91,7 +91,7 @@ export async function generateMetadata({ params }: PageProps) {
   const article = await getNewsArticleBySlug(slug, locale)
   if (!article) return { title: 'Article not found — JVL' }
   const title = article.metaTitle ?? `${article.title ?? 'JVL Blog'} — JVL`
-  const description = article.metaDescription ?? article.description ?? ''
+  const description = article.metaDescription ?? article.description ?? extractExcerpt(article.content1) ?? ''
   const ogImage = article.heroImage ? `${BASE_URL}${article.heroImage}` : null
   return buildMeta({
     title,
