@@ -120,6 +120,7 @@ export default async function EchoB2bPage() {
       description: 'Free Play and commercial-grade tabletop arcade machine engineered for bars, lounges, and amusement venues.',
       price: process.env.ECHO_PRICE_B2B ?? '4250',
       priceCurrency: process.env.ECHO_PRICE_CURRENCY ?? 'USD',
+      offerUrl: 'https://www.amazon.com/JVL-Operated-Touchscreen-Machine-Business/dp/B0FHWY5P1L?maas=maas_adg_D7235AE0727233DF666BF751400C1557_afap_abs&ref_=aa_maas&tag=maas',
     }),
   ])
 

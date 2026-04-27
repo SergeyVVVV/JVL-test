@@ -813,7 +813,7 @@ function DesignedSection() {
             </p>
           </div>
           <a
-            href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
+            href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D?maas=maas_adg_3E0066E64D67202DECABE629027A7FD0_afap_abs&ref_=aa_maas&tag=maas"
             target="_blank" rel="noopener noreferrer"
             className="btn-amazon"
             style={{ padding: '11px 22px', whiteSpace: 'nowrap' }}
@@ -1190,7 +1190,7 @@ function SpecsSection() {
               Every detail refined. Every feature designed to deliver performance, beauty, and timeless play.
             </p>
             <a
-              href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D"
+              href="https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D?maas=maas_adg_3E0066E64D67202DECABE629027A7FD0_afap_abs&ref_=aa_maas&tag=maas"
               target="_blank" rel="noopener noreferrer"
               className="btn-amazon"
               style={{ padding: '10px 20px', whiteSpace: 'nowrap' }}

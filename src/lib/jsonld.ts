@@ -162,6 +162,7 @@ export function buildProduct({
   image,
   price = '3990',
   priceCurrency = 'USD',
+  offerUrl,
 }: {
   url: string
   name: string
@@ -169,6 +170,7 @@ export function buildProduct({
   image?: string | null
   price?: string
   priceCurrency?: string
+  offerUrl?: string
 }) {
   return {
     '@type': 'Product',
@@ -187,7 +189,7 @@ export function buildProduct({
       price,
       priceCurrency,
       availability: 'https://schema.org/InStock',
-      url: 'https://www.amazon.com/dp/B0D7KQNLNC',
+      ...(offerUrl ? { url: offerUrl } : {}),
     },
   }
 }

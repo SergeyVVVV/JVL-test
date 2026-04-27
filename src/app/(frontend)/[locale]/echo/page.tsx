@@ -68,6 +68,7 @@ export default async function EchoPage() {
       image: `${BASE_URL}/api/storage/3522/194.jpg`,
       price: process.env.ECHO_PRICE_B2C ?? '3990',
       priceCurrency: process.env.ECHO_PRICE_CURRENCY ?? 'USD',
+      offerUrl: 'https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D?maas=maas_adg_3E0066E64D67202DECABE629027A7FD0_afap_abs&ref_=aa_maas&tag=maas',
     }),
   ])
 

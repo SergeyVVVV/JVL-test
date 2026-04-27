@@ -18,7 +18,7 @@ interface PageData {
   product: { title: string; image: string | null; buttonText: string; buttonUrl: string }
 }
 
-const AMAZON_URL = 'https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D'
+const AMAZON_URL = 'https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D?maas=maas_adg_3E0066E64D67202DECABE629027A7FD0_afap_abs&ref_=aa_maas&tag=maas'
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 
