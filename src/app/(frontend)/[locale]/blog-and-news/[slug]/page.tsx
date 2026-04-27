@@ -71,6 +71,42 @@ function extractTOC(html: string): TOCItem[] {
   return toc
 }
 
+/**
+ * Rewrite legacy Laravel image URLs in article HTML to the new /api/storage/ format.
+ * Handles two patterns:
+ *   1. https://www.jvl.ca/image-transform/storage/width=W,format=F,quality=Q/ID/file.ext
+ *   2. https://www.jvl.ca/storage/ID/file.ext  (plain storage, no transform)
+ */
+function rewriteImageUrls(html: string | null): string | null {
+  if (!html) return null
+
+  // Pattern 1: full transform URL with params
+  let out = html.replace(
+    /https?:\/\/(?:www\.)?jvl\.ca\/image-transform\/storage\/([^/"'\s]+)\/(\d+)\/([^"'\s<>]+)/g,
+    (_, params, id, file) => {
+      const sp = new URLSearchParams()
+      for (const part of params.split(',')) {
+        const [key, val] = part.split('=')
+        if (!key || !val) continue
+        if (key === 'width')   sp.set('w', val)
+        if (key === 'height')  sp.set('h', val)
+        if (key === 'format')  sp.set('f', val)
+        if (key === 'quality') sp.set('q', val)
+      }
+      const qs = sp.toString()
+      return `/api/storage/${id}/${file}${qs ? `?${qs}` : ''}`
+    }
+  )
+
+  // Pattern 2: plain /storage/ID/file (no transform params)
+  out = out.replace(
+    /https?:\/\/(?:www\.)?jvl\.ca\/storage\/(\d+)\/([^"'\s<>]+)/g,
+    (_, id, file) => `/api/storage/${id}/${file}`
+  )
+
+  return out
+}
+
 function injectHeadingIds(html: string | null): string | null {
   if (!html) return null
   const seen = new Map<string, number>()
@@ -116,8 +152,8 @@ export default async function BlogArticlePage({ params }: PageProps) {
   const combinedHtml = (article.content1 ?? '') + (article.content2 ?? '')
   const readTime = calculateReadTime(combinedHtml)
   const toc = extractTOC(combinedHtml)
-  const content1 = injectHeadingIds(article.content1)
-  const content2 = injectHeadingIds(article.content2)
+  const content1 = injectHeadingIds(rewriteImageUrls(article.content1))
+  const content2 = injectHeadingIds(rewriteImageUrls(article.content2))
 
   // Lead text: description from DB or first paragraph of content
   const leadText = article.description || extractExcerpt(article.content1)
