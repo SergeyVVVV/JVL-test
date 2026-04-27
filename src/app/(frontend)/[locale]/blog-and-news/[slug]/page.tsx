@@ -7,7 +7,7 @@ import NewsCard from '@/components/NewsCard'
 import JsonLd from '@/components/JsonLd'
 import { buildBreadcrumb, buildBlogPosting, buildGraph } from '@/lib/jsonld'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600 // re-render at most once per hour
 
 interface PageProps {
   params: Promise<{ locale: string; slug: string }>
