@@ -1818,7 +1818,7 @@ export default function EchoPageClient({ data }: { data: PageData }) {
         }
 
         /* ── Price + CTA row ── */
-        .echo-price-cta { display: flex; align-items: center; gap: 24px; margin: 24px 0 16px; }
+        .echo-price-cta { display: flex; align-items: center; gap: 24px; margin: 24px 0 16px; justify-content: flex-end; }
         @media (max-width: 767px) {
           .echo-price-cta { gap: 12px; justify-content: space-between; margin: 20px 0 12px; }
           .echo-price-val { font-size: 26px !important; }

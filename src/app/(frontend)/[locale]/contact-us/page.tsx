@@ -57,7 +57,7 @@ export default function ContactUsPage() {
         </p>
 
         {/* Form section */}
-        <div>
+        <div style={{ maxWidth: 816, margin: '0 auto' }}>
           <p style={{
             fontSize: 18, fontWeight: 600, color: '#F4F3EC',
             margin: '0 0 32px',
