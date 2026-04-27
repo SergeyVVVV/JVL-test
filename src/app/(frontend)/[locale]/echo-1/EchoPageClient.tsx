@@ -455,25 +455,14 @@ class ModelViewerErrorBoundary extends Component<
 
 function ModelViewer3D() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [failed, setFailed] = useState(false)
-  const [visible, setVisible] = useState(false)
+  const [failed, setFailed]     = useState(false)
+  const [activated, setActivated] = useState(false)
 
-  // Only start loading when the section scrolls into view
-  useEffect(() => {
-    const el = containerRef.current
-    if (!el) return
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } },
-      { rootMargin: '200px' }
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [])
+  const activate = () => setActivated(true)
 
   useEffect(() => {
-    if (!visible || !containerRef.current) return
+    if (!activated || !containerRef.current) return
 
-    // Inject model-viewer script once; fall back if Google CDN is blocked
     const scriptId = 'model-viewer-script'
     if (!document.getElementById(scriptId)) {
       const script = document.createElement('script')
@@ -484,7 +473,6 @@ function ModelViewer3D() {
       document.head.appendChild(script)
     }
 
-    // Create element via innerHTML so boolean attrs like camera-controls are correct
     containerRef.current.innerHTML = `
       <model-viewer
         src="/api/storage/3486/3.glb"
@@ -502,10 +490,8 @@ function ModelViewer3D() {
     `
 
     const mv = containerRef.current.querySelector('model-viewer')
-    if (mv) {
-      mv.addEventListener('error', () => setFailed(true))
-    }
-  }, [visible])
+    if (mv) mv.addEventListener('error', () => setFailed(true))
+  }, [activated])
 
   if (failed) {
     return (
@@ -515,6 +501,37 @@ function ModelViewer3D() {
         alt="JVL Echo HD3"
         style={{ width: '100%', height: '100%', objectFit: 'contain' }}
       />
+    )
+  }
+
+  if (!activated) {
+    return (
+      <div
+        onClick={activate}
+        style={{ position: 'relative', width: '100%', height: '100%', cursor: 'pointer' }}
+      >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={MODEL_POSTER}
+          alt="JVL Echo HD3"
+          style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+        />
+        {/* 3D badge */}
+        <div style={{
+          position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)',
+          display: 'flex', alignItems: 'center', gap: 8,
+          background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(8px)',
+          border: '1px solid rgba(255,255,255,0.18)',
+          borderRadius: 40, padding: '8px 18px',
+          color: '#fff', fontSize: 13, fontWeight: 600, letterSpacing: '0.04em',
+          userSelect: 'none',
+        }}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+          View in 3D
+        </div>
+      </div>
     )
   }
 
