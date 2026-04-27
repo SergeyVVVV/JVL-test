@@ -455,13 +455,11 @@ class ModelViewerErrorBoundary extends Component<
 
 function ModelViewer3D() {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [failed, setFailed]     = useState(false)
-  const [activated, setActivated] = useState(false)
-
-  const activate = () => setActivated(true)
+  const [failed, setFailed]   = useState(false)
+  const [mode, setMode]       = useState<'2d' | '3d'>('2d')
 
   useEffect(() => {
-    if (!activated || !containerRef.current) return
+    if (mode !== '3d' || !containerRef.current) return
 
     const scriptId = 'model-viewer-script'
     if (!document.getElementById(scriptId)) {
@@ -491,51 +489,61 @@ function ModelViewer3D() {
 
     const mv = containerRef.current.querySelector('model-viewer')
     if (mv) mv.addEventListener('error', () => setFailed(true))
-  }, [activated])
+  }, [mode])
 
-  if (failed) {
-    return (
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={MODEL_POSTER}
-        alt="JVL Echo HD3"
-        style={{ width: '100%', height: '100%', objectFit: 'contain' }}
-      />
-    )
-  }
+  const showPoster = mode === '2d' || failed
 
-  if (!activated) {
-    return (
-      <div
-        onClick={activate}
-        style={{ position: 'relative', width: '100%', height: '100%', cursor: 'pointer' }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={MODEL_POSTER}
-          alt="JVL Echo HD3"
-          style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
-        />
-        {/* 3D badge */}
-        <div style={{
-          position: 'absolute', bottom: 16, left: '50%', transform: 'translateX(-50%)',
-          display: 'flex', alignItems: 'center', gap: 8,
-          background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(8px)',
-          border: '1px solid rgba(255,255,255,0.18)',
-          borderRadius: 40, padding: '8px 18px',
-          color: '#fff', fontSize: 13, fontWeight: 600, letterSpacing: '0.04em',
-          userSelect: 'none',
-        }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
-          </svg>
-          View in 3D
-        </div>
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+      {/* Toggle */}
+      <div style={{
+        display: 'flex', alignItems: 'center', gap: 4,
+        background: '#E8E6DE', borderRadius: 8, padding: 4,
+        width: 'fit-content', marginBottom: 12, alignSelf: 'flex-start',
+      }}>
+        {(['2d', '3d'] as const).map((m) => {
+          const isActive = mode === m && !failed
+          return (
+            <button
+              key={m}
+              onClick={() => setMode(m)}
+              style={{
+                background: isActive ? '#fff' : 'transparent',
+                border: 'none',
+                borderRadius: 6,
+                padding: '5px 16px',
+                fontSize: 13,
+                fontWeight: 600,
+                letterSpacing: '0.04em',
+                color: isActive ? '#101213' : 'rgba(16,18,19,0.45)',
+                cursor: isActive ? 'default' : 'pointer',
+                transition: 'all 0.18s ease',
+                boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.12)' : 'none',
+                userSelect: 'none',
+                textTransform: 'uppercase',
+              }}
+            >
+              {m}
+            </button>
+          )
+        })}
       </div>
-    )
-  }
 
-  return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+      {/* Viewer */}
+      <div style={{ flex: 1, minHeight: 0 }}>
+        {showPoster ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={MODEL_POSTER}
+            alt="JVL Echo HD3"
+            style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }}
+          />
+        ) : (
+          <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+        )}
+      </div>
+    </div>
+  )
 }
 
 // ─── Product Section ──────────────────────────────────────────────────────────
@@ -565,17 +573,7 @@ function ProductSection({ data }: { data: PageData['product'] }) {
         {/* Two columns */}
         <div className="echo-product-grid">
           {/* 3D Model Viewer */}
-          <div style={{ position: 'relative', width: '100%', aspectRatio: '1 / 1' }}>
-            {/* 3D badge */}
-            <div style={{
-              position: 'absolute', top: 16, left: 16, zIndex: 2,
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              width: 44, height: 44, borderRadius: '50%',
-              border: '1.5px solid #C8C5BC',
-              background: 'rgba(244,243,236,0.9)',
-            }}>
-              <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', color: '#101213' }}>3D</span>
-            </div>
+          <div style={{ width: '100%', aspectRatio: '1 / 1', display: 'flex', flexDirection: 'column' }}>
             <ModelViewerErrorBoundary>
               <ModelViewer3D />
             </ModelViewerErrorBoundary>
