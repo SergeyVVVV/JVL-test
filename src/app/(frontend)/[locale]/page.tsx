@@ -85,7 +85,7 @@ export default async function HomePage() {
         /* ── Hero ── */
         #home-page .hp-hero { height: calc(100svh - 72px); min-height: 520px; }
         @media (max-width: 767px) {
-          #home-page .hp-hero { height: 65vh; min-height: 380px; }
+          #home-page .hp-hero { height: 100svh; min-height: 600px; }
           #home-page .hp-hero-h1 { font-size: clamp(1.25rem, 5vw, 1.75rem) !important; }
           #home-page .hp-hero-ctas { flex-direction: column; align-items: flex-start; }
         }

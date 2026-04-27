@@ -29,7 +29,10 @@ export default function EchoB2bHero({
     <>
     <style>{`
       .eb2b-hero { height: 100svh; min-height: 600px; }
-      @media (max-width: 767px) { .eb2b-hero { height: 75vh; min-height: 450px; } }
+      @media (max-width: 767px) {
+        .eb2b-hero { height: 100svh; min-height: 600px; }
+        .eb2b-hero .echo-hero-h1 { font-size: clamp(1.15rem, 5vw, 1.5rem) !important; line-height: 1.15 !important; }
+      }
     `}</style>
     <section className="echo-hero eb2b-hero" style={{
       position: 'relative', width: '100%', background: '#080a0b',
@@ -88,7 +91,7 @@ export default function EchoB2bHero({
         {subtitle && (
           <p style={{
             fontSize: 16, fontWeight: 300,
-            color: 'rgba(255,255,255,0.68)', margin: 0,
+            color: 'rgba(255,255,255,0.68)', margin: '10px 0 0',
             maxWidth: 520, lineHeight: 1.65,
           }}>
             {subtitle}

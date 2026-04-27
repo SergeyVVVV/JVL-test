@@ -131,6 +131,7 @@ export default async function EchoB2bPage() {
       {/* ── 1. Hero ── */}
       <EchoB2bHero
         title={heroTitle}
+        subtitle={heroSub}
         buttonText={heroBtnText}
         buttonUrl={heroBtnUrl}
         videoSrc={heroVideo}
