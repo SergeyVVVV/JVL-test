@@ -86,6 +86,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
           .hc-body { font-size: 14px !important; margin-bottom: 20px !important; }
           .hc-btn { padding: 11px 20px !important; font-size: 13px !important; }
           .hc-content { bottom: 72px !important; }
+          .hc-bg-img { object-position: center 65% !important; }
         }
       `}</style>
 
@@ -104,6 +105,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
               src={imgSrc(slide.bg, { w: 1920, q: 80 })}
               alt=""
               fetchPriority="high"
+              className="hc-bg-img"
               style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </picture>

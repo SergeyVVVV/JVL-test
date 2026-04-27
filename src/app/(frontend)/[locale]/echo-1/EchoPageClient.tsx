@@ -1806,7 +1806,7 @@ export default function EchoPageClient({ data }: { data: PageData }) {
         /* ── Hero ── */
         .echo-hero { height: calc(100svh - 124px); min-height: 520px; }
         @media (max-width: 767px) {
-          .echo-hero { height: 100svh; min-height: 600px; }
+          .echo-hero { height: calc(100svh - 72px); min-height: 520px; margin-top: -52px; }
           .echo-hero-h1 { font-size: clamp(1.15rem, 5vw, 1.5rem) !important; line-height: 1.15 !important; }
           .echo-hero-video { object-position: 70% center !important; }
           .echo-countertop-section { padding: 40px 0 !important; }
