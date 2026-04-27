@@ -456,8 +456,23 @@ class ModelViewerErrorBoundary extends Component<
 function ModelViewer3D() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [failed, setFailed] = useState(false)
+  const [visible, setVisible] = useState(false)
+
+  // Only start loading when the section scrolls into view
+  useEffect(() => {
+    const el = containerRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect() } },
+      { rootMargin: '200px' }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
+    if (!visible || !containerRef.current) return
+
     // Inject model-viewer script once; fall back if Google CDN is blocked
     const scriptId = 'model-viewer-script'
     if (!document.getElementById(scriptId)) {
@@ -469,15 +484,13 @@ function ModelViewer3D() {
       document.head.appendChild(script)
     }
 
-    if (!containerRef.current) return
-
     // Create element via innerHTML so boolean attrs like camera-controls are correct
     containerRef.current.innerHTML = `
       <model-viewer
         src="/api/storage/3486/3.glb"
         poster="${MODEL_POSTER}"
         alt="JVL Echo HD3"
-        loading="lazy"
+        loading="eager"
         reveal="auto"
         ar-modes="webxr scene-viewer quick-look"
         camera-controls
@@ -492,7 +505,7 @@ function ModelViewer3D() {
     if (mv) {
       mv.addEventListener('error', () => setFailed(true))
     }
-  }, [])
+  }, [visible])
 
   if (failed) {
     return (
