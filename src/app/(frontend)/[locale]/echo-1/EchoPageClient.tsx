@@ -390,7 +390,7 @@ const TABS = [
     heading: 'ECHO Touchscreen Countertop',
     subtitle: 'Free Play Home version, without Bill Validator and Quarters Acceptor',
     price: '$3,990',
-    amazonUrl: 'https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D',
+    amazonUrl: 'https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D?maas=maas_adg_3E0066E64D67202DECABE629027A7FD0_afap_abs&ref_=aa_maas&tag=maas',
     features: [
       { icon: 'shipping', text: 'FREE Prime Shipping' },
       { icon: 'return',   text: 'FREE 30-day refund/replacement' },
@@ -404,7 +404,7 @@ const TABS = [
     heading: 'ECHO for Commercial Spaces',
     subtitle: 'Bill Validator ($1, $5, $10, $20) and Quarters Acceptor included',
     price: '$4,250',
-    amazonUrl: 'https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/dp/B0DJ3BSJ4D',
+    amazonUrl: 'https://www.amazon.com/JVL-Operated-Touchscreen-Machine-Business/dp/B0FHWY5P1L?maas=maas_adg_D7235AE0727233DF666BF751400C1557_afap_abs&ref_=aa_maas&tag=maas',
     features: [
       { icon: 'shipping', text: 'FREE Prime Shipping' },
       { icon: 'return',   text: 'FREE 30-day refund/replacement' },
