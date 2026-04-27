@@ -300,7 +300,7 @@ export async function getNewsList(
        INNER JOIN pages p ON p.id = n.page_id
        LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
        WHERE n.active = 1 ${whereCategory} ${whereSearch}
-       ORDER BY n.published_at DESC
+       ORDER BY n.published_at DESC, n.id DESC
        LIMIT ${perPage} OFFSET ${offset}`,
       params
     )

@@ -94,45 +94,50 @@ export default function ArticleTOC({ items }: { items: TOCItem[] }) {
           Contents
         </p>
         <ul style={{ listStyle: 'none', margin: 0, padding: 0 }}>
-          {items.map((item, i) => {
-            const isActive = activeId === item.id
-            return (
-              <li key={item.id} style={{ margin: '2px 0' }}>
-                <a
-                  href={`#${item.id}`}
-                  onClick={(e) => handleClick(e, item.id)}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'flex-start',
-                    gap: 8,
-                    padding: '7px 10px',
-                    paddingLeft: item.level === 3 ? 22 : 10,
-                    fontSize: 14,
-                    fontWeight: isActive ? 600 : 400,
-                    color: isActive ? '#FB671F' : '#4B4B4B',
-                    textDecoration: 'none',
-                    borderRadius: 4,
-                    background: isActive ? 'rgba(251,103,31,0.07)' : 'transparent',
-                    lineHeight: 1.4,
-                    transition: 'color 0.15s, background 0.15s',
-                  }}
-                >
-                  <span style={{
-                    fontSize: 12,
-                    color: isActive ? '#FB671F' : '#B0AEA8',
-                    flexShrink: 0,
-                    width: 16,
-                    fontVariantNumeric: 'tabular-nums',
-                    paddingTop: 1,
-                    transition: 'color 0.15s',
-                  }}>
-                    {i + 1}
-                  </span>
-                  {item.text}
-                </a>
-              </li>
-            )
-          })}
+          {(() => {
+            let h2Counter = 0
+            return items.map((item) => {
+              const isActive = activeId === item.id
+              const isH3 = item.level === 3
+              if (!isH3) h2Counter++
+              return (
+                <li key={item.id} style={{ margin: '2px 0' }}>
+                  <a
+                    href={`#${item.id}`}
+                    onClick={(e) => handleClick(e, item.id)}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 8,
+                      padding: '7px 10px',
+                      paddingLeft: isH3 ? 30 : 10,
+                      fontSize: isH3 ? 13 : 14,
+                      fontWeight: isActive ? 600 : 400,
+                      color: isActive ? '#FB671F' : isH3 ? '#6B6B6B' : '#4B4B4B',
+                      textDecoration: 'none',
+                      borderRadius: 4,
+                      background: isActive ? 'rgba(251,103,31,0.07)' : 'transparent',
+                      lineHeight: 1.4,
+                      transition: 'color 0.15s, background 0.15s',
+                    }}
+                  >
+                    <span style={{
+                      fontSize: 12,
+                      color: isActive ? '#FB671F' : '#B0AEA8',
+                      flexShrink: 0,
+                      width: 16,
+                      fontVariantNumeric: 'tabular-nums',
+                      paddingTop: 1,
+                      transition: 'color 0.15s',
+                    }}>
+                      {isH3 ? '·' : h2Counter}
+                    </span>
+                    {item.text}
+                  </a>
+                </li>
+              )
+            })
+          })()}
         </ul>
       </div>
     </aside>
