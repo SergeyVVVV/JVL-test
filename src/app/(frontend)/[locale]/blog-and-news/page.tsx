@@ -289,7 +289,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
                     {(item.description || item.content1) && (
                       <p style={{
                         fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.55, margin: '0 0 10px',
-                        display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' as const,
+                        display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical' as const,
                         overflow: 'hidden',
                       }}>
                         {item.description || item.metaDescription || extractExcerpt(item.content1)}
