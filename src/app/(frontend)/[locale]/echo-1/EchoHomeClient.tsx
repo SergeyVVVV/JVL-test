@@ -96,17 +96,27 @@ function Hero({ data }: { data: PageData['hero'] }) {
             </button>
           </div>
 
-          {/* CTA */}
-          <a
-            href={data.buttonUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-amazon"
-            style={{ padding: '14px 28px', textTransform: 'uppercase' }}
-          >
-            {data.buttonText}
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </a>
+          {/* CTAs */}
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <a
+              href="/en/contact-us"
+              className="btn-amazon"
+              style={{ padding: '14px 28px', textTransform: 'uppercase' }}
+            >
+              Buy Directly from JVL
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </a>
+            <a
+              href={data.buttonUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline"
+              style={{ padding: '14px 28px' }}
+            >
+              {data.buttonText}
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>
