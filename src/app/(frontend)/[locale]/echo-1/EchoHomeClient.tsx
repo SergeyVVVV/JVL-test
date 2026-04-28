@@ -103,7 +103,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
               className="btn-amazon"
               style={{ padding: '14px 28px', textTransform: 'uppercase' }}
             >
-              Buy Directly from JVL
+              Buy from JVL
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
             </a>
             <a
@@ -287,7 +287,7 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
                   className="btn-amazon"
                   style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
                 >
-                  Buy Directly from JVL
+                  Buy from JVL
                   <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </a>
                 <a
@@ -794,15 +794,24 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             {/* Left: text */}
             <div>
               <Badge label="What ECHO is" />
-              <p style={{
+              <h2 style={{
                 fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)',
-                fontWeight: 300,
-                fontStyle: 'italic',
-                lineHeight: 1.45,
+                fontWeight: 700,
+                lineHeight: 1.2,
+                letterSpacing: '-0.01em',
                 color: '#F4F3EC',
+                margin: '0 0 20px 0',
+              }}>
+                The only arcade machine you need
+              </h2>
+              <p style={{
+                fontSize: 16,
+                fontWeight: 300,
+                lineHeight: 1.65,
+                color: 'rgba(244,243,236,0.65)',
                 margin: '0 0 40px 0',
               }}>
-                "A 22-inch touchscreen bartop arcade with 149 pre-installed games, built for the home — and the only one of its kind on the market."
+                Not a retro emulator box – a premium touchscreen countertop arcade built for home bars, shared play, and effortless nostalgia – with no setup, no internet, and no bulky cabinet.
               </p>
 
               <div className="echo-facts-grid">
@@ -1075,7 +1084,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 textDecoration: 'none',
               }}
             >
-              Buy Direct from JVL
+              Buy from JVL
             </a>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -1092,7 +1101,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             >
               <div className="echo-cta-expander-inner" style={{ background: 'rgba(8,10,11,0.1)', color: 'rgba(8,10,11,0.75)', marginTop: 12 }}>
                 <p><strong style={{ color: '#080a0b' }}>Buy on Amazon</strong> — familiar checkout, Prime shipping, and Amazon's full review base. Returns and basic support go through Amazon.</p>
-                <p><strong style={{ color: '#080a0b' }}>Buy Direct from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
+                <p><strong style={{ color: '#080a0b' }}>Buy from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
                 <p>Either way: same machine, same warranty, same price.</p>
               </div>
             </div>
@@ -1133,26 +1142,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             </div>
           </div>
 
-          {/* Video reviews */}
-          <div>
-            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px 0' }}>
-              Video reviews
-            </p>
-            <div className="echo-video-grid">
-              {videoReviews.map((v) => (
-                <div key={v.id} className="echo-video-item">
-                  <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${v.id}`}
-                    title={v.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    loading="lazy"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Main 2x2 reviews */}
           <div className="echo-reviews-grid">
             {mainReviews.map((r) => (
@@ -1164,9 +1153,17 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 display: 'flex',
                 flexDirection: 'column',
               }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px 0' }}>
-                  {r.tag}
-                </p>
+                <div style={{ margin: '0 0 16px 0' }}>
+                  {/^★/.test(r.tag) ? (
+                    <>
+                      <span style={{ fontSize: 15, color: '#FB671F' }}>{r.tag.match(/^(★+)/)?.[1]}</span>
+                      {' '}
+                      <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.3)' }}>{r.tag.replace(/^★+\s*/, '')}</span>
+                    </>
+                  ) : (
+                    <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F' }}>{r.tag}</span>
+                  )}
+                </div>
                 <p style={{ fontSize: 15, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.7, margin: '0 0 20px 0', flexGrow: 1 }}>
                   "{r.quote}"
                 </p>
@@ -1179,20 +1176,20 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                     }}>
                       {r.initials}
                     </div>
-                    <span style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)' }}>{r.author}</span>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(244,243,236,0.8)' }}>{r.author}</span>
                   </div>
                   <a
                     href={r.reviewUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                     style={{
-                      fontSize: 12, fontWeight: 600, color: 'rgba(244,243,236,0.35)',
-                      textDecoration: 'none', letterSpacing: '0.06em', textTransform: 'uppercase',
+                      fontSize: 12, fontWeight: 500, color: 'rgba(244,243,236,0.3)',
+                      textDecoration: 'none',
                       display: 'inline-flex', alignItems: 'center', gap: 4, flexShrink: 0,
                       transition: 'color 0.2s',
                     }}
                     onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.35)')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.3)')}
                   >
                     View review
                     <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -1233,9 +1230,17 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                   display: 'flex',
                   flexDirection: 'column',
                 }}>
-                  <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 12px 0' }}>
-                    {r.tag}
-                  </p>
+                  <div style={{ margin: '0 0 12px 0' }}>
+                    {/^★/.test(r.tag) ? (
+                      <>
+                        <span style={{ fontSize: 14, color: '#FB671F' }}>{r.tag.match(/^(★+)/)?.[1]}</span>
+                        {' '}
+                        <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.3)' }}>{r.tag.replace(/^★+\s*/, '')}</span>
+                      </>
+                    ) : (
+                      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F' }}>{r.tag}</span>
+                    )}
+                  </div>
                   <p style={{ fontSize: 14, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.65, margin: '0 0 14px 0', flexGrow: 1 }}>
                     "{r.quote}"
                   </p>
@@ -1248,15 +1253,15 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                       }}>
                         {r.initials}
                       </div>
-                      <span style={{ fontSize: 12, color: 'rgba(244,243,236,0.4)' }}>{r.author}</span>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(244,243,236,0.75)' }}>{r.author}</span>
                     </div>
                     <a
                       href={r.reviewUrl}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{
-                        fontSize: 11, fontWeight: 600, color: 'rgba(244,243,236,0.3)',
-                        textDecoration: 'none', letterSpacing: '0.06em', textTransform: 'uppercase',
+                        fontSize: 11, fontWeight: 500, color: 'rgba(244,243,236,0.3)',
+                        textDecoration: 'none',
                         display: 'inline-flex', alignItems: 'center', gap: 4, flexShrink: 0,
                         transition: 'color 0.2s',
                       }}
@@ -1271,6 +1276,26 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               ))}
             </div>
           )}
+
+          {/* Video reviews */}
+          <div style={{ marginTop: 56 }}>
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px 0' }}>
+              Video reviews
+            </p>
+            <div className="echo-video-grid">
+              {videoReviews.map((v) => (
+                <div key={v.id} className="echo-video-item">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${v.id}`}
+                    title={v.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -1399,7 +1424,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 textDecoration: 'none',
               }}
             >
-              Buy Direct from JVL
+              Buy from JVL
             </a>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -1416,7 +1441,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             >
               <div className="echo-cta-expander-inner" style={{ background: 'rgba(244,243,236,0.05)', border: '1px solid rgba(244,243,236,0.1)', color: 'rgba(244,243,236,0.65)', marginTop: 12 }}>
                 <p><strong style={{ color: '#F4F3EC' }}>Buy on Amazon</strong> — familiar checkout, Prime shipping, and Amazon's full review base. Returns and basic support go through Amazon.</p>
-                <p><strong style={{ color: '#F4F3EC' }}>Buy Direct from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
+                <p><strong style={{ color: '#F4F3EC' }}>Buy from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
                 <p>Either way: same machine, same warranty, same price.</p>
               </div>
             </div>
