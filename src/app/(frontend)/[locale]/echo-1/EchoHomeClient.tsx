@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Component, useEffect, useRef, useState } from 'react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -96,17 +96,27 @@ function Hero({ data }: { data: PageData['hero'] }) {
             </button>
           </div>
 
-          {/* CTA */}
-          <a
-            href={data.buttonUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-amazon"
-            style={{ padding: '14px 28px', textTransform: 'uppercase' }}
-          >
-            {data.buttonText}
-            <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-          </a>
+          {/* CTAs */}
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+            <a
+              href="/en/contact-us"
+              className="btn-amazon"
+              style={{ padding: '14px 28px', textTransform: 'uppercase' }}
+            >
+              Buy from JVL
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </a>
+            <a
+              href={data.buttonUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline"
+              style={{ padding: '14px 28px' }}
+            >
+              {data.buttonText}
+              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>
@@ -130,13 +140,189 @@ function Badge({ label }: { label: string }) {
   )
 }
 
+// ─── Product Section (Home only, no tabs) ────────────────────────────────────
+
+const HOME_PRODUCT = {
+  heading: 'ECHO Touchscreen Countertop',
+  subtitle: 'Free Play Home version, without Bill Validator and Quarters Acceptor',
+  price: '$3,990',
+  features: [
+    { icon: 'shipping', text: 'FREE Prime Shipping' },
+    { icon: 'return',   text: 'FREE 30-day refund/replacement' },
+    { icon: 'finance',  text: 'Pay over time — up to 24 months, 0% APR' },
+    { icon: 'secure',   text: 'Secure Amazon checkout' },
+  ],
+}
+
+function Icon({ type }: { type: string }) {
+  const s = { width: 16, height: 16, flexShrink: 0, color: '#6B6B6B' } as React.CSSProperties
+  if (type === 'shipping') return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+  if (type === 'return')   return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+  if (type === 'finance')  return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+  if (type === 'secure')   return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+  return null
+}
+
+const MODEL_POSTER = '/api/storage/3372/echo_3d_01.jpg'
+
+class ModelViewerErrorBoundary extends Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false }
+  }
+  static getDerivedStateFromError() { return { hasError: true } }
+  render() {
+    if (this.state.hasError) {
+      // eslint-disable-next-line @next/next/no-img-element
+      return <img src={MODEL_POSTER} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+    }
+    return this.props.children
+  }
+}
+
+function ModelViewer3D() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [failed, setFailed] = useState(false)
+  const [mode, setMode] = useState<'2d' | '3d'>('2d')
+
+  useEffect(() => {
+    if (mode !== '3d' || !containerRef.current) return
+    const scriptId = 'model-viewer-script'
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement('script')
+      script.id = scriptId
+      script.type = 'module'
+      script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js'
+      script.onerror = () => setFailed(true)
+      document.head.appendChild(script)
+    }
+    containerRef.current.innerHTML = `
+      <model-viewer src="/api/storage/3486/3.glb" poster="${MODEL_POSTER}" alt="JVL Echo HD3"
+        loading="eager" reveal="auto" ar-modes="webxr scene-viewer quick-look"
+        camera-controls tone-mapping="neutral" shadow-intensity="1"
+        environment-image="legacy" style="width:100%;height:100%;background:transparent;">
+      </model-viewer>`
+    const mv = containerRef.current.querySelector('model-viewer')
+    if (mv) mv.addEventListener('error', () => setFailed(true))
+  }, [mode])
+
+  const showPoster = mode === '2d' || failed
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: '#E8E6DE', borderRadius: 8, padding: 4, width: 'fit-content', marginBottom: 12 }}>
+        {(['2d', '3d'] as const).map((m) => {
+          const isActive = mode === m && !failed
+          return (
+            <button key={m} onClick={() => setMode(m)} style={{
+              background: isActive ? '#fff' : 'transparent', border: 'none', borderRadius: 6,
+              padding: '5px 16px', fontSize: 13, fontWeight: 600, letterSpacing: '0.04em',
+              color: isActive ? '#101213' : 'rgba(16,18,19,0.45)', cursor: isActive ? 'default' : 'pointer',
+              transition: 'all 0.18s ease', boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.12)' : 'none',
+              userSelect: 'none', textTransform: 'uppercase',
+            }}>{m}</button>
+          )
+        })}
+      </div>
+      <div style={{ flex: 1, minHeight: 0 }}>
+        {showPoster
+          // eslint-disable-next-line @next/next/no-img-element
+          ? <img src={MODEL_POSTER} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
+          : <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+        }
+      </div>
+    </div>
+  )
+}
+
+function ProductSectionHome({ data }: { data: PageData['product'] }) {
+  return (
+    <section style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+        <h2 style={{
+          fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 600, textTransform: 'uppercase',
+          letterSpacing: '-0.02em', lineHeight: 1.1, color: '#101213',
+          textAlign: 'center', maxWidth: 840, margin: '0 auto 40px',
+        }}>
+          {data.title}
+        </h2>
+
+        <div className="echo-product-home-grid">
+          {/* Image / 3D viewer */}
+          <div style={{ width: '100%', aspectRatio: '1 / 1', display: 'flex', flexDirection: 'column' }}>
+            <ModelViewerErrorBoundary>
+              <ModelViewer3D />
+            </ModelViewerErrorBoundary>
+          </div>
+
+          {/* Details */}
+          <div>
+            <h3 style={{ fontSize: 'clamp(1.1rem, 1.8vw, 1.5rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.01em', color: '#101213', margin: '0 0 10px' }}>
+              {HOME_PRODUCT.heading}
+            </h3>
+            <p style={{ fontSize: 17, color: '#6B6B6B', marginBottom: 24, lineHeight: 1.6 }}>
+              {HOME_PRODUCT.subtitle}
+            </p>
+
+            <div style={{ borderTop: '1px solid #E0DDD4' }}>
+              {HOME_PRODUCT.features.map((f, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: '1px solid #E0DDD4' }}>
+                  <Icon type={f.icon} />
+                  <span style={{ fontSize: 17, color: '#4B4B4B' }}>{f.text}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Price + dual CTAs */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 28, gap: 16, flexWrap: 'wrap' }}>
+              <div style={{ fontSize: 36, fontWeight: 600, color: '#101213', flexShrink: 0 }}>
+                {HOME_PRODUCT.price}
+              </div>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <a
+                  href="/en/contact-us"
+                  className="btn-amazon"
+                  style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
+                >
+                  Buy from JVL
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
+                <a
+                  href={data.buttonUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 6,
+                    padding: '14px 24px', border: '2px solid #101213', borderRadius: 4,
+                    fontSize: 14, fontWeight: 700, letterSpacing: '0.06em',
+                    textTransform: 'uppercase', color: '#101213', textDecoration: 'none',
+                    whiteSpace: 'nowrap', transition: 'background 0.2s, color 0.2s',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = '#101213'; e.currentTarget.style.color = '#F4F3EC' }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#101213' }}
+                >
+                  Buy on Amazon
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function EchoHomeClient({ data }: { data: PageData }) {
-  // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null)
-  // Reviews expanded state
   const [reviewsExpanded, setReviewsExpanded] = useState(false)
+  const [ctaExpanded1, setCtaExpanded1] = useState(false)
+  const [ctaExpanded2, setCtaExpanded2] = useState(false)
 
   const wrap: React.CSSProperties = {
     maxWidth: 1200,
@@ -189,24 +375,68 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   // ─── Section 7 Reviews ──────────────────────────────────────────────────────
   const mainReviews = [
     {
+      tag: '★★★★★ Verified Amazon Purchase',
+      quote: 'This countertop game has been a big hit in my nightclub. It\'s on FreePlay — customers have a blast all night long.',
+      author: 'Leo G. · via Amazon',
+      initials: 'LG',
+      avatarColor: '#FB671F',
+      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+    },
+    {
+      tag: '★★★★★ Verified Amazon Purchase',
+      quote: 'Our family has had this arcade for 4 years already, we purchased it from JVL directly. Still going strong — amazing support from the team.',
+      author: 'Svetlana P. · via Amazon',
+      initials: 'SP',
+      avatarColor: '#E85D75',
+      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+    },
+    {
+      tag: '★★★★★ Verified Amazon Purchase',
+      quote: 'Got this arcade for my dad about a year ago directly from JVL. Happy I found it — my dad loves it!',
+      author: 'Olga V. · via Amazon',
+      initials: 'OV',
+      avatarColor: '#5CB85C',
+      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+    },
+    {
+      tag: '★★★★★ Verified Amazon Purchase',
+      quote: 'Man, I\'m so happy we decided to get the ECHO — this thing is awesome! Premium feel, amazing appearance, solid and sturdy. Worth every penny.',
+      author: 'FlowRider · via Amazon',
+      initials: 'FR',
+      avatarColor: '#4B6BFB',
+      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+    },
+    {
       tag: 'On setup & first use',
       quote: 'I had it on the counter and playing within ten minutes of opening the box. My kids didn\'t even let me finish reading the manual.',
       author: 'Tom R., Ontario',
+      initials: 'TR',
+      avatarColor: '#4B6BFB',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On game variety',
       quote: 'We thought we\'d get bored of the same games fast. Three months in and we\'re still finding ones we haven\'t tried. 149 is not a small number.',
       author: 'Linda H., British Columbia',
+      initials: 'LH',
+      avatarColor: '#E85D75',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On the two-player feature',
       quote: 'My mother-in-law who hasn\'t touched a video game in decades was playing card games on it within five minutes. The swivel base is genius.',
       author: 'Margaret S., Alberta',
+      initials: 'MS',
+      avatarColor: '#5CB85C',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On build quality',
       quote: 'It feels like proper equipment — not a toy. The screen is crisp, the sound is loud enough for a room, and nothing feels cheap about it.',
       author: 'Daniel P., Quebec',
+      initials: 'DP',
+      avatarColor: '#F0A500',
+      reviewUrl: AMAZON_URL,
     },
   ]
 
@@ -215,32 +445,57 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       tag: 'On the Adult category',
       quote: 'Love that you can lock it out with a physical key. The kids have no idea it exists.',
       author: 'Sarah M., Manitoba',
+      initials: 'SM',
+      avatarColor: '#9B59B6',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On long-term use',
       quote: 'Had it for over a year now. Still runs perfectly. Zero issues. Just plays.',
       author: 'James K., Nova Scotia',
+      initials: 'JK',
+      avatarColor: '#2EAEC9',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On gifting',
       quote: 'Bought it for my dad\'s retirement. He plays it every single day. Best gift I\'ve ever given.',
       author: 'Rachel T., Saskatchewan',
+      initials: 'RT',
+      avatarColor: '#E85D75',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On customer support',
       quote: 'Had a question about a setting — called JVL and a real person answered. That alone is worth a lot these days.',
       author: 'Frank D., New Brunswick',
+      initials: 'FD',
+      avatarColor: '#4B6BFB',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On touchscreen',
       quote: 'The touchscreen is incredibly responsive. My 7-year-old and my 72-year-old father both figured it out on their own.',
       author: 'Claire V., Prince Edward Island',
+      initials: 'CV',
+      avatarColor: '#5CB85C',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On value',
       quote: 'For what you get — 149 games, the build quality, the warranty — it\'s genuinely good value. Nothing else like it at this price.',
       author: 'Brian W., Newfoundland',
+      initials: 'BW',
+      avatarColor: '#F0A500',
+      reviewUrl: AMAZON_URL,
     },
+  ]
+
+  const videoReviews = [
+    { id: 'mMNDUyJehQI', title: 'ECHO HD3 Review' },
+    { id: 'GkeyO298gC0', title: 'ECHO HD3 Unboxing' },
+    { id: 'X2TVpAy7pFk', title: 'ECHO HD3 Gameplay' },
+    { id: '75kVKwk_o8k', title: 'ECHO HD3 Overview' },
   ]
 
   // ─── Section 9 FAQ ──────────────────────────────────────────────────────────
@@ -320,10 +575,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   ]
 
   return (
-    <>
+    <div style={{ marginTop: -52 }}>
       <style>{`
-        .echo-hero { min-height: 100vh; }
-        .echo-hero-video { min-height: 100vh; }
+        .echo-hero { height: calc(100vh - 72px); }
+        .echo-hero-video { height: 100%; }
 
         .echo-section-what { background: #101213; padding: 96px 0; }
         .echo-section-why { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
@@ -424,6 +679,20 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           margin-top: 48px;
         }
 
+        /* Video reviews grid */
+        .echo-video-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+          margin: 48px 0 56px;
+        }
+        .echo-video-item { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; background: #0d0f10; }
+        .echo-video-item iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+        @media (max-width: 680px) {
+          .echo-video-grid { grid-template-columns: 1fr; }
+        }
+
         /* CTA buttons row */
         .echo-cta-buttons {
           display: flex;
@@ -432,6 +701,35 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           flex-wrap: wrap;
           margin-top: 32px;
         }
+
+        /* CTA expander */
+        .echo-cta-expander-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-family: inherit;
+          font-size: 13px;
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          margin-top: 16px;
+          transition: opacity 0.2s;
+        }
+        .echo-cta-expander-btn:hover { opacity: 0.8; }
+        .echo-cta-expander-content {
+          overflow: hidden;
+          transition: max-height 0.35s ease;
+        }
+        .echo-cta-expander-inner {
+          max-width: 520px;
+          margin: 0 auto;
+          padding: 20px 24px;
+          border-radius: 4px;
+          text-align: left;
+          font-size: 14px;
+          line-height: 1.65;
+        }
+        .echo-cta-expander-inner p { margin: 0 0 10px 0; }
+        .echo-cta-expander-inner p:last-child { margin: 0; }
 
         /* FAQ */
         .echo-faq-item {
@@ -454,7 +752,16 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           transition: max-height 0.3s ease;
         }
 
+        /* Product section home grid */
+        .echo-product-home-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 72px;
+          align-items: start;
+        }
+
         @media (max-width: 900px) {
+          .echo-product-home-grid { grid-template-columns: 1fr; gap: 40px; }
           .echo-what-grid { grid-template-columns: 1fr; gap: 48px; }
           .echo-why-grid { grid-template-columns: 1fr; gap: 36px; }
           .echo-library-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -487,15 +794,24 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             {/* Left: text */}
             <div>
               <Badge label="What ECHO is" />
-              <p style={{
+              <h2 style={{
                 fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)',
-                fontWeight: 300,
-                fontStyle: 'italic',
-                lineHeight: 1.45,
+                fontWeight: 700,
+                lineHeight: 1.2,
+                letterSpacing: '-0.01em',
                 color: '#F4F3EC',
+                margin: '0 0 20px 0',
+              }}>
+                The only arcade machine you need
+              </h2>
+              <p style={{
+                fontSize: 16,
+                fontWeight: 300,
+                lineHeight: 1.65,
+                color: 'rgba(244,243,236,0.65)',
                 margin: '0 0 40px 0',
               }}>
-                "A 22-inch touchscreen bartop arcade with 149 pre-installed games, built for the home — and the only one of its kind on the market."
+                Not a retro emulator box – a premium touchscreen countertop arcade built for home bars, shared play, and effortless nostalgia – with no setup, no internet, and no bulky cabinet.
               </p>
 
               <div className="echo-facts-grid">
@@ -723,6 +1039,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         </div>
       </section>
 
+      {/* ── Section 5b: Product spec ── */}
+      <ProductSectionHome data={data.product} />
+
       {/* ── Section 6: CTA block ── */}
       <section className="echo-section-cta">
         <div style={{ ...wrap, textAlign: 'center' }}>
@@ -765,8 +1084,27 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 textDecoration: 'none',
               }}
             >
-              Buy Direct from JVL
+              Buy from JVL
             </a>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <button
+              className="echo-cta-expander-btn"
+              style={{ color: 'rgba(8,10,11,0.65)' }}
+              onClick={() => setCtaExpanded1(!ctaExpanded1)}
+            >
+              {ctaExpanded1 ? 'Hide' : 'Not sure which to pick?'}
+            </button>
+            <div
+              className="echo-cta-expander-content"
+              style={{ maxHeight: ctaExpanded1 ? 300 : 0, width: '100%' }}
+            >
+              <div className="echo-cta-expander-inner" style={{ background: 'rgba(8,10,11,0.1)', color: 'rgba(8,10,11,0.75)', marginTop: 12 }}>
+                <p><strong style={{ color: '#080a0b' }}>Buy on Amazon</strong> — familiar checkout, Prime shipping, and Amazon's full review base. Returns and basic support go through Amazon.</p>
+                <p><strong style={{ color: '#080a0b' }}>Buy from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
+                <p>Either way: same machine, same warranty, same price.</p>
+              </div>
+            </div>
           </div>
           <p style={{ fontSize: 13, color: 'rgba(8,10,11,0.55)', marginTop: 20 }}>
             1-year all-inclusive warranty · JVL covers shipping both ways
@@ -812,16 +1150,51 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 borderRadius: 4,
                 padding: '28px 28px 24px',
                 background: '#101213',
+                display: 'flex',
+                flexDirection: 'column',
               }}>
-                <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px 0' }}>
-                  {r.tag}
-                </p>
-                <p style={{ fontSize: 15, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.7, margin: '0 0 20px 0' }}>
+                <div style={{ margin: '0 0 16px 0' }}>
+                  {/^★/.test(r.tag) ? (
+                    <>
+                      <span style={{ fontSize: 15, color: '#FB671F' }}>{r.tag.match(/^(★+)/)?.[1]}</span>
+                      {' '}
+                      <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.3)' }}>{r.tag.replace(/^★+\s*/, '')}</span>
+                    </>
+                  ) : (
+                    <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F' }}>{r.tag}</span>
+                  )}
+                </div>
+                <p style={{ fontSize: 15, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.7, margin: '0 0 20px 0', flexGrow: 1 }}>
                   "{r.quote}"
                 </p>
-                <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.4)', margin: 0 }}>
-                  — {r.author}
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{
+                      width: 34, height: 34, borderRadius: '50%', flexShrink: 0,
+                      background: r.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 12, fontWeight: 700, color: '#fff', letterSpacing: '0.04em',
+                    }}>
+                      {r.initials}
+                    </div>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(244,243,236,0.8)' }}>{r.author}</span>
+                  </div>
+                  <a
+                    href={r.reviewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontSize: 12, fontWeight: 500, color: 'rgba(244,243,236,0.3)',
+                      textDecoration: 'none',
+                      display: 'inline-flex', alignItems: 'center', gap: 4, flexShrink: 0,
+                      transition: 'color 0.2s',
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.3)')}
+                  >
+                    View review
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -854,20 +1227,75 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                   borderRadius: 4,
                   padding: '22px 20px 18px',
                   background: '#101213',
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}>
-                  <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 12px 0' }}>
-                    {r.tag}
-                  </p>
-                  <p style={{ fontSize: 14, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.65, margin: '0 0 14px 0' }}>
+                  <div style={{ margin: '0 0 12px 0' }}>
+                    {/^★/.test(r.tag) ? (
+                      <>
+                        <span style={{ fontSize: 14, color: '#FB671F' }}>{r.tag.match(/^(★+)/)?.[1]}</span>
+                        {' '}
+                        <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.3)' }}>{r.tag.replace(/^★+\s*/, '')}</span>
+                      </>
+                    ) : (
+                      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F' }}>{r.tag}</span>
+                    )}
+                  </div>
+                  <p style={{ fontSize: 14, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.65, margin: '0 0 14px 0', flexGrow: 1 }}>
                     "{r.quote}"
                   </p>
-                  <p style={{ fontSize: 12, color: 'rgba(244,243,236,0.4)', margin: 0 }}>
-                    — {r.author}
-                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <div style={{
+                        width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+                        background: r.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 11, fontWeight: 700, color: '#fff',
+                      }}>
+                        {r.initials}
+                      </div>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(244,243,236,0.75)' }}>{r.author}</span>
+                    </div>
+                    <a
+                      href={r.reviewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontSize: 11, fontWeight: 500, color: 'rgba(244,243,236,0.3)',
+                        textDecoration: 'none',
+                        display: 'inline-flex', alignItems: 'center', gap: 4, flexShrink: 0,
+                        transition: 'color 0.2s',
+                      }}
+                      onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')}
+                      onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.3)')}
+                    >
+                      View review
+                      <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </a>
+                  </div>
                 </div>
               ))}
             </div>
           )}
+
+          {/* Video reviews */}
+          <div style={{ marginTop: 56 }}>
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px 0' }}>
+              Video reviews
+            </p>
+            <div className="echo-video-grid">
+              {videoReviews.map((v) => (
+                <div key={v.id} className="echo-video-item">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${v.id}`}
+                    title={v.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -996,14 +1424,33 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 textDecoration: 'none',
               }}
             >
-              Buy Direct from JVL
+              Buy from JVL
             </a>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <button
+              className="echo-cta-expander-btn"
+              style={{ color: 'rgba(244,243,236,0.45)' }}
+              onClick={() => setCtaExpanded2(!ctaExpanded2)}
+            >
+              {ctaExpanded2 ? 'Hide' : 'Not sure which to pick?'}
+            </button>
+            <div
+              className="echo-cta-expander-content"
+              style={{ maxHeight: ctaExpanded2 ? 300 : 0, width: '100%' }}
+            >
+              <div className="echo-cta-expander-inner" style={{ background: 'rgba(244,243,236,0.05)', border: '1px solid rgba(244,243,236,0.1)', color: 'rgba(244,243,236,0.65)', marginTop: 12 }}>
+                <p><strong style={{ color: '#F4F3EC' }}>Buy on Amazon</strong> — familiar checkout, Prime shipping, and Amazon's full review base. Returns and basic support go through Amazon.</p>
+                <p><strong style={{ color: '#F4F3EC' }}>Buy from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
+                <p>Either way: same machine, same warranty, same price.</p>
+              </div>
+            </div>
           </div>
           <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.3)', marginTop: 20 }}>
             1-year all-inclusive warranty · JVL covers shipping both ways
           </p>
         </div>
       </section>
-    </>
+    </div>
   )
 }
