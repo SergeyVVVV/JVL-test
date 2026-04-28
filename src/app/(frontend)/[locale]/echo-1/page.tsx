@@ -31,7 +31,7 @@ export default async function EchoPage1Page() {
 
   const data = {
     hero: {
-      title: heroBlock?.title ?? 'JVL ECHO HD3 – PREMIUM TABLETOP ARCADE MACHINE FOR HOME & BUSINESS',
+      title: heroBlock?.title ?? 'ECHO HD3 – PREMIUM TABLETOP ARCADE MACHINE FOR YOUR HOME',
       buttonText: heroBlock?.button_text ?? 'Explore on Amazon',
       buttonUrl: heroBlock?.button_url ?? 'https://www.amazon.com/dp/B0DJ3BSJ4D',
       desktopVideo,

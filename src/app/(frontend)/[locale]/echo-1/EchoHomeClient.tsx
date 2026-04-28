@@ -133,10 +133,10 @@ function Badge({ label }: { label: string }) {
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function EchoHomeClient({ data }: { data: PageData }) {
-  // FAQ state
   const [openFaq, setOpenFaq] = useState<number | null>(null)
-  // Reviews expanded state
   const [reviewsExpanded, setReviewsExpanded] = useState(false)
+  const [ctaExpanded1, setCtaExpanded1] = useState(false)
+  const [ctaExpanded2, setCtaExpanded2] = useState(false)
 
   const wrap: React.CSSProperties = {
     maxWidth: 1200,
@@ -322,8 +322,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   return (
     <>
       <style>{`
-        .echo-hero { min-height: 100vh; }
-        .echo-hero-video { min-height: 100vh; }
+        .echo-hero { height: 100vh; }
+        .echo-hero-video { height: 100%; }
 
         .echo-section-what { background: #101213; padding: 96px 0; }
         .echo-section-why { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
@@ -432,6 +432,35 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           flex-wrap: wrap;
           margin-top: 32px;
         }
+
+        /* CTA expander */
+        .echo-cta-expander-btn {
+          background: none;
+          border: none;
+          cursor: pointer;
+          font-family: inherit;
+          font-size: 13px;
+          text-decoration: underline;
+          text-underline-offset: 3px;
+          margin-top: 16px;
+          transition: opacity 0.2s;
+        }
+        .echo-cta-expander-btn:hover { opacity: 0.8; }
+        .echo-cta-expander-content {
+          overflow: hidden;
+          transition: max-height 0.35s ease;
+        }
+        .echo-cta-expander-inner {
+          max-width: 520px;
+          margin: 0 auto;
+          padding: 20px 24px;
+          border-radius: 4px;
+          text-align: left;
+          font-size: 14px;
+          line-height: 1.65;
+        }
+        .echo-cta-expander-inner p { margin: 0 0 10px 0; }
+        .echo-cta-expander-inner p:last-child { margin: 0; }
 
         /* FAQ */
         .echo-faq-item {
@@ -768,6 +797,25 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               Buy Direct from JVL
             </a>
           </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <button
+              className="echo-cta-expander-btn"
+              style={{ color: 'rgba(8,10,11,0.65)' }}
+              onClick={() => setCtaExpanded1(!ctaExpanded1)}
+            >
+              {ctaExpanded1 ? 'Hide' : 'Not sure which to pick?'}
+            </button>
+            <div
+              className="echo-cta-expander-content"
+              style={{ maxHeight: ctaExpanded1 ? 300 : 0, width: '100%' }}
+            >
+              <div className="echo-cta-expander-inner" style={{ background: 'rgba(8,10,11,0.1)', color: 'rgba(8,10,11,0.75)', marginTop: 12 }}>
+                <p><strong style={{ color: '#080a0b' }}>Buy on Amazon</strong> — familiar checkout, Prime shipping, and Amazon's full review base. Returns and basic support go through Amazon.</p>
+                <p><strong style={{ color: '#080a0b' }}>Buy Direct from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
+                <p>Either way: same machine, same warranty, same price.</p>
+              </div>
+            </div>
+          </div>
           <p style={{ fontSize: 13, color: 'rgba(8,10,11,0.55)', marginTop: 20 }}>
             1-year all-inclusive warranty · JVL covers shipping both ways
           </p>
@@ -998,6 +1046,25 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             >
               Buy Direct from JVL
             </a>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <button
+              className="echo-cta-expander-btn"
+              style={{ color: 'rgba(244,243,236,0.45)' }}
+              onClick={() => setCtaExpanded2(!ctaExpanded2)}
+            >
+              {ctaExpanded2 ? 'Hide' : 'Not sure which to pick?'}
+            </button>
+            <div
+              className="echo-cta-expander-content"
+              style={{ maxHeight: ctaExpanded2 ? 300 : 0, width: '100%' }}
+            >
+              <div className="echo-cta-expander-inner" style={{ background: 'rgba(244,243,236,0.05)', border: '1px solid rgba(244,243,236,0.1)', color: 'rgba(244,243,236,0.65)', marginTop: 12 }}>
+                <p><strong style={{ color: '#F4F3EC' }}>Buy on Amazon</strong> — familiar checkout, Prime shipping, and Amazon's full review base. Returns and basic support go through Amazon.</p>
+                <p><strong style={{ color: '#F4F3EC' }}>Buy Direct from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
+                <p>Either way: same machine, same warranty, same price.</p>
+              </div>
+            </div>
           </div>
           <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.3)', marginTop: 20 }}>
             1-year all-inclusive warranty · JVL covers shipping both ways
