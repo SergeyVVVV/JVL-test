@@ -320,9 +320,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   ]
 
   return (
-    <>
+    <div style={{ marginTop: -52 }}>
       <style>{`
-        .echo-hero { height: 100vh; }
+        .echo-hero { height: calc(100vh - 72px); }
         .echo-hero-video { height: 100%; }
 
         .echo-section-what { background: #101213; padding: 96px 0; }
@@ -1071,6 +1071,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           </p>
         </div>
       </section>
-    </>
+    </div>
   )
 }
