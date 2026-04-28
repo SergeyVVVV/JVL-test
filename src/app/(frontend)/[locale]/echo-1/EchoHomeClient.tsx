@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useRef, useState } from 'react'
+import React, { Component, useEffect, useRef, useState } from 'react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -137,6 +137,182 @@ function Badge({ label }: { label: string }) {
     }}>
       {label}
     </p>
+  )
+}
+
+// ─── Product Section (Home only, no tabs) ────────────────────────────────────
+
+const HOME_PRODUCT = {
+  heading: 'ECHO Touchscreen Countertop',
+  subtitle: 'Free Play Home version, without Bill Validator and Quarters Acceptor',
+  price: '$3,990',
+  features: [
+    { icon: 'shipping', text: 'FREE Prime Shipping' },
+    { icon: 'return',   text: 'FREE 30-day refund/replacement' },
+    { icon: 'finance',  text: 'Pay over time — up to 24 months, 0% APR' },
+    { icon: 'secure',   text: 'Secure Amazon checkout' },
+  ],
+}
+
+function Icon({ type }: { type: string }) {
+  const s = { width: 16, height: 16, flexShrink: 0, color: '#6B6B6B' } as React.CSSProperties
+  if (type === 'shipping') return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+  if (type === 'return')   return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
+  if (type === 'finance')  return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+  if (type === 'secure')   return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+  return null
+}
+
+const MODEL_POSTER = '/api/storage/3372/echo_3d_01.jpg'
+
+class ModelViewerErrorBoundary extends Component<
+  { children: React.ReactNode },
+  { hasError: boolean }
+> {
+  constructor(props: { children: React.ReactNode }) {
+    super(props)
+    this.state = { hasError: false }
+  }
+  static getDerivedStateFromError() { return { hasError: true } }
+  render() {
+    if (this.state.hasError) {
+      // eslint-disable-next-line @next/next/no-img-element
+      return <img src={MODEL_POSTER} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+    }
+    return this.props.children
+  }
+}
+
+function ModelViewer3D() {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [failed, setFailed] = useState(false)
+  const [mode, setMode] = useState<'2d' | '3d'>('2d')
+
+  useEffect(() => {
+    if (mode !== '3d' || !containerRef.current) return
+    const scriptId = 'model-viewer-script'
+    if (!document.getElementById(scriptId)) {
+      const script = document.createElement('script')
+      script.id = scriptId
+      script.type = 'module'
+      script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js'
+      script.onerror = () => setFailed(true)
+      document.head.appendChild(script)
+    }
+    containerRef.current.innerHTML = `
+      <model-viewer src="/api/storage/3486/3.glb" poster="${MODEL_POSTER}" alt="JVL Echo HD3"
+        loading="eager" reveal="auto" ar-modes="webxr scene-viewer quick-look"
+        camera-controls tone-mapping="neutral" shadow-intensity="1"
+        environment-image="legacy" style="width:100%;height:100%;background:transparent;">
+      </model-viewer>`
+    const mv = containerRef.current.querySelector('model-viewer')
+    if (mv) mv.addEventListener('error', () => setFailed(true))
+  }, [mode])
+
+  const showPoster = mode === '2d' || failed
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: '#E8E6DE', borderRadius: 8, padding: 4, width: 'fit-content', marginBottom: 12 }}>
+        {(['2d', '3d'] as const).map((m) => {
+          const isActive = mode === m && !failed
+          return (
+            <button key={m} onClick={() => setMode(m)} style={{
+              background: isActive ? '#fff' : 'transparent', border: 'none', borderRadius: 6,
+              padding: '5px 16px', fontSize: 13, fontWeight: 600, letterSpacing: '0.04em',
+              color: isActive ? '#101213' : 'rgba(16,18,19,0.45)', cursor: isActive ? 'default' : 'pointer',
+              transition: 'all 0.18s ease', boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.12)' : 'none',
+              userSelect: 'none', textTransform: 'uppercase',
+            }}>{m}</button>
+          )
+        })}
+      </div>
+      <div style={{ flex: 1, minHeight: 0 }}>
+        {showPoster
+          // eslint-disable-next-line @next/next/no-img-element
+          ? <img src={MODEL_POSTER} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
+          : <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+        }
+      </div>
+    </div>
+  )
+}
+
+function ProductSectionHome({ data }: { data: PageData['product'] }) {
+  return (
+    <section style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+        <h2 style={{
+          fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 600, textTransform: 'uppercase',
+          letterSpacing: '-0.02em', lineHeight: 1.1, color: '#101213',
+          textAlign: 'center', maxWidth: 840, margin: '0 auto 40px',
+        }}>
+          {data.title}
+        </h2>
+
+        <div className="echo-product-home-grid">
+          {/* Image / 3D viewer */}
+          <div style={{ width: '100%', aspectRatio: '1 / 1', display: 'flex', flexDirection: 'column' }}>
+            <ModelViewerErrorBoundary>
+              <ModelViewer3D />
+            </ModelViewerErrorBoundary>
+          </div>
+
+          {/* Details */}
+          <div>
+            <h3 style={{ fontSize: 'clamp(1.1rem, 1.8vw, 1.5rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.01em', color: '#101213', margin: '0 0 10px' }}>
+              {HOME_PRODUCT.heading}
+            </h3>
+            <p style={{ fontSize: 17, color: '#6B6B6B', marginBottom: 24, lineHeight: 1.6 }}>
+              {HOME_PRODUCT.subtitle}
+            </p>
+
+            <div style={{ borderTop: '1px solid #E0DDD4' }}>
+              {HOME_PRODUCT.features.map((f, i) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: '1px solid #E0DDD4' }}>
+                  <Icon type={f.icon} />
+                  <span style={{ fontSize: 17, color: '#4B4B4B' }}>{f.text}</span>
+                </div>
+              ))}
+            </div>
+
+            {/* Price + dual CTAs */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 28, gap: 16, flexWrap: 'wrap' }}>
+              <div style={{ fontSize: 36, fontWeight: 600, color: '#101213', flexShrink: 0 }}>
+                {HOME_PRODUCT.price}
+              </div>
+              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+                <a
+                  href="/en/contact-us"
+                  className="btn-amazon"
+                  style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
+                >
+                  Buy Directly from JVL
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
+                <a
+                  href={data.buttonUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: 6,
+                    padding: '14px 24px', border: '2px solid #101213', borderRadius: 4,
+                    fontSize: 14, fontWeight: 700, letterSpacing: '0.06em',
+                    textTransform: 'uppercase', color: '#101213', textDecoration: 'none',
+                    whiteSpace: 'nowrap', transition: 'background 0.2s, color 0.2s',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = '#101213'; e.currentTarget.style.color = '#F4F3EC' }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#101213' }}
+                >
+                  Buy on Amazon
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   )
 }
 
@@ -493,7 +669,16 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           transition: max-height 0.3s ease;
         }
 
+        /* Product section home grid */
+        .echo-product-home-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 72px;
+          align-items: start;
+        }
+
         @media (max-width: 900px) {
+          .echo-product-home-grid { grid-template-columns: 1fr; gap: 40px; }
           .echo-what-grid { grid-template-columns: 1fr; gap: 48px; }
           .echo-why-grid { grid-template-columns: 1fr; gap: 36px; }
           .echo-library-grid { grid-template-columns: 1fr; gap: 48px; }
@@ -761,6 +946,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           </p>
         </div>
       </section>
+
+      {/* ── Section 5b: Product spec ── */}
+      <ProductSectionHome data={data.product} />
 
       {/* ── Section 6: CTA block ── */}
       <section className="echo-section-cta">
