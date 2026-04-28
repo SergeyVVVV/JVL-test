@@ -378,21 +378,33 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       tag: 'On setup & first use',
       quote: 'I had it on the counter and playing within ten minutes of opening the box. My kids didn\'t even let me finish reading the manual.',
       author: 'Tom R., Ontario',
+      initials: 'TR',
+      avatarColor: '#4B6BFB',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On game variety',
       quote: 'We thought we\'d get bored of the same games fast. Three months in and we\'re still finding ones we haven\'t tried. 149 is not a small number.',
       author: 'Linda H., British Columbia',
+      initials: 'LH',
+      avatarColor: '#E85D75',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On the two-player feature',
       quote: 'My mother-in-law who hasn\'t touched a video game in decades was playing card games on it within five minutes. The swivel base is genius.',
       author: 'Margaret S., Alberta',
+      initials: 'MS',
+      avatarColor: '#5CB85C',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On build quality',
       quote: 'It feels like proper equipment — not a toy. The screen is crisp, the sound is loud enough for a room, and nothing feels cheap about it.',
       author: 'Daniel P., Quebec',
+      initials: 'DP',
+      avatarColor: '#F0A500',
+      reviewUrl: AMAZON_URL,
     },
   ]
 
@@ -401,32 +413,57 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       tag: 'On the Adult category',
       quote: 'Love that you can lock it out with a physical key. The kids have no idea it exists.',
       author: 'Sarah M., Manitoba',
+      initials: 'SM',
+      avatarColor: '#9B59B6',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On long-term use',
       quote: 'Had it for over a year now. Still runs perfectly. Zero issues. Just plays.',
       author: 'James K., Nova Scotia',
+      initials: 'JK',
+      avatarColor: '#2EAEC9',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On gifting',
       quote: 'Bought it for my dad\'s retirement. He plays it every single day. Best gift I\'ve ever given.',
       author: 'Rachel T., Saskatchewan',
+      initials: 'RT',
+      avatarColor: '#E85D75',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On customer support',
       quote: 'Had a question about a setting — called JVL and a real person answered. That alone is worth a lot these days.',
       author: 'Frank D., New Brunswick',
+      initials: 'FD',
+      avatarColor: '#4B6BFB',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On touchscreen',
       quote: 'The touchscreen is incredibly responsive. My 7-year-old and my 72-year-old father both figured it out on their own.',
       author: 'Claire V., Prince Edward Island',
+      initials: 'CV',
+      avatarColor: '#5CB85C',
+      reviewUrl: AMAZON_URL,
     },
     {
       tag: 'On value',
       quote: 'For what you get — 149 games, the build quality, the warranty — it\'s genuinely good value. Nothing else like it at this price.',
       author: 'Brian W., Newfoundland',
+      initials: 'BW',
+      avatarColor: '#F0A500',
+      reviewUrl: AMAZON_URL,
     },
+  ]
+
+  const videoReviews = [
+    { id: 'mMNDUyJehQI', title: 'ECHO HD3 Review' },
+    { id: 'GkeyO298gC0', title: 'ECHO HD3 Unboxing' },
+    { id: 'X2TVpAy7pFk', title: 'ECHO HD3 Gameplay' },
+    { id: '75kVKwk_o8k', title: 'ECHO HD3 Overview' },
   ]
 
   // ─── Section 9 FAQ ──────────────────────────────────────────────────────────
@@ -608,6 +645,20 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           grid-template-columns: repeat(4, 1fr);
           gap: 24px;
           margin-top: 48px;
+        }
+
+        /* Video reviews grid */
+        .echo-video-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+          margin: 48px 0 56px;
+        }
+        .echo-video-item { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; background: #0d0f10; }
+        .echo-video-item iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+        @media (max-width: 680px) {
+          .echo-video-grid { grid-template-columns: 1fr; }
         }
 
         /* CTA buttons row */
@@ -1050,6 +1101,26 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             </div>
           </div>
 
+          {/* Video reviews */}
+          <div>
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px 0' }}>
+              Video reviews
+            </p>
+            <div className="echo-video-grid">
+              {videoReviews.map((v) => (
+                <div key={v.id} className="echo-video-item">
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${v.id}`}
+                    title={v.title}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Main 2x2 reviews */}
           <div className="echo-reviews-grid">
             {mainReviews.map((r) => (
@@ -1058,16 +1129,43 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 borderRadius: 4,
                 padding: '28px 28px 24px',
                 background: '#101213',
+                display: 'flex',
+                flexDirection: 'column',
               }}>
                 <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px 0' }}>
                   {r.tag}
                 </p>
-                <p style={{ fontSize: 15, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.7, margin: '0 0 20px 0' }}>
+                <p style={{ fontSize: 15, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.7, margin: '0 0 20px 0', flexGrow: 1 }}>
                   "{r.quote}"
                 </p>
-                <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.4)', margin: 0 }}>
-                  — {r.author}
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                    <div style={{
+                      width: 34, height: 34, borderRadius: '50%', flexShrink: 0,
+                      background: r.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontSize: 12, fontWeight: 700, color: '#fff', letterSpacing: '0.04em',
+                    }}>
+                      {r.initials}
+                    </div>
+                    <span style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)' }}>{r.author}</span>
+                  </div>
+                  <a
+                    href={r.reviewUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      fontSize: 12, fontWeight: 600, color: 'rgba(244,243,236,0.35)',
+                      textDecoration: 'none', letterSpacing: '0.06em', textTransform: 'uppercase',
+                      display: 'inline-flex', alignItems: 'center', gap: 4, flexShrink: 0,
+                      transition: 'color 0.2s',
+                    }}
+                    onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')}
+                    onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.35)')}
+                  >
+                    View review
+                    <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  </a>
+                </div>
               </div>
             ))}
           </div>
@@ -1100,16 +1198,43 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                   borderRadius: 4,
                   padding: '22px 20px 18px',
                   background: '#101213',
+                  display: 'flex',
+                  flexDirection: 'column',
                 }}>
                   <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 12px 0' }}>
                     {r.tag}
                   </p>
-                  <p style={{ fontSize: 14, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.65, margin: '0 0 14px 0' }}>
+                  <p style={{ fontSize: 14, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.65, margin: '0 0 14px 0', flexGrow: 1 }}>
                     "{r.quote}"
                   </p>
-                  <p style={{ fontSize: 12, color: 'rgba(244,243,236,0.4)', margin: 0 }}>
-                    — {r.author}
-                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <div style={{
+                        width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
+                        background: r.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        fontSize: 11, fontWeight: 700, color: '#fff',
+                      }}>
+                        {r.initials}
+                      </div>
+                      <span style={{ fontSize: 12, color: 'rgba(244,243,236,0.4)' }}>{r.author}</span>
+                    </div>
+                    <a
+                      href={r.reviewUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        fontSize: 11, fontWeight: 600, color: 'rgba(244,243,236,0.3)',
+                        textDecoration: 'none', letterSpacing: '0.06em', textTransform: 'uppercase',
+                        display: 'inline-flex', alignItems: 'center', gap: 4, flexShrink: 0,
+                        transition: 'color 0.2s',
+                      }}
+                      onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')}
+                      onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.3)')}
+                    >
+                      View review
+                      <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </a>
+                  </div>
                 </div>
               ))}
             </div>
