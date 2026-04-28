@@ -375,6 +375,38 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   // ─── Section 7 Reviews ──────────────────────────────────────────────────────
   const mainReviews = [
     {
+      tag: '★★★★★ Verified Amazon Purchase',
+      quote: 'This countertop game has been a big hit in my nightclub. It\'s on FreePlay — customers have a blast all night long.',
+      author: 'Leo G. · via Amazon',
+      initials: 'LG',
+      avatarColor: '#FB671F',
+      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+    },
+    {
+      tag: '★★★★★ Verified Amazon Purchase',
+      quote: 'Our family has had this arcade for 4 years already, we purchased it from JVL directly. Still going strong — amazing support from the team.',
+      author: 'Svetlana P. · via Amazon',
+      initials: 'SP',
+      avatarColor: '#E85D75',
+      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+    },
+    {
+      tag: '★★★★★ Verified Amazon Purchase',
+      quote: 'Got this arcade for my dad about a year ago directly from JVL. Happy I found it — my dad loves it!',
+      author: 'Olga V. · via Amazon',
+      initials: 'OV',
+      avatarColor: '#5CB85C',
+      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+    },
+    {
+      tag: '★★★★★ Verified Amazon Purchase',
+      quote: 'Man, I\'m so happy we decided to get the ECHO — this thing is awesome! Premium feel, amazing appearance, solid and sturdy. Worth every penny.',
+      author: 'FlowRider · via Amazon',
+      initials: 'FR',
+      avatarColor: '#4B6BFB',
+      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+    },
+    {
       tag: 'On setup & first use',
       quote: 'I had it on the counter and playing within ten minutes of opening the box. My kids didn\'t even let me finish reading the manual.',
       author: 'Tom R., Ontario',
