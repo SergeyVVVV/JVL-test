@@ -335,6 +335,147 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
   )
 }
 
+// ─── Game Categories Data ─────────────────────────────────────────────────────
+
+const GAME_CATEGORIES = [
+  {
+    label: 'Action',
+    img: '/api/storage/3458/Action.jpg',
+    video: '/api/storage/3459/Action.mp4',
+    desc: 'Dive into the fan-favorite Gone Fishing, outmaneuver opponents in Bumper Wars, battle crazy creatures in Monster Mash, and crush levels in Bonbon Deluxe.',
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M12 12h.01M8 10v4M6 12h4"/><circle cx="16" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="18" cy="10" r="1" fill="currentColor" stroke="none"/></svg>,
+  },
+  {
+    label: 'Strategy',
+    img: '/api/storage/3460/Strategy.jpg',
+    video: '/api/storage/3461/Strategy.mp4',
+    desc: 'ECHO is packed with timeless strategy games! Outmaneuver rivals in Backgammon and Battle Ships, or dive into classic match-3 and math games.',
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M8 16V8c0-1.1.9-2 2-2h4M12 6V4M9 20h6M12 16v4"/><rect x="9" y="8" width="6" height="8" rx="1"/></svg>,
+  },
+  {
+    label: 'Cards',
+    img: '/api/storage/3462/Cards.jpg',
+    video: '/api/storage/3463/Cards.mp4',
+    desc: "From casinos to coffee tables, card games never go out of style! Hit 21 in Blackjack, go all-in with Texas Hold'em, or keep it classic with Solitaire.",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="4" width="14" height="18" rx="2"/><path d="M8 7v2M8 11v2"/><rect x="8" y="2" width="14" height="18" rx="2" fill="rgba(244,243,236,0.1)" stroke="currentColor"/></svg>,
+  },
+  {
+    label: 'Puzzle',
+    img: '/api/storage/3464/Puzzle.jpg',
+    video: '/api/storage/3465/Puzzle.mp4',
+    desc: 'Challenge your brain in classic logic games like Sudoku, Mine Sweeper, and Mahjong. Perfect for solo challenges or friendly competition.',
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M19.5 12c0-.23-.01-.45-.03-.68l2.03-1.58a.5.5 0 0 0 .12-.61l-2-3.46a.5.5 0 0 0-.61-.22l-2.39.96a7 7 0 0 0-1.17-.68l-.36-2.54A.5.5 0 0 0 14.5 3h-4a.5.5 0 0 0-.5.42l-.36 2.54a7 7 0 0 0-1.17.68L6.08 5.68a.5.5 0 0 0-.61.22l-2 3.46a.5.5 0 0 0 .12.61l2.03 1.58C5.51 11.55 5.5 11.78 5.5 12s.01.45.03.68L3.5 14.26a.5.5 0 0 0-.12.61l2 3.46a.5.5 0 0 0 .61.22l2.39-.96c.37.26.76.48 1.17.68l.36 2.54a.5.5 0 0 0 .5.42h4c.24 0 .44-.17.49-.42l.36-2.54a7 7 0 0 0 1.17-.68l2.39.96a.5.5 0 0 0 .61-.22l2-3.46a.5.5 0 0 0-.12-.61l-2.03-1.58c.02-.23.03-.45.03-.68z"/><circle cx="12" cy="12" r="2.5"/></svg>,
+  },
+  {
+    label: 'Quiz',
+    img: '/api/storage/3466/Quiz.jpg',
+    video: '/api/storage/3467/Quiz.mp4',
+    desc: "Whether you're a trivia master or a word wizard, ECHO's quiz games will put your skills to the test! Answer exciting questions in Double Quiz or build winning words in Word Chase.",
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>,
+  },
+  {
+    label: 'Adult',
+    img: '/api/storage/3468/Erotic.jpg',
+    video: null,
+    desc: 'For those who like it hot, ECHO offers a fun selection of spicy, adult-themed games. You can easily enable, disable, or schedule access to adult content in the settings.',
+    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 12h6M12 9v6"/></svg>,
+  },
+]
+
+function GamesSectionDark() {
+  const [activeTab, setActiveTab] = useState(0)
+  const [playing, setPlaying] = useState(false)
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const cat = GAME_CATEGORIES[activeTab]
+
+  function switchTab(i: number) {
+    setPlaying(false)
+    if (videoRef.current) { videoRef.current.pause(); videoRef.current.currentTime = 0 }
+    setActiveTab(i)
+  }
+
+  return (
+    <div>
+      {/* Stats row */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderTop: '1px solid #1e2022', borderBottom: '1px solid #1e2022', marginBottom: 56 }}>
+        {[
+          { value: '149', label: 'Pre-installed games', size: 'clamp(2.2rem, 3.5vw, 3rem)' },
+          { value: 'Solo & 2-Player', label: 'Player Modes', size: 'clamp(1.5rem, 2.4vw, 2rem)' },
+          { value: '∞', label: 'Hours of Fun', size: 'clamp(3rem, 5vw, 4rem)' },
+        ].map((s, i) => (
+          <div key={s.label} style={{
+            padding: '28px 24px', textAlign: 'center',
+            borderLeft: i > 0 ? '1px solid #1e2022' : 'none',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+          }}>
+            <div style={{ fontSize: s.size, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, marginBottom: 8 }}>{s.value}</div>
+            <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.45)' }}>{s.label}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* Category tabs + video */}
+      <div className="echo-games-grid">
+        {/* Left: category list */}
+        <div className="echo-cat-vert">
+          <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.35)', marginBottom: 20 }}>
+            Game Categories
+          </div>
+          {GAME_CATEGORIES.map((c, i) => (
+            <button
+              key={c.label}
+              onClick={() => switchTab(i)}
+              className="echo-cat-btn"
+              style={{
+                display: 'flex', alignItems: 'center', gap: 12,
+                width: '100%', background: 'none', border: 'none', cursor: 'pointer',
+                padding: '14px 0', borderTop: '1px solid #1e2022',
+                color: activeTab === i ? '#FB671F' : 'rgba(244,243,236,0.75)',
+                transition: 'color 0.2s', textAlign: 'left',
+                fontFamily: 'inherit',
+              }}
+            >
+              <span style={{ flexShrink: 0 }}>{c.icon}</span>
+              <span style={{ fontSize: 18, fontWeight: activeTab === i ? 600 : 400 }}>{c.label}</span>
+            </button>
+          ))}
+        </div>
+
+        {/* Right: video + description */}
+        <div>
+          <div style={{ position: 'relative', borderRadius: 6, overflow: 'hidden', marginBottom: 20, background: '#000' }}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={cat.img} alt={cat.label} style={{ width: '100%', display: 'block', opacity: playing ? 0 : 1, transition: 'opacity 0.2s' }} />
+            {cat.video && (
+              <video
+                ref={videoRef}
+                src={cat.video}
+                controls
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: playing ? 1 : 0, transition: 'opacity 0.2s' }}
+              />
+            )}
+            {cat.video && !playing && (
+              <button
+                onClick={() => { setPlaying(true); videoRef.current?.play() }}
+                style={{
+                  position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
+                  background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(4px)',
+                  border: 'none', cursor: 'pointer', borderRadius: '50%',
+                  width: 56, height: 56, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff',
+                }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+              </button>
+            )}
+          </div>
+          <div style={{ fontSize: 15, fontWeight: 600, color: '#F4F3EC', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{cat.label}</div>
+          <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: 0 }}>{cat.desc}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export default function EchoHomeClient({ data }: { data: PageData }) {
@@ -775,6 +916,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           transition: max-height 0.3s ease;
         }
 
+        /* Games section */
+        .echo-games-grid { display: grid; grid-template-columns: 220px 1fr; gap: 48px; align-items: start; }
+
         /* Product section home grid */
         .echo-product-home-grid {
           display: grid;
@@ -787,9 +931,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-product-home-grid { grid-template-columns: 1fr; gap: 40px; }
           .echo-what-grid { grid-template-columns: 1fr; gap: 48px; }
           .echo-why-grid { grid-template-columns: 1fr; gap: 36px; }
-          .echo-library-grid { grid-template-columns: 1fr; gap: 48px; }
-          .echo-library-sticky { position: static; }
           .echo-built-grid { grid-template-columns: 1fr; gap: 32px; }
+          .echo-games-grid { grid-template-columns: 1fr; gap: 24px; }
           .echo-reviews-stats { grid-template-columns: 1fr; }
           .echo-stat-cell { border-right: none; border-bottom: 1px solid #1e2022; }
           .echo-stat-cell:last-child { border-bottom: none; }
@@ -909,77 +1052,17 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       {/* ── Section 4: The game library ── */}
       <section className="echo-section-library">
         <div style={wrap}>
-          <div className="echo-library-grid">
-            {/* Left: text */}
-            <div>
-              <Badge label="The game library" />
-              <h2 style={{
-                fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)',
-                fontWeight: 700,
-                color: '#F4F3EC',
-                margin: '0 0 28px 0',
-                letterSpacing: '-0.01em',
-              }}>
-                149 games across six categories.
-              </h2>
-              <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.7)', lineHeight: 1.75, margin: '0 0 16px 0' }}>
-                ECHO doesn't pull from a streaming library or a marketplace. Every game is built in, balanced, and tested — ready the moment you power it on.
-              </p>
-              <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.7)', lineHeight: 1.75, margin: '0 0 36px 0' }}>
-                Six categories cover the range of what people actually want to play — whether it's a quiet evening of cards or a competitive trivia night with the family.
-              </p>
-
-              {/* Category list */}
-              <div style={{ borderTop: '1px solid #1e2022' }}>
-                {categories.map((c) => (
-                  <div key={c.name} style={{
-                    display: 'flex',
-                    gap: 24,
-                    alignItems: 'baseline',
-                    padding: '16px 0',
-                    borderBottom: '1px solid #1e2022',
-                  }}>
-                    <span style={{ fontSize: 14, fontWeight: 700, color: '#F4F3EC', minWidth: 64, flexShrink: 0 }}>
-                      {c.name}
-                    </span>
-                    <span style={{ fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.6 }}>
-                      {c.desc}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Parental note */}
-              <div style={{
-                marginTop: 32,
-                borderLeft: '3px solid #FB671F',
-                background: 'rgba(255,255,255,0.04)',
-                borderRadius: '0 4px 4px 0',
-                padding: '20px 24px',
-              }}>
-                <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.75)', lineHeight: 1.65, margin: 0 }}>
-                  <strong style={{ color: '#F4F3EC' }}>Full parental control.</strong> The Adult category can be turned off, scheduled, or locked with a physical key.
-                </p>
-              </div>
-            </div>
-
-            {/* Right: sticky image */}
-            <div className="echo-library-sticky">
-              {(data.product.image) && (
-                <img
-                  src={data.product.image}
-                  alt={data.product.title}
-                  style={{
-                    width: '100%',
-                    aspectRatio: '1',
-                    objectFit: 'cover',
-                    borderRadius: 4,
-                    display: 'block',
-                  }}
-                />
-              )}
-            </div>
-          </div>
+          <Badge label="The game library" />
+          <h2 style={{
+            fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)',
+            fontWeight: 700,
+            color: '#F4F3EC',
+            margin: '0 0 40px 0',
+            letterSpacing: '-0.01em',
+          }}>
+            149 games across six categories.
+          </h2>
+          <GamesSectionDark />
         </div>
       </section>
 
