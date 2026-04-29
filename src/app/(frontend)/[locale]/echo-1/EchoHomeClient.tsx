@@ -748,7 +748,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-section-why { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-library { background: #101213; padding: 96px 0; border-top: 1px solid #222; }
         .echo-section-built { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
-        .echo-section-cta { background: #FB671F; padding: 80px 0; }
+        .echo-section-cta { background: #101213; padding: 80px 0; border-top: 1px solid #1e2022; }
         .echo-section-reviews { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-ownership { background: #101213; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-faq { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
@@ -1161,13 +1161,13 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           <h2 style={{
             fontSize: 'clamp(1.8rem, 3vw, 3rem)',
             fontWeight: 700,
-            color: '#080a0b',
+            color: '#F4F3EC',
             margin: '0 0 16px 0',
             letterSpacing: '-0.01em',
           }}>
             Ready to bring ECHO home?
           </h2>
-          <p style={{ fontSize: 17, color: 'rgba(8,10,11,0.75)', margin: '0 0 8px 0', lineHeight: 1.6 }}>
+          <p style={{ fontSize: 17, color: 'rgba(244,243,236,0.5)', margin: '0 0 8px 0', lineHeight: 1.6 }}>
             149 games, one machine. On your counter, ready in minutes.
           </p>
           <div className="echo-cta-buttons">
@@ -1176,7 +1176,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               target="_blank"
               rel="noopener noreferrer"
               className="btn-amazon"
-              style={{ background: '#080a0b', color: '#F4F3EC', padding: '16px 32px', textTransform: 'uppercase', textDecoration: 'none' }}
+              style={{ padding: '16px 32px', textTransform: 'uppercase', textDecoration: 'none' }}
             >
               Buy on Amazon
             </a>
@@ -1187,13 +1187,13 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 alignItems: 'center',
                 gap: 8,
                 padding: '16px 32px',
-                border: '2px solid #080a0b',
+                border: '2px solid rgba(244,243,236,0.3)',
                 borderRadius: 4,
                 fontSize: 14,
                 fontWeight: 700,
                 letterSpacing: '0.08em',
                 textTransform: 'uppercase',
-                color: '#080a0b',
+                color: '#F4F3EC',
                 textDecoration: 'none',
               }}
             >
@@ -1203,7 +1203,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <button
               className="echo-cta-expander-btn"
-              style={{ color: 'rgba(8,10,11,0.65)' }}
+              style={{ color: 'rgba(244,243,236,0.45)' }}
               onClick={() => setCtaExpanded1(!ctaExpanded1)}
             >
               {ctaExpanded1 ? 'Hide' : 'Not sure which to pick?'}
@@ -1212,14 +1212,14 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               className="echo-cta-expander-content"
               style={{ maxHeight: ctaExpanded1 ? 300 : 0, width: '100%' }}
             >
-              <div className="echo-cta-expander-inner" style={{ background: 'rgba(8,10,11,0.1)', color: 'rgba(8,10,11,0.75)', marginTop: 12 }}>
-                <p><strong style={{ color: '#080a0b' }}>Buy on Amazon</strong> — familiar checkout, Prime shipping, and Amazon's full review base. Returns and basic support go through Amazon.</p>
-                <p><strong style={{ color: '#080a0b' }}>Buy from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
+              <div className="echo-cta-expander-inner" style={{ background: 'rgba(244,243,236,0.05)', border: '1px solid rgba(244,243,236,0.1)', color: 'rgba(244,243,236,0.65)', marginTop: 12 }}>
+                <p><strong style={{ color: '#F4F3EC' }}>Buy on Amazon</strong> — familiar checkout, Prime shipping, and Amazon's full review base. Returns and basic support go through Amazon.</p>
+                <p><strong style={{ color: '#F4F3EC' }}>Buy from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
                 <p>Either way: same machine, same warranty, same price.</p>
               </div>
             </div>
           </div>
-          <p style={{ fontSize: 13, color: 'rgba(8,10,11,0.55)', marginTop: 20 }}>
+          <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.3)', marginTop: 20 }}>
             1-year all-inclusive warranty · JVL covers shipping both ways
           </p>
         </div>
