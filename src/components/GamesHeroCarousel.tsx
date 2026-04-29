@@ -122,20 +122,6 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
                 <path d="M1.5 6H10.5M6 1.5L10.5 6L6 10.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </a>
-            {current.playUrl && (
-              <a
-                href={current.playUrl}
-                target="_blank"
-                rel="nofollow noopener noreferrer"
-                className="btn-outline ghc-btn"
-                style={{ textTransform: 'uppercase' }}
-              >
-                Play Demo
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </a>
-            )}
           </div>
         </div>
       </div>

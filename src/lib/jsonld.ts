@@ -89,14 +89,12 @@ export function buildVideoGame({
   description,
   genre,
   image,
-  playUrl,
 }: {
   url: string
   title: string
   description?: string | null
   genre?: string | null
   image?: string | null
-  playUrl?: string | null
 }) {
   return {
     '@type': 'VideoGame',
@@ -115,15 +113,6 @@ export function buildVideoGame({
       availability: 'https://schema.org/InStock',
     },
     publisher: { '@id': ORG_ID },
-    ...(playUrl
-      ? {
-          potentialAction: {
-            '@type': 'PlayAction',
-            name: 'Play Game',
-            target: playUrl,
-          },
-        }
-      : {}),
   }
 }
 
