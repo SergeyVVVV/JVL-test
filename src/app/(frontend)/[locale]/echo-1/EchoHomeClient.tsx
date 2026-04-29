@@ -906,20 +906,24 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           align-items: start;
         }
         /* Facts — full-width 4-col row */
+        /* Facts 2x2 */
         .echo-facts-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: 1fr 1fr;
           gap: 0;
           border: 1px solid #1e2022;
           border-radius: 4px;
           overflow: hidden;
-          margin-top: 56px;
+          margin-top: 40px;
         }
         .echo-fact-cell {
-          padding: 28px 24px;
+          padding: 24px 20px;
           border-right: 1px solid #1e2022;
+          border-bottom: 1px solid #1e2022;
         }
-        .echo-fact-cell:last-child { border-right: none; }
+        .echo-fact-cell:nth-child(2n) { border-right: none; }
+        .echo-fact-cell:nth-child(3),
+        .echo-fact-cell:nth-child(4) { border-bottom: none; }
 
         /* Why — 2x2 grid */
         .echo-why-grid {
@@ -1101,13 +1105,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-extra-reviews-grid { grid-template-columns: 1fr 1fr; }
           .echo-ownership-grid { grid-template-columns: 1fr 1fr; }
         }
-        @media (max-width: 700px) {
-          .echo-facts-grid { grid-template-columns: 1fr 1fr; }
-          .echo-fact-cell { border-bottom: 1px solid #1e2022; }
-          .echo-fact-cell:nth-child(2n) { border-right: none; }
-          .echo-fact-cell:nth-child(3),
-          .echo-fact-cell:nth-child(4) { border-bottom: none; }
-        }
         @media (max-width: 480px) {
           .echo-facts-grid { grid-template-columns: 1fr; }
           .echo-fact-cell { border-right: none; border-bottom: 1px solid #1e2022; }
@@ -1142,11 +1139,23 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 fontWeight: 300,
                 lineHeight: 1.65,
                 color: 'rgba(244,243,236,0.65)',
-                margin: '0 0 40px 0',
+                margin: '0 0 0 0',
               }}>
                 Not a retro emulator box – a premium touchscreen countertop arcade built for home bars, shared play, and effortless nostalgia – with no setup, no internet, and no bulky cabinet.
               </p>
 
+              <div className="echo-facts-grid">
+                {facts.map((f) => (
+                  <div key={f.stat} className="echo-fact-cell">
+                    <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1 }}>
+                      {f.stat}
+                    </div>
+                    <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
+                      {f.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
 
             {/* Right: image */}
@@ -1166,20 +1175,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               )}
             </div>
           </div>
-
-          {/* Full-width stats row */}
-          <div className="echo-facts-grid">
-            {facts.map((f) => (
-              <div key={f.stat} className="echo-fact-cell">
-                <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#FB671F', lineHeight: 1.1, whiteSpace: 'nowrap' }}>
-                  {f.stat}
-                </div>
-                <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
-                  {f.label}
-                </div>
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -1194,7 +1189,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             margin: '0 0 8px 0',
             letterSpacing: '-0.01em',
           }}>
-            Four things that make ECHO worth owning.
+            Four things that make ECHO worth owning
           </h2>
 
           <div className="echo-why-grid">
@@ -1230,7 +1225,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               margin: '0 0 16px 0',
               letterSpacing: '-0.01em',
             }}>
-              149 games across six categories.
+              149 games across six categories
             </h2>
             <p style={{
               fontSize: 'clamp(15px, 1.1vw, 17px)',
@@ -1259,7 +1254,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               margin: '0 0 20px 0',
               letterSpacing: '-0.01em',
             }}>
-              A machine worth owning.
+              A machine worth owning
             </h2>
             <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.6)', lineHeight: 1.75, margin: 0 }}>
               ECHO is built on 30+ years of JVL bartop expertise — the same bartop line that earned its reputation in bars and arcades of North America.
@@ -1653,7 +1648,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               margin: 0,
               letterSpacing: '-0.01em',
             }}>
-              Frequently asked.
+              Frequently asked
             </h2>
           </div>
 
@@ -1695,7 +1690,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             margin: '0 0 16px 0',
             letterSpacing: '-0.01em',
           }}>
-            Bring it home.
+            Bring it home
           </h2>
           <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.5)', margin: '0 0 8px 0' }}>
             149 games. One counter. No subscriptions.
