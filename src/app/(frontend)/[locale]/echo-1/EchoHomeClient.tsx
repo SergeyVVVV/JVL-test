@@ -52,22 +52,41 @@ function Hero({ data }: { data: PageData['hero'] }) {
 
       {/* Gradient overlays */}
       <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.05) 100%)' }} />
-      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.0) 60%)' }} />
+      <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to right, rgba(0,0,0,0.78) 0%, rgba(0,0,0,0.45) 40%, rgba(0,0,0,0.0) 70%)' }} />
 
       {/* Headline */}
-      <div style={{ position: 'absolute', bottom: 120, left: 0, right: 0, padding: '0 5vw' }}>
+      <div style={{ position: 'absolute', bottom: 120, left: 0, right: 0, padding: '0 5vw', maxWidth: 760 }}>
+        <p style={{
+          fontSize: 11,
+          fontWeight: 700,
+          letterSpacing: '0.18em',
+          textTransform: 'uppercase',
+          color: '#FB671F',
+          margin: '0 0 20px 0',
+        }}>
+          Home Arcade by JVL
+        </p>
         <h1 className="echo-hero-h1" style={{
           fontFamily: 'inherit',
-          fontSize: 'clamp(2rem, 3.5vw, 3.8rem)',
-          fontWeight: 600,
+          fontSize: 'clamp(2.2rem, 4vw, 4.2rem)',
+          fontWeight: 400,
           lineHeight: 1.1,
-          letterSpacing: '-0.01em',
-          textTransform: 'uppercase',
+          letterSpacing: '-0.02em',
           color: '#fff',
-          margin: 0,
+          margin: '0 0 20px 0',
         }}>
-          {data.title}
+          The classics, back{' '}
+          <em style={{ fontStyle: 'italic', color: '#FB671F' }}>where they belong.</em>
         </h1>
+        <p style={{
+          fontSize: 'clamp(15px, 1.3vw, 18px)',
+          color: 'rgba(244,243,236,0.75)',
+          lineHeight: 1.6,
+          margin: 0,
+          maxWidth: 520,
+        }}>
+          A 22-inch touchscreen bartop arcade with 149 pre-installed games. Built for the home. Plug it in, and play.
+        </p>
       </div>
 
       {/* Bottom bar */}
