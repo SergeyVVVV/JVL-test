@@ -85,7 +85,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
           margin: 0,
           maxWidth: 520,
         }}>
-          A 22-inch touchscreen bartop arcade with 149 pre-installed games. Built for the home. Plug it in, and play.
+          Echo HD3 – a 22-inch touchscreen bartop arcade with 149 pre-installed games. Built for home. Just plug it, and play.
         </p>
       </div>
 
@@ -1057,11 +1057,22 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)',
             fontWeight: 700,
             color: '#F4F3EC',
-            margin: '0 0 40px 0',
+            margin: '0 0 16px 0',
             letterSpacing: '-0.01em',
           }}>
             149 games across six categories.
           </h2>
+          <p style={{
+            fontSize: 'clamp(15px, 1.1vw, 17px)',
+            color: 'rgba(244,243,236,0.6)',
+            lineHeight: 1.7,
+            margin: '0 0 40px 0',
+            maxWidth: 680,
+          }}>
+            Every ECHO comes pre-loaded with JVL&apos;s full library of proprietary arcade games — card games, puzzles, bar classics, trivia, and a full action catalog. There&apos;s something for the cards-and-coffee night, the family weekend, and the friends-over evening.
+            <br /><br />
+            Nothing to download. Nothing to add. Nothing expires.
+          </p>
           <GamesSectionDark />
         </div>
       </section>
