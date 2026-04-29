@@ -502,27 +502,27 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   const whyBlocks = [
     {
       num: '01',
-      title: '149 games, one machine.',
+      title: '149 games, one machine',
       body: 'No downloads. No installs. No subscriptions. No internet required. Every game is built in and ready the moment you plug it in.',
-      icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9 10h.01M15 10h.01M12 8v4"/></svg>,
+      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9 10h.01M15 10h.01M12 8v4"/></svg>,
     },
     {
       num: '02',
-      title: 'Plug it in and play.',
+      title: 'Plug it in and play',
       body: 'Power cord, one USB stick for the software, and you\'re ready in minutes. No technical setup, no account, no configuration.',
-      icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>,
+      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>,
     },
     {
       num: '03',
-      title: 'Made for people around it.',
+      title: 'Made for people around it',
       body: 'Two-player mode, a 360° swivel base, and touch controls anyone can pick up. ECHO pulls people in — kids, grown-ups, guests who haven\'t played in years.',
-      icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
     },
     {
       num: '04',
-      title: 'Built to own for years.',
+      title: 'Built to own for years',
       body: 'Built on 30+ years of JVL bartop expertise. Reinforced case, precision frame, individually tested before it leaves the factory.',
-      icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
     },
   ]
 
@@ -761,24 +761,21 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           gap: 80px;
           align-items: start;
         }
-        /* Facts 2x2 */
+        /* Facts — full-width 4-col row */
         .echo-facts-grid {
           display: grid;
-          grid-template-columns: 1fr 1fr;
+          grid-template-columns: repeat(4, 1fr);
           gap: 0;
           border: 1px solid #1e2022;
           border-radius: 4px;
           overflow: hidden;
-          margin-top: 40px;
+          margin-top: 56px;
         }
         .echo-fact-cell {
-          padding: 24px 20px;
+          padding: 28px 24px;
           border-right: 1px solid #1e2022;
-          border-bottom: 1px solid #1e2022;
         }
-        .echo-fact-cell:nth-child(2n) { border-right: none; }
-        .echo-fact-cell:nth-child(3),
-        .echo-fact-cell:nth-child(4) { border-bottom: none; }
+        .echo-fact-cell:last-child { border-right: none; }
 
         /* Why — 2x2 grid */
         .echo-why-grid {
@@ -940,10 +937,16 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-extra-reviews-grid { grid-template-columns: 1fr 1fr; }
           .echo-ownership-grid { grid-template-columns: 1fr 1fr; }
         }
-        @media (max-width: 600px) {
-          .echo-facts-grid { grid-template-columns: 1fr; }
-          .echo-fact-cell { border-right: none; }
+        @media (max-width: 700px) {
+          .echo-facts-grid { grid-template-columns: 1fr 1fr; }
+          .echo-fact-cell { border-bottom: 1px solid #1e2022; }
           .echo-fact-cell:nth-child(2n) { border-right: none; }
+          .echo-fact-cell:nth-child(3),
+          .echo-fact-cell:nth-child(4) { border-bottom: none; }
+        }
+        @media (max-width: 480px) {
+          .echo-facts-grid { grid-template-columns: 1fr; }
+          .echo-fact-cell { border-right: none; border-bottom: 1px solid #1e2022; }
           .echo-fact-cell:last-child { border-bottom: none; }
           .echo-extra-reviews-grid { grid-template-columns: 1fr; }
           .echo-ownership-grid { grid-template-columns: 1fr; }
@@ -980,18 +983,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 Not a retro emulator box – a premium touchscreen countertop arcade built for home bars, shared play, and effortless nostalgia – with no setup, no internet, and no bulky cabinet.
               </p>
 
-              <div className="echo-facts-grid">
-                {facts.map((f) => (
-                  <div key={f.stat} className="echo-fact-cell">
-                    <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1 }}>
-                      {f.stat}
-                    </div>
-                    <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
-                      {f.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
 
             {/* Right: image */}
@@ -1010,6 +1001,20 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 />
               )}
             </div>
+          </div>
+
+          {/* Full-width stats row */}
+          <div className="echo-facts-grid">
+            {facts.map((f) => (
+              <div key={f.stat} className="echo-fact-cell">
+                <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#FB671F', lineHeight: 1.1, whiteSpace: 'nowrap' }}>
+                  {f.stat}
+                </div>
+                <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
+                  {f.label}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -1037,10 +1042,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 padding: '28px 28px 32px',
               }}>
                 <div style={{ marginBottom: 20 }}>{b.icon}</div>
-                <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 12px 0' }}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 12px 0' }}>
                   {b.title}
                 </h3>
-                <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.7, margin: 0 }}>
+                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.7, margin: 0 }}>
                   {b.body}
                 </p>
               </div>
@@ -1099,18 +1104,18 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           <div className="echo-built-grid">
             {[
               {
-                icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
-                title: 'Designed in Canada, made in the USA.',
+                icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
+                title: 'Designed in Canada, made in the USA',
                 body: 'Every unit is engineered at JVL\'s Canadian headquarters and assembled to strict manufacturing standards.',
               },
               {
-                icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-                title: '30+ years of JVL bartop expertise.',
+                icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+                title: '30+ years of JVL bartop expertise',
                 body: 'JVL has been building bartop machines since 1995. ECHO inherits everything learned from a generation of commercial hardware.',
               },
               {
-                icon: <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
-                title: 'Individually tested, factory shipped.',
+                icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
+                title: 'Individually tested, factory shipped',
                 body: 'Every ECHO is powered on and tested before it leaves the factory. You\'re not the first person to use it — you\'re just the first person to own it.',
               },
             ].map((c) => (
@@ -1121,10 +1126,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 padding: '28px 28px 32px',
               }}>
                 <div style={{ marginBottom: 20 }}>{c.icon}</div>
-                <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 12px 0' }}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 12px 0' }}>
                   {c.title}
                 </h3>
-                <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.7, margin: 0 }}>
+                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.7, margin: 0 }}>
                   {c.body}
                 </p>
               </div>
