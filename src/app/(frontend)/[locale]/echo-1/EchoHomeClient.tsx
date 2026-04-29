@@ -626,6 +626,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   const [reviewsExpanded, setReviewsExpanded] = useState(false)
   const [ctaExpanded1, setCtaExpanded1] = useState(false)
   const [ctaExpanded2, setCtaExpanded2] = useState(false)
+  const [activeVideos, setActiveVideos] = useState<Set<string>>(new Set())
 
   const wrap: React.CSSProperties = {
     maxWidth: 1200,
@@ -990,8 +991,20 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           gap: 20px;
           margin: 48px 0 56px;
         }
-        .echo-video-item { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; background: #0d0f10; }
+        .echo-video-item { position: relative; width: 100%; aspect-ratio: 16 / 9; border-radius: 6px; overflow: hidden; background: #0d0f10; cursor: pointer; }
         .echo-video-item iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+        .echo-video-thumb { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+        .echo-video-play {
+          position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+          background: rgba(0,0,0,0.25); transition: background 0.2s;
+        }
+        .echo-video-item:hover .echo-video-play { background: rgba(0,0,0,0.38); }
+        .echo-video-play-btn {
+          width: 64px; height: 64px; border-radius: 50%;
+          background: rgba(255,255,255,0.92); display: flex; align-items: center; justify-content: center;
+          transition: transform 0.15s, background 0.15s; box-shadow: 0 4px 24px rgba(0,0,0,0.45);
+        }
+        .echo-video-item:hover .echo-video-play-btn { transform: scale(1.08); background: #fff; }
 
         @media (max-width: 680px) {
           .echo-video-grid { grid-template-columns: 1fr; }
@@ -1552,14 +1565,36 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             </p>
             <div className="echo-video-grid">
               {videoReviews.map((v) => (
-                <div key={v.id} className="echo-video-item">
-                  <iframe
-                    src={`https://www.youtube-nocookie.com/embed/${v.id}`}
-                    title={v.title}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    loading="lazy"
-                  />
+                <div
+                  key={v.id}
+                  className="echo-video-item"
+                  onClick={() => setActiveVideos(prev => new Set(prev).add(v.id))}
+                >
+                  {activeVideos.has(v.id) ? (
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1`}
+                      title={v.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  ) : (
+                    <>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        className="echo-video-thumb"
+                        src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
+                        alt={v.title}
+                        loading="lazy"
+                      />
+                      <div className="echo-video-play">
+                        <div className="echo-video-play-btn">
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                            <path d="M6 4.5L19.5 12L6 19.5V4.5Z" fill="#101213"/>
+                          </svg>
+                        </div>
+                      </div>
+                    </>
+                  )}
                 </div>
               ))}
             </div>
