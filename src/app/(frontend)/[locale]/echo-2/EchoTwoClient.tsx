@@ -30,7 +30,6 @@ function Hero({ data }: { data: PageData['hero'] }) {
   }, [])
 
   const trustChips = [
-    'Founded 1984',
     '149 Games Built-in',
     'No Wi-Fi Needed',
     '1-Year Warranty',
