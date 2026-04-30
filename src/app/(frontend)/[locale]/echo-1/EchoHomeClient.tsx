@@ -1250,10 +1250,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               <div style={{ marginBottom: 16 }}>
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               </div>
-              <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
+              <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
                 Founded in 1984
               </h3>
-              <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: '0 0 auto' }}>
+              <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: '0 0 auto' }}>
                 Joseph Levitan started JVL 40+ years ago. Three generations of family ownership. Not a startup.
               </p>
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 20 }}>
@@ -1280,10 +1280,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               <div style={{ marginBottom: 16 }}>
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
               </div>
-              <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
+              <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
                 40+ years of bartop expertise
               </h3>
-              <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
+              <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
                 JVL has been building bartop machines since 1995 — in bars, arcades, and venues across North America.
               </p>
             </div>
@@ -1310,10 +1310,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             ].map((c) => (
               <div key={c.title} style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
                 <div style={{ marginBottom: 16 }}>{c.icon}</div>
-                <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
+                <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
                   {c.title}
                 </h3>
-                <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
+                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
                   {c.body}
                 </p>
               </div>
