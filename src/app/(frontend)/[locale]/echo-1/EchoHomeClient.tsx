@@ -1224,7 +1224,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               lineHeight: 1.7,
               margin: 0,
             }}>
-              Every ECHO comes pre-loaded with JVL&apos;s full library of proprietary arcade games — card games, puzzles, bar classics, trivia, and a full action catalog. There&apos;s something for the cards-and-coffee night, the family weekend, and the friends-over evening.
+              Every ECHO comes pre-loaded with JVL&apos;s full library of proprietary arcade games. There&apos;s something for the cards-and-coffee night, the family weekend, and the friends-over evening.
               <br /><br />
               Nothing to download. Nothing to add. Nothing expires.
             </p>
@@ -1514,10 +1514,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 background: '#0d0f10',
                 borderRadius: '0 0 4px 4px',
               }}>
-                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px 0' }}>
+                <h3 style={{ fontSize: 17, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px 0' }}>
                   {c.title}
                 </h3>
-                <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: 0 }}>
+                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: 0 }}>
                   {c.body}
                 </p>
                 {c.highlight && (
