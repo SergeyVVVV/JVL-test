@@ -410,7 +410,7 @@ function GamesSectionDark() {
   return (
     <div>
       {/* Stats row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderTop: '1px solid #1e2022', borderBottom: '1px solid #1e2022', marginBottom: 56 }}>
+      <div className="echo-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderTop: '1px solid #1e2022', borderBottom: '1px solid #1e2022', marginBottom: 56 }}>
         {[
           { value: '149', label: 'Pre-installed games', size: 'clamp(2.2rem, 3.5vw, 3rem)' },
           { value: 'Solo & 2-Player', label: 'Player Modes', size: 'clamp(1.5rem, 2.4vw, 2rem)' },
@@ -421,7 +421,7 @@ function GamesSectionDark() {
             borderLeft: i > 0 ? '1px solid #1e2022' : 'none',
             display: 'flex', flexDirection: 'column', alignItems: 'center',
           }}>
-            <div style={{ fontSize: s.size, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, marginBottom: 8 }}>{s.value}</div>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: s.size, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, width: '100%', marginBottom: 8 }}>{s.value}</div>
             <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.45)' }}>{s.label}</div>
           </div>
         ))}
