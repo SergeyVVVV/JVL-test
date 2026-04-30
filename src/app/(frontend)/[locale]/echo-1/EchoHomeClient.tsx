@@ -636,7 +636,7 @@ function SpecsSectionLight() {
         {/* Heading */}
         <div style={{ marginBottom: 52 }}>
           <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 14px' }}>
-            Specifications
+            Technical Details
           </p>
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
@@ -650,7 +650,7 @@ function SpecsSectionLight() {
             Product Specifications
           </h2>
           <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0, maxWidth: 560 }}>
-            Every detail refined. Every feature designed to deliver performance, beauty, and timeless play.
+            Compact enough for a home bar or game room, engineered for years of everyday play.
           </p>
         </div>
 
@@ -1360,7 +1360,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 20 }}>
                 <a
                   href="https://www.jvl.ca/en/about-jvl"
-                  style={{ fontSize: 12, fontWeight: 500, color: 'rgba(244,243,236,0.3)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, transition: 'color 0.2s' }}
+                  style={{ fontSize: 14, fontWeight: 500, color: 'rgba(244,243,236,0.3)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, transition: 'color 0.2s' }}
                   onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')}
                   onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.3)')}
                 >
