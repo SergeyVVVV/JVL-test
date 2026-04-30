@@ -452,6 +452,20 @@ function GamesSectionDark() {
               <span style={{ fontSize: 18, fontWeight: activeTab === i ? 600 : 400 }}>{c.label}</span>
             </button>
           ))}
+
+          {/* Parental control callout */}
+          <div style={{
+            marginTop: 20,
+            padding: '14px 16px',
+            background: 'rgba(244,243,236,0.04)',
+            borderLeft: '3px solid #FB671F',
+            borderRadius: '0 4px 4px 0',
+          }}>
+            <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: 0 }}>
+              <strong style={{ color: '#F4F3EC', fontWeight: 600 }}>Full parental control.</strong>{' '}
+              The Adult category can be turned off, scheduled, or locked with a physical key. Settings are protected so the rest of the household can&apos;t change them.
+            </p>
+          </div>
         </div>
 
         {/* Right: video + description */}
