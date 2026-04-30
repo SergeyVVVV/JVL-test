@@ -463,7 +463,7 @@ function GamesSectionDark() {
           }}>
             <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: 0 }}>
               <strong style={{ color: '#F4F3EC', fontWeight: 600 }}>Full parental control.</strong>{' '}
-              The Adult category can be turned off, scheduled, or locked with a physical key. Settings are protected so the rest of the household can&apos;t change them.
+              The Adult category can be turned off, scheduled, or locked with a physical key.
             </p>
           </div>
         </div>
