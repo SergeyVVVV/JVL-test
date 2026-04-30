@@ -83,9 +83,9 @@ function Hero({ data }: { data: PageData['hero'] }) {
           color: 'rgba(244,243,236,0.75)',
           lineHeight: 1.6,
           margin: 0,
-          maxWidth: 520,
+          maxWidth: 660,
         }}>
-          Echo HD3 – a 22-inch touchscreen bartop arcade with 149 pre-installed games. Built for home. Just plug it, and play.
+          Echo HD3 – a 22-inch touchscreen bartop arcade with 149 pre-installed games. Built for home. Plug it in and play.
         </p>
       </div>
 
@@ -623,7 +623,6 @@ function SpecsSectionLight() {
 
 export default function EchoHomeClient({ data }: { data: PageData }) {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
-  const [reviewsExpanded, setReviewsExpanded] = useState(false)
   const [ctaExpanded1, setCtaExpanded1] = useState(false)
   const [ctaExpanded2, setCtaExpanded2] = useState(false)
   const [activeVideos, setActiveVideos] = useState<Set<string>>(new Set())
@@ -665,7 +664,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       num: '04',
       title: 'Built to own for years',
-      body: 'Built on 30+ years of JVL bartop expertise. Reinforced case, precision frame, individually tested before it leaves the factory.',
+      body: 'Built on 40+ years of JVL bartop expertise. Reinforced case, precision frame, individually tested before it leaves the factory.',
       icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
     },
   ]
@@ -684,19 +683,11 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   const mainReviews = [
     {
       tag: '★★★★★ Verified Amazon Purchase',
-      quote: 'This countertop game has been a big hit in my nightclub. It\'s on FreePlay — customers have a blast all night long.',
-      author: 'Leo G. · via Amazon',
-      initials: 'LG',
-      avatarColor: '#FB671F',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
-    },
-    {
-      tag: '★★★★★ Verified Amazon Purchase',
       quote: 'Our family has had this arcade for 4 years already, we purchased it from JVL directly. Still going strong — amazing support from the team.',
       author: 'Svetlana P. · via Amazon',
       initials: 'SP',
       avatarColor: '#E85D75',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/R1UOXG3CXTPQ20/',
     },
     {
       tag: '★★★★★ Verified Amazon Purchase',
@@ -704,7 +695,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       author: 'Olga V. · via Amazon',
       initials: 'OV',
       avatarColor: '#5CB85C',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/RE9UGIAOURFUN',
     },
     {
       tag: '★★★★★ Verified Amazon Purchase',
@@ -712,90 +703,15 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       author: 'FlowRider · via Amazon',
       initials: 'FR',
       avatarColor: '#4B6BFB',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/RQFTPRF1QX1D8',
     },
     {
-      tag: 'On setup & first use',
-      quote: 'I had it on the counter and playing within ten minutes of opening the box. My kids didn\'t even let me finish reading the manual.',
-      author: 'Tom R., Ontario',
-      initials: 'TR',
-      avatarColor: '#4B6BFB',
-      reviewUrl: AMAZON_URL,
-    },
-    {
-      tag: 'On game variety',
-      quote: 'We thought we\'d get bored of the same games fast. Three months in and we\'re still finding ones we haven\'t tried. 149 is not a small number.',
-      author: 'Linda H., British Columbia',
-      initials: 'LH',
-      avatarColor: '#E85D75',
-      reviewUrl: AMAZON_URL,
-    },
-    {
-      tag: 'On the two-player feature',
-      quote: 'My mother-in-law who hasn\'t touched a video game in decades was playing card games on it within five minutes. The swivel base is genius.',
-      author: 'Margaret S., Alberta',
-      initials: 'MS',
-      avatarColor: '#5CB85C',
-      reviewUrl: AMAZON_URL,
-    },
-    {
-      tag: 'On build quality',
-      quote: 'It feels like proper equipment — not a toy. The screen is crisp, the sound is loud enough for a room, and nothing feels cheap about it.',
-      author: 'Daniel P., Quebec',
-      initials: 'DP',
-      avatarColor: '#F0A500',
-      reviewUrl: AMAZON_URL,
-    },
-  ]
-
-  const extraReviews = [
-    {
-      tag: 'On the Adult category',
-      quote: 'Love that you can lock it out with a physical key. The kids have no idea it exists.',
-      author: 'Sarah M., Manitoba',
-      initials: 'SM',
-      avatarColor: '#9B59B6',
-      reviewUrl: AMAZON_URL,
-    },
-    {
-      tag: 'On long-term use',
-      quote: 'Had it for over a year now. Still runs perfectly. Zero issues. Just plays.',
-      author: 'James K., Nova Scotia',
-      initials: 'JK',
-      avatarColor: '#2EAEC9',
-      reviewUrl: AMAZON_URL,
-    },
-    {
-      tag: 'On gifting',
-      quote: 'Bought it for my dad\'s retirement. He plays it every single day. Best gift I\'ve ever given.',
-      author: 'Rachel T., Saskatchewan',
-      initials: 'RT',
-      avatarColor: '#E85D75',
-      reviewUrl: AMAZON_URL,
-    },
-    {
-      tag: 'On customer support',
-      quote: 'Had a question about a setting — called JVL and a real person answered. That alone is worth a lot these days.',
-      author: 'Frank D., New Brunswick',
-      initials: 'FD',
-      avatarColor: '#4B6BFB',
-      reviewUrl: AMAZON_URL,
-    },
-    {
-      tag: 'On touchscreen',
-      quote: 'The touchscreen is incredibly responsive. My 7-year-old and my 72-year-old father both figured it out on their own.',
-      author: 'Claire V., Prince Edward Island',
-      initials: 'CV',
-      avatarColor: '#5CB85C',
-      reviewUrl: AMAZON_URL,
-    },
-    {
-      tag: 'On value',
-      quote: 'For what you get — 149 games, the build quality, the warranty — it\'s genuinely good value. Nothing else like it at this price.',
-      author: 'Brian W., Newfoundland',
-      initials: 'BW',
-      avatarColor: '#F0A500',
-      reviewUrl: AMAZON_URL,
+      tag: '★★★★★ Verified Amazon Purchase',
+      quote: 'This countertop game has been a big hit in my nightclub. It\'s on FreePlay — customers have a blast all night long.',
+      author: 'Leo Getz · via Amazon',
+      initials: 'LG',
+      avatarColor: '#FB671F',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/R2VND20OEXNOV5/',
     },
   ]
 
@@ -803,7 +719,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     { id: 'mMNDUyJehQI', title: 'ECHO HD3 Review' },
     { id: 'GkeyO298gC0', title: 'ECHO HD3 Unboxing' },
     { id: 'X2TVpAy7pFk', title: 'ECHO HD3 Gameplay' },
-    { id: '75kVKwk_o8k', title: 'ECHO HD3 Overview' },
+    { id: 'qurGXFA6Eds', title: 'ECHO HD3 Bar Review' },
   ]
 
   // ─── Section 9 FAQ ──────────────────────────────────────────────────────────
@@ -830,7 +746,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     },
     {
       q: 'Are the games licensed classics?',
-      a: 'No — ECHO\'s 149 games are proprietary JVL titles built and refined over 30+ years. They include original card games, arcade-style action titles, trivia, puzzle games, and more.',
+      a: 'No — ECHO\'s 149 games are proprietary JVL titles built and refined over 40+ years. They include original card games, arcade-style action titles, trivia, puzzle games, and more.',
     },
     {
       q: 'Is it loud? Can I control volume?',
@@ -1257,7 +1173,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               A machine worth owning
             </h2>
             <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.6)', lineHeight: 1.75, margin: 0 }}>
-              ECHO is built on 30+ years of JVL bartop expertise — the same bartop line that earned its reputation in bars and arcades of North America.
+              ECHO is built on 40+ years of JVL bartop expertise — the same bartop line that earned its reputation in bars and arcades of North America.
             </p>
           </div>
 
@@ -1270,7 +1186,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               },
               {
                 icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-                title: '30+ years of JVL bartop expertise',
+                title: '40+ years of JVL bartop expertise',
                 body: 'JVL has been building bartop machines since 1995. ECHO inherits everything learned from a generation of commercial hardware.',
               },
               {
@@ -1319,8 +1235,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       <SpecsSectionLight />
 
       {/* ── Section 6: CTA block ── */}
-      <section className="echo-section-cta">
-        <div style={{ ...wrap, textAlign: 'center' }}>
+      <section className="echo-section-cta" style={{ position: 'relative', backgroundImage: 'url(/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(8,10,11,0.82)' }} />
+        <div style={{ ...wrap, textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 3vw, 3rem)',
             fontWeight: 700,
@@ -1405,12 +1322,12 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           {/* Stats row */}
           <div className="echo-reviews-stats">
             <div className="echo-stat-cell">
-              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>30+</div>
+              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>40+</div>
               <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>Years of JVL bartop heritage</div>
             </div>
             <div className="echo-stat-cell">
-              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>4.3★</div>
-              <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>Current Amazon rating</div>
+              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>10,000+</div>
+              <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>Happy Echo owners</div>
             </div>
             <div className="echo-stat-cell">
               <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>1 yr</div>
@@ -1475,84 +1392,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             ))}
           </div>
 
-          {/* Expand toggle */}
-          <div style={{ textAlign: 'center', marginTop: 32 }}>
-            <button
-              onClick={() => setReviewsExpanded(!reviewsExpanded)}
-              style={{
-                background: 'none',
-                border: '1px solid #1e2022',
-                color: 'rgba(244,243,236,0.6)',
-                padding: '12px 28px',
-                borderRadius: 4,
-                cursor: 'pointer',
-                fontSize: 14,
-                letterSpacing: '0.06em',
-              }}
-            >
-              {reviewsExpanded ? 'Show fewer' : 'Read more stories'}
-            </button>
-          </div>
-
-          {/* Extra reviews */}
-          {reviewsExpanded && (
-            <div className="echo-extra-reviews-grid">
-              {extraReviews.map((r) => (
-                <div key={r.author} style={{
-                  border: '1px solid #1e2022',
-                  borderRadius: 4,
-                  padding: '22px 20px 18px',
-                  background: '#101213',
-                  display: 'flex',
-                  flexDirection: 'column',
-                }}>
-                  <div style={{ margin: '0 0 12px 0' }}>
-                    {/^★/.test(r.tag) ? (
-                      <>
-                        <span style={{ fontSize: 14, color: '#FB671F' }}>{r.tag.match(/^(★+)/)?.[1]}</span>
-                        {' '}
-                        <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.3)' }}>{r.tag.replace(/^★+\s*/, '')}</span>
-                      </>
-                    ) : (
-                      <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F' }}>{r.tag}</span>
-                    )}
-                  </div>
-                  <p style={{ fontSize: 14, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.65, margin: '0 0 14px 0', flexGrow: 1 }}>
-                    "{r.quote}"
-                  </p>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                      <div style={{
-                        width: 28, height: 28, borderRadius: '50%', flexShrink: 0,
-                        background: r.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        fontSize: 11, fontWeight: 700, color: '#fff',
-                      }}>
-                        {r.initials}
-                      </div>
-                      <span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(244,243,236,0.75)' }}>{r.author}</span>
-                    </div>
-                    <a
-                      href={r.reviewUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        fontSize: 11, fontWeight: 500, color: 'rgba(244,243,236,0.3)',
-                        textDecoration: 'none',
-                        display: 'inline-flex', alignItems: 'center', gap: 4, flexShrink: 0,
-                        transition: 'color 0.2s',
-                      }}
-                      onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')}
-                      onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.3)')}
-                    >
-                      View review
-                      <svg width="9" height="9" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                    </a>
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
           {/* Video reviews */}
           <div style={{ marginTop: 56 }}>
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px 0' }}>
@@ -1560,36 +1399,16 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             </p>
             <div className="echo-video-grid">
               {videoReviews.map((v) => (
-                <div
-                  key={v.id}
-                  className="echo-video-item"
-                  onClick={() => setActiveVideos(prev => new Set(prev).add(v.id))}
-                >
-                  {activeVideos.has(v.id) ? (
+                <div key={v.id}>
+                  <div className="echo-video-item">
                     <iframe
-                      src={`https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1`}
+                      src={`https://www.youtube-nocookie.com/embed/${v.id}?rel=0&modestbranding=1`}
                       title={v.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     />
-                  ) : (
-                    <>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        className="echo-video-thumb"
-                        src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
-                        alt={v.title}
-                        loading="lazy"
-                      />
-                      <div className="echo-video-play">
-                        <div className="echo-video-play-btn">
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                            <path d="M6 4.5L19.5 12L6 19.5V4.5Z" fill="#101213"/>
-                          </svg>
-                        </div>
-                      </div>
-                    </>
-                  )}
+                  </div>
+                  <p style={{ fontSize: 13, fontWeight: 500, color: 'rgba(244,243,236,0.55)', margin: '10px 0 0 0' }}>{v.title}</p>
                 </div>
               ))}
             </div>
@@ -1681,8 +1500,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       </section>
 
       {/* ── Section 10: Bottom CTA ── */}
-      <section className="echo-section-bottom-cta">
-        <div style={{ ...wrap, textAlign: 'center' }}>
+      <section className="echo-section-bottom-cta" style={{ position: 'relative', backgroundImage: 'url(/api/storage/3475/jvl-echo-poker-luxury-man-cave-setup.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(8,10,11,0.80)' }} />
+        <div style={{ ...wrap, textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 3vw, 3rem)',
             fontWeight: 700,

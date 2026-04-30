@@ -30,7 +30,6 @@ function Hero({ data }: { data: PageData['hero'] }) {
   }, [])
 
   const trustChips = [
-    'Founded 1984',
     '149 Games Built-in',
     'No Wi-Fi Needed',
     '1-Year Warranty',
@@ -605,7 +604,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
     {
       num: '04',
       title: 'Built to own for years',
-      body: 'Built on 30+ years of JVL bartop expertise. Reinforced case, precision frame, individually tested before it leaves the factory.',
+      body: 'Built on 40+ years of JVL bartop expertise. Reinforced case, precision frame, individually tested before it leaves the factory.',
       icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
     },
   ]
@@ -613,19 +612,11 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
   const mainReviews = [
     {
       tag: '★★★★★ Verified Amazon Purchase',
-      quote: 'This countertop game has been a big hit in my nightclub. It\'s on FreePlay — customers have a blast all night long.',
-      author: 'Leo G. · via Amazon',
-      initials: 'LG',
-      avatarColor: '#FB671F',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
-    },
-    {
-      tag: '★★★★★ Verified Amazon Purchase',
       quote: 'Our family has had this arcade for 4 years already, we purchased it from JVL directly. Still going strong — amazing support from the team.',
       author: 'Svetlana P. · via Amazon',
       initials: 'SP',
       avatarColor: '#E85D75',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/R1UOXG3CXTPQ20/',
     },
     {
       tag: '★★★★★ Verified Amazon Purchase',
@@ -633,7 +624,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
       author: 'Olga V. · via Amazon',
       initials: 'OV',
       avatarColor: '#5CB85C',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/RE9UGIAOURFUN',
     },
     {
       tag: '★★★★★ Verified Amazon Purchase',
@@ -641,7 +632,15 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
       author: 'FlowRider · via Amazon',
       initials: 'FR',
       avatarColor: '#4B6BFB',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/RQFTPRF1QX1D8',
+    },
+    {
+      tag: '★★★★★ Verified Amazon Purchase',
+      quote: 'This countertop game has been a big hit in my nightclub. It\'s on FreePlay — customers have a blast all night long.',
+      author: 'Leo Getz · via Amazon',
+      initials: 'LG',
+      avatarColor: '#FB671F',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/R2VND20OEXNOV5/',
     },
     {
       tag: 'On setup & first use',
@@ -690,7 +689,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
     { id: 'mMNDUyJehQI', title: 'ECHO HD3 Review' },
     { id: 'GkeyO298gC0', title: 'ECHO HD3 Unboxing' },
     { id: 'X2TVpAy7pFk', title: 'ECHO HD3 Gameplay' },
-    { id: '75kVKwk_o8k', title: 'ECHO HD3 Overview' },
+    { id: 'qurGXFA6Eds', title: 'ECHO HD3 Bar Review' },
   ]
 
   const faqs = [
@@ -700,11 +699,11 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
     },
     {
       q: 'Why does ECHO cost $3,990?',
-      a: 'ECHO is professional-grade hardware, not a consumer toy. It\'s built to the same specifications as machines running in bars and venues — reinforced frame, precision-built display, full 149-game library licensed and developed in-house over 30+ years, and backed by a real warranty with covered shipping. The price reflects what it actually is: a machine built to last for years.',
+      a: 'ECHO is professional-grade hardware, not a consumer toy. It\'s built to the same specifications as machines running in bars and venues — reinforced frame, precision-built display, full 149-game library licensed and developed in-house over 40+ years, and backed by a real warranty with covered shipping. The price reflects what it actually is: a machine built to last for years.',
     },
     {
       q: 'Are the games licensed classics?',
-      a: 'No — ECHO\'s 149 games are proprietary JVL titles, built and refined over 30+ years. They\'re not licensed retro ROMs. You get original card games, arcade-style action, trivia, puzzle games, bar classics, and more — all developed by JVL.',
+      a: 'No — ECHO\'s 149 games are proprietary JVL titles, built and refined over 40+ years. They\'re not licensed retro ROMs. You get original card games, arcade-style action, trivia, puzzle games, bar classics, and more — all developed by JVL.',
     },
     {
       q: 'Does it need Wi-Fi or internet?',
@@ -873,7 +872,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
               },
               {
                 icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-                title: '30+ years of bartop expertise',
+                title: '40+ years of bartop expertise',
                 body: 'JVL has been building bartop machines since 1995 — in bars, arcades, and venues across North America.',
               },
               {
@@ -1006,7 +1005,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
               A machine worth owning
             </h2>
             <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.6)', lineHeight: 1.75, margin: 0 }}>
-              ECHO is built on 30+ years of JVL bartop expertise — the same bartop line that earned its reputation in bars and arcades of North America.
+              ECHO is built on 40+ years of JVL bartop expertise — the same bartop line that earned its reputation in bars and arcades of North America.
             </p>
           </div>
           <div className="echo-built-grid">
@@ -1018,7 +1017,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
               },
               {
                 icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-                title: '30+ years of JVL bartop expertise',
+                title: '40+ years of JVL bartop expertise',
                 body: 'JVL has been building bartop machines since 1995. ECHO inherits everything learned from a generation of commercial hardware.',
               },
               {
@@ -1314,7 +1313,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
           </h2>
           <div className="echo-reviews-stats">
             <div className="echo-stat-cell">
-              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>30+</div>
+              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>40+</div>
               <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>Years of JVL bartop heritage</div>
             </div>
             <div className="echo-stat-cell">
@@ -1392,20 +1391,16 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
             </p>
             <div className="echo-video-grid">
               {videoReviews.map((v) => (
-                <div key={v.id} className="echo-video-item" onClick={() => setActiveVideos(prev => new Set(prev).add(v.id))}>
-                  {activeVideos.has(v.id) ? (
-                    <iframe src={`https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1`} title={v.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
-                  ) : (
-                    <>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img className="echo-video-thumb" src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`} alt={v.title} loading="lazy" />
-                      <div className="echo-video-play">
-                        <div className="echo-video-play-btn">
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6 4.5L19.5 12L6 19.5V4.5Z" fill="#101213"/></svg>
-                        </div>
-                      </div>
-                    </>
-                  )}
+                <div key={v.id}>
+                  <div className="echo-video-item">
+                    <iframe
+                      src={`https://www.youtube-nocookie.com/embed/${v.id}?rel=0&modestbranding=1`}
+                      title={v.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  <p style={{ fontSize: 13, fontWeight: 500, color: 'rgba(244,243,236,0.55)', margin: '10px 0 0 0' }}>{v.title}</p>
                 </div>
               ))}
             </div>

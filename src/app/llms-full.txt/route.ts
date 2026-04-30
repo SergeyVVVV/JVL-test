@@ -53,7 +53,7 @@ export async function GET() {
 ## About JVL
 
 JVL is a family-owned manufacturer with 40+ years in the coin-operated
-amusement and gaming industry. ECHO is built on 30+ years of JVL bartop
+amusement and gaming industry. ECHO is built on 40+ years of JVL bartop
 expertise; JVL bartops have been awarded "Best Bartop Video Game of the
 Year" by RePlay Magazine multiple times (this is a heritage claim about
 JVL's track record across its bartop line, not an award attributed to

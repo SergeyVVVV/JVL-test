@@ -251,7 +251,7 @@ function LegacySection() {
           maxWidth: 840,
           margin: '0 auto 28px',
         }}>
-          Touchscreen Arcade Machine with 30+ Years of Innovation
+          Touchscreen Arcade Machine with 40+ Years of Innovation
         </h2>
 
         {/* Centered description */}
