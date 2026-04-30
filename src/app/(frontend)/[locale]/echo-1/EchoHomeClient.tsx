@@ -496,44 +496,54 @@ function TimelineBlock() {
   const [active, setActive] = useState(0)
   const item = TIMELINE[active]
   return (
-    <div style={{ marginTop: 64, borderTop: '1px solid #1e2022' }}>
+    <div style={{
+      marginTop: 64,
+      marginLeft: 'calc(-1 * 6vw)',
+      marginRight: 'calc(-1 * 6vw)',
+      background: '#101213',
+      borderTop: '1px solid #1e2022',
+    }}>
       {/* Product display */}
-      <div className="echo-legacy-grid" style={{ padding: '56px 0 0' }}>
-        <div className="echo-legacy-text">
-          <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#F4F3EC', margin: '0 0 16px' }}>
-            {item.name}
-          </h3>
-          <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: 0 }}>
-            {item.desc}
-          </p>
-        </div>
-        <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
-          <img key={item.year} src={item.img} alt={`JVL ${item.name}`} style={{ maxHeight: 320, maxWidth: '100%', objectFit: 'contain', display: 'block' }} />
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '56px 6vw 0' }}>
+        <div className="echo-legacy-grid">
+          <div className="echo-legacy-text">
+            <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#F4F3EC', margin: '0 0 16px' }}>
+              {item.name}
+            </h3>
+            <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: 0 }}>
+              {item.desc}
+            </p>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', minHeight: 340 }}>
+            <img key={item.year} src={item.img} alt={`JVL ${item.name}`} style={{ maxHeight: 340, maxWidth: '100%', objectFit: 'contain', display: 'block' }} />
+          </div>
         </div>
       </div>
       {/* Timeline bar */}
-      <div style={{ marginTop: 24, borderTop: '1px solid rgba(244,243,236,0.12)', background: 'rgba(0,0,0,0.35)', paddingBottom: 16 }}>
-        <div style={{ display: 'flex', overflowX: 'auto', scrollbarWidth: 'none' }}>
-          {TIMELINE.map((t, i) => (
-            <button
-              key={t.year}
-              onClick={() => setActive(i)}
-              className="echo-timeline-btn"
-              style={{
-                flex: '0 0 calc(100% / 11)', minWidth: 80,
-                background: 'none', border: 'none', cursor: 'pointer',
-                padding: '20px 0', fontSize: 14,
-                fontWeight: active === i ? 700 : 400,
-                color: active === i ? '#FB671F' : 'rgba(244,243,236,0.45)',
-                borderTop: `2px solid ${active === i ? '#FB671F' : 'transparent'}`,
-                transition: 'color 0.2s, border-color 0.2s',
-                textAlign: 'center', letterSpacing: '0.01em', marginTop: -1,
-                fontFamily: 'inherit',
-              }}
-            >
-              {t.year}
-            </button>
-          ))}
+      <div style={{ marginTop: 24, borderTop: '1px solid rgba(244,243,236,0.12)', background: 'rgba(0,0,0,0.35)', paddingBottom: 40 }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+          <div style={{ display: 'flex', overflowX: 'auto', scrollbarWidth: 'none' }}>
+            {TIMELINE.map((t, i) => (
+              <button
+                key={t.year}
+                onClick={() => setActive(i)}
+                className="echo-timeline-btn"
+                style={{
+                  flex: '0 0 calc(100% / 11)', minWidth: 80,
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  padding: '20px 0', fontSize: 14,
+                  fontWeight: active === i ? 700 : 400,
+                  color: active === i ? '#FB671F' : 'rgba(244,243,236,0.45)',
+                  borderTop: `2px solid ${active === i ? '#FB671F' : 'transparent'}`,
+                  transition: 'color 0.2s, border-color 0.2s',
+                  textAlign: 'center', letterSpacing: '0.01em', marginTop: -1,
+                  fontFamily: 'inherit',
+                }}
+              >
+                {t.year}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
