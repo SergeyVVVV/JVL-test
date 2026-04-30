@@ -1217,7 +1217,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               color: '#F4F3EC',
               margin: '0 0 20px 0',
             }}>
-              The only arcade machine you need
+              A premium countertop arcade for your home
             </h2>
             <p style={{
               fontSize: 16,
@@ -1226,7 +1226,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               color: 'rgba(244,243,236,0.65)',
               margin: 0,
             }}>
-              Not a retro emulator box – a premium touchscreen countertop arcade built for home bars, shared play, and effortless nostalgia – with no setup, no internet, and no bulky cabinet.
+              Built for home bars, game rooms, and shared play, ECHO delivers 149 built-in JVL games with no downloads, no internet, and no bulky cabinet.
             </p>
           </div>
 
