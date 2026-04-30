@@ -497,9 +497,6 @@ function TimelineBlock() {
   const item = TIMELINE[active]
   return (
     <div style={{
-      marginTop: 64,
-      marginLeft: 'calc(-1 * 6vw)',
-      marginRight: 'calc(-1 * 6vw)',
       background: '#101213',
       borderTop: '1px solid #1e2022',
     }}>
@@ -1310,8 +1307,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           }}>
             "A machine built by a company that has been making bartops since before most of its customers had seen one in a bar."
           </p>
-          <TimelineBlock />
         </div>
+        <TimelineBlock />
       </section>
 
       {/* ── Section 5b: Product spec ── */}
