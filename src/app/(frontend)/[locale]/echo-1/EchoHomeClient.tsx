@@ -1319,8 +1319,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       <SpecsSectionLight />
 
       {/* ── Section 6: CTA block ── */}
-      <section className="echo-section-cta">
-        <div style={{ ...wrap, textAlign: 'center' }}>
+      <section className="echo-section-cta" style={{ position: 'relative', backgroundImage: 'url(/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(8,10,11,0.82)' }} />
+        <div style={{ ...wrap, textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 3vw, 3rem)',
             fontWeight: 700,
@@ -1661,8 +1662,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       </section>
 
       {/* ── Section 10: Bottom CTA ── */}
-      <section className="echo-section-bottom-cta">
-        <div style={{ ...wrap, textAlign: 'center' }}>
+      <section className="echo-section-bottom-cta" style={{ position: 'relative', backgroundImage: 'url(/api/storage/3475/jvl-echo-poker-luxury-man-cave-setup.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(8,10,11,0.80)' }} />
+        <div style={{ ...wrap, textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <h2 style={{
             fontSize: 'clamp(1.8rem, 3vw, 3rem)',
             fontWeight: 700,
