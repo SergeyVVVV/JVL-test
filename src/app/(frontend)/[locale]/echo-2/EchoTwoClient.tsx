@@ -604,7 +604,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
     {
       num: '04',
       title: 'Built to own for years',
-      body: 'Built on 30+ years of JVL bartop expertise. Reinforced case, precision frame, individually tested before it leaves the factory.',
+      body: 'Built on 40+ years of JVL bartop expertise. Reinforced case, precision frame, individually tested before it leaves the factory.',
       icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
     },
   ]
@@ -699,11 +699,11 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
     },
     {
       q: 'Why does ECHO cost $3,990?',
-      a: 'ECHO is professional-grade hardware, not a consumer toy. It\'s built to the same specifications as machines running in bars and venues — reinforced frame, precision-built display, full 149-game library licensed and developed in-house over 30+ years, and backed by a real warranty with covered shipping. The price reflects what it actually is: a machine built to last for years.',
+      a: 'ECHO is professional-grade hardware, not a consumer toy. It\'s built to the same specifications as machines running in bars and venues — reinforced frame, precision-built display, full 149-game library licensed and developed in-house over 40+ years, and backed by a real warranty with covered shipping. The price reflects what it actually is: a machine built to last for years.',
     },
     {
       q: 'Are the games licensed classics?',
-      a: 'No — ECHO\'s 149 games are proprietary JVL titles, built and refined over 30+ years. They\'re not licensed retro ROMs. You get original card games, arcade-style action, trivia, puzzle games, bar classics, and more — all developed by JVL.',
+      a: 'No — ECHO\'s 149 games are proprietary JVL titles, built and refined over 40+ years. They\'re not licensed retro ROMs. You get original card games, arcade-style action, trivia, puzzle games, bar classics, and more — all developed by JVL.',
     },
     {
       q: 'Does it need Wi-Fi or internet?',
@@ -872,7 +872,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
               },
               {
                 icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-                title: '30+ years of bartop expertise',
+                title: '40+ years of bartop expertise',
                 body: 'JVL has been building bartop machines since 1995 — in bars, arcades, and venues across North America.',
               },
               {
@@ -1005,7 +1005,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
               A machine worth owning
             </h2>
             <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.6)', lineHeight: 1.75, margin: 0 }}>
-              ECHO is built on 30+ years of JVL bartop expertise — the same bartop line that earned its reputation in bars and arcades of North America.
+              ECHO is built on 40+ years of JVL bartop expertise — the same bartop line that earned its reputation in bars and arcades of North America.
             </p>
           </div>
           <div className="echo-built-grid">
@@ -1017,7 +1017,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
               },
               {
                 icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-                title: '30+ years of JVL bartop expertise',
+                title: '40+ years of JVL bartop expertise',
                 body: 'JVL has been building bartop machines since 1995. ECHO inherits everything learned from a generation of commercial hardware.',
               },
               {
@@ -1313,7 +1313,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
           </h2>
           <div className="echo-reviews-stats">
             <div className="echo-stat-cell">
-              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>30+</div>
+              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>40+</div>
               <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>Years of JVL bartop heritage</div>
             </div>
             <div className="echo-stat-cell">

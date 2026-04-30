@@ -665,7 +665,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       num: '04',
       title: 'Built to own for years',
-      body: 'Built on 30+ years of JVL bartop expertise. Reinforced case, precision frame, individually tested before it leaves the factory.',
+      body: 'Built on 40+ years of JVL bartop expertise. Reinforced case, precision frame, individually tested before it leaves the factory.',
       icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
     },
   ]
@@ -830,7 +830,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     },
     {
       q: 'Are the games licensed classics?',
-      a: 'No — ECHO\'s 149 games are proprietary JVL titles built and refined over 30+ years. They include original card games, arcade-style action titles, trivia, puzzle games, and more.',
+      a: 'No — ECHO\'s 149 games are proprietary JVL titles built and refined over 40+ years. They include original card games, arcade-style action titles, trivia, puzzle games, and more.',
     },
     {
       q: 'Is it loud? Can I control volume?',
@@ -1257,7 +1257,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               A machine worth owning
             </h2>
             <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.6)', lineHeight: 1.75, margin: 0 }}>
-              ECHO is built on 30+ years of JVL bartop expertise — the same bartop line that earned its reputation in bars and arcades of North America.
+              ECHO is built on 40+ years of JVL bartop expertise — the same bartop line that earned its reputation in bars and arcades of North America.
             </p>
           </div>
 
@@ -1270,7 +1270,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               },
               {
                 icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-                title: '30+ years of JVL bartop expertise',
+                title: '40+ years of JVL bartop expertise',
                 body: 'JVL has been building bartop machines since 1995. ECHO inherits everything learned from a generation of commercial hardware.',
               },
               {
@@ -1405,7 +1405,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           {/* Stats row */}
           <div className="echo-reviews-stats">
             <div className="echo-stat-cell">
-              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>30+</div>
+              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>40+</div>
               <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>Years of JVL bartop heritage</div>
             </div>
             <div className="echo-stat-cell">
