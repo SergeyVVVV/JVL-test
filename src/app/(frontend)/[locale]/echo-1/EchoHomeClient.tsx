@@ -1461,23 +1461,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             </a>
             <a
               href="/en/contact-us"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '16px 32px',
-                border: '2px solid rgba(244,243,236,0.3)',
-                borderRadius: 4,
-                fontSize: 14,
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: '#F4F3EC',
-                textDecoration: 'none',
-                transition: 'border-color 0.2s, background 0.2s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#F4F3EC'; e.currentTarget.style.background = 'rgba(244,243,236,0.08)' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(244,243,236,0.3)'; e.currentTarget.style.background = 'transparent' }}
+              className="btn-outline"
+              style={{ padding: '16px 32px' }}
             >
               Buy from JVL
             </a>
@@ -1729,23 +1714,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             </a>
             <a
               href="/en/contact-us"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '16px 32px',
-                border: '2px solid rgba(244,243,236,0.3)',
-                borderRadius: 4,
-                fontSize: 14,
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: '#F4F3EC',
-                textDecoration: 'none',
-                transition: 'border-color 0.2s, background 0.2s',
-              }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = '#F4F3EC'; e.currentTarget.style.background = 'rgba(244,243,236,0.08)' }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(244,243,236,0.3)'; e.currentTarget.style.background = 'transparent' }}
+              className="btn-outline"
+              style={{ padding: '16px 32px' }}
             >
               Buy from JVL
             </a>
