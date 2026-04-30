@@ -85,7 +85,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
           margin: '0 0 24px 0',
           maxWidth: 660,
         }}>
-          Echo HD3 – a 22-inch touchscreen bartop arcade with 149 pre-installed games. Built for home. Plug it in and play.
+          Echo HD3 – a premium 22-inch touchscreen bartop arcade with 149 pre-installed games. Built for home.
         </p>
 
         {/* Trust chips */}
