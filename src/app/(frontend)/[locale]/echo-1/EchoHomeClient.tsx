@@ -453,19 +453,21 @@ function GamesSectionDark() {
             </button>
           ))}
 
-          {/* Parental control callout */}
-          <div style={{
-            marginTop: 20,
-            padding: '14px 16px',
-            background: 'rgba(244,243,236,0.04)',
-            borderLeft: '3px solid #FB671F',
-            borderRadius: '0 4px 4px 0',
-          }}>
-            <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: 0 }}>
-              <strong style={{ color: '#F4F3EC', fontWeight: 600 }}>Full parental control.</strong>{' '}
-              The Adult category can be turned off, scheduled, or locked with a physical key.
-            </p>
-          </div>
+          {/* Parental control callout — only when Adult is active */}
+          {GAME_CATEGORIES[activeTab].label === 'Adult' && (
+            <div style={{
+              marginTop: 20,
+              padding: '14px 16px',
+              background: 'rgba(244,243,236,0.04)',
+              borderLeft: '3px solid #FB671F',
+              borderRadius: '0 4px 4px 0',
+            }}>
+              <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: 0 }}>
+                <strong style={{ color: '#F4F3EC', fontWeight: 600 }}>Full parental control.</strong>{' '}
+                The Adult category can be turned off, scheduled, or locked with a physical key.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Right: video + description */}
@@ -744,11 +746,11 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   ]
 
   const featureCards = [
-    { label: 'Compact Footprint', desc: 'Fits any counter — home bar, game room, or living room.', img: '/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg' },
-    { label: '22" HD Touchscreen', desc: 'Crisp, responsive screen with full-colour arcade action.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
-    { label: 'Immersive Audio', desc: '25-watt, 4-speaker surround sound built in.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
-    { label: '1 & 2-Player Modes', desc: 'Solo or side-by-side — the 360° swivel base handles both.', img: '/api/storage/3412/2_player_modes.jpg' },
-    { label: 'Tournaments & Leaderboards', desc: 'Built-in scoring and tournament mode for the whole family.', img: '/api/storage/3413/Leaderboards.jpg' },
+    { label: 'Compact Footprint', desc: 'Fits any premium interior — modern or classic. Compact and sleek, designed specifically for bartops and countertops.', img: '/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg' },
+    { label: '22" HD Touchscreen', desc: 'Arcade action in a brilliant 22" high-definition touchscreen. No joysticks, no trackballs — no problems.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
+    { label: 'Immersive Audio', desc: '25-watt, 4-speaker high-fidelity tri-band sound system with a dedicated subwoofer.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
+    { label: '1 & 2-Player Modes', desc: 'Enjoy solo play or head-to-head matchups in 2-player mode. ECHO provides competitive games for all.', img: '/api/storage/3412/2_player_modes.jpg' },
+    { label: 'Tournaments & Leaderboards', desc: 'Host tournaments, track high scores, and battle for the top spot in the ultimate Hall of Fame.', img: '/api/storage/3413/Leaderboards.jpg' },
   ]
 
   // ─── Section 3 Why blocks ───────────────────────────────────────────────────
@@ -927,15 +929,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-section-faq { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-bottom-cta { background: #080a0b; padding: 80px 0; border-top: 1px solid #1e2022; }
 
-        /* What ECHO is — single column, full width */
-        .echo-what-intro {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 80px;
-          align-items: start;
-          margin-bottom: 40px;
-        }
-
         /* Facts — 4-col single row */
         .echo-facts-grid {
           display: grid;
@@ -944,7 +937,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           border: 1px solid #1e2022;
           border-radius: 4px;
           overflow: hidden;
-          margin-top: 0;
+          margin-top: 40px;
         }
         .echo-fact-cell {
           padding: 24px 20px;
@@ -952,18 +945,18 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         }
         .echo-fact-cell:last-child { border-right: none; }
 
-        /* Feature cards row */
-        .echo-feat-row {
+        /* Feature cards bento */
+        .echo-feat-grid {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          gap: 10px;
+          grid-template-columns: 2fr 1fr 1fr;
+          grid-auto-rows: clamp(220px, 22vw, 300px);
+          gap: 8px;
           margin-top: 16px;
-          margin-bottom: 8px;
         }
+        .echo-feat-hero { grid-row: span 2; }
         .echo-feat-card {
           position: relative;
-          height: 320px;
-          border-radius: 10px;
+          border-radius: 6px;
           overflow: hidden;
         }
         .echo-feat-img {
@@ -974,17 +967,21 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           object-fit: cover;
           display: block;
         }
-        .echo-feat-grad {
-          position: absolute;
-          inset: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.05) 100%);
+        .echo-feat-grad-hero {
+          position: absolute; inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0) 70%);
         }
-        .echo-feat-text {
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          right: 0;
-          padding: 20px 18px;
+        .echo-feat-grad-sm {
+          position: absolute; inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0) 80%);
+        }
+        .echo-feat-text-hero {
+          position: absolute; bottom: 0; left: 0; right: 0;
+          padding: 32px 28px;
+        }
+        .echo-feat-text-sm {
+          position: absolute; bottom: 0; left: 0; right: 0;
+          padding: 20px;
         }
 
         /* Why — 2x2 grid */
@@ -1013,6 +1010,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           grid-template-columns: repeat(3, 1fr);
           gap: 20px;
           margin-top: 56px;
+          margin-bottom: 16px;
         }
 
         /* Reviews — 2x2 */
@@ -1165,19 +1163,17 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           align-items: start;
         }
 
-        @media (max-width: 900px) {
-          .echo-what-intro { grid-template-columns: 1fr; gap: 32px; }
+        @media (max-width: 960px) {
           .echo-facts-grid { grid-template-columns: 1fr 1fr; }
           .echo-fact-cell:nth-child(2) { border-right: none; }
           .echo-fact-cell:nth-child(1),
           .echo-fact-cell:nth-child(2) { border-bottom: 1px solid #1e2022; }
-          .echo-feat-row { grid-template-columns: repeat(3, 1fr); }
-          .echo-feat-card { height: 260px; }
+          .echo-feat-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(180px, 28vw, 260px); }
+          .echo-feat-hero { grid-row: span 1; }
         }
         @media (max-width: 600px) {
           .echo-facts-grid { grid-template-columns: 1fr 1fr; }
-          .echo-feat-row { grid-template-columns: repeat(2, 1fr); }
-          .echo-feat-card { height: 220px; }
+          .echo-feat-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
         }
         @media (max-width: 900px) {
           .echo-product-home-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1210,31 +1206,28 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       {/* ── Section 2: What ECHO is ── */}
       <section className="echo-section-what">
         <div style={wrap}>
-          {/* Top: text left, empty right */}
-          <div className="echo-what-intro">
-            <div>
-              <Badge label="What ECHO is" />
-              <h2 style={{
-                fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)',
-                fontWeight: 700,
-                lineHeight: 1.2,
-                letterSpacing: '-0.01em',
-                color: '#F4F3EC',
-                margin: '0 0 20px 0',
-              }}>
-                The only arcade machine you need
-              </h2>
-              <p style={{
-                fontSize: 16,
-                fontWeight: 300,
-                lineHeight: 1.65,
-                color: 'rgba(244,243,236,0.65)',
-                margin: 0,
-              }}>
-                Not a retro emulator box – a premium touchscreen countertop arcade built for home bars, shared play, and effortless nostalgia – with no setup, no internet, and no bulky cabinet.
-              </p>
-            </div>
-            <div />
+          {/* Heading — centred */}
+          <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
+            <Badge label="What ECHO is" />
+            <h2 style={{
+              fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)',
+              fontWeight: 700,
+              lineHeight: 1.2,
+              letterSpacing: '-0.01em',
+              color: '#F4F3EC',
+              margin: '0 0 20px 0',
+            }}>
+              The only arcade machine you need
+            </h2>
+            <p style={{
+              fontSize: 16,
+              fontWeight: 300,
+              lineHeight: 1.65,
+              color: 'rgba(244,243,236,0.65)',
+              margin: 0,
+            }}>
+              Not a retro emulator box – a premium touchscreen countertop arcade built for home bars, shared play, and effortless nostalgia – with no setup, no internet, and no bulky cabinet.
+            </p>
           </div>
 
           {/* Facts — 4 cells in 1 row */}
@@ -1251,18 +1244,26 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             ))}
           </div>
 
-          {/* Feature cards — 5 across, full width */}
-          <div className="echo-feat-row">
-            {featureCards.map((c) => (
-              <div key={c.label} className="echo-feat-card">
+          {/* Feature cards — bento: large left + 2×2 right */}
+          <div className="echo-feat-grid">
+            {featureCards.map((c, i) => (
+              <div key={c.label} className={`echo-feat-card${i === 0 ? ' echo-feat-hero' : ''}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={c.img} alt={c.label} className="echo-feat-img" />
-                <div className="echo-feat-grad" />
-                <div className="echo-feat-text">
-                  <div style={{ fontSize: 18, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: 6 }}>
+                <div className={i === 0 ? 'echo-feat-grad-hero' : 'echo-feat-grad-sm'} />
+                <div className={i === 0 ? 'echo-feat-text-hero' : 'echo-feat-text-sm'}>
+                  <div style={{ fontSize: i === 0 ? 22 : 16, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: i === 0 ? 10 : 6 }}>
                     {c.label}
                   </div>
-                  <div style={{ fontSize: 14, color: 'rgba(244,243,236,0.75)', lineHeight: 1.55 }}>
+                  <div style={{
+                    fontSize: i === 0 ? 15 : 13,
+                    color: 'rgba(255,255,255,0.80)',
+                    lineHeight: 1.6,
+                    display: '-webkit-box',
+                    WebkitLineClamp: i === 0 ? 4 : 3,
+                    WebkitBoxOrient: 'vertical' as const,
+                    overflow: 'hidden',
+                  }}>
                     {c.desc}
                   </div>
                 </div>
