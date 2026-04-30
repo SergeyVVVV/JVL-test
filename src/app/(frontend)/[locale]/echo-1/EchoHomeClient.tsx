@@ -892,7 +892,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-section-why { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-library { background: #101213; padding: 96px 0; border-top: 1px solid #222; }
         .echo-section-trust { background: #080a0b; padding: 80px 0; border-top: 1px solid #1e2022; }
-        .echo-trust-row1 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-top: 48px; }
+        .echo-trust-row1 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 48px; }
         .echo-trust-row2 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px; }
         .echo-section-built { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-cta { background: #101213; padding: 80px 0; border-top: 1px solid #1e2022; }
@@ -1243,28 +1243,27 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             </p>
           </div>
 
-          {/* Row 1: Founded (2/3) + 40 Years (1/3) */}
+          {/* Row 1: Founded | Photo | 40+ Years (3 equal columns) */}
           <div className="echo-trust-row1">
-            {/* Founded in 1984 — wide card with founder photo */}
-            <div style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px', display: 'flex', gap: 28, alignItems: 'flex-end' }}>
-              <div style={{ flex: 1 }}>
-                <div style={{ marginBottom: 16 }}>
-                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-                </div>
-                <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
-                  Founded in 1984
-                </h3>
-                <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
-                  Joseph Levitan started JVL 40+ years ago. Three generations of family ownership. Not a startup.
-                </p>
+            {/* Founded in 1984 */}
+            <div style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
+              <div style={{ marginBottom: 16 }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
               </div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/api/storage/2086/about-05.jpg"
-                alt="Joseph Levitan, founder of JVL"
-                style={{ width: 130, height: 170, objectFit: 'cover', objectPosition: 'top', borderRadius: 6, flexShrink: 0 }}
-              />
+              <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
+                Founded in 1984
+              </h3>
+              <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
+                Joseph Levitan started JVL 40+ years ago. Three generations of family ownership. Not a startup.
+              </p>
             </div>
+            {/* Founder photo */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/api/storage/2086/about-05.jpg"
+              alt="Joseph Levitan, founder of JVL"
+              style={{ width: '100%', height: '100%', minHeight: 220, objectFit: 'cover', objectPosition: 'top center', borderRadius: 10, display: 'block' }}
+            />
             {/* 40+ years */}
             <div style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
               <div style={{ marginBottom: 16 }}>
