@@ -684,19 +684,11 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   const mainReviews = [
     {
       tag: '★★★★★ Verified Amazon Purchase',
-      quote: 'This countertop game has been a big hit in my nightclub. It\'s on FreePlay — customers have a blast all night long.',
-      author: 'Leo G. · via Amazon',
-      initials: 'LG',
-      avatarColor: '#FB671F',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
-    },
-    {
-      tag: '★★★★★ Verified Amazon Purchase',
       quote: 'Our family has had this arcade for 4 years already, we purchased it from JVL directly. Still going strong — amazing support from the team.',
       author: 'Svetlana P. · via Amazon',
       initials: 'SP',
       avatarColor: '#E85D75',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/R1UOXG3CXTPQ20/',
     },
     {
       tag: '★★★★★ Verified Amazon Purchase',
@@ -704,7 +696,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       author: 'Olga V. · via Amazon',
       initials: 'OV',
       avatarColor: '#5CB85C',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/RE9UGIAOURFUN',
     },
     {
       tag: '★★★★★ Verified Amazon Purchase',
@@ -712,7 +704,15 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       author: 'FlowRider · via Amazon',
       initials: 'FR',
       avatarColor: '#4B6BFB',
-      reviewUrl: 'https://www.amazon.com/product-reviews/B0DJ3BSJ4D',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/RQFTPRF1QX1D8',
+    },
+    {
+      tag: '★★★★★ Verified Amazon Purchase',
+      quote: 'This countertop game has been a big hit in my nightclub. It\'s on FreePlay — customers have a blast all night long.',
+      author: 'Leo Getz · via Amazon',
+      initials: 'LG',
+      avatarColor: '#FB671F',
+      reviewUrl: 'https://www.amazon.com/gp/customer-reviews/R2VND20OEXNOV5/',
     },
     {
       tag: 'On setup & first use',
@@ -1560,36 +1560,16 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             </p>
             <div className="echo-video-grid">
               {videoReviews.map((v) => (
-                <div
-                  key={v.id}
-                  className="echo-video-item"
-                  onClick={() => setActiveVideos(prev => new Set(prev).add(v.id))}
-                >
-                  {activeVideos.has(v.id) ? (
+                <div key={v.id}>
+                  <div className="echo-video-item">
                     <iframe
-                      src={`https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1`}
+                      src={`https://www.youtube-nocookie.com/embed/${v.id}?rel=0&modestbranding=1`}
                       title={v.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                     />
-                  ) : (
-                    <>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        className="echo-video-thumb"
-                        src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
-                        alt={v.title}
-                        loading="lazy"
-                      />
-                      <div className="echo-video-play">
-                        <div className="echo-video-play-btn">
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-                            <path d="M6 4.5L19.5 12L6 19.5V4.5Z" fill="#101213"/>
-                          </svg>
-                        </div>
-                      </div>
-                    </>
-                  )}
+                  </div>
+                  <p style={{ fontSize: 13, fontWeight: 500, color: 'rgba(244,243,236,0.55)', margin: '10px 0 0 0' }}>{v.title}</p>
                 </div>
               ))}
             </div>
