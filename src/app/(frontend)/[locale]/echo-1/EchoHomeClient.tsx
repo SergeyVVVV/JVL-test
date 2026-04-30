@@ -513,8 +513,12 @@ function TimelineBlock() {
       background: '#101213',
       borderTop: '1px solid #1e2022',
     }}>
+      {/* Subheading */}
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 6vw 0', textAlign: 'center' }}>
+        <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 12px' }}>Echo Evolution</p>
+      </div>
       {/* Product display */}
-      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '56px 6vw 0' }}>
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '24px 6vw 0' }}>
         <div className="echo-legacy-grid">
           <div className="echo-legacy-text">
             <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#F4F3EC', margin: '0 0 16px' }}>
@@ -1405,19 +1409,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             ))}
           </div>
 
-          {/* Heritage quote */}
-          <p style={{
-            textAlign: 'center',
-            fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
-            fontStyle: 'italic',
-            fontWeight: 300,
-            color: 'rgba(244,243,236,0.4)',
-            margin: '64px auto 0',
-            maxWidth: 680,
-            lineHeight: 1.7,
-          }}>
-            "A machine built by a company that has been making bartops since before most of its customers had seen one in a bar."
-          </p>
         </div>
         <TimelineBlock />
       </section>
