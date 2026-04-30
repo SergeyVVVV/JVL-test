@@ -1360,9 +1360,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               lineHeight: 1.7,
               margin: 0,
             }}>
-              Every ECHO comes pre-loaded with JVL&apos;s full library of proprietary arcade games. There&apos;s something for the cards-and-coffee night, the family weekend, and the friends-over evening.
+              JVL&apos;s full arcade library is built in from day one — ready for solo play, family weekends, and friends-over nights.
               <br /><br />
-              Nothing to download. Nothing to add. Nothing expires.
+              No downloads. No add-ons. No subscriptions.
             </p>
           </div>
           <GamesSectionDark />
