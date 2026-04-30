@@ -116,7 +116,7 @@ export default function Footer() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://www.jvl.ca/img/logo.svg" alt="JVL" style={{ height: 28, width: 'auto', marginBottom: 16 }} />
             <p style={{ fontSize: 15, fontWeight: 300, color: '#787878', lineHeight: 1.75, marginBottom: 20, maxWidth: 320 }}>
-              A lifetime in gaming. Premium arcade and digital gaming solutions for home and business since 1983.
+              A lifetime in gaming. Premium arcade and digital gaming solutions for home and business since 1984.
             </p>
             <div style={{ display: 'flex', gap: 14 }}>
               {socials.map((s) => (
