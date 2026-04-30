@@ -912,7 +912,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-section-trust { background: #080a0b; padding: 80px 0; border-top: 1px solid #1e2022; }
         .echo-trust-row1 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 48px; }
         .echo-trust-row2 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px; }
-        .echo-section-built { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
+        .echo-section-built { background: #080a0b; padding: 96px 0 80px; border-top: 1px solid #1e2022; }
         .echo-section-cta { background: #101213; padding: 80px 0; border-top: 1px solid #1e2022; }
         .echo-section-reviews { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-ownership { background: #101213; padding: 96px 0; border-top: 1px solid #1e2022; }
