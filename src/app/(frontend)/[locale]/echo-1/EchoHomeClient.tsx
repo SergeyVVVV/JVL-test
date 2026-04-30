@@ -1257,7 +1257,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               40 years making the machine you&apos;re looking at
             </h2>
             <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.55)', lineHeight: 1.75, margin: 0 }}>
-              JVL was founded in 1984. We didn&apos;t start with ECHO — we built our way to it through a generation of commercial bartop hardware.
+              We didn&apos;t start with ECHO — we built our way to it through a generation of commercial bartop hardware.
             </p>
           </div>
 
