@@ -737,10 +737,18 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
 
   // ─── Section 2 Facts ────────────────────────────────────────────────────────
   const facts = [
-    { stat: '149', label: 'Built-in games' },
-    { stat: '22"', label: 'HD touchscreen' },
-    { stat: '15 × 19.5 × 18.5"', label: 'Fits on a counter' },
-    { stat: '2-player', label: '360° swivel base' },
+    { stat: '149', label: 'Built-in games', small: false },
+    { stat: '22"', label: 'HD touchscreen', small: false },
+    { stat: '15 × 19.5 × 18.5"', label: 'Fits on a counter', small: true },
+    { stat: '2-player', label: '360° swivel base', small: false },
+  ]
+
+  const featureCards = [
+    { label: 'Compact Footprint', desc: 'Fits any counter — home bar, game room, or living room.', img: '/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg' },
+    { label: '22" HD Touchscreen', desc: 'Crisp, responsive screen with full-colour arcade action.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
+    { label: 'Immersive Audio', desc: '25-watt, 4-speaker surround sound built in.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
+    { label: '1 & 2-Player Modes', desc: 'Solo or side-by-side — the 360° swivel base handles both.', img: '/api/storage/3412/2_player_modes.jpg' },
+    { label: 'Tournaments & Leaderboards', desc: 'Built-in scoring and tournament mode for the whole family.', img: '/api/storage/3413/Leaderboards.jpg' },
   ]
 
   // ─── Section 3 Why blocks ───────────────────────────────────────────────────
@@ -926,6 +934,51 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           gap: 80px;
           align-items: start;
         }
+        /* Bento feature cards */
+        .echo-bento-wrap {
+          display: flex;
+          gap: 10px;
+          height: 520px;
+        }
+        .echo-bento-large {
+          flex: 0 0 48%;
+          position: relative;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+        .echo-bento-small-grid {
+          flex: 1;
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+          gap: 10px;
+        }
+        .echo-bento-small {
+          position: relative;
+          border-radius: 10px;
+          overflow: hidden;
+        }
+        .echo-bento-img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .echo-bento-grad {
+          position: absolute;
+          inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.05) 100%);
+        }
+        .echo-bento-text {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          padding: 20px;
+        }
+
         /* Facts — full-width 4-col row */
         /* Facts 2x2 */
         .echo-facts-grid {
@@ -1125,6 +1178,15 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         }
 
         @media (max-width: 900px) {
+          .echo-bento-wrap { flex-direction: column; height: auto; }
+          .echo-bento-large { flex: none; height: 280px; }
+          .echo-bento-small-grid { height: 400px; }
+        }
+        @media (max-width: 480px) {
+          .echo-bento-small-grid { grid-template-columns: 1fr; height: auto; }
+          .echo-bento-small { height: 180px; }
+        }
+        @media (max-width: 900px) {
           .echo-product-home-grid { grid-template-columns: 1fr; gap: 40px; }
           .echo-what-grid { grid-template-columns: 1fr; gap: 48px; }
           .echo-why-grid { grid-template-columns: 1fr; gap: 36px; }
@@ -1182,7 +1244,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               <div className="echo-facts-grid">
                 {facts.map((f) => (
                   <div key={f.stat} className="echo-fact-cell">
-                    <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1 }}>
+                    <div style={{ fontSize: f.small ? 'clamp(0.9rem, 1.4vw, 1.05rem)' : 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, whiteSpace: f.small ? 'nowrap' : undefined }}>
                       {f.stat}
                     </div>
                     <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
@@ -1193,21 +1255,42 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               </div>
             </div>
 
-            {/* Right: image */}
+            {/* Right: bento feature cards */}
             <div>
-              {data.countertop.image && (
-                <img
-                  src={data.countertop.image}
-                  alt={data.countertop.title}
-                  style={{
-                    width: '100%',
-                    aspectRatio: '4/5',
-                    objectFit: 'cover',
-                    borderRadius: 4,
-                    display: 'block',
-                  }}
-                />
-              )}
+              <div className="echo-bento-wrap">
+                {/* Large card */}
+                <div className="echo-bento-large">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={featureCards[0].img} alt={featureCards[0].label} className="echo-bento-img" />
+                  <div className="echo-bento-grad" />
+                  <div className="echo-bento-text">
+                    <div style={{ fontSize: 20, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: 8 }}>
+                      {featureCards[0].label}
+                    </div>
+                    <div style={{ fontSize: 15, color: 'rgba(244,243,236,0.75)', lineHeight: 1.6 }}>
+                      {featureCards[0].desc}
+                    </div>
+                  </div>
+                </div>
+                {/* 2×2 small cards */}
+                <div className="echo-bento-small-grid">
+                  {featureCards.slice(1).map((c) => (
+                    <div key={c.label} className="echo-bento-small">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={c.img} alt={c.label} className="echo-bento-img" />
+                      <div className="echo-bento-grad" />
+                      <div className="echo-bento-text">
+                        <div style={{ fontSize: 17, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: 5 }}>
+                          {c.label}
+                        </div>
+                        <div style={{ fontSize: 14, color: 'rgba(244,243,236,0.72)', lineHeight: 1.55 }}>
+                          {c.desc}
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </div>
