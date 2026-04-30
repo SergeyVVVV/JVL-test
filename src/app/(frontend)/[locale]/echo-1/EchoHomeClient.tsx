@@ -920,45 +920,53 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-section-trust { background: #080a0b; padding: 80px 0; border-top: 1px solid #1e2022; }
         .echo-trust-row1 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 48px; }
         .echo-trust-row2 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px; }
-        .echo-section-built { background: #080a0b; padding: 96px 0 80px; border-top: 1px solid #1e2022; }
+        .echo-section-built { background: #080a0b; padding: 96px 0 96px; border-top: 1px solid #1e2022; }
         .echo-section-cta { background: #101213; padding: 80px 0; border-top: 1px solid #1e2022; }
         .echo-section-reviews { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-ownership { background: #101213; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-faq { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-bottom-cta { background: #080a0b; padding: 80px 0; border-top: 1px solid #1e2022; }
 
-        /* What ECHO is — 2-col grid */
-        .echo-what-grid {
-          display: grid;
-          grid-template-columns: 1.1fr 1fr;
-          gap: 80px;
-          align-items: start;
-        }
-        /* Bento feature cards */
-        .echo-bento-wrap {
-          display: flex;
-          gap: 10px;
-          height: 520px;
-        }
-        .echo-bento-large {
-          flex: 0 0 48%;
-          position: relative;
-          border-radius: 10px;
-          overflow: hidden;
-        }
-        .echo-bento-small-grid {
-          flex: 1;
+        /* What ECHO is — single column, full width */
+        .echo-what-intro {
           display: grid;
           grid-template-columns: 1fr 1fr;
-          grid-template-rows: 1fr 1fr;
-          gap: 10px;
+          gap: 80px;
+          align-items: start;
+          margin-bottom: 40px;
         }
-        .echo-bento-small {
+
+        /* Facts — 4-col single row */
+        .echo-facts-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 0;
+          border: 1px solid #1e2022;
+          border-radius: 4px;
+          overflow: hidden;
+          margin-top: 0;
+        }
+        .echo-fact-cell {
+          padding: 24px 20px;
+          border-right: 1px solid #1e2022;
+        }
+        .echo-fact-cell:last-child { border-right: none; }
+
+        /* Feature cards row */
+        .echo-feat-row {
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 10px;
+          margin-top: 16px;
+          margin-bottom: 8px;
+        }
+        .echo-feat-card {
           position: relative;
+          height: 320px;
           border-radius: 10px;
           overflow: hidden;
         }
-        .echo-bento-img {
+        .echo-feat-img {
           position: absolute;
           inset: 0;
           width: 100%;
@@ -966,38 +974,18 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           object-fit: cover;
           display: block;
         }
-        .echo-bento-grad {
+        .echo-feat-grad {
           position: absolute;
           inset: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.25) 55%, rgba(0,0,0,0.05) 100%);
+          background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.05) 100%);
         }
-        .echo-bento-text {
+        .echo-feat-text {
           position: absolute;
           bottom: 0;
           left: 0;
           right: 0;
-          padding: 20px;
+          padding: 20px 18px;
         }
-
-        /* Facts — full-width 4-col row */
-        /* Facts 2x2 */
-        .echo-facts-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 0;
-          border: 1px solid #1e2022;
-          border-radius: 4px;
-          overflow: hidden;
-          margin-top: 40px;
-        }
-        .echo-fact-cell {
-          padding: 24px 20px;
-          border-right: 1px solid #1e2022;
-          border-bottom: 1px solid #1e2022;
-        }
-        .echo-fact-cell:nth-child(2n) { border-right: none; }
-        .echo-fact-cell:nth-child(3),
-        .echo-fact-cell:nth-child(4) { border-bottom: none; }
 
         /* Why — 2x2 grid */
         .echo-why-grid {
@@ -1178,13 +1166,18 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         }
 
         @media (max-width: 900px) {
-          .echo-bento-wrap { flex-direction: column; height: auto; }
-          .echo-bento-large { flex: none; height: 280px; }
-          .echo-bento-small-grid { height: 400px; }
+          .echo-what-intro { grid-template-columns: 1fr; gap: 32px; }
+          .echo-facts-grid { grid-template-columns: 1fr 1fr; }
+          .echo-fact-cell:nth-child(2) { border-right: none; }
+          .echo-fact-cell:nth-child(1),
+          .echo-fact-cell:nth-child(2) { border-bottom: 1px solid #1e2022; }
+          .echo-feat-row { grid-template-columns: repeat(3, 1fr); }
+          .echo-feat-card { height: 260px; }
         }
-        @media (max-width: 480px) {
-          .echo-bento-small-grid { grid-template-columns: 1fr; height: auto; }
-          .echo-bento-small { height: 180px; }
+        @media (max-width: 600px) {
+          .echo-facts-grid { grid-template-columns: 1fr 1fr; }
+          .echo-feat-row { grid-template-columns: repeat(2, 1fr); }
+          .echo-feat-card { height: 220px; }
         }
         @media (max-width: 900px) {
           .echo-product-home-grid { grid-template-columns: 1fr; gap: 40px; }
@@ -1217,8 +1210,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       {/* ── Section 2: What ECHO is ── */}
       <section className="echo-section-what">
         <div style={wrap}>
-          <div className="echo-what-grid">
-            {/* Left: text */}
+          {/* Top: text left, empty right */}
+          <div className="echo-what-intro">
             <div>
               <Badge label="What ECHO is" />
               <h2 style={{
@@ -1236,62 +1229,45 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 fontWeight: 300,
                 lineHeight: 1.65,
                 color: 'rgba(244,243,236,0.65)',
-                margin: '0 0 0 0',
+                margin: 0,
               }}>
                 Not a retro emulator box – a premium touchscreen countertop arcade built for home bars, shared play, and effortless nostalgia – with no setup, no internet, and no bulky cabinet.
               </p>
-
-              <div className="echo-facts-grid">
-                {facts.map((f) => (
-                  <div key={f.stat} className="echo-fact-cell">
-                    <div style={{ fontSize: f.small ? 'clamp(0.9rem, 1.4vw, 1.05rem)' : 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, whiteSpace: f.small ? 'nowrap' : undefined }}>
-                      {f.stat}
-                    </div>
-                    <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
-                      {f.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
             </div>
+            <div />
+          </div>
 
-            {/* Right: bento feature cards */}
-            <div>
-              <div className="echo-bento-wrap">
-                {/* Large card */}
-                <div className="echo-bento-large">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={featureCards[0].img} alt={featureCards[0].label} className="echo-bento-img" />
-                  <div className="echo-bento-grad" />
-                  <div className="echo-bento-text">
-                    <div style={{ fontSize: 20, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: 8 }}>
-                      {featureCards[0].label}
-                    </div>
-                    <div style={{ fontSize: 15, color: 'rgba(244,243,236,0.75)', lineHeight: 1.6 }}>
-                      {featureCards[0].desc}
-                    </div>
-                  </div>
+          {/* Facts — 4 cells in 1 row */}
+          <div className="echo-facts-grid">
+            {facts.map((f) => (
+              <div key={f.stat} className="echo-fact-cell">
+                <div style={{ fontSize: f.small ? 'clamp(0.85rem, 1.3vw, 1rem)' : 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, whiteSpace: f.small ? 'nowrap' : undefined }}>
+                  {f.stat}
                 </div>
-                {/* 2×2 small cards */}
-                <div className="echo-bento-small-grid">
-                  {featureCards.slice(1).map((c) => (
-                    <div key={c.label} className="echo-bento-small">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={c.img} alt={c.label} className="echo-bento-img" />
-                      <div className="echo-bento-grad" />
-                      <div className="echo-bento-text">
-                        <div style={{ fontSize: 17, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: 5 }}>
-                          {c.label}
-                        </div>
-                        <div style={{ fontSize: 14, color: 'rgba(244,243,236,0.72)', lineHeight: 1.55 }}>
-                          {c.desc}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
+                  {f.label}
                 </div>
               </div>
-            </div>
+            ))}
+          </div>
+
+          {/* Feature cards — 5 across, full width */}
+          <div className="echo-feat-row">
+            {featureCards.map((c) => (
+              <div key={c.label} className="echo-feat-card">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={c.img} alt={c.label} className="echo-feat-img" />
+                <div className="echo-feat-grad" />
+                <div className="echo-feat-text">
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: 6 }}>
+                    {c.label}
+                  </div>
+                  <div style={{ fontSize: 14, color: 'rgba(244,243,236,0.75)', lineHeight: 1.55 }}>
+                    {c.desc}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
