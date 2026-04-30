@@ -82,11 +82,24 @@ function Hero({ data }: { data: PageData['hero'] }) {
           fontSize: 'clamp(15px, 1.3vw, 18px)',
           color: 'rgba(244,243,236,0.75)',
           lineHeight: 1.6,
-          margin: 0,
+          margin: '0 0 24px 0',
           maxWidth: 660,
         }}>
           Echo HD3 – a 22-inch touchscreen bartop arcade with 149 pre-installed games. Built for home. Plug it in and play.
         </p>
+
+        {/* Trust chips */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {['Plug and Play', 'No Wi-Fi Needed', '1-Year Warranty', 'Made in the USA'].map(chip => (
+            <span key={chip} style={{
+              fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase',
+              color: 'rgba(244,243,236,0.7)', border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: 20, padding: '5px 12px', background: 'rgba(255,255,255,0.05)',
+            }}>
+              {chip}
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* Bottom bar */}
