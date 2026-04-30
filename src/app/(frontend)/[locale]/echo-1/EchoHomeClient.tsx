@@ -1210,7 +1210,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
             <Badge label="What ECHO is" />
             <h2 style={{
-              fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)',
+              fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)',
               fontWeight: 700,
               lineHeight: 1.2,
               letterSpacing: '-0.01em',
@@ -1220,9 +1220,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               A premium countertop arcade for your home
             </h2>
             <p style={{
-              fontSize: 16,
+              fontSize: 17,
               fontWeight: 300,
-              lineHeight: 1.65,
+              lineHeight: 1.7,
               color: 'rgba(244,243,236,0.65)',
               margin: 0,
             }}>
