@@ -689,7 +689,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
     { id: 'mMNDUyJehQI', title: 'ECHO HD3 Review' },
     { id: 'GkeyO298gC0', title: 'ECHO HD3 Unboxing' },
     { id: 'X2TVpAy7pFk', title: 'ECHO HD3 Gameplay' },
-    { id: '75kVKwk_o8k', title: 'ECHO HD3 Overview' },
+    { id: 'qurGXFA6Eds', title: 'ECHO HD3 Bar Review' },
   ]
 
   const faqs = [
