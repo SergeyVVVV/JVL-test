@@ -891,6 +891,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-section-what { background: #101213; padding: 96px 0; }
         .echo-section-why { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-library { background: #101213; padding: 96px 0; border-top: 1px solid #222; }
+        .echo-section-trust { background: #080a0b; padding: 80px 0; border-top: 1px solid #1e2022; }
+        .echo-trust-row1 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-top: 48px; }
+        .echo-trust-row2 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px; }
         .echo-section-built { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-cta { background: #101213; padding: 80px 0; border-top: 1px solid #1e2022; }
         .echo-section-reviews { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
@@ -1110,6 +1113,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-built-grid { grid-template-columns: 1fr; gap: 32px; }
           .echo-games-grid { grid-template-columns: 1fr; gap: 24px; }
           .echo-reviews-stats { grid-template-columns: 1fr; }
+          .echo-trust-row1 { grid-template-columns: 1fr; }
+          .echo-trust-row2 { grid-template-columns: 1fr 1fr; }
           .echo-stat-cell { border-right: none; border-bottom: 1px solid #1e2022; }
           .echo-stat-cell:last-child { border-bottom: none; }
           .echo-reviews-grid { grid-template-columns: 1fr; }
@@ -1122,6 +1127,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-fact-cell:last-child { border-bottom: none; }
           .echo-extra-reviews-grid { grid-template-columns: 1fr; }
           .echo-ownership-grid { grid-template-columns: 1fr; }
+          .echo-trust-row2 { grid-template-columns: 1fr; }
         }
       `}</style>
 
@@ -1217,6 +1223,88 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 </h3>
                 <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.7, margin: 0 }}>
                   {b.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 3b: Why Trust JVL ── */}
+      <section className="echo-section-trust">
+        <div style={wrap}>
+          <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
+            <Badge label="Why trust JVL" />
+            <h2 style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)', fontWeight: 700, color: '#F4F3EC', margin: '0 0 16px 0', letterSpacing: '-0.01em' }}>
+              40 years making the machine you&apos;re looking at
+            </h2>
+            <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.55)', lineHeight: 1.75, margin: 0 }}>
+              JVL was founded in 1984. We didn&apos;t start with ECHO — we built our way to it through a generation of commercial bartop hardware.
+            </p>
+          </div>
+
+          {/* Row 1: Founded (2/3) + 40 Years (1/3) */}
+          <div className="echo-trust-row1">
+            {/* Founded in 1984 — wide card with founder photo */}
+            <div style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px', display: 'flex', gap: 28, alignItems: 'flex-end' }}>
+              <div style={{ flex: 1 }}>
+                <div style={{ marginBottom: 16 }}>
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                </div>
+                <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
+                  Founded in 1984
+                </h3>
+                <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
+                  Joseph Levitan started JVL 40+ years ago. Three generations of family ownership. Not a startup.
+                </p>
+              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src="/api/storage/2086/about-05.jpg"
+                alt="Joseph Levitan, founder of JVL"
+                style={{ width: 130, height: 170, objectFit: 'cover', objectPosition: 'top', borderRadius: 6, flexShrink: 0 }}
+              />
+            </div>
+            {/* 40+ years */}
+            <div style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
+              <div style={{ marginBottom: 16 }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
+                40+ years of bartop expertise
+              </h3>
+              <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
+                JVL has been building bartop machines since 1995 — in bars, arcades, and venues across North America.
+              </p>
+            </div>
+          </div>
+
+          {/* Row 2: 3 equal cards */}
+          <div className="echo-trust-row2">
+            {[
+              {
+                icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
+                title: 'Individually tested',
+                body: 'Every ECHO is powered on and tested before leaving the factory. You\'re not the beta tester.',
+              },
+              {
+                icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,
+                title: 'Real support',
+                body: 'Phone, chat, and email — answered by JVL people, not bots. A real company with a real address.',
+              },
+              {
+                icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>,
+                title: 'Buy your way',
+                body: 'Order on Amazon for Prime shipping, or buy direct from JVL. Same machine, same price, same warranty.',
+              },
+            ].map((c) => (
+              <div key={c.title} style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
+                <div style={{ marginBottom: 16 }}>{c.icon}</div>
+                <h3 style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
+                  {c.title}
+                </h3>
+                <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
+                  {c.body}
                 </p>
               </div>
             ))}
