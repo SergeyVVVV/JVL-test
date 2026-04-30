@@ -1427,8 +1427,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         <TimelineBlock />
       </section>
 
-      {/* ── Section 5b: Product spec ── */}
-      <ProductSectionHome data={data.product} />
+      {/* ── Section 5b: Product spec ── (hidden) */}
+      {/* <ProductSectionHome data={data.product} /> */}
 
       {/* ── Section 5c: Product Specifications ── */}
       <SpecsSectionLight />
