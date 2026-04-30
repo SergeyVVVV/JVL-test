@@ -1460,7 +1460,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 textTransform: 'uppercase',
                 color: '#F4F3EC',
                 textDecoration: 'none',
+                transition: 'border-color 0.2s, background 0.2s',
               }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#F4F3EC'; e.currentTarget.style.background = 'rgba(244,243,236,0.08)' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(244,243,236,0.3)'; e.currentTarget.style.background = 'transparent' }}
             >
               Buy from JVL
             </a>
@@ -1725,7 +1728,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 textTransform: 'uppercase',
                 color: '#F4F3EC',
                 textDecoration: 'none',
+                transition: 'border-color 0.2s, background 0.2s',
               }}
+              onMouseEnter={e => { e.currentTarget.style.borderColor = '#F4F3EC'; e.currentTarget.style.background = 'rgba(244,243,236,0.08)' }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(244,243,236,0.3)'; e.currentTarget.style.background = 'transparent' }}
             >
               Buy from JVL
             </a>
