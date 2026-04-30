@@ -1234,7 +1234,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           <div className="echo-facts-grid">
             {facts.map((f) => (
               <div key={f.stat} className="echo-fact-cell">
-                <div style={{ fontSize: f.small ? 'clamp(0.85rem, 1.3vw, 1rem)' : 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, whiteSpace: f.small ? 'nowrap' : undefined }}>
+                <div style={{ fontSize: f.small ? 'clamp(1.2rem, 1.8vw, 1.5rem)' : 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, whiteSpace: f.small ? 'nowrap' : undefined }}>
                   {f.stat}
                 </div>
                 <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
