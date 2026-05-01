@@ -1277,7 +1277,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             More than a game machine – it becomes a part of the room, and part of the memories people make together.
           </p>
         </div>
-        <div style={{ position: 'relative', width: '100%', height: 'clamp(420px, 65vh, 700px)', overflow: 'hidden' }}>
+        <div style={{ position: 'relative', width: '100%', height: 'clamp(520px, 80vh, 900px)', overflow: 'hidden' }}>
           <div
             className="echo-uc1-bg"
             style={{
