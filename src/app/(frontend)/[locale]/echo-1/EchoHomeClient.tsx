@@ -1436,8 +1436,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               margin: 0,
             }}>
               JVL&apos;s full arcade library is built in from day one — ready for solo play, family weekends, and friends-over nights.
-              <br /><br />
-              No downloads. No add-ons. No subscriptions.
             </p>
           </div>
           <GamesSectionDark />
