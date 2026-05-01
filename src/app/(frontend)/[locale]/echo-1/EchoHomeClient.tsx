@@ -1219,7 +1219,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                     {c.label}
                   </div>
                   <div style={{
-                    fontSize: 13,
+                    fontSize: 15,
                     color: 'rgba(255,255,255,0.80)',
                     lineHeight: 1.6,
                     display: '-webkit-box',
