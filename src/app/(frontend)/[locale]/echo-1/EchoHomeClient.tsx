@@ -828,17 +828,19 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-ds-grid {
           display: grid;
           grid-template-columns: 2fr 1fr 1fr;
-          grid-auto-rows: clamp(200px, 21vw, 280px);
+          grid-auto-rows: clamp(100px, 11vw, 145px);
           gap: 8px;
           margin-top: 40px;
         }
-        .echo-ds-hero { grid-row: span 2; }
+        .echo-ds-hero { grid-row: span 4; }
+        .echo-ds-side { grid-column: 2 / span 2; }
         @media (max-width: 960px) {
-          .echo-ds-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(180px, 28vw, 260px); }
-          .echo-ds-hero { grid-row: span 1; }
+          .echo-ds-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(150px, 22vw, 220px); }
+          .echo-ds-hero { grid-row: span 2; }
+          .echo-ds-side { grid-column: auto; }
         }
         @media (max-width: 600px) {
-          .echo-ds-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+          .echo-ds-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
         }
 
         /* Why — 2x2 grid */
@@ -1059,7 +1061,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             {DESIGN_CARDS.map((card, i) => (
               <div
                 key={card.label}
-                className={i === 0 ? 'echo-ds-hero' : ''}
+                className={i === 0 ? 'echo-ds-hero' : 'echo-ds-side'}
                 style={{ position: 'relative', borderRadius: 4, overflow: 'hidden' }}
               >
                 <img
