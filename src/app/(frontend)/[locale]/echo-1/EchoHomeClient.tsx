@@ -848,6 +848,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       a: 'Yes. The touchscreen interface requires no login, no controller, and no instructions. If you can tap a screen, you can play. We\'ve seen 6-year-olds and 80-year-olds both figure it out independently.',
     },
     {
+      q: 'Why does ECHO cost $3,990?',
+      a: 'ECHO is a premium home arcade machine – designed in Canada, assembled in the USA, and built as a complete entertainment piece for your home.\n\nThe price includes a 22" HD touchscreen, 149 built-in JVL games, 1 & 2-player modes, a 360° swivel base, built-in audio, and a compact cabinet made for home bars, game rooms, and lounges.\n\nThere are no downloads, subscriptions, or extra game packs needed. Just a pure arcade experience, ready to play from day one.',
+    },
+    {
       q: 'What\'s the difference between ECHO Home and ECHO Commercial?',
       a: 'ECHO Home is designed for free-play in a private setting — no coin or bill acceptor. ECHO Commercial adds a bill acceptor and coin mechanism for venues that charge per play. Same screen, same games, different payment setup.',
     },
