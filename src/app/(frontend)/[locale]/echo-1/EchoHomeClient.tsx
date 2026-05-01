@@ -1176,7 +1176,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               color: '#F4F3EC',
               margin: '0 0 20px 0',
             }}>
-              A premium countertop arcade for your home
+              A premium bartop arcade for your home
             </h2>
             <p style={{
               fontSize: 17,
