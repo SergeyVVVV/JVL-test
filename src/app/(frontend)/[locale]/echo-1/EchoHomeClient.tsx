@@ -722,10 +722,11 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
 
   // ─── Section 3 Why blocks ───────────────────────────────────────────────────
   const USE_CASES = [
-    { label: 'Perfect Gift', img: '/api/storage/3477/005_720_01.jpg', text: 'Surprise the ones who have everything with unforgettable fun for all ages.' },
-    { label: 'Game Lounge', img: '/api/storage/3475/jvl-echo-poker-luxury-man-cave-setup.jpg', text: 'Bring arcade excitement to your high-end sports lounge.' },
-    { label: 'Travel Ready', img: '/api/storage/3483/jvl-echo-rv-motorhome-portable-gaming.jpg', text: 'Perfect for your RV lifestyle — play anywhere, no internet required.' },
-    { label: 'Party Ready', img: '/api/storage/3481/002_1920_01.jpg', text: 'The ultimate entertainment centerpiece — bring the fun anywhere your crew goes.' },
+    { label: 'Family Time',   img: '/api/storage/3795/m2_1.png',  imgMob: '/api/storage/3795/m2_1mob.png',  headline: 'Easy for everyone to join in.',                    text: 'No controllers to learn. No setup to explain. Just tap the screen, pick a game, and let kids, parents, and grandparents take turns.' },
+    { label: 'Game Night',    img: '/api/storage/3795/m2_2.png',  imgMob: '/api/storage/3795/m2_2mob.png',  headline: 'Turn an ordinary night into a game night.',         text: 'ECHO gives the room a natural center. One person starts playing, someone else wants a turn, and suddenly the evening has a little more energy.' },
+    { label: 'Nostalgia',     img: '/api/storage/3795/m2_3.png',  imgMob: '/api/storage/3795/m2_3mob.png',  headline: 'Bring back the games people remember.',            text: 'For anyone who remembers bar-top arcade machines, ECHO feels familiar right away — but cleaner, simpler, and made for the home.' },
+    { label: 'Guests',        img: '/api/storage/3795/m2_4.png',  imgMob: '/api/storage/3795/m2_4mob.png',  headline: 'The thing guests always ask about.',               text: 'Put ECHO in a home bar, game room, or lounge, and it naturally starts conversations. It is easy to notice, easy to try, and hard to walk past.' },
+    { label: 'Head-to-Head',  img: '/api/storage/3795/m2_5.png',  imgMob: '/api/storage/3795/m2_5mob.png',  headline: 'A little friendly competition never gets old.',     text: 'Play solo, take turns, or go head-to-head. ECHO makes it easy to settle the score without remotes, accounts, downloads, or setup.' },
   ]
   const [ucActive, setUcActive] = useState(0)
   const [ucFading, setUcFading] = useState(false)
@@ -912,11 +913,15 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-section-gather { border-top: 1px solid #1e2022; }
         .echo-gather-header { background: #080a0b; padding: 80px 0 48px; text-align: center; }
         .echo-uc1-tabs { display: inline-flex; align-items: center; background: rgba(16,18,19,0.6); backdrop-filter: blur(5px); padding: 15px 20px; border-radius: 4px; }
-        .echo-uc1-desc { font-size: 24px; font-weight: 400; line-height: 1.15; color: #F4F3EC; margin: 0; }
+        .echo-uc1-bg { background-image: var(--bg-desk); background-size: cover; background-position: center; }
+        .echo-uc1-headline { font-size: clamp(1.3rem, 2.2vw, 1.9rem); font-weight: 700; color: #F4F3EC; margin: 0 0 12px 0; line-height: 1.15; }
+        .echo-uc1-desc { font-size: 18px; font-weight: 400; line-height: 1.5; color: rgba(244,243,236,0.85); margin: 0; max-width: 560px; }
         @media (max-width: 768px) {
           .echo-uc1-tabs { display: flex; width: 100%; padding: 10px 0; overflow-x: auto; scrollbar-width: none; justify-content: center; }
-          .echo-uc1-tabs button { padding: 5px 14px !important; font-size: 14px !important; }
-          .echo-uc1-desc { font-size: 15px !important; line-height: 1.45 !important; }
+          .echo-uc1-tabs button { padding: 5px 14px !important; font-size: 13px !important; }
+          .echo-uc1-bg { background-image: var(--bg-mob); }
+          .echo-uc1-headline { font-size: 1.15rem !important; }
+          .echo-uc1-desc { font-size: 14px !important; }
         }
         .echo-section-built { background: #080a0b; padding: 96px 0 96px; border-top: 1px solid #1e2022; }
         .echo-section-cta { background: #101213; padding: 80px 0; border-top: 1px solid #1e2022; }
@@ -1308,13 +1313,16 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           </p>
         </div>
         <div style={{ position: 'relative', width: '100%', height: 'clamp(420px, 65vh, 700px)', overflow: 'hidden' }}>
-          <div style={{
-            position: 'absolute', inset: 0,
-            backgroundImage: `url(/api/storage/${ucItem.img.split('/api/storage/')[1]})`,
-            backgroundSize: 'cover', backgroundPosition: 'center',
-            opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease',
-          }} />
-          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)' }} />
+          <div
+            className="echo-uc1-bg"
+            style={{
+              position: 'absolute', inset: 0,
+              ['--bg-desk' as string]: `url(${ucItem.img})`,
+              ['--bg-mob' as string]: `url(${ucItem.imgMob})`,
+              opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease',
+            }}
+          />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%)' }} />
           <div style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
             <div className="echo-uc1-tabs">
               {USE_CASES.map((uc, i) => (
@@ -1336,9 +1344,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             </div>
           </div>
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '50px 5vw 70px', opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease' }}>
-            <p className="echo-uc1-desc" style={{ maxWidth: 600, margin: 0 }}>
-              {ucItem.text}
-            </p>
+            <p className="echo-uc1-headline">{ucItem.headline}</p>
+            <p className="echo-uc1-desc">{ucItem.text}</p>
           </div>
         </div>
       </section>
