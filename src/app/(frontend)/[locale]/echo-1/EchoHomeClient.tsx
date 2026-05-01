@@ -701,7 +701,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   const wrap: React.CSSProperties = {
     maxWidth: 1200,
     margin: '0 auto',
-    padding: '0 6vw',
+    padding: '0 5vw',
   }
 
   // ─── Section 2 Facts ────────────────────────────────────────────────────────
