@@ -948,13 +948,12 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         /* Feature cards bento */
         .echo-feat-grid {
           display: grid;
-          grid-template-columns: 2fr 1fr 1fr;
-          grid-auto-rows: clamp(100px, 11vw, 145px);
+          grid-template-columns: 2fr 1fr;
+          grid-auto-rows: clamp(150px, 16vw, 200px);
           gap: 8px;
           margin-top: 16px;
         }
-        .echo-feat-hero { grid-row: span 4; }
-        .echo-feat-side { grid-column: 2 / span 2; }
+        .echo-feat-hero { grid-row: span 2; }
         .echo-feat-card {
           position: relative;
           border-radius: 6px;
@@ -1171,7 +1170,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-fact-cell:nth-child(2) { border-bottom: 1px solid #1e2022; }
           .echo-feat-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(150px, 22vw, 220px); }
           .echo-feat-hero { grid-row: span 2; }
-          .echo-feat-side { grid-column: auto; }
         }
         @media (max-width: 600px) {
           .echo-facts-grid { grid-template-columns: 1fr 1fr; }
@@ -1249,7 +1247,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           {/* Feature cards — bento: large left + 2×2 right */}
           <div className="echo-feat-grid">
             {featureCards.map((c, i) => (
-              <div key={c.label} className={`echo-feat-card${i === 0 ? ' echo-feat-hero' : ' echo-feat-side'}`}>
+              <div key={c.label} className={`echo-feat-card${i === 0 ? ' echo-feat-hero' : ''}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={c.img} alt={c.label} className="echo-feat-img" />
                 <div className={i === 0 ? 'echo-feat-grad-hero' : 'echo-feat-grad-sm'} />
