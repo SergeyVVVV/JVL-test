@@ -849,7 +849,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     },
     {
       q: 'Why does ECHO cost $3,990?',
-      a: 'ECHO is a premium home arcade machine – designed in Canada, assembled in the USA, and built as a complete entertainment piece for your home.\n\nThe price includes a 22" HD touchscreen, 149 built-in JVL games, 1 & 2-player modes, a 360° swivel base, built-in audio, and a compact cabinet made for home bars, game rooms, and lounges.\n\nThere are no downloads, subscriptions, or extra game packs needed. Just a pure arcade experience, ready to play from day one.',
+      a: 'ECHO is a premium home arcade machine – designed in Canada, assembled in the USA, and individually tested before shipping. It's built as a complete entertainment piece for your home.\n\nThe price includes a 22" HD touchscreen, 149 built-in JVL games, 1 & 2-player modes, a 360° swivel base, built-in audio, and a compact cabinet made for home bars, game rooms, and lounges.\n\nThere are no downloads, subscriptions, or extra game packs needed. Just a pure arcade experience, ready to play from day one.',
     },
     {
       q: 'What\'s the difference between ECHO Home and ECHO Commercial?',
