@@ -722,11 +722,11 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
 
   // ─── Section 3 Why blocks ───────────────────────────────────────────────────
   const USE_CASES = [
-    { label: 'Family Time',   img: '/api/storage/3795/m2_1.png?w=1600&f=webp&q=78',  imgMob: '/api/storage/3795/m2_1mob.png?w=800&f=webp&q=78',  headline: 'Easy for everyone to join in.',                    text: 'No controllers to learn. No setup to explain. Just tap the screen, pick a game, and let kids, parents, and grandparents take turns.' },
-    { label: 'Game Night',    img: '/api/storage/3795/m2_2.png?w=1600&f=webp&q=78',  imgMob: '/api/storage/3795/m2_2mob.png?w=800&f=webp&q=78',  headline: 'Turn an ordinary night into a game night.',         text: 'ECHO gives the room a natural center. One person starts playing, someone else wants a turn, and suddenly the evening has a little more energy.' },
-    { label: 'Nostalgia',     img: '/api/storage/3795/m2_3.png?w=1600&f=webp&q=78',  imgMob: '/api/storage/3795/m2_3mob.png?w=800&f=webp&q=78',  headline: 'Bring back the games people remember.',            text: 'For anyone who remembers bar-top arcade machines, ECHO feels familiar right away — but cleaner, simpler, and made for the home.' },
-    { label: 'Guests',        img: '/api/storage/3795/m2_4.png?w=1600&f=webp&q=78',  imgMob: '/api/storage/3795/m2_4mob.png?w=800&f=webp&q=78',  headline: 'The thing guests always ask about.',               text: 'Put ECHO in a home bar, game room, or lounge, and it naturally starts conversations. It is easy to notice, easy to try, and hard to walk past.' },
-    { label: 'Head-to-Head',  img: '/api/storage/3795/m2_5.png?w=1600&f=webp&q=78',  imgMob: '/api/storage/3795/m2_5mob.png?w=800&f=webp&q=78',  headline: 'A little friendly competition never gets old.',     text: 'Play solo, take turns, or go head-to-head. ECHO makes it easy to settle the score without remotes, accounts, downloads, or setup.' },
+    { label: 'Family Time',   img: '/api/storage/3795/m2_1.png?w=1600&f=webp&q=78',  imgMob: '/api/storage/3795/m2_1mob.png?w=800&f=webp&q=78',  headline: 'Easy for everyone to join in',                    text: 'No controllers to learn. No setup to explain. Just tap the screen, pick a game, and let kids, parents, and grandparents take turns.' },
+    { label: 'Game Night',    img: '/api/storage/3795/m2_2.png?w=1600&f=webp&q=78',  imgMob: '/api/storage/3795/m2_2mob.png?w=800&f=webp&q=78',  headline: 'Turn an ordinary night into a game night',         text: 'ECHO gives the room a natural center. One person starts playing, someone else wants a turn, and suddenly the evening has a little more energy.' },
+    { label: 'Nostalgia',     img: '/api/storage/3795/m2_3.png?w=1600&f=webp&q=78',  imgMob: '/api/storage/3795/m2_3mob.png?w=800&f=webp&q=78',  headline: 'Bring back the games people remember',            text: 'For anyone who remembers bar-top arcade machines, ECHO feels familiar right away — but cleaner, simpler, and made for the home.' },
+    { label: 'Guests',        img: '/api/storage/3795/m2_4.png?w=1600&f=webp&q=78',  imgMob: '/api/storage/3795/m2_4mob.png?w=800&f=webp&q=78',  headline: 'The thing guests always ask about',               text: 'Put ECHO in a home bar, game room, or lounge, and it naturally starts conversations. It is easy to notice, easy to try, and hard to walk past.' },
+    { label: 'Head-to-Head',  img: '/api/storage/3795/m2_5.png?w=1600&f=webp&q=78',  imgMob: '/api/storage/3795/m2_5mob.png?w=800&f=webp&q=78',  headline: 'A little friendly competition never gets old',     text: 'Play solo, take turns, or go head-to-head. ECHO makes it easy to settle the score without remotes, accounts, downloads, or setup.' },
   ]
   const [ucActive, setUcActive] = useState(0)
   const [ucFading, setUcFading] = useState(false)
@@ -1395,8 +1395,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               },
               {
                 icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>,
-                title: 'Buy your way',
-                body: 'Order on Amazon for Prime shipping, or buy direct from JVL. Same machine, same price, same warranty.',
+                title: 'BUY WITH CONFIDENCE',
+                body: 'Order ECHO through Amazon with a familiar checkout, Prime shipping, and Amazon\'s return/replacement process — backed by JVL warranty and real support.',
               },
             ].map((c) => (
               <div key={c.title} style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
@@ -1411,6 +1411,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             ))}
           </div>
         </div>
+        <TimelineBlock />
       </section>
 
       {/* ── Section 4: The game library ── */}
@@ -1440,64 +1441,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           </div>
           <GamesSectionDark />
         </div>
-      </section>
-
-      {/* ── Section 5: Built to last ── */}
-      <section className="echo-section-built">
-        <div style={wrap}>
-          <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
-            <Badge label="Built to last" />
-            <h2 style={{
-              fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)',
-              fontWeight: 700,
-              color: '#F4F3EC',
-              margin: '0 0 20px 0',
-              letterSpacing: '-0.01em',
-            }}>
-              A machine worth owning
-            </h2>
-            <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.6)', lineHeight: 1.75, margin: 0 }}>
-              ECHO is built on 40+ years of JVL bartop expertise — the same bartop line that earned its reputation in bars and arcades of North America.
-            </p>
-          </div>
-
-          <div className="echo-built-grid">
-            {[
-              {
-                icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>,
-                title: 'Designed in Canada, made in the USA',
-                body: 'Every unit is engineered at JVL\'s Canadian headquarters and assembled to strict manufacturing standards.',
-              },
-              {
-                icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
-                title: '40+ years of JVL bartop expertise',
-                body: 'JVL has been building bartop machines since 1995. ECHO inherits everything learned from a generation of commercial hardware.',
-              },
-              {
-                icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
-                title: 'Individually tested, factory shipped',
-                body: 'Every ECHO is powered on and tested before it leaves the factory. You\'re not the first person to use it — you\'re just the first person to own it.',
-              },
-            ].map((c) => (
-              <div key={c.title} style={{
-                background: '#141618',
-                border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: 10,
-                padding: '28px 28px 32px',
-              }}>
-                <div style={{ marginBottom: 20 }}>{c.icon}</div>
-                <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 12px 0' }}>
-                  {c.title}
-                </h3>
-                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.7, margin: 0 }}>
-                  {c.body}
-                </p>
-              </div>
-            ))}
-          </div>
-
-        </div>
-        <TimelineBlock />
       </section>
 
       {/* ── Section 5b: Product spec ── (hidden) */}
