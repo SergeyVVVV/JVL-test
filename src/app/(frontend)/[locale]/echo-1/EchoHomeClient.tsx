@@ -950,7 +950,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-feat-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          grid-auto-rows: clamp(240px, 24vw, 312px);
+          grid-auto-rows: clamp(288px, 29vw, 374px);
           gap: 8px;
           margin-top: 16px;
         }
@@ -1294,6 +1294,12 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 <button
                   key={uc.label}
                   onClick={() => ucSwitchTo(i)}
+                  onMouseEnter={() => {
+                    if (typeof window !== 'undefined') {
+                      const img = new window.Image(); img.src = uc.img
+                      const imgM = new window.Image(); imgM.src = uc.imgMob
+                    }
+                  }}
                   style={{
                     background: 'none', border: 'none', cursor: 'pointer',
                     borderLeft: i === 0 ? 'none' : '1px solid rgba(244,243,236,0.4)',
