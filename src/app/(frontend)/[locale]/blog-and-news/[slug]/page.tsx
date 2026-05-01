@@ -6,6 +6,7 @@ import ArticleTOC from './ArticleTOC'
 import NewsCard from '@/components/NewsCard'
 import JsonLd from '@/components/JsonLd'
 import { buildBreadcrumb, buildBlogPosting, buildGraph } from '@/lib/jsonld'
+import { articleHighlights } from '@/data/articleHighlights'
 
 export const revalidate = 3600 // re-render at most once per hour
 
@@ -328,6 +329,45 @@ export default async function BlogArticlePage({ params }: PageProps) {
         }
         .jvl-prose pre code { background: transparent !important; padding: 0; }
 
+        /* Highlights block */
+        .article-highlights {
+          background: #EDECEA;
+          border-left: 4px solid #FB671F;
+          border-radius: 8px;
+          padding: 24px 28px;
+          margin-bottom: 40px;
+        }
+        .article-highlights-label {
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          color: #FB671F;
+          margin: 0 0 14px;
+        }
+        .article-highlights-list {
+          list-style: none;
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .article-highlights-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 10px;
+          font-size: 15px;
+          font-weight: 400;
+          line-height: 1.6;
+          color: #2A2A2A;
+        }
+        .article-highlights-icon {
+          flex-shrink: 0;
+          margin-top: 3px;
+          color: #FB671F;
+        }
+
         /* Related grid */
         .related-grid {
           display: grid;
@@ -457,6 +497,24 @@ export default async function BlogArticlePage({ params }: PageProps) {
                     style={{ width: '100%', display: 'block', objectFit: 'cover' }}
                   />
                 </picture>
+              </div>
+            )}
+
+            {/* Highlights block */}
+            {articleHighlights[slug] && (
+              <div className="article-highlights">
+                <p className="article-highlights-label">Highlights</p>
+                <ul className="article-highlights-list">
+                  {articleHighlights[slug].map((point, i) => (
+                    <li key={i} className="article-highlights-item">
+                      <svg className="article-highlights-icon" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true">
+                        <circle cx="8.5" cy="8.5" r="8.5" fill="#FB671F" fillOpacity="0.12"/>
+                        <path d="M5 8.5l2.5 2.5 4.5-4.5" stroke="#FB671F" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             )}
 
