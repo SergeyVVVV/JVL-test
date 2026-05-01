@@ -739,10 +739,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
 
   // ─── Section 2 Facts ────────────────────────────────────────────────────────
   const facts = [
+    { stat: 'Plug and Play', label: '', small: false },
     { stat: '149', label: 'Built-in games', small: false },
-    { stat: '22"', label: 'HD touchscreen', small: false },
-    { stat: '15 × 19.5 × 18.5"', label: 'Fits on a counter', small: true },
-    { stat: '2-player', label: '360° swivel base', small: false },
+    { stat: '22"', label: 'HD Touchscreen', small: false },
+    { stat: 'Compact size', label: 'Fits on a counter', small: false },
   ]
 
   const featureCards = [
