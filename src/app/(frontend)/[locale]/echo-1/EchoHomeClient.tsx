@@ -56,16 +56,6 @@ function Hero({ data }: { data: PageData['hero'] }) {
 
       {/* Headline */}
       <div style={{ position: 'absolute', bottom: 120, left: 0, right: 0, padding: '0 5vw', maxWidth: 760 }}>
-        <p style={{
-          fontSize: 11,
-          fontWeight: 700,
-          letterSpacing: '0.18em',
-          textTransform: 'uppercase',
-          color: '#FB671F',
-          margin: '0 0 20px 0',
-        }}>
-          Home Arcade by JVL
-        </p>
         <h1 className="echo-hero-h1" style={{
           fontFamily: 'inherit',
           fontSize: 'clamp(2.2rem, 4vw, 4.2rem)',
@@ -131,19 +121,11 @@ function Hero({ data }: { data: PageData['hero'] }) {
           {/* CTAs */}
           <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
             <a
-              href="/en/contact-us"
-              className="btn-amazon"
-              style={{ padding: '14px 28px', textTransform: 'uppercase' }}
-            >
-              Buy from JVL
-              <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-            </a>
-            <a
               href={data.buttonUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-outline"
-              style={{ padding: '14px 28px' }}
+              className="btn-amazon"
+              style={{ padding: '14px 28px', textTransform: 'uppercase' }}
             >
               {data.buttonText}
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -315,26 +297,11 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
               </div>
               <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
                 <a
-                  href="/en/contact-us"
-                  className="btn-amazon"
-                  style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
-                >
-                  Buy from JVL
-                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </a>
-                <a
                   href={data.buttonUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={{
-                    display: 'inline-flex', alignItems: 'center', gap: 6,
-                    padding: '14px 24px', border: '2px solid #101213', borderRadius: 4,
-                    fontSize: 14, fontWeight: 700, letterSpacing: '0.06em',
-                    textTransform: 'uppercase', color: '#101213', textDecoration: 'none',
-                    whiteSpace: 'nowrap', transition: 'background 0.2s, color 0.2s',
-                  }}
-                  onMouseEnter={e => { e.currentTarget.style.background = '#101213'; e.currentTarget.style.color = '#F4F3EC' }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#101213' }}
+                  className="btn-amazon"
+                  style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
                 >
                   Buy on Amazon
                   <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -739,18 +706,18 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
 
   // ─── Section 2 Facts ────────────────────────────────────────────────────────
   const facts = [
-    { stat: 'Plug and Play', label: 'No setup needed', small: false },
+    { stat: "Plug'n'Play", label: 'No setup needed', small: false },
     { stat: '149', label: 'Built-in games', small: false },
     { stat: '22"', label: 'HD Touchscreen', small: false },
-    { stat: 'Compact size', label: 'Fits on a counter', small: false },
+    { stat: 'Compact', label: 'Fits on a counter', small: false },
   ]
 
   const featureCards = [
     { label: 'Compact Footprint', desc: 'Fits any premium interior — modern or classic. Compact and sleek, designed specifically for bartops and countertops.', img: '/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg' },
-    { label: '22" HD Touchscreen', desc: 'Arcade action in a brilliant 22" high-definition touchscreen. No joysticks, no trackballs — no problems.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
+    { label: '22" HD Touchscreen', desc: 'A brilliant 22" high-definition touchscreen. No joysticks, no trackballs – no problems.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
     { label: 'Immersive Audio', desc: '25-watt, 4-speaker high-fidelity tri-band sound system with a dedicated subwoofer.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
-    { label: '1 & 2-Player Modes', desc: 'Enjoy solo play or head-to-head matchups in 2-player mode. ECHO provides competitive games for all.', img: '/api/storage/3412/2_player_modes.jpg' },
-    { label: 'Tournaments & Leaderboards', desc: 'Host tournaments, track high scores, and battle for the top spot in the ultimate Hall of Fame.', img: '/api/storage/3413/Leaderboards.jpg' },
+    { label: '1 & 2-Player Modes', desc: 'Enjoy solo play or head-to-head matchups in 2-player mode.', img: '/api/storage/3412/2_player_modes.jpg' },
+    { label: 'Tournaments & Leaderboards', desc: 'Host tournaments, track high scores, and battle for the top spot in the Hall of Fame.', img: '/api/storage/3413/Leaderboards.jpg' },
   ]
 
   // ─── Section 3 Why blocks ───────────────────────────────────────────────────
@@ -1511,32 +1478,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             >
               Buy on Amazon
             </a>
-            <a
-              href="/en/contact-us"
-              className="btn-outline"
-              style={{ padding: '16px 32px' }}
-            >
-              Buy from JVL
-            </a>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <button
-              className="echo-cta-expander-btn"
-              style={{ color: 'rgba(244,243,236,0.45)' }}
-              onClick={() => setCtaExpanded1(!ctaExpanded1)}
-            >
-              {ctaExpanded1 ? 'Hide' : 'Not sure which to pick?'}
-            </button>
-            <div
-              className="echo-cta-expander-content"
-              style={{ maxHeight: ctaExpanded1 ? 300 : 0, width: '100%' }}
-            >
-              <div className="echo-cta-expander-inner" style={{ background: 'rgba(244,243,236,0.05)', border: '1px solid rgba(244,243,236,0.1)', color: 'rgba(244,243,236,0.65)', marginTop: 12 }}>
-                <p><strong style={{ color: '#F4F3EC' }}>Buy on Amazon</strong> — familiar checkout, Prime shipping, and Amazon's full review base. Returns and basic support go through Amazon.</p>
-                <p><strong style={{ color: '#F4F3EC' }}>Buy from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
-                <p>Either way: same machine, same warranty, same price.</p>
-              </div>
-            </div>
           </div>
           <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.3)', marginTop: 20 }}>
             1-year all-inclusive warranty · JVL covers shipping both ways
@@ -1764,32 +1705,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             >
               Buy on Amazon
             </a>
-            <a
-              href="/en/contact-us"
-              className="btn-outline"
-              style={{ padding: '16px 32px' }}
-            >
-              Buy from JVL
-            </a>
-          </div>
-          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <button
-              className="echo-cta-expander-btn"
-              style={{ color: 'rgba(244,243,236,0.45)' }}
-              onClick={() => setCtaExpanded2(!ctaExpanded2)}
-            >
-              {ctaExpanded2 ? 'Hide' : 'Not sure which to pick?'}
-            </button>
-            <div
-              className="echo-cta-expander-content"
-              style={{ maxHeight: ctaExpanded2 ? 300 : 0, width: '100%' }}
-            >
-              <div className="echo-cta-expander-inner" style={{ background: 'rgba(244,243,236,0.05)', border: '1px solid rgba(244,243,236,0.1)', color: 'rgba(244,243,236,0.65)', marginTop: 12 }}>
-                <p><strong style={{ color: '#F4F3EC' }}>Buy on Amazon</strong> — familiar checkout, Prime shipping, and Amazon's full review base. Returns and basic support go through Amazon.</p>
-                <p><strong style={{ color: '#F4F3EC' }}>Buy from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
-                <p>Either way: same machine, same warranty, same price.</p>
-              </div>
-            </div>
           </div>
           <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.3)', marginTop: 20 }}>
             1-year all-inclusive warranty · JVL covers shipping both ways
