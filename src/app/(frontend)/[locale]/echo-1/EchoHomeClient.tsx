@@ -159,6 +159,16 @@ function Badge({ label }: { label: string }) {
   )
 }
 
+// ─── Design Cards (bento grid for What ECHO is section) ──────────────────────
+
+const DESIGN_CARDS = [
+  { label: 'Compact Footprint', desc: 'Fits any premium interior — modern or classic. Compact and sleek, designed specifically for bartops and countertops.', img: '/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg' },
+  { label: '22" HD Touchscreen', desc: 'Arcade action in a brilliant 22" high-definition touchscreen. No joysticks, no trackballs — no problems.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
+  { label: 'Immersive Audio', desc: '25-watt, 4-speaker high-fidelity tri-band sound system with a dedicated subwoofer for the rich audio.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
+  { label: '1 & 2-Player Modes', desc: 'Enjoy solo play or head-to-head matchups in 2-player mode. ECHO provides competitive games for all.', img: '/api/storage/3412/2_player_modes.jpg' },
+  { label: 'Tournaments & Leaderboards', desc: 'Host tournaments, track high scores, and battle for the top spot in the ultimate Hall of Fame.', img: '/api/storage/3413/Leaderboards.jpg' },
+]
+
 // ─── Product Section (Home only, no tabs) ────────────────────────────────────
 
 const HOME_PRODUCT = {
@@ -814,32 +824,22 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-section-faq { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-bottom-cta { background: #080a0b; padding: 80px 0; border-top: 1px solid #1e2022; }
 
-        /* What ECHO is — 2-col grid */
-        .echo-what-grid {
+        /* What ECHO is — bento grid */
+        .echo-ds-grid {
           display: grid;
-          grid-template-columns: 1.1fr 1fr;
-          gap: 80px;
-          align-items: start;
-        }
-        /* Facts — full-width 4-col row */
-        /* Facts 2x2 */
-        .echo-facts-grid {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 0;
-          border: 1px solid #1e2022;
-          border-radius: 4px;
-          overflow: hidden;
+          grid-template-columns: 2fr 1fr 1fr;
+          grid-auto-rows: clamp(200px, 21vw, 280px);
+          gap: 8px;
           margin-top: 40px;
         }
-        .echo-fact-cell {
-          padding: 24px 20px;
-          border-right: 1px solid #1e2022;
-          border-bottom: 1px solid #1e2022;
+        .echo-ds-hero { grid-row: span 2; }
+        @media (max-width: 960px) {
+          .echo-ds-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(180px, 28vw, 260px); }
+          .echo-ds-hero { grid-row: span 1; }
         }
-        .echo-fact-cell:nth-child(2n) { border-right: none; }
-        .echo-fact-cell:nth-child(3),
-        .echo-fact-cell:nth-child(4) { border-bottom: none; }
+        @media (max-width: 600px) {
+          .echo-ds-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+        }
 
         /* Why — 2x2 grid */
         .echo-why-grid {
@@ -1010,7 +1010,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
 
         @media (max-width: 900px) {
           .echo-product-home-grid { grid-template-columns: 1fr; gap: 40px; }
-          .echo-what-grid { grid-template-columns: 1fr; gap: 48px; }
           .echo-why-grid { grid-template-columns: 1fr; gap: 36px; }
           .echo-built-grid { grid-template-columns: 1fr; gap: 32px; }
           .echo-games-grid { grid-template-columns: 1fr; gap: 24px; }
@@ -1022,9 +1021,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-ownership-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 480px) {
-          .echo-facts-grid { grid-template-columns: 1fr; }
-          .echo-fact-cell { border-right: none; border-bottom: 1px solid #1e2022; }
-          .echo-fact-cell:last-child { border-bottom: none; }
           .echo-extra-reviews-grid { grid-template-columns: 1fr; }
           .echo-ownership-grid { grid-template-columns: 1fr; }
         }
@@ -1036,60 +1032,76 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       {/* ── Section 2: What ECHO is ── */}
       <section className="echo-section-what">
         <div style={wrap}>
-          <div className="echo-what-grid">
-            {/* Left: text */}
-            <div>
-              <Badge label="What ECHO is" />
-              <h2 style={{
-                fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)',
-                fontWeight: 700,
-                lineHeight: 1.2,
-                letterSpacing: '-0.01em',
-                color: '#F4F3EC',
-                margin: '0 0 20px 0',
-              }}>
-                The only arcade machine you need
-              </h2>
-              <p style={{
-                fontSize: 16,
-                fontWeight: 300,
-                lineHeight: 1.65,
-                color: 'rgba(244,243,236,0.65)',
-                margin: '0 0 0 0',
-              }}>
-                Not a retro emulator box – a premium touchscreen countertop arcade built for home bars, shared play, and effortless nostalgia – with no setup, no internet, and no bulky cabinet.
-              </p>
+          <Badge label="What ECHO is" />
+          <h2 style={{
+            fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)',
+            fontWeight: 700,
+            lineHeight: 1.2,
+            letterSpacing: '-0.01em',
+            color: '#F4F3EC',
+            margin: '0 0 16px 0',
+          }}>
+            The only arcade machine you need
+          </h2>
+          <p style={{
+            fontSize: 16,
+            fontWeight: 300,
+            lineHeight: 1.65,
+            color: 'rgba(244,243,236,0.65)',
+            maxWidth: 640,
+            margin: 0,
+          }}>
+            Not a retro emulator box – a premium touchscreen countertop arcade built for home bars, shared play, and effortless nostalgia – with no setup, no internet, and no bulky cabinet.
+          </p>
 
-              <div className="echo-facts-grid">
-                {facts.map((f) => (
-                  <div key={f.stat} className="echo-fact-cell">
-                    <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1 }}>
-                      {f.stat}
-                    </div>
-                    <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
-                      {f.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Right: image */}
-            <div>
-              {data.countertop.image && (
+          {/* Bento card grid */}
+          <div className="echo-ds-grid">
+            {DESIGN_CARDS.map((card, i) => (
+              <div
+                key={card.label}
+                className={i === 0 ? 'echo-ds-hero' : ''}
+                style={{ position: 'relative', borderRadius: 4, overflow: 'hidden' }}
+              >
                 <img
-                  src={data.countertop.image}
-                  alt={data.countertop.title}
-                  style={{
-                    width: '100%',
-                    aspectRatio: '4/5',
-                    objectFit: 'cover',
-                    borderRadius: 4,
-                    display: 'block',
-                  }}
+                  src={card.img}
+                  alt={card.label}
+                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
                 />
-              )}
-            </div>
+                <div style={{
+                  position: 'absolute', inset: 0,
+                  background: i === 0
+                    ? 'linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0) 70%)'
+                    : 'linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0) 80%)',
+                }} />
+                <div style={{
+                  position: 'absolute', bottom: 0, left: 0, right: 0,
+                  padding: i === 0 ? '32px 28px' : '20px 20px',
+                }}>
+                  <div style={{
+                    fontSize: i === 0 ? 19 : 14,
+                    fontWeight: 600,
+                    color: '#fff',
+                    lineHeight: 1.2,
+                    marginBottom: i === 0 ? 10 : 7,
+                    letterSpacing: '-0.01em',
+                  }}>
+                    {card.label}
+                  </div>
+                  <div style={{
+                    fontSize: i === 0 ? 13 : 12,
+                    fontWeight: 300,
+                    color: 'rgba(255,255,255,0.80)',
+                    lineHeight: 1.6,
+                    display: '-webkit-box',
+                    WebkitLineClamp: i === 0 ? 4 : 3,
+                    WebkitBoxOrient: 'vertical' as const,
+                    overflow: 'hidden',
+                  }}>
+                    {card.desc}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
