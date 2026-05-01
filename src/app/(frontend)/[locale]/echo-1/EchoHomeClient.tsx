@@ -948,13 +948,12 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         /* Feature cards bento */
         .echo-feat-grid {
           display: grid;
-          grid-template-columns: 2fr 1fr 1fr;
-          grid-auto-rows: clamp(150px, 15vw, 200px);
+          grid-template-columns: repeat(3, 1fr);
+          grid-auto-rows: clamp(200px, 20vw, 260px);
           gap: 8px;
           margin-top: 16px;
         }
-        .echo-feat-hero { grid-row: span 2; }
-        .echo-feat-side { grid-column: span 2; }
+        .echo-feat-first { grid-column: span 2; }
         .echo-feat-card {
           position: relative;
           border-radius: 6px;
@@ -968,19 +967,11 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           object-fit: cover;
           display: block;
         }
-        .echo-feat-grad-hero {
-          position: absolute; inset: 0;
-          background: linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0) 70%);
-        }
-        .echo-feat-grad-sm {
+        .echo-feat-grad {
           position: absolute; inset: 0;
           background: linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0) 80%);
         }
-        .echo-feat-text-hero {
-          position: absolute; bottom: 0; left: 0; right: 0;
-          padding: 32px 28px;
-        }
-        .echo-feat-text-sm {
+        .echo-feat-text {
           position: absolute; bottom: 0; left: 0; right: 0;
           padding: 20px;
         }
@@ -1169,8 +1160,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-fact-cell:nth-child(2) { border-right: none; }
           .echo-fact-cell:nth-child(1),
           .echo-fact-cell:nth-child(2) { border-bottom: 1px solid #1e2022; }
-          .echo-feat-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(150px, 22vw, 220px); }
-          .echo-feat-hero { grid-row: span 2; }
+          .echo-feat-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(180px, 26vw, 240px); }
+          .echo-feat-first { grid-column: span 2; }
         }
         @media (max-width: 600px) {
           .echo-facts-grid { grid-template-columns: 1fr 1fr; }
@@ -1248,20 +1239,20 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           {/* Feature cards — bento: large left + 2×2 right */}
           <div className="echo-feat-grid">
             {featureCards.map((c, i) => (
-              <div key={c.label} className={`echo-feat-card${i === 0 ? ' echo-feat-hero' : i === 3 ? '' : ' echo-feat-side'}`}>
+              <div key={c.label} className={`echo-feat-card${i === 0 ? ' echo-feat-first' : ''}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={c.img} alt={c.label} className="echo-feat-img" />
-                <div className={i === 0 ? 'echo-feat-grad-hero' : 'echo-feat-grad-sm'} />
-                <div className={i === 0 ? 'echo-feat-text-hero' : 'echo-feat-text-sm'}>
-                  <div style={{ fontSize: i === 0 ? 22 : 16, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: i === 0 ? 10 : 6 }}>
+                <div className="echo-feat-grad" />
+                <div className="echo-feat-text">
+                  <div style={{ fontSize: 16, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: 6 }}>
                     {c.label}
                   </div>
                   <div style={{
-                    fontSize: i === 0 ? 15 : 13,
+                    fontSize: 13,
                     color: 'rgba(255,255,255,0.80)',
                     lineHeight: 1.6,
                     display: '-webkit-box',
-                    WebkitLineClamp: i === 0 ? 4 : 3,
+                    WebkitLineClamp: 3,
                     WebkitBoxOrient: 'vertical' as const,
                     overflow: 'hidden',
                   }}>
