@@ -1470,7 +1470,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 background: '#141618',
                 border: '1px solid rgba(255,255,255,0.07)',
                 borderRadius: 10,
-                padding: '28px 28px 48px',
+                padding: '28px 28px 80px',
               }}>
                 <div style={{ marginBottom: 20 }}>{c.icon}</div>
                 <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 12px 0' }}>
