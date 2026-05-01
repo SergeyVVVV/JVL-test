@@ -940,7 +940,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           margin-top: 40px;
         }
         .echo-fact-cell {
-          padding: 24px 20px;
+          padding: 29px 20px;
           border-right: 1px solid #1e2022;
         }
         .echo-fact-cell:last-child { border-right: none; }
