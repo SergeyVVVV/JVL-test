@@ -82,11 +82,24 @@ function Hero({ data }: { data: PageData['hero'] }) {
           fontSize: 'clamp(15px, 1.3vw, 18px)',
           color: 'rgba(244,243,236,0.75)',
           lineHeight: 1.6,
-          margin: 0,
+          margin: '0 0 24px 0',
           maxWidth: 660,
         }}>
-          Echo HD3 – a 22-inch touchscreen bartop arcade with 149 pre-installed games. Built for home. Plug it in and play.
+          Echo HD3 – a premium 22-inch touchscreen bartop arcade with 149 pre-installed games. Built for home.
         </p>
+
+        {/* Trust chips */}
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {['Plug and Play', 'No Wi-Fi Needed', '1-Year Warranty', 'Made in the USA'].map(chip => (
+            <span key={chip} style={{
+              fontSize: 11, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase',
+              color: 'rgba(244,243,236,0.7)', border: '1px solid rgba(255,255,255,0.2)',
+              borderRadius: 20, padding: '5px 12px', background: 'rgba(255,255,255,0.05)',
+            }}>
+              {chip}
+            </span>
+          ))}
+        </div>
       </div>
 
       {/* Bottom bar */}
@@ -158,16 +171,6 @@ function Badge({ label }: { label: string }) {
     </p>
   )
 }
-
-// ─── Design Cards (bento grid for What ECHO is section) ──────────────────────
-
-const DESIGN_CARDS = [
-  { label: 'Compact Footprint', desc: 'Fits any premium interior — modern or classic. Compact and sleek, designed specifically for bartops and countertops.', img: '/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg' },
-  { label: '22" HD Touchscreen', desc: 'Arcade action in a brilliant 22" high-definition touchscreen. No joysticks, no trackballs — no problems.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
-  { label: 'Immersive Audio', desc: '25-watt, 4-speaker high-fidelity tri-band sound system with a dedicated subwoofer for the rich audio.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
-  { label: '1 & 2-Player Modes', desc: 'Enjoy solo play or head-to-head matchups in 2-player mode. ECHO provides competitive games for all.', img: '/api/storage/3412/2_player_modes.jpg' },
-  { label: 'Tournaments & Leaderboards', desc: 'Host tournaments, track high scores, and battle for the top spot in the ultimate Hall of Fame.', img: '/api/storage/3413/Leaderboards.jpg' },
-]
 
 // ─── Product Section (Home only, no tabs) ────────────────────────────────────
 
@@ -407,7 +410,7 @@ function GamesSectionDark() {
   return (
     <div>
       {/* Stats row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderTop: '1px solid #1e2022', borderBottom: '1px solid #1e2022', marginBottom: 56 }}>
+      <div className="echo-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', borderTop: '1px solid #1e2022', borderBottom: '1px solid #1e2022', marginBottom: 56 }}>
         {[
           { value: '149', label: 'Pre-installed games', size: 'clamp(2.2rem, 3.5vw, 3rem)' },
           { value: 'Solo & 2-Player', label: 'Player Modes', size: 'clamp(1.5rem, 2.4vw, 2rem)' },
@@ -418,7 +421,7 @@ function GamesSectionDark() {
             borderLeft: i > 0 ? '1px solid #1e2022' : 'none',
             display: 'flex', flexDirection: 'column', alignItems: 'center',
           }}>
-            <div style={{ fontSize: s.size, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, marginBottom: 8 }}>{s.value}</div>
+            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: s.size, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, width: '100%', marginBottom: 8 }}>{s.value}</div>
             <div style={{ fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.45)' }}>{s.label}</div>
           </div>
         ))}
@@ -449,6 +452,22 @@ function GamesSectionDark() {
               <span style={{ fontSize: 18, fontWeight: activeTab === i ? 600 : 400 }}>{c.label}</span>
             </button>
           ))}
+
+          {/* Parental control callout — only when Adult is active */}
+          {GAME_CATEGORIES[activeTab].label === 'Adult' && (
+            <div style={{
+              marginTop: 20,
+              padding: '14px 16px',
+              background: 'rgba(244,243,236,0.04)',
+              borderLeft: '3px solid #FB671F',
+              borderRadius: '0 4px 4px 0',
+            }}>
+              <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: 0 }}>
+                <strong style={{ color: '#F4F3EC', fontWeight: 600 }}>Full parental control.</strong>{' '}
+                The Adult category can be turned off, scheduled, or locked with a physical key.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Right: video + description */}
@@ -480,6 +499,81 @@ function GamesSectionDark() {
           </div>
           <div style={{ fontSize: 15, fontWeight: 600, color: '#F4F3EC', marginBottom: 10, textTransform: 'uppercase', letterSpacing: '0.06em' }}>{cat.label}</div>
           <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: 0 }}>{cat.desc}</p>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ─── Timeline ────────────────────────────────────────────────────────────────
+
+const TIMELINE = [
+  { year: 'Present', name: 'ECHO HD3',    img: '/api/storage/3442/jvl-echo-countertop-arcade-racing-game.jpg', desc: "JVL's most advanced countertop yet — available in both Home and Commercial versions. Featuring a powerful new APU, crystal-clear audio, and a seamless P-CAP touchscreen." },
+  { year: '2010',    name: 'ECHO HD2',    img: '/api/storage/3432/jvl-hd2-puzzle-game-touchscreen-display.jpg', desc: 'A classic with a full touchscreen interface and vibrant true HD display. Boasting an incredible 149-game collection, ECHO HD2 set a new standard for variety and replay value.' },
+  { year: '2008',    name: 'Encore',      img: '/api/storage/3433/jvl-encore-bartop-machine.jpg', desc: "JVL's first high-definition touchscreen. With 12 true HD 3D games, an intuitive interface, hi-fi sound, and support for streaming music, ENCORE combined cutting-edge gameplay with multi-sensory appeal." },
+  { year: '2006',    name: 'Retro',       img: '/api/storage/3434/Retro.jpg', desc: 'A bold blend of vintage style and modern tech, RETRO delivered standout performance with nostalgic flair. It quickly became a favorite among operators and players alike.' },
+  { year: '2005',    name: 'Vortex',      img: '/api/storage/3435/Vortex.jpg', desc: "A sleek, compact unit with JVL's unique Power Pad for touch or button play. Paired with the iTouch8 software and 130 games, VORTEX offered unmatched versatility and standout performance for any venue." },
+  { year: '2004',    name: 'Eclipse',     img: '/api/storage/3436/Eclipse.jpg', desc: 'A durable, flash-based touchscreen with no moving parts, ECLIPSE offered over 100 games and a crisp 15" swivel LCD. Known for its reliability it became a favorite in both home gamerooms and commercial settings.' },
+  { year: '2003',    name: 'Orion',       img: '/api/storage/3444/Orion_2.jpg', desc: 'An upright unit that redefined touchscreen gaming with its sleek design, 19" display, and powerful audio. 80 games and built for both national and local tournaments.' },
+  { year: '2001',    name: 'Conquest',    img: '/api/storage/3438/Conquest.jpg', desc: 'As the first North American countertop to feature real-time online rankings, CONQUEST powered the groundbreaking Touch & Win network. It set a new standard for connected gameplay.' },
+  { year: '1999',    name: 'Concorde 3',  img: '/api/storage/3439/Concorde-3.jpg', desc: 'With fast CD-ROM upgrades, Pentium-class speed, and 60+ games, C3 delivered top-tier performance and reliability — earning strong praise from operators across North America.' },
+  { year: '1997',    name: 'Concorde 2',  img: '/api/storage/3440/Concorde-2.jpg', desc: 'With 54 new games, 2-player support, and customizable settings, Concorde 2 delivered a flexible, high-performance upgrade built for competitive play and operator success.' },
+  { year: '1995',    name: 'Concorde 1',  img: '/api/storage/3441/Concorde-1.jpg', desc: "JVL's first CD-ROM touchscreen, Concorde 1 set new standards with 42 games, sharp graphics, and dual cash inputs. Built on global R&D and real operator feedback, it became a breakout hit." },
+]
+
+function TimelineBlock() {
+  const [active, setActive] = useState(0)
+  const item = TIMELINE[active]
+  return (
+    <div style={{
+      background: '#101213',
+      borderTop: '1px solid #1e2022',
+    }}>
+      {/* Subheading */}
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 6vw 0', textAlign: 'center' }}>
+        <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 12px' }}>Echo Evolution</p>
+      </div>
+      {/* Product display */}
+      <div style={{ maxWidth: 1200, margin: '0 auto', padding: '24px 6vw 0' }}>
+        <div className="echo-legacy-grid">
+          <div className="echo-legacy-text">
+            <h3 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em', color: '#F4F3EC', margin: '0 0 16px' }}>
+              {item.name}
+            </h3>
+            <p style={{ fontSize: 16, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.6)', margin: 0 }}>
+              {item.desc}
+            </p>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center', minHeight: 340 }}>
+            <img key={item.year} src={item.img} alt={`JVL ${item.name}`} style={{ maxHeight: 340, maxWidth: '100%', objectFit: 'contain', display: 'block' }} />
+          </div>
+        </div>
+      </div>
+      {/* Timeline bar */}
+      <div style={{ marginTop: 24, borderTop: '1px solid rgba(244,243,236,0.12)', background: 'rgba(0,0,0,0.35)', paddingBottom: 40 }}>
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
+          <div style={{ display: 'flex', overflowX: 'auto', scrollbarWidth: 'none' }}>
+            {TIMELINE.map((t, i) => (
+              <button
+                key={t.year}
+                onClick={() => setActive(i)}
+                className="echo-timeline-btn"
+                style={{
+                  flex: '0 0 calc(100% / 11)', minWidth: 80,
+                  background: 'none', border: 'none', cursor: 'pointer',
+                  padding: '20px 0', fontSize: 14,
+                  fontWeight: active === i ? 700 : 400,
+                  color: active === i ? '#FB671F' : 'rgba(244,243,236,0.45)',
+                  borderTop: `2px solid ${active === i ? '#FB671F' : 'transparent'}`,
+                  transition: 'color 0.2s, border-color 0.2s',
+                  textAlign: 'center', letterSpacing: '0.01em', marginTop: -1,
+                  fontFamily: 'inherit',
+                }}
+              >
+                {t.year}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -544,7 +638,7 @@ function SpecsSectionLight() {
         {/* Heading */}
         <div style={{ marginBottom: 52 }}>
           <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 14px' }}>
-            Specifications
+            Technical Details
           </p>
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
@@ -558,7 +652,7 @@ function SpecsSectionLight() {
             Product Specifications
           </h2>
           <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0, maxWidth: 560 }}>
-            Every detail refined. Every feature designed to deliver performance, beauty, and timeless play.
+            Compact enough for a home bar or game room, engineered for years of everyday play.
           </p>
         </div>
 
@@ -645,10 +739,18 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
 
   // ─── Section 2 Facts ────────────────────────────────────────────────────────
   const facts = [
-    { stat: '149', label: 'Built-in games' },
-    { stat: '22"', label: 'HD touchscreen' },
-    { stat: '15 × 19.5 × 18.5"', label: 'Fits on a counter' },
-    { stat: '2-player', label: '360° swivel base' },
+    { stat: '149', label: 'Built-in games', small: false },
+    { stat: '22"', label: 'HD touchscreen', small: false },
+    { stat: '15 × 19.5 × 18.5"', label: 'Fits on a counter', small: true },
+    { stat: '2-player', label: '360° swivel base', small: false },
+  ]
+
+  const featureCards = [
+    { label: 'Compact Footprint', desc: 'Fits any premium interior — modern or classic. Compact and sleek, designed specifically for bartops and countertops.', img: '/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg' },
+    { label: '22" HD Touchscreen', desc: 'Arcade action in a brilliant 22" high-definition touchscreen. No joysticks, no trackballs — no problems.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
+    { label: 'Immersive Audio', desc: '25-watt, 4-speaker high-fidelity tri-band sound system with a dedicated subwoofer.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
+    { label: '1 & 2-Player Modes', desc: 'Enjoy solo play or head-to-head matchups in 2-player mode. ECHO provides competitive games for all.', img: '/api/storage/3412/2_player_modes.jpg' },
+    { label: 'Tournaments & Leaderboards', desc: 'Host tournaments, track high scores, and battle for the top spot in the ultimate Hall of Fame.', img: '/api/storage/3413/Leaderboards.jpg' },
   ]
 
   // ─── Section 3 Why blocks ───────────────────────────────────────────────────
@@ -817,28 +919,69 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-section-what { background: #101213; padding: 96px 0; }
         .echo-section-why { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-library { background: #101213; padding: 96px 0; border-top: 1px solid #222; }
-        .echo-section-built { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
+        .echo-section-trust { background: #080a0b; padding: 80px 0; border-top: 1px solid #1e2022; }
+        .echo-trust-row1 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 48px; }
+        .echo-trust-row2 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px; }
+        .echo-section-built { background: #080a0b; padding: 96px 0 0; border-top: 1px solid #1e2022; }
         .echo-section-cta { background: #101213; padding: 80px 0; border-top: 1px solid #1e2022; }
         .echo-section-reviews { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-ownership { background: #101213; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-faq { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
         .echo-section-bottom-cta { background: #080a0b; padding: 80px 0; border-top: 1px solid #1e2022; }
 
-        /* What ECHO is — bento grid */
-        .echo-ds-grid {
+        /* Facts — 4-col single row */
+        .echo-facts-grid {
           display: grid;
-          grid-template-columns: 2fr 1fr 1fr;
-          grid-auto-rows: clamp(200px, 21vw, 280px);
-          gap: 8px;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 0;
+          border: 1px solid #1e2022;
+          border-radius: 4px;
+          overflow: hidden;
           margin-top: 40px;
         }
-        .echo-ds-hero { grid-row: span 2; }
-        @media (max-width: 960px) {
-          .echo-ds-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(180px, 28vw, 260px); }
-          .echo-ds-hero { grid-row: span 1; }
+        .echo-fact-cell {
+          padding: 24px 20px;
+          border-right: 1px solid #1e2022;
         }
-        @media (max-width: 600px) {
-          .echo-ds-grid { grid-template-columns: 1fr; grid-auto-rows: 240px; }
+        .echo-fact-cell:last-child { border-right: none; }
+
+        /* Feature cards bento */
+        .echo-feat-grid {
+          display: grid;
+          grid-template-columns: 2fr 1fr 1fr;
+          grid-auto-rows: clamp(220px, 22vw, 300px);
+          gap: 8px;
+          margin-top: 16px;
+        }
+        .echo-feat-hero { grid-row: span 2; }
+        .echo-feat-card {
+          position: relative;
+          border-radius: 6px;
+          overflow: hidden;
+        }
+        .echo-feat-img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
+        }
+        .echo-feat-grad-hero {
+          position: absolute; inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0) 70%);
+        }
+        .echo-feat-grad-sm {
+          position: absolute; inset: 0;
+          background: linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0) 80%);
+        }
+        .echo-feat-text-hero {
+          position: absolute; bottom: 0; left: 0; right: 0;
+          padding: 32px 28px;
+        }
+        .echo-feat-text-sm {
+          position: absolute; bottom: 0; left: 0; right: 0;
+          padding: 20px;
         }
 
         /* Why — 2x2 grid */
@@ -867,6 +1010,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           grid-template-columns: repeat(3, 1fr);
           gap: 20px;
           margin-top: 56px;
+          margin-bottom: 16px;
         }
 
         /* Reviews — 2x2 */
@@ -989,6 +1133,17 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           transition: max-height 0.3s ease;
         }
 
+        /* Timeline */
+        .echo-legacy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; min-height: 320px; }
+        .echo-legacy-text { text-align: right; padding-right: 32px; }
+        @media (max-width: 900px) {
+          .echo-legacy-grid { grid-template-columns: 1fr; gap: 24px; min-height: unset; }
+          .echo-legacy-text { text-align: left; padding-right: 0; }
+        }
+        @media (max-width: 480px) {
+          .echo-timeline-btn { flex: 0 0 auto !important; min-width: unset !important; padding: 18px 12px !important; font-size: 13px !important; }
+        }
+
         /* Games section */
         .echo-games-grid { display: grid; grid-template-columns: 220px 1fr; gap: 48px; align-items: start; }
 
@@ -1008,12 +1163,27 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           align-items: start;
         }
 
+        @media (max-width: 960px) {
+          .echo-facts-grid { grid-template-columns: 1fr 1fr; }
+          .echo-fact-cell:nth-child(2) { border-right: none; }
+          .echo-fact-cell:nth-child(1),
+          .echo-fact-cell:nth-child(2) { border-bottom: 1px solid #1e2022; }
+          .echo-feat-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(180px, 28vw, 260px); }
+          .echo-feat-hero { grid-row: span 1; }
+        }
+        @media (max-width: 600px) {
+          .echo-facts-grid { grid-template-columns: 1fr 1fr; }
+          .echo-feat-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
+        }
         @media (max-width: 900px) {
           .echo-product-home-grid { grid-template-columns: 1fr; gap: 40px; }
+          .echo-what-grid { grid-template-columns: 1fr; gap: 48px; }
           .echo-why-grid { grid-template-columns: 1fr; gap: 36px; }
           .echo-built-grid { grid-template-columns: 1fr; gap: 32px; }
           .echo-games-grid { grid-template-columns: 1fr; gap: 24px; }
           .echo-reviews-stats { grid-template-columns: 1fr; }
+          .echo-trust-row1 { grid-template-columns: 1fr; }
+          .echo-trust-row2 { grid-template-columns: 1fr 1fr; }
           .echo-stat-cell { border-right: none; border-bottom: 1px solid #1e2022; }
           .echo-stat-cell:last-child { border-bottom: none; }
           .echo-reviews-grid { grid-template-columns: 1fr; }
@@ -1021,8 +1191,12 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-ownership-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 480px) {
+          .echo-facts-grid { grid-template-columns: 1fr; }
+          .echo-fact-cell { border-right: none; border-bottom: 1px solid #1e2022; }
+          .echo-fact-cell:last-child { border-bottom: none; }
           .echo-extra-reviews-grid { grid-template-columns: 1fr; }
           .echo-ownership-grid { grid-template-columns: 1fr; }
+          .echo-trust-row2 { grid-template-columns: 1fr; }
         }
       `}</style>
 
@@ -1032,64 +1206,57 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       {/* ── Section 2: What ECHO is ── */}
       <section className="echo-section-what">
         <div style={wrap}>
-          <Badge label="What ECHO is" />
-          <h2 style={{
-            fontSize: 'clamp(1.6rem, 2.5vw, 2.2rem)',
-            fontWeight: 700,
-            lineHeight: 1.2,
-            letterSpacing: '-0.01em',
-            color: '#F4F3EC',
-            margin: '0 0 16px 0',
-          }}>
-            The only arcade machine you need
-          </h2>
-          <p style={{
-            fontSize: 16,
-            fontWeight: 300,
-            lineHeight: 1.65,
-            color: 'rgba(244,243,236,0.65)',
-            maxWidth: 640,
-            margin: 0,
-          }}>
-            Not a retro emulator box – a premium touchscreen countertop arcade built for home bars, shared play, and effortless nostalgia – with no setup, no internet, and no bulky cabinet.
-          </p>
+          {/* Heading — centred */}
+          <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
+            <Badge label="What ECHO is" />
+            <h2 style={{
+              fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)',
+              fontWeight: 700,
+              lineHeight: 1.2,
+              letterSpacing: '-0.01em',
+              color: '#F4F3EC',
+              margin: '0 0 20px 0',
+            }}>
+              A premium countertop arcade for your home
+            </h2>
+            <p style={{
+              fontSize: 17,
+              fontWeight: 300,
+              lineHeight: 1.7,
+              color: 'rgba(244,243,236,0.65)',
+              margin: 0,
+            }}>
+              Built for home bars, game rooms, and shared play, ECHO delivers 149 built-in JVL games with no downloads, no internet, and no bulky cabinet.
+            </p>
+          </div>
 
-          {/* Bento card grid */}
-          <div className="echo-ds-grid">
-            {DESIGN_CARDS.map((card, i) => (
-              <div
-                key={card.label}
-                className={i === 0 ? 'echo-ds-hero' : ''}
-                style={{ position: 'relative', borderRadius: 4, overflow: 'hidden' }}
-              >
-                <img
-                  src={card.img}
-                  alt={card.label}
-                  style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
-                />
-                <div style={{
-                  position: 'absolute', inset: 0,
-                  background: i === 0
-                    ? 'linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.45) 45%, rgba(0,0,0,0) 70%)'
-                    : 'linear-gradient(to top, rgba(0,0,0,0.86) 0%, rgba(0,0,0,0.3) 55%, rgba(0,0,0,0) 80%)',
-                }} />
-                <div style={{
-                  position: 'absolute', bottom: 0, left: 0, right: 0,
-                  padding: i === 0 ? '32px 28px' : '20px 20px',
-                }}>
-                  <div style={{
-                    fontSize: i === 0 ? 19 : 14,
-                    fontWeight: 600,
-                    color: '#fff',
-                    lineHeight: 1.2,
-                    marginBottom: i === 0 ? 10 : 7,
-                    letterSpacing: '-0.01em',
-                  }}>
-                    {card.label}
+          {/* Facts — 4 cells in 1 row */}
+          <div className="echo-facts-grid">
+            {facts.map((f) => (
+              <div key={f.stat} className="echo-fact-cell">
+                <div style={{ fontSize: f.small ? 'clamp(1.2rem, 1.8vw, 1.5rem)' : 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, whiteSpace: f.small ? 'nowrap' : undefined }}>
+                  {f.stat}
+                </div>
+                <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
+                  {f.label}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Feature cards — bento: large left + 2×2 right */}
+          <div className="echo-feat-grid">
+            {featureCards.map((c, i) => (
+              <div key={c.label} className={`echo-feat-card${i === 0 ? ' echo-feat-hero' : ''}`}>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={c.img} alt={c.label} className="echo-feat-img" />
+                <div className={i === 0 ? 'echo-feat-grad-hero' : 'echo-feat-grad-sm'} />
+                <div className={i === 0 ? 'echo-feat-text-hero' : 'echo-feat-text-sm'}>
+                  <div style={{ fontSize: i === 0 ? 22 : 16, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: i === 0 ? 10 : 6 }}>
+                    {c.label}
                   </div>
                   <div style={{
-                    fontSize: i === 0 ? 13 : 12,
-                    fontWeight: 300,
+                    fontSize: i === 0 ? 15 : 13,
                     color: 'rgba(255,255,255,0.80)',
                     lineHeight: 1.6,
                     display: '-webkit-box',
@@ -1097,7 +1264,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                     WebkitBoxOrient: 'vertical' as const,
                     overflow: 'hidden',
                   }}>
-                    {card.desc}
+                    {c.desc}
                   </div>
                 </div>
               </div>
@@ -1141,6 +1308,98 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         </div>
       </section>
 
+      {/* ── Section 3b: Why Trust JVL ── */}
+      <section className="echo-section-trust">
+        <div style={wrap}>
+          <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
+            <Badge label="Why trust JVL" />
+            <h2 style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)', fontWeight: 700, color: '#F4F3EC', margin: '0 0 16px 0', letterSpacing: '-0.01em' }}>
+              40 years making the machine you&apos;re looking at
+            </h2>
+            <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.55)', lineHeight: 1.75, margin: 0 }}>
+              We didn&apos;t start with ECHO — we built our way to it through a generation of commercial bartop hardware.
+            </p>
+          </div>
+
+          {/* Row 1: Founded | Photo | 40+ Years (3 equal columns) */}
+          <div className="echo-trust-row1">
+            {/* Founded in 1984 */}
+            <div style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ marginBottom: 16 }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
+                Founded in 1984
+              </h3>
+              <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: '0 0 auto' }}>
+                Joseph Levitan started JVL 40+ years ago. Three generations of family ownership. Not a startup.
+              </p>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 20 }}>
+                <a
+                  href="https://www.jvl.ca/en/about-jvl"
+                  style={{ fontSize: 14, fontWeight: 500, color: 'rgba(244,243,236,0.3)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, transition: 'color 0.2s' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.3)')}
+                >
+                  About JVL
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+            {/* Founder photo */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/api/storage/2086/about-05.jpg"
+              alt="Joseph Levitan, founder of JVL"
+              style={{ width: '100%', height: '100%', minHeight: 220, objectFit: 'cover', objectPosition: 'top center', borderRadius: 10, display: 'block' }}
+            />
+            {/* 40+ years */}
+            <div style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
+              <div style={{ marginBottom: 16 }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
+                40+ years of bartop expertise
+              </h3>
+              <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
+                JVL has been building bartop machines since 1995 — in bars, arcades, and venues across North America.
+              </p>
+            </div>
+          </div>
+
+          {/* Row 2: 3 equal cards */}
+          <div className="echo-trust-row2">
+            {[
+              {
+                icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
+                title: 'Individually tested',
+                body: 'Every ECHO is powered on and tested before leaving the factory. You\'re not the beta tester.',
+              },
+              {
+                icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,
+                title: 'Real support',
+                body: 'Phone, chat, and email — answered by JVL people, not bots. A real company with a real address.',
+              },
+              {
+                icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>,
+                title: 'Buy your way',
+                body: 'Order on Amazon for Prime shipping, or buy direct from JVL. Same machine, same price, same warranty.',
+              },
+            ].map((c) => (
+              <div key={c.title} style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
+                <div style={{ marginBottom: 16 }}>{c.icon}</div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
+                  {c.title}
+                </h3>
+                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
+                  {c.body}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ── Section 4: The game library ── */}
       <section className="echo-section-library">
         <div style={wrap}>
@@ -1161,9 +1420,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               lineHeight: 1.7,
               margin: 0,
             }}>
-              Every ECHO comes pre-loaded with JVL&apos;s full library of proprietary arcade games — card games, puzzles, bar classics, trivia, and a full action catalog. There&apos;s something for the cards-and-coffee night, the family weekend, and the friends-over evening.
+              JVL&apos;s full arcade library is built in from day one — ready for solo play, family weekends, and friends-over nights.
               <br /><br />
-              Nothing to download. Nothing to add. Nothing expires.
+              No downloads. No add-ons. No subscriptions.
             </p>
           </div>
           <GamesSectionDark />
@@ -1211,7 +1470,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 background: '#141618',
                 border: '1px solid rgba(255,255,255,0.07)',
                 borderRadius: 10,
-                padding: '28px 28px 48px',
+                padding: '28px 28px 32px',
               }}>
                 <div style={{ marginBottom: 20 }}>{c.icon}</div>
                 <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 12px 0' }}>
@@ -1224,21 +1483,12 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             ))}
           </div>
 
-          {/* Heritage quote */}
-          <p style={{
-            textAlign: 'center',
-            fontSize: 'clamp(1rem, 1.5vw, 1.2rem)',
-            fontStyle: 'italic',
-            fontWeight: 300,
-            color: 'rgba(244,243,236,0.4)',
-            margin: '64px auto 0',
-            maxWidth: 680,
-            lineHeight: 1.7,
-          }}>
-            "A machine built by a company that has been making bartops since before most of its customers had seen one in a bar."
-          </p>
         </div>
+        <TimelineBlock />
       </section>
+
+      {/* ── Section 5b: Product spec ── (hidden) */}
+      {/* <ProductSectionHome data={data.product} /> */}
 
       {/* ── Section 5c: Product Specifications ── */}
       <SpecsSectionLight />
@@ -1271,20 +1521,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             </a>
             <a
               href="/en/contact-us"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '16px 32px',
-                border: '2px solid rgba(244,243,236,0.3)',
-                borderRadius: 4,
-                fontSize: 14,
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: '#F4F3EC',
-                textDecoration: 'none',
-              }}
+              className="btn-outline"
+              style={{ padding: '16px 32px' }}
             >
               Buy from JVL
             </a>
@@ -1447,10 +1685,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 background: '#0d0f10',
                 borderRadius: '0 0 4px 4px',
               }}>
-                <h3 style={{ fontSize: 16, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px 0' }}>
+                <h3 style={{ fontSize: 17, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px 0' }}>
                   {c.title}
                 </h3>
-                <p style={{ fontSize: 14, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: 0 }}>
+                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: 0 }}>
                   {c.body}
                 </p>
                 {c.highlight && (
@@ -1536,20 +1774,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             </a>
             <a
               href="/en/contact-us"
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: 8,
-                padding: '16px 32px',
-                border: '2px solid rgba(244,243,236,0.3)',
-                borderRadius: 4,
-                fontSize: 14,
-                fontWeight: 700,
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                color: '#F4F3EC',
-                textDecoration: 'none',
-              }}
+              className="btn-outline"
+              style={{ padding: '16px 32px' }}
             >
               Buy from JVL
             </a>
