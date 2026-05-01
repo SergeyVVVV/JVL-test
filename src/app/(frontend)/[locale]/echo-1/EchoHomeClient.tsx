@@ -1240,9 +1240,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         </div>
       </section>
 
-      {/* ── Section 5b: Product spec ── */}
-      <ProductSectionHome data={data.product} />
-
       {/* ── Section 5c: Product Specifications ── */}
       <SpecsSectionLight />
 
