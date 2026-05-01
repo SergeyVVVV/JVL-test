@@ -907,7 +907,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           margin-top: 40px;
         }
         .echo-fact-cell {
-          padding: 29px 20px;
+          padding: 24px 20px;
           border-right: 1px solid #1e2022;
         }
         .echo-fact-cell:last-child { border-right: none; }
@@ -916,7 +916,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-feat-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          grid-auto-rows: clamp(200px, 20vw, 260px);
+          grid-auto-rows: clamp(240px, 24vw, 312px);
           gap: 8px;
           margin-top: 16px;
         }
