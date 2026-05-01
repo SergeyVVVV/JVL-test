@@ -1266,41 +1266,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         </div>
       </section>
 
-      {/* ── Section 3: Why it belongs in your home ── */}
-      <section className="echo-section-why">
-        <div style={wrap}>
-          <Badge label="Why ECHO" />
-          <h2 style={{
-            fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)',
-            fontWeight: 700,
-            color: '#F4F3EC',
-            margin: '0 0 8px 0',
-            letterSpacing: '-0.01em',
-          }}>
-            Four things that make ECHO worth owning
-          </h2>
-
-          <div className="echo-why-grid">
-            {whyBlocks.map((b) => (
-              <div key={b.num} style={{
-                background: '#141618',
-                border: '1px solid rgba(255,255,255,0.07)',
-                borderRadius: 10,
-                padding: '28px 28px 32px',
-              }}>
-                <div style={{ marginBottom: 20 }}>{b.icon}</div>
-                <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 12px 0' }}>
-                  {b.title}
-                </h3>
-                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.7, margin: 0 }}>
-                  {b.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Section 3b: Gather Around ── */}
       <section className="echo-section-gather">
         <div className="echo-gather-header">
