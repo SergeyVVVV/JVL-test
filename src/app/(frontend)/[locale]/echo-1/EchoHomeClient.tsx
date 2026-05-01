@@ -948,12 +948,13 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         /* Feature cards bento */
         .echo-feat-grid {
           display: grid;
-          grid-template-columns: 2fr 1fr;
-          grid-auto-rows: clamp(150px, 16vw, 200px);
+          grid-template-columns: 2fr 1fr 1fr;
+          grid-auto-rows: clamp(150px, 15vw, 200px);
           gap: 8px;
           margin-top: 16px;
         }
         .echo-feat-hero { grid-row: span 2; }
+        .echo-feat-side { grid-column: span 2; }
         .echo-feat-card {
           position: relative;
           border-radius: 6px;
@@ -1247,7 +1248,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           {/* Feature cards — bento: large left + 2×2 right */}
           <div className="echo-feat-grid">
             {featureCards.map((c, i) => (
-              <div key={c.label} className={`echo-feat-card${i === 0 ? ' echo-feat-hero' : ''}`}>
+              <div key={c.label} className={`echo-feat-card${i === 0 ? ' echo-feat-hero' : i === 3 ? '' : ' echo-feat-side'}`}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={c.img} alt={c.label} className="echo-feat-img" />
                 <div className={i === 0 ? 'echo-feat-grad-hero' : 'echo-feat-grad-sm'} />
