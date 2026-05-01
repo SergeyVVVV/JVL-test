@@ -66,7 +66,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
           margin: '0 0 20px 0',
         }}>
           The classics, back{' '}
-          <em style={{ fontStyle: 'italic', color: '#FB671F' }}>where they belong.</em>
+          <em style={{ fontStyle: 'italic', color: '#FB671F' }}>where they belong</em>
         </h1>
         <p style={{
           fontSize: 'clamp(15px, 1.3vw, 18px)',
