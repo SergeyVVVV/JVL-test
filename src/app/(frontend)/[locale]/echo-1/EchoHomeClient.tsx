@@ -517,7 +517,7 @@ function TimelineBlock() {
         </div>
       </div>
       {/* Timeline bar */}
-      <div style={{ marginTop: 24, borderTop: '1px solid rgba(244,243,236,0.12)', background: 'rgba(0,0,0,0.35)', paddingBottom: 40 }}>
+      <div style={{ marginTop: 24, borderTop: '1px solid rgba(244,243,236,0.12)', background: 'rgba(0,0,0,0.35)', paddingBottom: 20 }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
           <div style={{ display: 'flex', overflowX: 'auto', scrollbarWidth: 'none' }}>
             {TIMELINE.map((t, i) => (
