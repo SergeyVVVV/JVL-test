@@ -495,6 +495,7 @@ function TimelineBlock() {
     <div style={{
       background: '#101213',
       borderTop: '1px solid #1e2022',
+      marginTop: 80,
     }}>
       {/* Subheading */}
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '48px 6vw 0', textAlign: 'center' }}>
