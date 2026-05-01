@@ -721,6 +721,22 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   ]
 
   // ─── Section 3 Why blocks ───────────────────────────────────────────────────
+  const USE_CASES = [
+    { label: 'Perfect Gift', img: '/api/storage/3477/005_720_01.jpg', text: 'Surprise the ones who have everything with unforgettable fun for all ages.' },
+    { label: 'Game Lounge', img: '/api/storage/3475/jvl-echo-poker-luxury-man-cave-setup.jpg', text: 'Bring arcade excitement to your high-end sports lounge.' },
+    { label: 'Travel Ready', img: '/api/storage/3483/jvl-echo-rv-motorhome-portable-gaming.jpg', text: 'Perfect for your RV lifestyle — play anywhere, no internet required.' },
+    { label: 'Party Ready', img: '/api/storage/3481/002_1920_01.jpg', text: 'The ultimate entertainment centerpiece — bring the fun anywhere your crew goes.' },
+  ]
+  const [ucActive, setUcActive] = useState(0)
+  const [ucFading, setUcFading] = useState(false)
+  const [ucDisplayed, setUcDisplayed] = useState(0)
+  function ucSwitchTo(i: number) {
+    if (i === ucActive) return
+    setUcFading(true)
+    setTimeout(() => { setUcDisplayed(i); setUcActive(i); setUcFading(false) }, 280)
+  }
+  const ucItem = USE_CASES[ucDisplayed]
+
   const whyBlocks = [
     {
       num: '01',
@@ -893,6 +909,15 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-section-trust { background: #080a0b; padding: 80px 0; border-top: 1px solid #1e2022; }
         .echo-trust-row1 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 48px; }
         .echo-trust-row2 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 16px; }
+        .echo-section-gather { border-top: 1px solid #1e2022; }
+        .echo-gather-header { background: #080a0b; padding: 80px 0 48px; text-align: center; }
+        .echo-uc1-tabs { display: inline-flex; align-items: center; background: rgba(16,18,19,0.6); backdrop-filter: blur(5px); padding: 15px 20px; border-radius: 4px; }
+        .echo-uc1-desc { font-size: 24px; font-weight: 400; line-height: 1.15; color: #F4F3EC; margin: 0; }
+        @media (max-width: 768px) {
+          .echo-uc1-tabs { display: flex; width: 100%; padding: 10px 0; overflow-x: auto; scrollbar-width: none; justify-content: center; }
+          .echo-uc1-tabs button { padding: 5px 14px !important; font-size: 14px !important; }
+          .echo-uc1-desc { font-size: 15px !important; line-height: 1.45 !important; }
+        }
         .echo-section-built { background: #080a0b; padding: 96px 0 96px; border-top: 1px solid #1e2022; }
         .echo-section-cta { background: #101213; padding: 80px 0; border-top: 1px solid #1e2022; }
         .echo-section-reviews { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
@@ -1271,7 +1296,54 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         </div>
       </section>
 
-      {/* ── Section 3b: Why Trust JVL ── */}
+      {/* ── Section 3b: Gather Around ── */}
+      <section className="echo-section-gather">
+        <div className="echo-gather-header">
+          <Badge label="Why ECHO" />
+          <h2 style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)', fontWeight: 700, color: '#F4F3EC', margin: '0 0 16px 0', letterSpacing: '-0.01em' }}>
+            The machine people gather around
+          </h2>
+          <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.55)', lineHeight: 1.75, margin: '0 auto', maxWidth: 560 }}>
+            More than a game machine – it becomes a part of the room, and part of the memories people make together.
+          </p>
+        </div>
+        <div style={{ position: 'relative', width: '100%', height: 'clamp(420px, 65vh, 700px)', overflow: 'hidden' }}>
+          <div style={{
+            position: 'absolute', inset: 0,
+            backgroundImage: `url(/api/storage/${ucItem.img.split('/api/storage/')[1]})`,
+            backgroundSize: 'cover', backgroundPosition: 'center',
+            opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease',
+          }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.65) 100%)' }} />
+          <div style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
+            <div className="echo-uc1-tabs">
+              {USE_CASES.map((uc, i) => (
+                <button
+                  key={uc.label}
+                  onClick={() => ucSwitchTo(i)}
+                  style={{
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    borderLeft: i === 0 ? 'none' : '1px solid rgba(244,243,236,0.4)',
+                    padding: '5px 20px', fontSize: 16, fontWeight: 400, lineHeight: 1.2,
+                    color: ucActive === i ? '#059FFF' : '#F4F3EC',
+                    opacity: ucActive === i ? 1 : 0.4,
+                    transition: 'color 0.2s, opacity 0.2s', whiteSpace: 'nowrap',
+                  }}
+                >
+                  {uc.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '50px 5vw 70px', opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease' }}>
+            <p className="echo-uc1-desc" style={{ maxWidth: 600, margin: 0 }}>
+              {ucItem.text}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── Section 3c: Why Trust JVL ── */}
       <section className="echo-section-trust">
         <div style={wrap}>
           <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
