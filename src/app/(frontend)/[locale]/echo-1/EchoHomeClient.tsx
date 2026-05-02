@@ -732,10 +732,41 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   const [ucActive, setUcActive] = useState(0)
   const [ucFading, setUcFading] = useState(false)
   const [ucDisplayed, setUcDisplayed] = useState(0)
+  const ucActiveRef = useRef(0)
+  const ucIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const ucSectionRef = useRef<HTMLElement>(null)
+
+  function ucStartAutoPlay() {
+    if (ucIntervalRef.current) clearInterval(ucIntervalRef.current)
+    ucIntervalRef.current = setInterval(() => {
+      const next = (ucActiveRef.current + 1) % USE_CASES.length
+      ucActiveRef.current = next
+      setUcFading(true)
+      setTimeout(() => { setUcDisplayed(next); setUcActive(next); setUcFading(false) }, 280)
+    }, 3000)
+  }
+
+  function ucStopAutoPlay() {
+    if (ucIntervalRef.current) { clearInterval(ucIntervalRef.current); ucIntervalRef.current = null }
+  }
+
+  useEffect(() => {
+    const section = ucSectionRef.current
+    if (!section) return
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { ucStartAutoPlay() } else { ucStopAutoPlay() } },
+      { threshold: 0.3 }
+    )
+    observer.observe(section)
+    return () => { observer.disconnect(); ucStopAutoPlay() }
+  }, [])
+
   function ucSwitchTo(i: number) {
-    if (i === ucActive) return
+    if (i === ucActiveRef.current) return
+    ucActiveRef.current = i
     setUcFading(true)
     setTimeout(() => { setUcDisplayed(i); setUcActive(i); setUcFading(false) }, 280)
+    ucStartAutoPlay()
   }
   const ucItem = USE_CASES[ucDisplayed]
 
@@ -1268,7 +1299,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       </section>
 
       {/* ── Section 3b: Gather Around ── */}
-      <section className="echo-section-gather">
+      <section className="echo-section-gather" ref={ucSectionRef}>
         <div className="echo-gather-header">
           <Badge label="Why ECHO" />
           <h2 style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)', fontWeight: 700, color: '#F4F3EC', margin: '0 0 16px 0', letterSpacing: '-0.01em' }}>
