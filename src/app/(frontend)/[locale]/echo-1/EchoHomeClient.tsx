@@ -766,7 +766,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     ucActiveRef.current = i
     setUcFading(true)
     setTimeout(() => { setUcDisplayed(i); setUcActive(i); setUcFading(false) }, 280)
-    ucStartAutoPlay()
+    ucStopAutoPlay()
   }
   const ucItem = USE_CASES[ucDisplayed]
 
