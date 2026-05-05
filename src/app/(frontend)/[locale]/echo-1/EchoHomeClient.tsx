@@ -1298,7 +1298,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         </div>
       </section>
 
-      {/* ── Section 3b: Gather Around ── */}
+      {/* ── Section 3: Why ECHO ── */}
       <section className="echo-section-gather" ref={ucSectionRef}>
         <div className="echo-gather-header">
           <Badge label="Why ECHO" />
@@ -1353,98 +1353,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         </div>
       </section>
 
-      {/* ── Section 3c: Why Trust JVL ── */}
-      <section className="echo-section-trust">
-        <div style={wrap}>
-          <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
-            <Badge label="Why trust JVL" />
-            <h2 style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)', fontWeight: 700, color: '#F4F3EC', margin: '0 0 16px 0', letterSpacing: '-0.01em' }}>
-              40 years making the machine you&apos;re looking at
-            </h2>
-            <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.55)', lineHeight: 1.75, margin: 0 }}>
-              We didn&apos;t start with ECHO — we built our way to it through a generation of commercial bartop hardware.
-            </p>
-          </div>
-
-          {/* Row 1: Founded | Photo | 40+ Years (3 equal columns) */}
-          <div className="echo-trust-row1">
-            {/* Founded in 1984 */}
-            <div style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px', display: 'flex', flexDirection: 'column' }}>
-              <div style={{ marginBottom: 16 }}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-              </div>
-              <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
-                Founded in 1984
-              </h3>
-              <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: '0 0 auto' }}>
-                Joseph Levitan started JVL 40+ years ago. Three generations of family ownership. Not a startup.
-              </p>
-              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 20 }}>
-                <a
-                  href="https://www.jvl.ca/en/about-jvl"
-                  style={{ fontSize: 14, fontWeight: 500, color: 'rgba(244,243,236,0.3)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, transition: 'color 0.2s' }}
-                  onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.3)')}
-                >
-                  About JVL
-                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </a>
-              </div>
-            </div>
-            {/* Founder photo */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="/api/storage/2086/about-05.jpg"
-              alt="Joseph Levitan, founder of JVL"
-              style={{ width: '100%', height: '100%', minHeight: 220, objectFit: 'cover', objectPosition: 'top center', borderRadius: 10, display: 'block' }}
-            />
-            {/* 40+ years */}
-            <div style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
-              <div style={{ marginBottom: 16 }}>
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              </div>
-              <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
-                40+ years of bartop expertise
-              </h3>
-              <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
-                JVL has been building bartop machines since 1995 — in bars, arcades, and venues across North America.
-              </p>
-            </div>
-          </div>
-
-          {/* Row 2: 3 equal cards */}
-          <div className="echo-trust-row2">
-            {[
-              {
-                icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>,
-                title: 'Individually tested',
-                body: 'Every ECHO is powered on and tested before leaving the factory. You\'re not the beta tester.',
-              },
-              {
-                icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>,
-                title: 'Real support',
-                body: 'Phone, chat, and email — answered by JVL people, not bots. A real company with a real address.',
-              },
-              {
-                icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>,
-                title: 'BUY WITH CONFIDENCE',
-                body: 'Order ECHO through Amazon with a familiar checkout, Prime shipping, and Amazon\'s return/replacement process — backed by JVL warranty and real support.',
-              },
-            ].map((c) => (
-              <div key={c.title} style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
-                <div style={{ marginBottom: 16 }}>{c.icon}</div>
-                <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
-                  {c.title}
-                </h3>
-                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
-                  {c.body}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-        <TimelineBlock />
-      </section>
+      {/* ── Section 4: Buy Box ── */}
+      <ProductSectionHome data={data.product} />
 
       {/* ── Section 4: The game library ── */}
       <section className="echo-section-library">
@@ -1473,46 +1383,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         </div>
       </section>
 
-      {/* ── Section 5b: Product spec ── (hidden) */}
-      {/* <ProductSectionHome data={data.product} /> */}
-
-      {/* ── Section 5c: Product Specifications ── */}
-      <SpecsSectionLight />
-
-      {/* ── Section 6: CTA block ── */}
-      <section className="echo-section-cta" style={{ position: 'relative', backgroundImage: 'url(/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-        <div style={{ position: 'absolute', inset: 0, background: 'rgba(8,10,11,0.82)' }} />
-        <div style={{ ...wrap, textAlign: 'center', position: 'relative', zIndex: 1 }}>
-          <h2 style={{
-            fontSize: 'clamp(1.8rem, 3vw, 3rem)',
-            fontWeight: 700,
-            color: '#F4F3EC',
-            margin: '0 0 16px 0',
-            letterSpacing: '-0.01em',
-          }}>
-            Ready to bring ECHO home?
-          </h2>
-          <p style={{ fontSize: 17, color: 'rgba(244,243,236,0.5)', margin: '0 0 8px 0', lineHeight: 1.6 }}>
-            149 games, one machine. On your counter, ready in minutes.
-          </p>
-          <div className="echo-cta-buttons">
-            <a
-              href={AMAZON_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-amazon"
-              style={{ padding: '16px 32px', textTransform: 'uppercase', textDecoration: 'none' }}
-            >
-              Buy on Amazon
-            </a>
-          </div>
-          <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.3)', marginTop: 20 }}>
-            1-year all-inclusive warranty · JVL covers shipping both ways
-          </p>
-        </div>
-      </section>
-
-      {/* ── Section 7: What owners say ── */}
+      {/* ── Section 5: What owners say ── */}
       <section className="echo-section-reviews">
         <div style={wrap}>
           <Badge label="What owners say" />
@@ -1623,7 +1494,88 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         </div>
       </section>
 
-      {/* ── Section 8: Ownership made easy ── */}
+      {/* ── Section 6: Banner — Ready to bring ECHO home? ── */}
+      <section className="echo-section-cta" style={{ position: 'relative', backgroundImage: 'url(/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div style={{ position: 'absolute', inset: 0, background: 'rgba(8,10,11,0.82)' }} />
+        <div style={{ ...wrap, textAlign: 'center', position: 'relative', zIndex: 1 }}>
+          <h2 style={{ fontSize: 'clamp(1.8rem, 3vw, 3rem)', fontWeight: 700, color: '#F4F3EC', margin: '0 0 16px 0', letterSpacing: '-0.01em' }}>
+            Ready to bring ECHO home?
+          </h2>
+          <p style={{ fontSize: 17, color: 'rgba(244,243,236,0.5)', margin: '0 0 8px 0', lineHeight: 1.6 }}>
+            149 games, one machine. On your counter, ready in minutes.
+          </p>
+          <div className="echo-cta-buttons">
+            <a href={AMAZON_URL} target="_blank" rel="noopener noreferrer" className="btn-amazon" style={{ padding: '16px 32px', textTransform: 'uppercase', textDecoration: 'none' }}>
+              Buy on Amazon
+            </a>
+          </div>
+          <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.3)', marginTop: 20 }}>
+            1-year all-inclusive warranty · JVL covers shipping both ways
+          </p>
+        </div>
+      </section>
+
+      {/* ── Section 7: Why Trust JVL ── */}
+      <section className="echo-section-trust">
+        <div style={wrap}>
+          <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto' }}>
+            <Badge label="Why trust JVL" />
+            <h2 style={{ fontSize: 'clamp(1.6rem, 2.8vw, 2.6rem)', fontWeight: 700, color: '#F4F3EC', margin: '0 0 16px 0', letterSpacing: '-0.01em' }}>
+              40 years making the machine you&apos;re looking at
+            </h2>
+            <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.55)', lineHeight: 1.75, margin: 0 }}>
+              We didn&apos;t start with ECHO — we built our way to it through a generation of commercial bartop hardware.
+            </p>
+          </div>
+          <div className="echo-trust-row1">
+            <div style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px', display: 'flex', flexDirection: 'column' }}>
+              <div style={{ marginBottom: 16 }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              </div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>Founded in 1984</h3>
+              <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: '0 0 auto' }}>
+                Joseph Levitan started JVL 40+ years ago. Three generations of family ownership. Not a startup.
+              </p>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: 20 }}>
+                <a href="https://www.jvl.ca/en/about-jvl" style={{ fontSize: 14, fontWeight: 500, color: 'rgba(244,243,236,0.3)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, transition: 'color 0.2s' }} onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')} onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.3)')}>
+                  About JVL
+                  <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
+              </div>
+            </div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/api/storage/2086/about-05.jpg" alt="Joseph Levitan, founder of JVL" style={{ width: '100%', height: '100%', minHeight: 220, objectFit: 'cover', objectPosition: 'top center', borderRadius: 10, display: 'block' }} />
+            <div style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
+              <div style={{ marginBottom: 16 }}>
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>40+ years of bartop expertise</h3>
+              <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
+                JVL has been building bartop machines since 1995 — in bars, arcades, and venues across North America.
+              </p>
+            </div>
+          </div>
+          <div className="echo-trust-row2">
+            {[
+              { icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>, title: 'Individually tested', body: 'Every ECHO is powered on and tested before leaving the factory. You\'re not the beta tester.' },
+              { icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.58 1.25h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>, title: 'Real support', body: 'Phone, chat, and email — answered by JVL people, not bots. A real company with a real address.' },
+              { icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>, title: 'BUY WITH CONFIDENCE', body: 'Order ECHO through Amazon with a familiar checkout, Prime shipping, and Amazon\'s return/replacement process — backed by JVL warranty and real support.' },
+            ].map((c) => (
+              <div key={c.title} style={{ background: '#141618', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '28px 28px 32px' }}>
+                <div style={{ marginBottom: 16 }}>{c.icon}</div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>{c.title}</h3>
+                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>{c.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+        <TimelineBlock />
+      </section>
+
+      {/* ── Section 8: Technical Details ── */}
+      <SpecsSectionLight />
+
+      {/* ── Section 9: Ownership made easy ── */}
       <section className="echo-section-ownership">
         <div style={wrap}>
           <Badge label="Ownership" />
