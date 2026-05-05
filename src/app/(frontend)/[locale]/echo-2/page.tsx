@@ -51,7 +51,7 @@ export default async function EchoPage2Page() {
     product: {
       title: productBlock?.title ?? 'PREMIUM HOME ARCADE MACHINE – BACKED BY AMAZON & JVL WARRANTY',
       image: productImage,
-      buttonText: productBlock?.button_text ?? 'Buy on Amazon',
+      buttonText: productBlock?.button_text ?? 'Explore on Amazon',
       buttonUrl: productBlock?.button_url ?? 'https://www.amazon.com/dp/B0DJ3BSJ4D',
     },
   }
