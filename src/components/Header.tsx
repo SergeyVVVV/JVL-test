@@ -225,7 +225,7 @@ export default function Header() {
               className="btn-amazon"
               style={{ padding: '8px 18px' }}
             >
-              Buy on Amazon
+              Explore on Amazon
               <svg width="11" height="11" viewBox="0 0 12 12" fill="none">
                 <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>

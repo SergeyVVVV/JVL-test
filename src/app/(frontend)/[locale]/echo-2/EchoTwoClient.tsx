@@ -290,7 +290,7 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
                   onMouseEnter={e => { e.currentTarget.style.background = '#101213'; e.currentTarget.style.color = '#F4F3EC' }}
                   onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#101213' }}
                 >
-                  Buy on Amazon
+                  Explore on Amazon
                   <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </a>
               </div>
@@ -1172,7 +1172,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
           </p>
           <div className="echo-cta-buttons">
             <a href={AMAZON_URL} target="_blank" rel="noopener noreferrer" className="btn-amazon" style={{ padding: '16px 32px', textTransform: 'uppercase', textDecoration: 'none' }}>
-              Buy on Amazon
+              Explore on Amazon
             </a>
             <a href="/en/contact-us" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '16px 32px', border: '2px solid rgba(244,243,236,0.3)', borderRadius: 4, fontSize: 14, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F4F3EC', textDecoration: 'none' }}>
               Buy from JVL
@@ -1449,7 +1449,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
             </div>
             <div style={{ border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, padding: '36px 32px 40px', background: '#0d0f10' }}>
               <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.45)', margin: '0 0 16px' }}>
-                Buy on Amazon
+                Explore on Amazon
               </p>
               <h3 style={{ fontSize: 22, fontWeight: 700, color: '#F4F3EC', margin: '0 0 20px' }}>
                 amazon.com
@@ -1469,7 +1469,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
                 ))}
               </div>
               <a href={AMAZON_URL} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, padding: '14px 28px', border: '2px solid rgba(244,243,236,0.25)', borderRadius: 4, fontSize: 14, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', textDecoration: 'none' }}>
-                Buy on Amazon
+                Explore on Amazon
                 <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
               </a>
             </div>
@@ -1515,7 +1515,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
           </p>
           <div className="echo-cta-buttons">
             <a href={AMAZON_URL} target="_blank" rel="noopener noreferrer" className="btn-amazon" style={{ padding: '16px 32px', textTransform: 'uppercase', textDecoration: 'none' }}>
-              Buy on Amazon
+              Explore on Amazon
             </a>
             <a href="/en/contact-us" style={{ display: 'inline-flex', alignItems: 'center', gap: 8, padding: '16px 32px', border: '2px solid rgba(244,243,236,0.3)', borderRadius: 4, fontSize: 14, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F4F3EC', textDecoration: 'none' }}>
               Buy from JVL
@@ -1527,7 +1527,7 @@ export default function EchoTwoClient({ data }: { data: PageData }) {
             </button>
             <div className="echo-cta-expander-content" style={{ maxHeight: ctaExpanded2 ? 300 : 0, width: '100%' }}>
               <div className="echo-cta-expander-inner" style={{ background: 'rgba(244,243,236,0.05)', border: '1px solid rgba(244,243,236,0.1)', color: 'rgba(244,243,236,0.65)', marginTop: 12 }}>
-                <p><strong style={{ color: '#F4F3EC' }}>Buy on Amazon</strong> — familiar checkout, Prime shipping, and Amazon&apos;s full review base. Returns and basic support go through Amazon.</p>
+                <p><strong style={{ color: '#F4F3EC' }}>Explore on Amazon</strong> — familiar checkout, Prime shipping, and Amazon&apos;s full review base. Returns and basic support go through Amazon.</p>
                 <p><strong style={{ color: '#F4F3EC' }}>Buy from JVL</strong> — direct warranty relationship with us, live support by chat or phone, ships from our factory to your door with no middleman.</p>
                 <p>Either way: same machine, same warranty, same price.</p>
               </div>
