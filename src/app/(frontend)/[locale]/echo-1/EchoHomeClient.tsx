@@ -1433,10 +1433,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                     }}>
                       {r.initials}
                     </div>
-                    <div>
-                      <div style={{ fontSize: 14, fontWeight: 600, color: 'rgba(244,243,236,0.8)', lineHeight: 1.2 }}>{r.author}</div>
-                      <div style={{ fontSize: 12, color: 'rgba(244,243,236,0.35)', marginTop: 2 }}>{r.location}</div>
-                    </div>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(244,243,236,0.8)' }}>
+                      {r.author}
+                      <span style={{ fontWeight: 400, color: 'rgba(244,243,236,0.35)', marginLeft: 6 }}>· {r.location}</span>
+                    </span>
                   </div>
                   <a
                     href={r.reviewUrl}
