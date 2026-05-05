@@ -686,6 +686,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   const [ctaExpanded1, setCtaExpanded1] = useState(false)
   const [ctaExpanded2, setCtaExpanded2] = useState(false)
   const [activeVideos, setActiveVideos] = useState<Set<string>>(new Set())
+  const [reviewsExpanded, setReviewsExpanded] = useState(false)
 
   const wrap: React.CSSProperties = {
     maxWidth: 1200,
@@ -833,6 +834,18 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       avatarColor: '#FB671F',
       reviewUrl: 'https://www.amazon.com/gp/customer-reviews/R2VND20OEXNOV5/',
     },
+  ]
+
+  const AMAZON_SELLER_URL = 'https://www.amazon.com/sp?ie=UTF8&seller=A1XUVE3EY6OE6R&asin=B0DJ3BSJ4D&ref_=dp_merchant_link'
+
+  const extraReviews = [
+    { tag: 'On customer service', quote: 'Honestly, I was really impressed with the customer service from JVL. Every time I reached out, they replied fast, like within an hour, not just copy-paste stuff. They sent video and walked me through things online. The same rep, Andrei, replied each time, it felt personal, like someone had my back. Great service, really made me feel like I was in good hands. Highly recommend!', author: 'FlowRider', initials: 'FR', avatarColor: '#4B6BFB', reviewUrl: AMAZON_SELLER_URL },
+    { tag: 'On delivery & support', quote: 'Andrei was extremely helpful and we love the new game system. Exactly as described and came quick and in great condition!!', author: 'Kim', initials: 'KM', avatarColor: '#5CB85C', reviewUrl: AMAZON_SELLER_URL },
+    { tag: 'On longevity', quote: 'I have Echo that I purchased in 2012. The machine has been spectacular. We have never had any problems with it at all.', author: 'Darcy, Minnesota', initials: 'DA', avatarColor: '#E85D75', reviewUrl: null },
+    { tag: 'On family use', quote: 'The machine we have now is running perfectly fine. Our family has this in our game room for guests and family members to use.', author: 'Isabelle, Texas', initials: 'IS', avatarColor: '#9B59B6', reviewUrl: null },
+    { tag: 'On setup', quote: 'It came in and started right up with no problems. Everything is working good.', author: 'Scott, Pennsylvania', initials: 'SC', avatarColor: '#F0A500', reviewUrl: null },
+    { tag: 'On first impression', quote: 'I unpacked the unit today with zero damage, and it works great. We genuinely love it! It\'s a lot of fun, very intuitive...', author: 'Till, California', initials: 'TI', avatarColor: '#2EAEC9', reviewUrl: null },
+    { tag: 'On game variety', quote: 'There are so many games on this machine....I can sit there for hours...finding new and exciting games to play!', author: 'Harold, Missouri', initials: 'HA', avatarColor: '#FB671F', reviewUrl: null },
   ]
 
   const videoReviews = [
@@ -1458,6 +1471,48 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               </div>
             ))}
           </div>
+
+          {/* Load more / extra reviews */}
+          <div style={{ textAlign: 'center', marginTop: 32 }}>
+            <button
+              onClick={() => setReviewsExpanded(!reviewsExpanded)}
+              style={{ background: 'none', border: '1px solid #1e2022', color: 'rgba(244,243,236,0.6)', padding: '12px 28px', borderRadius: 4, cursor: 'pointer', fontSize: 14, letterSpacing: '0.06em', fontFamily: 'inherit' }}
+            >
+              {reviewsExpanded ? 'Show fewer' : 'Load more reviews'}
+            </button>
+          </div>
+          {reviewsExpanded && (
+            <div className="echo-extra-reviews-grid" style={{ marginTop: 24 }}>
+              {extraReviews.map((r) => (
+                <div key={r.author} style={{ border: '1px solid #1e2022', borderRadius: 4, padding: '22px 20px 18px', background: '#101213', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ margin: '0 0 12px 0' }}>
+                    <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F' }}>{r.tag}</span>
+                  </div>
+                  <p style={{ fontSize: 14, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.65, margin: '0 0 14px 0', flexGrow: 1 }}>
+                    &ldquo;{r.quote}&rdquo;
+                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: r.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                        {r.initials}
+                      </div>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(244,243,236,0.75)' }}>{r.author}</span>
+                    </div>
+                    {r.reviewUrl && (
+                      <a href={r.reviewUrl} target="_blank" rel="noopener noreferrer"
+                        style={{ fontSize: 12, fontWeight: 500, color: 'rgba(244,243,236,0.3)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, flexShrink: 0, transition: 'color 0.2s' }}
+                        onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')}
+                        onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.3)')}
+                      >
+                        View review
+                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* Video reviews */}
           <div style={{ marginTop: 56 }}>
