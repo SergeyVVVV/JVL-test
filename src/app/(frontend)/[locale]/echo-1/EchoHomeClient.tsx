@@ -1,6 +1,10 @@
 'use client'
 
-import React, { Component, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import {
+  Truck, RotateCcw, ShieldCheck, Phone, Zap, Power, Users, Shield,
+  Puzzle, Spade, HelpCircle, Gamepad2, Swords,
+} from 'lucide-react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -157,95 +161,80 @@ function Badge({ label }: { label: string }) {
 // ─── Product Section (Home only, no tabs) ────────────────────────────────────
 
 const HOME_PRODUCT = {
-  heading: 'ECHO Touchscreen Countertop',
-  subtitle: 'Free Play Home version, without Bill Validator and Quarters Acceptor',
   price: '$3,990',
   features: [
-    { icon: 'shipping', text: 'FREE Prime Shipping' },
-    { icon: 'return',   text: 'FREE 30-day refund/replacement' },
-    { icon: 'finance',  text: 'Pay over time — up to 24 months, 0% APR' },
-    { icon: 'secure',   text: 'Secure Amazon checkout' },
+    { icon: 'shipping',  text: 'FREE Prime Shipping' },
+    { icon: 'return',    text: 'FREE 30-day refund/replacement' },
+    { icon: 'warranty',  text: '1-year warranty' },
+    { icon: 'support',   text: '1-year support' },
+    { icon: 'amazon',    text: 'Secure Amazon checkout' },
   ],
+  payOverTime: 'Pay over time — up to 24 months, 0% APR',
 }
 
+// Amazon-style thumbnail gallery images — upload to /api/storage/{id}/filename
+// Slot 1 (main 2D): /api/storage/3372/echo_3d_01.jpg  ← already exists
+// Slot 2–5: upload new images and update these paths:
+const GALLERY_THUMBS = [
+  { src: '/api/storage/3372/echo_3d_01.jpg', alt: 'JVL Echo HD3 — front view' },
+  { src: null, alt: 'JVL Echo HD3 — side view' },
+  { src: null, alt: 'JVL Echo HD3 — top view' },
+  { src: null, alt: 'JVL Echo HD3 — gameplay' },
+  { src: null, alt: 'JVL Echo HD3 — in room' },
+]
+
 function Icon({ type }: { type: string }) {
-  const s = { width: 16, height: 16, flexShrink: 0, color: '#6B6B6B' } as React.CSSProperties
-  if (type === 'shipping') return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-  if (type === 'return')   return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
-  if (type === 'finance')  return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-  if (type === 'secure')   return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+  const p = { size: 18, strokeWidth: 1.75, color: '#6B6B6B', flexShrink: 0 } as const
+  if (type === 'shipping') return <Truck {...p} />
+  if (type === 'return')   return <RotateCcw {...p} />
+  if (type === 'warranty') return <ShieldCheck {...p} />
+  if (type === 'support')  return <Phone {...p} />
+  if (type === 'amazon')   return (
+    <svg width="18" height="18" viewBox="0 0 191 197" fill="none" style={{ flexShrink: 0 }} xmlns="http://www.w3.org/2000/svg">
+      <path d="M166.954 161.47C85.9942 200 35.7498 167.763 3.58669 148.183C1.59645 146.949 -1.78626 148.472 1.14871 151.843C11.8638 164.835 46.9796 196.15 92.8158 196.15C138.684 196.15 165.971 171.123 169.384 166.757C172.775 162.428 170.38 160.04 166.953 161.47H166.954ZM189.691 148.913C187.517 146.082 176.471 145.554 169.52 146.408C162.557 147.238 152.107 151.493 153.015 154.048C153.481 155.005 154.433 154.575 159.216 154.145C164.012 153.667 177.447 151.971 180.247 155.631C183.06 159.316 175.962 176.87 174.666 179.701C173.413 182.533 175.144 183.263 177.497 181.377C179.817 179.492 184.017 174.611 186.836 167.703C189.636 160.758 191.344 151.069 189.691 148.913Z" fill="#FF9900"/>
+      <path fillRule="evenodd" clipRule="evenodd" d="M112.518 82.8499C112.518 92.9595 112.773 101.391 107.663 110.369C103.539 117.669 97.0058 122.158 89.7065 122.158C79.7422 122.158 73.9392 114.566 73.9392 103.362C73.9392 81.2435 93.7569 77.2292 112.518 77.2292V82.8499ZM138.686 146.1C136.971 147.633 134.489 147.743 132.555 146.721C123.941 139.567 122.408 136.246 117.664 129.421C103.43 143.947 93.3561 148.29 74.8885 148.29C53.0629 148.29 36.0547 134.822 36.0547 107.851C36.0547 86.7919 47.4791 72.4479 63.7195 65.4409C77.8081 59.2355 97.4805 58.1408 112.518 56.426V53.0679C112.518 46.8994 112.992 39.6001 109.379 34.2718C106.203 29.4904 100.145 27.5194 94.8155 27.5194C84.9251 27.5194 76.0925 32.5923 73.9392 43.1036C73.5007 45.44 71.7859 47.7395 69.4502 47.8488L44.2664 45.1485C42.15 44.673 39.8144 42.9582 40.3983 39.7094C46.2013 9.19802 73.7561 0 98.4283 0C111.057 0 127.553 3.35809 137.518 12.9208C150.146 24.7091 148.941 40.4394 148.941 57.5569V97.9963C148.941 110.15 153.978 115.478 158.722 122.048C160.401 124.384 160.766 127.195 158.649 128.946C153.357 133.362 143.941 141.575 138.758 146.174L138.685 146.1" fill="#6B6B6B"/>
+    </svg>
+  )
   return null
 }
 
-const MODEL_POSTER = '/api/storage/3372/echo_3d_01.jpg'
-
-class ModelViewerErrorBoundary extends Component<
-  { children: React.ReactNode },
-  { hasError: boolean }
-> {
-  constructor(props: { children: React.ReactNode }) {
-    super(props)
-    this.state = { hasError: false }
-  }
-  static getDerivedStateFromError() { return { hasError: true } }
-  render() {
-    if (this.state.hasError) {
-      // eslint-disable-next-line @next/next/no-img-element
-      return <img src={MODEL_POSTER} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-    }
-    return this.props.children
-  }
-}
-
-function ModelViewer3D() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [failed, setFailed] = useState(false)
-  const [mode, setMode] = useState<'2d' | '3d'>('2d')
-
-  useEffect(() => {
-    if (mode !== '3d' || !containerRef.current) return
-    const scriptId = 'model-viewer-script'
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement('script')
-      script.id = scriptId
-      script.type = 'module'
-      script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js'
-      script.onerror = () => setFailed(true)
-      document.head.appendChild(script)
-    }
-    containerRef.current.innerHTML = `
-      <model-viewer src="/api/storage/3486/3.glb" poster="${MODEL_POSTER}" alt="JVL Echo HD3"
-        loading="eager" reveal="auto" ar-modes="webxr scene-viewer quick-look"
-        camera-controls tone-mapping="neutral" shadow-intensity="1"
-        environment-image="legacy" style="width:100%;height:100%;background:transparent;">
-      </model-viewer>`
-    const mv = containerRef.current.querySelector('model-viewer')
-    if (mv) mv.addEventListener('error', () => setFailed(true))
-  }, [mode])
-
-  const showPoster = mode === '2d' || failed
+function GalleryViewer() {
+  const [active, setActive] = useState(0)
+  const mainSrc = GALLERY_THUMBS[active]?.src ?? GALLERY_THUMBS[0].src
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: '#E8E6DE', borderRadius: 8, padding: 4, width: 'fit-content', marginBottom: 12 }}>
-        {(['2d', '3d'] as const).map((m) => {
-          const isActive = mode === m && !failed
-          return (
-            <button key={m} onClick={() => setMode(m)} style={{
-              background: isActive ? '#fff' : 'transparent', border: 'none', borderRadius: 6,
-              padding: '5px 16px', fontSize: 13, fontWeight: 600, letterSpacing: '0.04em',
-              color: isActive ? '#101213' : 'rgba(16,18,19,0.45)', cursor: isActive ? 'default' : 'pointer',
-              transition: 'all 0.18s ease', boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.12)' : 'none',
-              userSelect: 'none', textTransform: 'uppercase',
-            }}>{m}</button>
-          )
-        })}
+    <div style={{ display: 'flex', gap: 12, width: '100%' }}>
+      {/* Thumbnails column */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0, width: 64 }}>
+        {GALLERY_THUMBS.map((t, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            style={{
+              width: 64, height: 64, border: active === i ? '2px solid #101213' : '1px solid #E0DDD4',
+              borderRadius: 4, background: '#F4F3EC', cursor: 'pointer', padding: 0, overflow: 'hidden',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            }}
+          >
+            {t.src
+              // eslint-disable-next-line @next/next/no-img-element
+              ? <img src={t.src} alt={t.alt} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              : <div style={{ width: '100%', height: '100%', background: '#E8E6DE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B0ADA4" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-4 4 4"/><circle cx="8.5" cy="13.5" r="1.5"/></svg>
+                </div>
+            }
+          </button>
+        ))}
       </div>
-      <div style={{ flex: 1, minHeight: 0 }}>
-        {showPoster
+      {/* Main image */}
+      <div style={{ flex: 1, aspectRatio: '1 / 1', background: '#F0EEE6', borderRadius: 6, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {mainSrc
           // eslint-disable-next-line @next/next/no-img-element
-          ? <img src={MODEL_POSTER} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
-          : <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+          ? <img src={mainSrc} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
+          : <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: '#B0ADA4' }}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-4 4 4"/><circle cx="8.5" cy="13.5" r="1.5"/></svg>
+              <span style={{ fontSize: 12 }}>Image coming soon</span>
+            </div>
         }
       </div>
     </div>
@@ -256,58 +245,56 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
   return (
     <section style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
-        <h2 style={{
-          fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 600, textTransform: 'uppercase',
-          letterSpacing: '-0.02em', lineHeight: 1.1, color: '#101213',
-          textAlign: 'center', maxWidth: 840, margin: '0 auto 40px',
-        }}>
-          {data.title}
-        </h2>
+        {/* Badge + Title + Subtitle */}
+        <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 48px' }}>
+          <Badge label="Bring ECHO Home" />
+          <h2 style={{
+            fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 700,
+            letterSpacing: '-0.02em', lineHeight: 1.15, color: '#101213',
+            margin: '0 0 16px',
+          }}>
+            A premium arcade machine, ready for your home
+          </h2>
+          <p style={{ fontSize: 17, color: '#6B6B6B', lineHeight: 1.65, margin: 0 }}>
+            Order the free-play ECHO Touchscreen Bartop — with Prime shipping, flexible payment options, and JVL warranty support.
+          </p>
+        </div>
 
         <div className="echo-product-home-grid">
-          {/* Image / 3D viewer */}
-          <div style={{ width: '100%', aspectRatio: '1 / 1', display: 'flex', flexDirection: 'column' }}>
-            <ModelViewerErrorBoundary>
-              <ModelViewer3D />
-            </ModelViewerErrorBoundary>
-          </div>
+          {/* Amazon-style gallery */}
+          <GalleryViewer />
 
           {/* Details */}
           <div>
-            <h3 style={{ fontSize: 'clamp(1.1rem, 1.8vw, 1.5rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.01em', color: '#101213', margin: '0 0 10px' }}>
-              {HOME_PRODUCT.heading}
-            </h3>
-            <p style={{ fontSize: 17, color: '#6B6B6B', marginBottom: 24, lineHeight: 1.6 }}>
-              {HOME_PRODUCT.subtitle}
-            </p>
-
             <div style={{ borderTop: '1px solid #E0DDD4' }}>
               {HOME_PRODUCT.features.map((f, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: '1px solid #E0DDD4' }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '13px 0', borderBottom: '1px solid #E0DDD4' }}>
                   <Icon type={f.icon} />
-                  <span style={{ fontSize: 17, color: '#4B4B4B' }}>{f.text}</span>
+                  <span style={{ fontSize: 16, color: '#4B4B4B' }}>{f.text}</span>
                 </div>
               ))}
             </div>
 
-            {/* Price + dual CTAs */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 28, gap: 16, flexWrap: 'wrap' }}>
+            {/* Price + CTA */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 24, gap: 16, flexWrap: 'wrap' }}>
               <div style={{ fontSize: 36, fontWeight: 600, color: '#101213', flexShrink: 0 }}>
                 {HOME_PRODUCT.price}
               </div>
-              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <a
-                  href={data.buttonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-amazon"
-                  style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
-                >
-                  Explore on Amazon
-                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </a>
-              </div>
+              <a
+                href={data.buttonUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-amazon"
+                style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
+              >
+                Explore on Amazon
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </a>
             </div>
+            {/* Pay over time — below button */}
+            <p style={{ fontSize: 13, color: '#9B9890', marginTop: 10, lineHeight: 1.5 }}>
+              {HOME_PRODUCT.payOverTime}
+            </p>
           </div>
         </div>
       </div>
@@ -323,42 +310,42 @@ const GAME_CATEGORIES = [
     img: '/api/storage/3458/Action.jpg',
     video: '/api/storage/3459/Action.mp4',
     desc: 'Dive into the fan-favorite Gone Fishing, outmaneuver opponents in Bumper Wars, battle crazy creatures in Monster Mash, and crush levels in Bonbon Deluxe.',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
+    icon: <Zap size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Cards',
     img: '/api/storage/3462/Cards.jpg',
     video: '/api/storage/3463/Cards.mp4',
     desc: "From casinos to coffee tables, card games never go out of style! Hit 21 in Blackjack, go all-in with Texas Hold'em, or keep it classic with Solitaire.",
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="13" height="18" rx="2"/><path d="M5 7h7M5 11h7M5 15h4"/><rect x="9" y="5" width="13" height="18" rx="2" fill="rgba(244,243,236,0.06)"/></svg>,
+    icon: <Spade size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Puzzle',
     img: '/api/storage/3464/Puzzle.jpg',
     video: '/api/storage/3465/Puzzle.mp4',
     desc: 'Challenge your brain in classic logic games like Sudoku, Mine Sweeper, and Mahjong. Perfect for solo challenges or friendly competition.',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M20.5 11H19V7a2 2 0 0 0-2-2h-4V3.5a2.5 2.5 0 0 0-5 0V5H4a2 2 0 0 0-2 2v3.8h1.5a2.5 2.5 0 0 1 0 5H2V20a2 2 0 0 0 2 2h3.8v-1.5a2.5 2.5 0 0 1 5 0V22H17a2 2 0 0 0 2-2v-4h1.5a2.5 2.5 0 0 0 0-5z"/></svg>,
+    icon: <Puzzle size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Strategy',
     img: '/api/storage/3460/Strategy.jpg',
     video: '/api/storage/3461/Strategy.mp4',
     desc: 'ECHO is packed with timeless strategy games! Outmaneuver rivals in Backgammon and Battle Ships, or dive into classic match-3 and math games.',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20h20"/><path d="M6 20V10"/><path d="M12 20V4"/><path d="M18 20v-6"/></svg>,
+    icon: <Swords size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Quiz',
     img: '/api/storage/3466/Quiz.jpg',
     video: '/api/storage/3467/Quiz.mp4',
     desc: "Whether you're a trivia master or a word wizard, ECHO's quiz games will put your skills to the test! Answer exciting questions in Double Quiz or build winning words in Word Chase.",
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg>,
+    icon: <HelpCircle size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Adult',
     img: '/api/storage/3468/Erotic.jpg',
     video: null,
     desc: 'For those who like it hot, ECHO offers a fun selection of spicy, adult-themed games. You can easily enable, disable, or schedule access to adult content in the settings.',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+    icon: <Shield size={22} strokeWidth={1.75} />,
   },
 ]
 
@@ -377,20 +364,19 @@ function GamesSectionDark() {
   return (
     <div>
       {/* Stats row */}
-      <div className="echo-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderTop: '1px solid #1e2022', borderBottom: '1px solid #1e2022', marginBottom: 56 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, border: '1px solid #1e2022', borderRadius: 4, overflow: 'hidden', marginBottom: 56 }}>
         {[
-          { value: '149', label: 'Built-in games', size: 'clamp(2.2rem, 3.5vw, 3rem)' },
-          { value: '1 & 2-Player', label: 'Tournaments and leaderboards', size: 'clamp(1.3rem, 2vw, 1.75rem)' },
-          { value: 'JUST PLAY', label: 'No Downloads & subscriptions', size: 'clamp(1.1rem, 1.6vw, 1.4rem)' },
-          { value: 'Ages 4–100', label: 'For every generation', size: 'clamp(1.1rem, 1.6vw, 1.4rem)' },
+          { value: '149',          label: 'BUILT-IN GAMES' },
+          { value: '1 & 2-Player', label: 'TOURNAMENTS AND LEADERBOARDS' },
+          { value: 'Just Play',    label: 'NO DOWNLOADS & SUBSCRIPTIONS' },
+          { value: 'Ages 4–100',   label: 'FOR EVERY GENERATION' },
         ].map((s, i) => (
           <div key={s.label} style={{
-            padding: '28px 20px', textAlign: 'center',
-            borderLeft: i > 0 ? '1px solid #1e2022' : 'none',
-            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            padding: '24px 20px',
+            borderRight: i < 3 ? '1px solid #1e2022' : 'none',
           }}>
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: s.size, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, width: '100%', marginBottom: 8 }}>{s.value}</div>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.45)' }}>{s.label}</div>
+            <div style={{ fontSize: 'clamp(1.2rem, 1.8vw, 1.5rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1 }}>{s.value}</div>
+            <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>{s.label}</div>
           </div>
         ))}
       </div>
@@ -701,6 +687,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   const [ctaExpanded1, setCtaExpanded1] = useState(false)
   const [ctaExpanded2, setCtaExpanded2] = useState(false)
   const [activeVideos, setActiveVideos] = useState<Set<string>>(new Set())
+  const [reviewsExpanded, setReviewsExpanded] = useState(false)
 
   const wrap: React.CSSProperties = {
     maxWidth: 1200,
@@ -718,10 +705,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
 
   const featureCards = [
     { label: 'Compact Footprint', desc: 'Fits any premium interior — modern or classic. Compact and sleek, designed specifically for bartops and countertops.', img: '/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg' },
-    { label: '22" HD Touchscreen', desc: 'A brilliant 22" high-definition touchscreen. No joysticks, no trackballs – no problems.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
-    { label: 'Immersive Audio', desc: '25-watt, 4-speaker high-fidelity tri-band sound system with a dedicated subwoofer.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
+    { label: '22" HD Touchscreen', desc: 'A brilliant 22" high-definition touchscreen. No joysticks, no trackballs.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
+    { label: 'Immersive Audio', desc: '25-watt, 4-speaker high-fidelity sound system with a dedicated subwoofer.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
     { label: '1 & 2-Player Modes', desc: 'Enjoy solo play or head-to-head matchups in 2-player mode.', img: '/api/storage/3412/2_player_modes.jpg' },
-    { label: 'Tournaments & Leaderboards', desc: 'Host tournaments, track high scores, and battle for the top spot in the Hall of Fame.', img: '/api/storage/3413/Leaderboards.jpg' },
+    { label: 'Tournaments & Leaderboards', desc: 'Host tournaments, track high scores, and battle for the Hall of Fame.', img: '/api/storage/3413/Leaderboards.jpg' },
   ]
 
   // ─── Section 3 Why blocks ───────────────────────────────────────────────────
@@ -778,25 +765,25 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       num: '01',
       title: '149 games, one machine',
       body: 'No downloads. No installs. No subscriptions. No internet required. Every game is built in and ready the moment you plug it in.',
-      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9 10h.01M15 10h.01M12 8v4"/></svg>,
+      icon: <Gamepad2 size={36} strokeWidth={1.5} color="#FB671F" />,
     },
     {
       num: '02',
       title: 'Plug it in and play',
       body: 'Power cord, one USB stick for the software, and you\'re ready in minutes. No technical setup, no account, no configuration.',
-      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>,
+      icon: <Power size={36} strokeWidth={1.5} color="#FB671F" />,
     },
     {
       num: '03',
       title: 'Made for people around it',
       body: 'Two-player mode, a 360° swivel base, and touch controls anyone can pick up. ECHO pulls people in — kids, grown-ups, guests who haven\'t played in years.',
-      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+      icon: <Users size={36} strokeWidth={1.5} color="#FB671F" />,
     },
     {
       num: '04',
       title: 'Built to own for years',
       body: 'Built on 40+ years of JVL bartop expertise. Reinforced case, precision frame, individually tested before it leaves the factory.',
-      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+      icon: <Shield size={36} strokeWidth={1.5} color="#FB671F" />,
     },
   ]
 
@@ -815,7 +802,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       tag: '★★★★★ Verified Amazon Purchase',
       quote: 'Our family has had this arcade for 4 years already, we purchased it from JVL directly. Still going strong — amazing support from the team.',
-      author: 'Svetlana P. · via Amazon',
+      author: 'S.P.',
+      location: 'Florida, US',
       initials: 'SP',
       avatarColor: '#E85D75',
       reviewUrl: 'https://www.amazon.com/gp/customer-reviews/R1UOXG3CXTPQ20/',
@@ -823,7 +811,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       tag: '★★★★★ Verified Amazon Purchase',
       quote: 'Got this arcade for my dad about a year ago directly from JVL. Happy I found it — my dad loves it!',
-      author: 'Olga V. · via Amazon',
+      author: 'O.V.',
+      location: 'California, US',
       initials: 'OV',
       avatarColor: '#5CB85C',
       reviewUrl: 'https://www.amazon.com/gp/customer-reviews/RE9UGIAOURFUN',
@@ -831,7 +820,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       tag: '★★★★★ Verified Amazon Purchase',
       quote: 'Man, I\'m so happy we decided to get the ECHO — this thing is awesome! Premium feel, amazing appearance, solid and sturdy. Worth every penny.',
-      author: 'FlowRider · via Amazon',
+      author: 'FlowRider',
+      location: 'Florida, US',
       initials: 'FR',
       avatarColor: '#4B6BFB',
       reviewUrl: 'https://www.amazon.com/gp/customer-reviews/RQFTPRF1QX1D8',
@@ -839,17 +829,30 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       tag: '★★★★★ Verified Amazon Purchase',
       quote: 'This countertop game has been a big hit in my nightclub. It\'s on FreePlay — customers have a blast all night long.',
-      author: 'Leo Getz · via Amazon',
+      author: 'Leo Getz',
+      location: 'Texas, US',
       initials: 'LG',
       avatarColor: '#FB671F',
       reviewUrl: 'https://www.amazon.com/gp/customer-reviews/R2VND20OEXNOV5/',
     },
   ]
 
+  const AMAZON_SELLER_URL = 'https://www.amazon.com/sp?ie=UTF8&seller=A1XUVE3EY6OE6R&asin=B0DJ3BSJ4D&ref_=dp_merchant_link'
+
+  const extraReviews = [
+    { tag: 'On customer service', quote: 'Honestly, I was really impressed with the customer service from JVL. Every time I reached out, they replied fast, like within an hour, not just copy-paste stuff. They sent video and walked me through things online. The same rep, Andrei, replied each time, it felt personal, like someone had my back. Great service, really made me feel like I was in good hands. Highly recommend!', author: 'FlowRider', initials: 'FR', avatarColor: '#4B6BFB', reviewUrl: AMAZON_SELLER_URL },
+    { tag: 'On delivery & support', quote: 'Andrei was extremely helpful and we love the new game system. Exactly as described and came quick and in great condition!!', author: 'Kim', initials: 'KM', avatarColor: '#5CB85C', reviewUrl: AMAZON_SELLER_URL },
+    { tag: 'On longevity', quote: 'I have Echo that I purchased in 2012. The machine has been spectacular. We have never had any problems with it at all.', author: 'Darcy, Minnesota', initials: 'DA', avatarColor: '#E85D75', reviewUrl: null },
+    { tag: 'On family use', quote: 'The machine we have now is running perfectly fine. Our family has this in our game room for guests and family members to use.', author: 'Isabelle, Texas', initials: 'IS', avatarColor: '#9B59B6', reviewUrl: null },
+    { tag: 'On setup', quote: 'It came in and started right up with no problems. Everything is working good.', author: 'Scott, Pennsylvania', initials: 'SC', avatarColor: '#F0A500', reviewUrl: null },
+    { tag: 'On first impression', quote: 'I unpacked the unit today with zero damage, and it works great. We genuinely love it! It\'s a lot of fun, very intuitive...', author: 'Till, California', initials: 'TI', avatarColor: '#2EAEC9', reviewUrl: null },
+    { tag: 'On game variety', quote: 'There are so many games on this machine....I can sit there for hours...finding new and exciting games to play!', author: 'Harold, Missouri', initials: 'HA', avatarColor: '#FB671F', reviewUrl: null },
+  ]
+
   const videoReviews = [
-    { id: 'mMNDUyJehQI', title: 'ECHO HD3 Review' },
-    { id: 'GkeyO298gC0', title: 'ECHO HD3 Unboxing' },
+    { id: 's9igT-8wLZM', title: 'ECHO HD3 Review' },
     { id: 'X2TVpAy7pFk', title: 'ECHO HD3 Gameplay' },
+    { id: 'ST2Zz0Ym_OI', start: 1020, title: 'ECHO HD3 Bar Setup' },
     { id: 'qurGXFA6Eds', title: 'ECHO HD3 Bar Review' },
   ]
 
@@ -1048,7 +1051,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           margin: 40px 0 56px;
         }
         .echo-stat-cell {
-          padding: 28px 24px;
+          padding: 24px 20px;
           border-right: 1px solid #1e2022;
         }
         .echo-stat-cell:last-child { border-right: none; }
@@ -1398,18 +1401,16 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
 
           {/* Stats row */}
           <div className="echo-reviews-stats">
-            <div className="echo-stat-cell">
-              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>40+</div>
-              <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>Years of JVL bartop heritage</div>
-            </div>
-            <div className="echo-stat-cell">
-              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>10,000+</div>
-              <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>Happy Echo owners</div>
-            </div>
-            <div className="echo-stat-cell">
-              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>1 yr</div>
-              <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>All-inclusive warranty</div>
-            </div>
+            {[
+              { stat: '40+',     label: 'Years of JVL bartop heritage' },
+              { stat: '10,000+', label: 'Happy Echo owners' },
+              { stat: '1 Year',  label: 'All-inclusive warranty' },
+            ].map((s) => (
+              <div key={s.stat} className="echo-stat-cell">
+                <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1 }}>{s.stat}</div>
+                <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>{s.label}</div>
+              </div>
+            ))}
           </div>
 
           {/* Main 2x2 reviews */}
@@ -1446,7 +1447,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                     }}>
                       {r.initials}
                     </div>
-                    <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(244,243,236,0.8)' }}>{r.author}</span>
+                    <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(244,243,236,0.8)' }}>
+                      {r.author}
+                      <span style={{ fontWeight: 400, color: 'rgba(244,243,236,0.8)', marginLeft: 6 }}>· {r.location}</span>
+                    </span>
                   </div>
                   <a
                     href={r.reviewUrl}
@@ -1469,6 +1473,48 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             ))}
           </div>
 
+          {/* Load more / extra reviews */}
+          <div style={{ textAlign: 'center', marginTop: 32 }}>
+            <button
+              onClick={() => setReviewsExpanded(!reviewsExpanded)}
+              style={{ background: 'none', border: '1px solid #1e2022', color: 'rgba(244,243,236,0.6)', padding: '12px 28px', borderRadius: 4, cursor: 'pointer', fontSize: 14, letterSpacing: '0.06em', fontFamily: 'inherit' }}
+            >
+              {reviewsExpanded ? 'Show fewer' : 'Load more reviews'}
+            </button>
+          </div>
+          {reviewsExpanded && (
+            <div className="echo-extra-reviews-grid" style={{ marginTop: 24 }}>
+              {extraReviews.map((r) => (
+                <div key={r.author} style={{ border: '1px solid #1e2022', borderRadius: 4, padding: '22px 20px 18px', background: '#101213', display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ margin: '0 0 12px 0' }}>
+                    <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.13em', textTransform: 'uppercase', color: '#FB671F' }}>{r.tag}</span>
+                  </div>
+                  <p style={{ fontSize: 14, fontStyle: 'italic', fontWeight: 300, color: '#F4F3EC', lineHeight: 1.65, margin: '0 0 14px 0', flexGrow: 1 }}>
+                    &ldquo;{r.quote}&rdquo;
+                  </p>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                      <div style={{ width: 28, height: 28, borderRadius: '50%', background: r.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
+                        {r.initials}
+                      </div>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(244,243,236,0.75)' }}>{r.author}</span>
+                    </div>
+                    {r.reviewUrl && (
+                      <a href={r.reviewUrl} target="_blank" rel="noopener noreferrer"
+                        style={{ fontSize: 12, fontWeight: 500, color: 'rgba(244,243,236,0.3)', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4, flexShrink: 0, transition: 'color 0.2s' }}
+                        onMouseEnter={e => (e.currentTarget.style.color = '#FB671F')}
+                        onMouseLeave={e => (e.currentTarget.style.color = 'rgba(244,243,236,0.3)')}
+                      >
+                        View review
+                        <svg width="10" height="10" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
           {/* Video reviews */}
           <div style={{ marginTop: 56 }}>
             <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 16px 0' }}>
@@ -1479,7 +1525,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 <div key={v.id}>
                   <div className="echo-video-item">
                     <iframe
-                      src={`https://www.youtube-nocookie.com/embed/${v.id}?rel=0&modestbranding=1`}
+                      src={`https://www.youtube-nocookie.com/embed/${v.id}?rel=0&modestbranding=1${'start' in v ? `&start=${v.start}` : ''}`}
                       title={v.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
