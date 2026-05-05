@@ -1,6 +1,10 @@
 'use client'
 
 import React, { useEffect, useRef, useState } from 'react'
+import {
+  Truck, RotateCcw, ShieldCheck, Phone, Zap, Power, Users, Shield,
+  Puzzle, CreditCard, HelpCircle, Gamepad2, BarChart2,
+} from 'lucide-react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -180,14 +184,14 @@ const GALLERY_THUMBS = [
 ]
 
 function Icon({ type }: { type: string }) {
-  const s = { width: 18, height: 18, flexShrink: 0, color: '#6B6B6B' } as React.CSSProperties
-  if (type === 'shipping') return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-  if (type === 'return')   return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
-  if (type === 'warranty') return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
-  if (type === 'support')  return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l1.98-1.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  const p = { size: 18, strokeWidth: 1.75, color: '#6B6B6B', flexShrink: 0 } as const
+  if (type === 'shipping') return <Truck {...p} />
+  if (type === 'return')   return <RotateCcw {...p} />
+  if (type === 'warranty') return <ShieldCheck {...p} />
+  if (type === 'support')  return <Phone {...p} />
   if (type === 'amazon')   return (
-    <svg style={s} viewBox="0 0 24 24" fill="currentColor" stroke="none">
-      <path d="M13.23 10.56v-.45c-.96.01-1.97.21-1.97 1.33 0 .57.3.96.8.96.37 0 .7-.23.9-.6.25-.45.27-.87.27-1.24zm1.33 3.22c-.09.08-.21.08-.31.03-.43-.36-.5-.53-.74-.87-.7.72-1.2.93-2.1.93-1.07 0-1.9-.66-1.9-1.98 0-1.03.56-1.73 1.36-2.07.69-.3 1.66-.36 2.4-.44v-.17c0-.3.02-.66-.15-.92-.15-.23-.44-.33-.7-.33-.47 0-.9.24-.1.74-.02.11-.1.2-.2.2l-1.16-.12c-.1-.02-.21-.1-.18-.26.27-1.4 1.53-1.82 2.66-1.82.58 0 1.33.15 1.79.59.57.53.52 1.24.52 2.02v1.83c0 .55.23.79.44 1.09.08.11.1.23-.01.32-.25.2-.68.57-.92.77zm2.44 1.74c-1.8 1.33-4.4 2.03-6.63 2.03-3.13 0-5.95-1.16-8.08-3.08-.17-.15-.02-.36.18-.24 2.3 1.34 5.14 2.14 8.08 2.14 1.98 0 4.16-.41 6.16-1.26.3-.13.55.2.29.41zm.67-.77c-.23-.3-1.52-.14-2.1-.07-.18.02-.2-.13-.05-.25.99-.7 2.62-.5 2.81-.26.19.24-.05 1.87-.98 2.65-.14.12-.28.06-.22-.1.21-.53.68-1.68.54-1.97z"/>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="#6B6B6B" style={{ flexShrink: 0 }}>
+      <path d="M.045 18.02c.072-.116.187-.124.348-.022 3.636 2.11 7.594 3.166 11.87 3.166 2.852 0 5.668-.533 8.447-1.595l.315-.14c.138-.06.234-.1.293-.13.226-.088.39-.046.494.124.1.168.024.33-.23.48-.127.073-.41.214-.854.424-1.3.606-2.693 1.07-4.18 1.39-1.49.32-2.97.48-4.43.48-2.42 0-4.72-.434-6.895-1.3C3.22 20.27 1.5 19.09.134 17.64c-.17-.19-.16-.37.045-.5zm21.706-2.57c-.17-.2-.494-.214-.976-.046l-.42.165c-.3.12-.583.224-.843.307-2.36.758-4.795 1.137-7.31 1.137-2.61 0-5.02-.407-7.237-1.218-.55-.2-1.02-.4-1.41-.6-.26-.13-.484-.08-.668.155-.184.233-.112.447.21.64.3.18.72.4 1.26.648 2.4 1.09 4.99 1.636 7.77 1.636 2.84 0 5.53-.583 8.07-1.747.46-.21.77-.39.93-.538.22-.2.24-.44.06-.64zM12 2C8.37 2 5.396 3.305 3.08 5.918 1.028 8.23.002 11.05.002 14.37c0 2.17.49 4.14 1.47 5.92.11.2.27.3.47.3.14 0 .27-.05.38-.14.21-.17.24-.41.09-.72C1.6 18.3 1.2 16.46 1.2 14.37c0-3.01.93-5.58 2.78-7.71C5.9 4.36 8.67 3.1 12 3.1c3.33 0 6.1 1.26 8.02 3.56 1.85 2.13 2.78 4.7 2.78 7.71 0 2.09-.4 3.93-1.21 5.56-.15.31-.12.55.09.72.11.09.24.14.38.14.2 0 .36-.1.47-.3.98-1.78 1.47-3.75 1.47-5.92 0-3.32-1.026-6.14-3.08-8.452C18.604 3.305 15.63 2 12 2z"/>
     </svg>
   )
   return null
@@ -305,42 +309,42 @@ const GAME_CATEGORIES = [
     img: '/api/storage/3458/Action.jpg',
     video: '/api/storage/3459/Action.mp4',
     desc: 'Dive into the fan-favorite Gone Fishing, outmaneuver opponents in Bumper Wars, battle crazy creatures in Monster Mash, and crush levels in Bonbon Deluxe.',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>,
+    icon: <Zap size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Cards',
     img: '/api/storage/3462/Cards.jpg',
     video: '/api/storage/3463/Cards.mp4',
     desc: "From casinos to coffee tables, card games never go out of style! Hit 21 in Blackjack, go all-in with Texas Hold'em, or keep it classic with Solitaire.",
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="13" height="18" rx="2"/><path d="M5 7h7M5 11h7M5 15h4"/><rect x="9" y="5" width="13" height="18" rx="2" fill="rgba(244,243,236,0.06)"/></svg>,
+    icon: <CreditCard size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Puzzle',
     img: '/api/storage/3464/Puzzle.jpg',
     video: '/api/storage/3465/Puzzle.mp4',
     desc: 'Challenge your brain in classic logic games like Sudoku, Mine Sweeper, and Mahjong. Perfect for solo challenges or friendly competition.',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M20.5 11H19V7a2 2 0 0 0-2-2h-4V3.5a2.5 2.5 0 0 0-5 0V5H4a2 2 0 0 0-2 2v3.8h1.5a2.5 2.5 0 0 1 0 5H2V20a2 2 0 0 0 2 2h3.8v-1.5a2.5 2.5 0 0 1 5 0V22H17a2 2 0 0 0 2-2v-4h1.5a2.5 2.5 0 0 0 0-5z"/></svg>,
+    icon: <Puzzle size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Strategy',
     img: '/api/storage/3460/Strategy.jpg',
     video: '/api/storage/3461/Strategy.mp4',
     desc: 'ECHO is packed with timeless strategy games! Outmaneuver rivals in Backgammon and Battle Ships, or dive into classic match-3 and math games.',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M2 20h20"/><path d="M6 20V10"/><path d="M12 20V4"/><path d="M18 20v-6"/></svg>,
+    icon: <BarChart2 size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Quiz',
     img: '/api/storage/3466/Quiz.jpg',
     video: '/api/storage/3467/Quiz.mp4',
     desc: "Whether you're a trivia master or a word wizard, ECHO's quiz games will put your skills to the test! Answer exciting questions in Double Quiz or build winning words in Word Chase.",
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="0.5" fill="currentColor"/></svg>,
+    icon: <HelpCircle size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Adult',
     img: '/api/storage/3468/Erotic.jpg',
     video: null,
     desc: 'For those who like it hot, ECHO offers a fun selection of spicy, adult-themed games. You can easily enable, disable, or schedule access to adult content in the settings.',
-    icon: <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+    icon: <Shield size={22} strokeWidth={1.75} />,
   },
 ]
 
@@ -760,25 +764,25 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       num: '01',
       title: '149 games, one machine',
       body: 'No downloads. No installs. No subscriptions. No internet required. Every game is built in and ready the moment you plug it in.',
-      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/><path d="M9 10h.01M15 10h.01M12 8v4"/></svg>,
+      icon: <Gamepad2 size={36} strokeWidth={1.5} color="#FB671F" />,
     },
     {
       num: '02',
       title: 'Plug it in and play',
       body: 'Power cord, one USB stick for the software, and you\'re ready in minutes. No technical setup, no account, no configuration.',
-      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18.36 6.64a9 9 0 1 1-12.73 0"/><line x1="12" y1="2" x2="12" y2="12"/></svg>,
+      icon: <Power size={36} strokeWidth={1.5} color="#FB671F" />,
     },
     {
       num: '03',
       title: 'Made for people around it',
       body: 'Two-player mode, a 360° swivel base, and touch controls anyone can pick up. ECHO pulls people in — kids, grown-ups, guests who haven\'t played in years.',
-      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>,
+      icon: <Users size={36} strokeWidth={1.5} color="#FB671F" />,
     },
     {
       num: '04',
       title: 'Built to own for years',
       body: 'Built on 40+ years of JVL bartop expertise. Reinforced case, precision frame, individually tested before it leaves the factory.',
-      icon: <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#FB671F" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+      icon: <Shield size={36} strokeWidth={1.5} color="#FB671F" />,
     },
   ]
 
