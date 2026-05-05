@@ -1435,7 +1435,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                     </div>
                     <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(244,243,236,0.8)' }}>
                       {r.author}
-                      <span style={{ fontWeight: 400, color: 'rgba(244,243,236,0.35)', marginLeft: 6 }}>· {r.location}</span>
+                      <span style={{ fontWeight: 400, color: 'rgba(244,243,236,0.8)', marginLeft: 6 }}>· {r.location}</span>
                     </span>
                   </div>
                   <a
