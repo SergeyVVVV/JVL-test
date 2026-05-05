@@ -836,9 +836,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   ]
 
   const videoReviews = [
-    { id: 'mMNDUyJehQI', title: 'ECHO HD3 Review' },
-    { id: 'GkeyO298gC0', title: 'ECHO HD3 Unboxing' },
+    { id: 's9igT-8wLZM', title: 'ECHO HD3 Review' },
     { id: 'X2TVpAy7pFk', title: 'ECHO HD3 Gameplay' },
+    { id: 'ST2Zz0Ym_OI', start: 1020, title: 'ECHO HD3 Bar Setup' },
     { id: 'qurGXFA6Eds', title: 'ECHO HD3 Bar Review' },
   ]
 
@@ -1469,7 +1469,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 <div key={v.id}>
                   <div className="echo-video-item">
                     <iframe
-                      src={`https://www.youtube-nocookie.com/embed/${v.id}?rel=0&modestbranding=1`}
+                      src={`https://www.youtube-nocookie.com/embed/${v.id}?rel=0&modestbranding=1${'start' in v ? `&start=${v.start}` : ''}`}
                       title={v.title}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
