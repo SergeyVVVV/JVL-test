@@ -363,20 +363,19 @@ function GamesSectionDark() {
   return (
     <div>
       {/* Stats row */}
-      <div className="echo-stats-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderTop: '1px solid #1e2022', borderBottom: '1px solid #1e2022', marginBottom: 56 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, border: '1px solid #1e2022', borderRadius: 4, overflow: 'hidden', marginBottom: 56 }}>
         {[
-          { value: '149', label: 'Built-in games', size: 'clamp(2.2rem, 3.5vw, 3rem)' },
-          { value: '1 & 2-Player', label: 'Tournaments and leaderboards', size: 'clamp(1.3rem, 2vw, 1.75rem)' },
-          { value: 'JUST PLAY', label: 'No Downloads & subscriptions', size: 'clamp(1.1rem, 1.6vw, 1.4rem)' },
-          { value: 'Ages 4–100', label: 'For every generation', size: 'clamp(1.1rem, 1.6vw, 1.4rem)' },
+          { value: '149',          label: 'BUILT-IN GAMES' },
+          { value: '1 & 2-Player', label: 'TOURNAMENTS AND LEADERBOARDS' },
+          { value: 'Just Play',    label: 'NO DOWNLOADS & SUBSCRIPTIONS' },
+          { value: 'Ages 4–100',   label: 'FOR EVERY GENERATION' },
         ].map((s, i) => (
           <div key={s.label} style={{
-            padding: '28px 20px', textAlign: 'center',
-            borderLeft: i > 0 ? '1px solid #1e2022' : 'none',
-            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            padding: '24px 20px',
+            borderRight: i < 3 ? '1px solid #1e2022' : 'none',
           }}>
-            <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: s.size, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, width: '100%', marginBottom: 8 }}>{s.value}</div>
-            <div style={{ fontSize: 12, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase', color: 'rgba(244,243,236,0.45)' }}>{s.label}</div>
+            <div style={{ fontSize: 'clamp(1.2rem, 1.8vw, 1.5rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1 }}>{s.value}</div>
+            <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>{s.label}</div>
           </div>
         ))}
       </div>
@@ -1034,7 +1033,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           margin: 40px 0 56px;
         }
         .echo-stat-cell {
-          padding: 28px 24px;
+          padding: 24px 20px;
           border-right: 1px solid #1e2022;
         }
         .echo-stat-cell:last-child { border-right: none; }
@@ -1384,18 +1383,16 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
 
           {/* Stats row */}
           <div className="echo-reviews-stats">
-            <div className="echo-stat-cell">
-              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>40+</div>
-              <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>Years of JVL bartop heritage</div>
-            </div>
-            <div className="echo-stat-cell">
-              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>10,000+</div>
-              <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>Happy Echo owners</div>
-            </div>
-            <div className="echo-stat-cell">
-              <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC' }}>1 yr</div>
-              <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.45)', marginTop: 6 }}>All-inclusive warranty</div>
-            </div>
+            {[
+              { stat: '40+',     label: 'Years of JVL bartop heritage' },
+              { stat: '10,000+', label: 'Happy Echo owners' },
+              { stat: '1 Year',  label: 'All-inclusive warranty' },
+            ].map((s) => (
+              <div key={s.stat} className="echo-stat-cell">
+                <div style={{ fontSize: 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1 }}>{s.stat}</div>
+                <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>{s.label}</div>
+              </div>
+            ))}
           </div>
 
           {/* Main 2x2 reviews */}
