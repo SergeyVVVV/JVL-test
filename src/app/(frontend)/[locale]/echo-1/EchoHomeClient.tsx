@@ -704,10 +704,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
 
   const featureCards = [
     { label: 'Compact Footprint', desc: 'Fits any premium interior — modern or classic. Compact and sleek, designed specifically for bartops and countertops.', img: '/api/storage/3409/jvl-echo-game-room-entertainment-system.jpg' },
-    { label: '22" HD Touchscreen', desc: 'A brilliant 22" high-definition touchscreen. No joysticks, no trackballs – no problems.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
-    { label: 'Immersive Audio', desc: '25-watt, 4-speaker high-fidelity tri-band sound system with a dedicated subwoofer.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
+    { label: '22" HD Touchscreen', desc: 'A brilliant 22" high-definition touchscreen. No joysticks, no trackballs.', img: '/api/storage/3410/jvl-echo-touchscreen-game-selection-menu.jpg' },
+    { label: 'Immersive Audio', desc: '25-watt, 4-speaker high-fidelity sound system with a dedicated subwoofer.', img: '/api/storage/3414/jvl-echo-speaker-led-lighting-detail.jpg' },
     { label: '1 & 2-Player Modes', desc: 'Enjoy solo play or head-to-head matchups in 2-player mode.', img: '/api/storage/3412/2_player_modes.jpg' },
-    { label: 'Tournaments & Leaderboards', desc: 'Host tournaments, track high scores, and battle for the top spot in the Hall of Fame.', img: '/api/storage/3413/Leaderboards.jpg' },
+    { label: 'Tournaments & Leaderboards', desc: 'Host tournaments, track high scores, and battle for the Hall of Fame.', img: '/api/storage/3413/Leaderboards.jpg' },
   ]
 
   // ─── Section 3 Why blocks ───────────────────────────────────────────────────
