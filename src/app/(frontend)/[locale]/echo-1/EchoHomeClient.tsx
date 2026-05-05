@@ -800,7 +800,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       tag: '★★★★★ Verified Amazon Purchase',
       quote: 'Our family has had this arcade for 4 years already, we purchased it from JVL directly. Still going strong — amazing support from the team.',
-      author: 'Svetlana P. · via Amazon',
+      author: 'S.P.',
+      location: 'Florida, US',
       initials: 'SP',
       avatarColor: '#E85D75',
       reviewUrl: 'https://www.amazon.com/gp/customer-reviews/R1UOXG3CXTPQ20/',
@@ -808,7 +809,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       tag: '★★★★★ Verified Amazon Purchase',
       quote: 'Got this arcade for my dad about a year ago directly from JVL. Happy I found it — my dad loves it!',
-      author: 'Olga V. · via Amazon',
+      author: 'O.V.',
+      location: 'California, US',
       initials: 'OV',
       avatarColor: '#5CB85C',
       reviewUrl: 'https://www.amazon.com/gp/customer-reviews/RE9UGIAOURFUN',
@@ -816,7 +818,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       tag: '★★★★★ Verified Amazon Purchase',
       quote: 'Man, I\'m so happy we decided to get the ECHO — this thing is awesome! Premium feel, amazing appearance, solid and sturdy. Worth every penny.',
-      author: 'FlowRider · via Amazon',
+      author: 'FlowRider',
+      location: 'Florida, US',
       initials: 'FR',
       avatarColor: '#4B6BFB',
       reviewUrl: 'https://www.amazon.com/gp/customer-reviews/RQFTPRF1QX1D8',
@@ -824,7 +827,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       tag: '★★★★★ Verified Amazon Purchase',
       quote: 'This countertop game has been a big hit in my nightclub. It\'s on FreePlay — customers have a blast all night long.',
-      author: 'Leo Getz · via Amazon',
+      author: 'Leo Getz',
+      location: 'Texas, US',
       initials: 'LG',
       avatarColor: '#FB671F',
       reviewUrl: 'https://www.amazon.com/gp/customer-reviews/R2VND20OEXNOV5/',
@@ -1429,7 +1433,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                     }}>
                       {r.initials}
                     </div>
-                    <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(244,243,236,0.8)' }}>{r.author}</span>
+                    <div>
+                      <div style={{ fontSize: 14, fontWeight: 600, color: 'rgba(244,243,236,0.8)', lineHeight: 1.2 }}>{r.author}</div>
+                      <div style={{ fontSize: 12, color: 'rgba(244,243,236,0.35)', marginTop: 2 }}>{r.location}</div>
+                    </div>
                   </div>
                   <a
                     href={r.reviewUrl}
