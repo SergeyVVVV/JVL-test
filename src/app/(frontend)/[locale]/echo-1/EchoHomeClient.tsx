@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Component, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -157,95 +157,79 @@ function Badge({ label }: { label: string }) {
 // ─── Product Section (Home only, no tabs) ────────────────────────────────────
 
 const HOME_PRODUCT = {
-  heading: 'ECHO Touchscreen Countertop',
-  subtitle: 'Free Play Home version, without Bill Validator and Quarters Acceptor',
   price: '$3,990',
   features: [
-    { icon: 'shipping', text: 'FREE Prime Shipping' },
-    { icon: 'return',   text: 'FREE 30-day refund/replacement' },
-    { icon: 'finance',  text: 'Pay over time — up to 24 months, 0% APR' },
-    { icon: 'secure',   text: 'Secure Amazon checkout' },
+    { icon: 'shipping',  text: 'FREE Prime Shipping' },
+    { icon: 'return',    text: 'FREE 30-day refund/replacement' },
+    { icon: 'warranty',  text: '1-year warranty' },
+    { icon: 'support',   text: '1-year support' },
+    { icon: 'amazon',    text: 'Secure Amazon checkout' },
   ],
+  payOverTime: 'Pay over time — up to 24 months, 0% APR',
 }
 
+// Amazon-style thumbnail gallery images — upload to /api/storage/{id}/filename
+// Slot 1 (main 2D): /api/storage/3372/echo_3d_01.jpg  ← already exists
+// Slot 2–5: upload new images and update these paths:
+const GALLERY_THUMBS = [
+  { src: '/api/storage/3372/echo_3d_01.jpg', alt: 'JVL Echo HD3 — front view' },
+  { src: null, alt: 'JVL Echo HD3 — side view' },
+  { src: null, alt: 'JVL Echo HD3 — top view' },
+  { src: null, alt: 'JVL Echo HD3 — gameplay' },
+  { src: null, alt: 'JVL Echo HD3 — in room' },
+]
+
 function Icon({ type }: { type: string }) {
-  const s = { width: 16, height: 16, flexShrink: 0, color: '#6B6B6B' } as React.CSSProperties
-  if (type === 'shipping') return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M1 3h15v13H1zM16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-  if (type === 'return')   return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.5"/></svg>
-  if (type === 'finance')  return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-  if (type === 'secure')   return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+  const s = { width: 18, height: 18, flexShrink: 0, color: '#6B6B6B' } as React.CSSProperties
+  if (type === 'shipping') return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+  if (type === 'return')   return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+  if (type === 'warranty') return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+  if (type === 'support')  return <svg style={s} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l1.98-1.98a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+  if (type === 'amazon')   return (
+    <svg style={s} viewBox="0 0 24 24" fill="currentColor" stroke="none">
+      <path d="M13.23 10.56v-.45c-.96.01-1.97.21-1.97 1.33 0 .57.3.96.8.96.37 0 .7-.23.9-.6.25-.45.27-.87.27-1.24zm1.33 3.22c-.09.08-.21.08-.31.03-.43-.36-.5-.53-.74-.87-.7.72-1.2.93-2.1.93-1.07 0-1.9-.66-1.9-1.98 0-1.03.56-1.73 1.36-2.07.69-.3 1.66-.36 2.4-.44v-.17c0-.3.02-.66-.15-.92-.15-.23-.44-.33-.7-.33-.47 0-.9.24-.1.74-.02.11-.1.2-.2.2l-1.16-.12c-.1-.02-.21-.1-.18-.26.27-1.4 1.53-1.82 2.66-1.82.58 0 1.33.15 1.79.59.57.53.52 1.24.52 2.02v1.83c0 .55.23.79.44 1.09.08.11.1.23-.01.32-.25.2-.68.57-.92.77zm2.44 1.74c-1.8 1.33-4.4 2.03-6.63 2.03-3.13 0-5.95-1.16-8.08-3.08-.17-.15-.02-.36.18-.24 2.3 1.34 5.14 2.14 8.08 2.14 1.98 0 4.16-.41 6.16-1.26.3-.13.55.2.29.41zm.67-.77c-.23-.3-1.52-.14-2.1-.07-.18.02-.2-.13-.05-.25.99-.7 2.62-.5 2.81-.26.19.24-.05 1.87-.98 2.65-.14.12-.28.06-.22-.1.21-.53.68-1.68.54-1.97z"/>
+    </svg>
+  )
   return null
 }
 
-const MODEL_POSTER = '/api/storage/3372/echo_3d_01.jpg'
-
-class ModelViewerErrorBoundary extends Component<
-  { children: React.ReactNode },
-  { hasError: boolean }
-> {
-  constructor(props: { children: React.ReactNode }) {
-    super(props)
-    this.state = { hasError: false }
-  }
-  static getDerivedStateFromError() { return { hasError: true } }
-  render() {
-    if (this.state.hasError) {
-      // eslint-disable-next-line @next/next/no-img-element
-      return <img src={MODEL_POSTER} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-    }
-    return this.props.children
-  }
-}
-
-function ModelViewer3D() {
-  const containerRef = useRef<HTMLDivElement>(null)
-  const [failed, setFailed] = useState(false)
-  const [mode, setMode] = useState<'2d' | '3d'>('2d')
-
-  useEffect(() => {
-    if (mode !== '3d' || !containerRef.current) return
-    const scriptId = 'model-viewer-script'
-    if (!document.getElementById(scriptId)) {
-      const script = document.createElement('script')
-      script.id = scriptId
-      script.type = 'module'
-      script.src = 'https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js'
-      script.onerror = () => setFailed(true)
-      document.head.appendChild(script)
-    }
-    containerRef.current.innerHTML = `
-      <model-viewer src="/api/storage/3486/3.glb" poster="${MODEL_POSTER}" alt="JVL Echo HD3"
-        loading="eager" reveal="auto" ar-modes="webxr scene-viewer quick-look"
-        camera-controls tone-mapping="neutral" shadow-intensity="1"
-        environment-image="legacy" style="width:100%;height:100%;background:transparent;">
-      </model-viewer>`
-    const mv = containerRef.current.querySelector('model-viewer')
-    if (mv) mv.addEventListener('error', () => setFailed(true))
-  }, [mode])
-
-  const showPoster = mode === '2d' || failed
+function GalleryViewer() {
+  const [active, setActive] = useState(0)
+  const mainSrc = GALLERY_THUMBS[active]?.src ?? GALLERY_THUMBS[0].src
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 4, background: '#E8E6DE', borderRadius: 8, padding: 4, width: 'fit-content', marginBottom: 12 }}>
-        {(['2d', '3d'] as const).map((m) => {
-          const isActive = mode === m && !failed
-          return (
-            <button key={m} onClick={() => setMode(m)} style={{
-              background: isActive ? '#fff' : 'transparent', border: 'none', borderRadius: 6,
-              padding: '5px 16px', fontSize: 13, fontWeight: 600, letterSpacing: '0.04em',
-              color: isActive ? '#101213' : 'rgba(16,18,19,0.45)', cursor: isActive ? 'default' : 'pointer',
-              transition: 'all 0.18s ease', boxShadow: isActive ? '0 1px 3px rgba(0,0,0,0.12)' : 'none',
-              userSelect: 'none', textTransform: 'uppercase',
-            }}>{m}</button>
-          )
-        })}
+    <div style={{ display: 'flex', gap: 12, width: '100%' }}>
+      {/* Thumbnails column */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0, width: 64 }}>
+        {GALLERY_THUMBS.map((t, i) => (
+          <button
+            key={i}
+            onClick={() => setActive(i)}
+            style={{
+              width: 64, height: 64, border: active === i ? '2px solid #101213' : '1px solid #E0DDD4',
+              borderRadius: 4, background: '#F4F3EC', cursor: 'pointer', padding: 0, overflow: 'hidden',
+              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+            }}
+          >
+            {t.src
+              // eslint-disable-next-line @next/next/no-img-element
+              ? <img src={t.src} alt={t.alt} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+              : <div style={{ width: '100%', height: '100%', background: '#E8E6DE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B0ADA4" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-4 4 4"/><circle cx="8.5" cy="13.5" r="1.5"/></svg>
+                </div>
+            }
+          </button>
+        ))}
       </div>
-      <div style={{ flex: 1, minHeight: 0 }}>
-        {showPoster
+      {/* Main image */}
+      <div style={{ flex: 1, aspectRatio: '1 / 1', background: '#F0EEE6', borderRadius: 6, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        {mainSrc
           // eslint-disable-next-line @next/next/no-img-element
-          ? <img src={MODEL_POSTER} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
-          : <div ref={containerRef} style={{ width: '100%', height: '100%' }} />
+          ? <img src={mainSrc} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
+          : <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: '#B0ADA4' }}>
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-4 4 4"/><circle cx="8.5" cy="13.5" r="1.5"/></svg>
+              <span style={{ fontSize: 12 }}>Image coming soon</span>
+            </div>
         }
       </div>
     </div>
@@ -256,58 +240,56 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
   return (
     <section style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
-        <h2 style={{
-          fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 600, textTransform: 'uppercase',
-          letterSpacing: '-0.02em', lineHeight: 1.1, color: '#101213',
-          textAlign: 'center', maxWidth: 840, margin: '0 auto 40px',
-        }}>
-          {data.title}
-        </h2>
+        {/* Badge + Title + Subtitle */}
+        <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 48px' }}>
+          <Badge label="Bring ECHO Home" />
+          <h2 style={{
+            fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 700,
+            letterSpacing: '-0.02em', lineHeight: 1.15, color: '#101213',
+            margin: '0 0 16px',
+          }}>
+            A premium arcade machine, ready for your home
+          </h2>
+          <p style={{ fontSize: 17, color: '#6B6B6B', lineHeight: 1.65, margin: 0 }}>
+            Order the free-play ECHO Touchscreen Bartop — with Prime shipping, flexible payment options, and JVL warranty support.
+          </p>
+        </div>
 
         <div className="echo-product-home-grid">
-          {/* Image / 3D viewer */}
-          <div style={{ width: '100%', aspectRatio: '1 / 1', display: 'flex', flexDirection: 'column' }}>
-            <ModelViewerErrorBoundary>
-              <ModelViewer3D />
-            </ModelViewerErrorBoundary>
-          </div>
+          {/* Amazon-style gallery */}
+          <GalleryViewer />
 
           {/* Details */}
           <div>
-            <h3 style={{ fontSize: 'clamp(1.1rem, 1.8vw, 1.5rem)', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '-0.01em', color: '#101213', margin: '0 0 10px' }}>
-              {HOME_PRODUCT.heading}
-            </h3>
-            <p style={{ fontSize: 17, color: '#6B6B6B', marginBottom: 24, lineHeight: 1.6 }}>
-              {HOME_PRODUCT.subtitle}
-            </p>
-
             <div style={{ borderTop: '1px solid #E0DDD4' }}>
               {HOME_PRODUCT.features.map((f, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '12px 0', borderBottom: '1px solid #E0DDD4' }}>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '13px 0', borderBottom: '1px solid #E0DDD4' }}>
                   <Icon type={f.icon} />
-                  <span style={{ fontSize: 17, color: '#4B4B4B' }}>{f.text}</span>
+                  <span style={{ fontSize: 16, color: '#4B4B4B' }}>{f.text}</span>
                 </div>
               ))}
             </div>
 
-            {/* Price + dual CTAs */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 28, gap: 16, flexWrap: 'wrap' }}>
+            {/* Price + CTA */}
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 24, gap: 16, flexWrap: 'wrap' }}>
               <div style={{ fontSize: 36, fontWeight: 600, color: '#101213', flexShrink: 0 }}>
                 {HOME_PRODUCT.price}
               </div>
-              <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-                <a
-                  href={data.buttonUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn-amazon"
-                  style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
-                >
-                  Explore on Amazon
-                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-                </a>
-              </div>
+              <a
+                href={data.buttonUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-amazon"
+                style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
+              >
+                Explore on Amazon
+                <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+              </a>
             </div>
+            {/* Pay over time — below button */}
+            <p style={{ fontSize: 13, color: '#9B9890', marginTop: 10, lineHeight: 1.5 }}>
+              {HOME_PRODUCT.payOverTime}
+            </p>
           </div>
         </div>
       </div>
