@@ -172,15 +172,13 @@ const HOME_PRODUCT = {
   payOverTime: 'Pay over time — up to 24 months, 0% APR',
 }
 
-// Amazon-style thumbnail gallery images — upload to /api/storage/{id}/filename
-// Slot 1 (main 2D): /api/storage/3372/echo_3d_01.jpg  ← already exists
-// Slot 2–5: upload new images and update these paths:
 const GALLERY_THUMBS = [
-  { src: '/api/storage/3372/echo_3d_01.jpg', alt: 'JVL Echo HD3 — front view' },
-  { src: null, alt: 'JVL Echo HD3 — side view' },
-  { src: null, alt: 'JVL Echo HD3 — top view' },
-  { src: null, alt: 'JVL Echo HD3 — gameplay' },
-  { src: null, alt: 'JVL Echo HD3 — in room' },
+  { src: '/api/storage/3797/jvl-echo-frontside-view.png', alt: 'JVL Echo HD3 — front view' },
+  { src: '/api/storage/3797/jvl-echo-backside-view.png', alt: 'JVL Echo HD3 — back view' },
+  { src: '/api/storage/3797/jvl-echo-frontside-view-racing-game.png', alt: 'JVL Echo HD3 — racing game' },
+  { src: '/api/storage/3797/jvl-echo-speakers.png', alt: 'JVL Echo HD3 — speakers' },
+  { src: '/api/storage/3797/jvl-echo-speakers-1.png', alt: 'JVL Echo HD3 — speakers detail' },
+  { src: '/api/storage/3797/jvl-echo-metal-emblem.png', alt: 'JVL Echo HD3 — metal emblem' },
 ]
 
 function Icon({ type }: { type: string }) {
@@ -200,44 +198,85 @@ function Icon({ type }: { type: string }) {
 
 function GalleryViewer() {
   const [active, setActive] = useState(0)
-  const mainSrc = GALLERY_THUMBS[active]?.src ?? GALLERY_THUMBS[0].src
+  const [lightbox, setLightbox] = useState(false)
+  const mainSrc = GALLERY_THUMBS[active]?.src
+
+  // Close lightbox on Escape
+  useEffect(() => {
+    if (!lightbox) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setLightbox(false) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [lightbox])
 
   return (
-    <div style={{ display: 'flex', gap: 12, width: '100%' }}>
-      {/* Thumbnails column */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0, width: 64 }}>
-        {GALLERY_THUMBS.map((t, i) => (
+    <>
+      <div style={{ display: 'flex', gap: 12, width: '100%' }}>
+        {/* Thumbnails column */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0, width: 64 }}>
+          {GALLERY_THUMBS.map((t, i) => (
+            <button
+              key={i}
+              onClick={() => setActive(i)}
+              style={{
+                width: 64, height: 64, border: active === i ? '2px solid #101213' : '1px solid #E0DDD4',
+                borderRadius: 4, background: '#F4F3EC', cursor: 'pointer', padding: 0, overflow: 'hidden',
+                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={t.src} alt={t.alt} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
+            </button>
+          ))}
+        </div>
+        {/* Main image */}
+        <div
+          onClick={() => mainSrc && setLightbox(true)}
+          style={{
+            flex: 1, aspectRatio: '1 / 1', background: '#F0EEE6', borderRadius: 6, overflow: 'hidden',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: mainSrc ? 'zoom-in' : 'default', position: 'relative',
+          }}
+        >
+          {mainSrc && (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img src={mainSrc} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
+          )}
+        </div>
+      </div>
+
+      {/* Lightbox */}
+      {lightbox && mainSrc && (
+        <div
+          onClick={() => setLightbox(false)}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 9999,
+            background: 'rgba(0,0,0,0.92)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            cursor: 'zoom-out',
+          }}
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={mainSrc}
+            alt="JVL Echo HD3"
+            onClick={e => e.stopPropagation()}
+            style={{ maxWidth: '90vw', maxHeight: '90vh', objectFit: 'contain', borderRadius: 4, cursor: 'default' }}
+          />
           <button
-            key={i}
-            onClick={() => setActive(i)}
+            onClick={() => setLightbox(false)}
             style={{
-              width: 64, height: 64, border: active === i ? '2px solid #101213' : '1px solid #E0DDD4',
-              borderRadius: 4, background: '#F4F3EC', cursor: 'pointer', padding: 0, overflow: 'hidden',
-              display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+              position: 'absolute', top: 20, right: 24,
+              background: 'none', border: 'none', color: '#fff',
+              fontSize: 32, lineHeight: 1, cursor: 'pointer', padding: 4, opacity: 0.7,
             }}
+            aria-label="Close"
           >
-            {t.src
-              // eslint-disable-next-line @next/next/no-img-element
-              ? <img src={t.src} alt={t.alt} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-              : <div style={{ width: '100%', height: '100%', background: '#E8E6DE', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#B0ADA4" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-4 4 4"/><circle cx="8.5" cy="13.5" r="1.5"/></svg>
-                </div>
-            }
+            ×
           </button>
-        ))}
-      </div>
-      {/* Main image */}
-      <div style={{ flex: 1, aspectRatio: '1 / 1', background: '#F0EEE6', borderRadius: 6, overflow: 'hidden', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        {mainSrc
-          // eslint-disable-next-line @next/next/no-img-element
-          ? <img src={mainSrc} alt="JVL Echo HD3" style={{ width: '100%', height: '100%', objectFit: 'contain', display: 'block' }} />
-          : <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8, color: '#B0ADA4' }}>
-              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9l4-4 4 4 4-4 4 4"/><circle cx="8.5" cy="13.5" r="1.5"/></svg>
-              <span style={{ fontSize: 12 }}>Image coming soon</span>
-            </div>
-        }
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   )
 }
 
@@ -280,21 +319,22 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
               <div style={{ fontSize: 36, fontWeight: 600, color: '#101213', flexShrink: 0 }}>
                 {HOME_PRODUCT.price}
               </div>
-              <a
-                href={data.buttonUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-amazon"
-                style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
-              >
-                Explore on Amazon
-                <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-              </a>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
+                <a
+                  href={data.buttonUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-amazon"
+                  style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
+                >
+                  Explore on Amazon
+                  <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                </a>
+                <p style={{ fontSize: 13, color: '#9B9890', margin: 0, lineHeight: 1.5 }}>
+                  {HOME_PRODUCT.payOverTime}
+                </p>
+              </div>
             </div>
-            {/* Pay over time — below button */}
-            <p style={{ fontSize: 13, color: '#9B9890', marginTop: 10, lineHeight: 1.5 }}>
-              {HOME_PRODUCT.payOverTime}
-            </p>
           </div>
         </div>
       </div>
@@ -308,21 +348,21 @@ const GAME_CATEGORIES = [
   {
     label: 'Action',
     img: '/api/storage/3458/Action.jpg',
-    video: '/api/storage/3459/Action.mp4',
+    video: '/api/storage/3796/arcades.mp4',
     desc: 'Dive into the fan-favorite Gone Fishing, outmaneuver opponents in Bumper Wars, battle crazy creatures in Monster Mash, and crush levels in Bonbon Deluxe.',
     icon: <Zap size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Cards',
     img: '/api/storage/3462/Cards.jpg',
-    video: '/api/storage/3463/Cards.mp4',
+    video: '/api/storage/3796/cards.mp4',
     desc: "From casinos to coffee tables, card games never go out of style! Hit 21 in Blackjack, go all-in with Texas Hold'em, or keep it classic with Solitaire.",
     icon: <Spade size={22} strokeWidth={1.75} />,
   },
   {
     label: 'Puzzle',
     img: '/api/storage/3464/Puzzle.jpg',
-    video: '/api/storage/3465/Puzzle.mp4',
+    video: '/api/storage/3796/puzzle.mp4',
     desc: 'Challenge your brain in classic logic games like Sudoku, Mine Sweeper, and Mahjong. Perfect for solo challenges or friendly competition.',
     icon: <Puzzle size={22} strokeWidth={1.75} />,
   },
@@ -336,7 +376,7 @@ const GAME_CATEGORIES = [
   {
     label: 'Quiz',
     img: '/api/storage/3466/Quiz.jpg',
-    video: '/api/storage/3467/Quiz.mp4',
+    video: '/api/storage/3796/trivia.mp4',
     desc: "Whether you're a trivia master or a word wizard, ECHO's quiz games will put your skills to the test! Answer exciting questions in Double Quiz or build winning words in Word Chase.",
     icon: <HelpCircle size={22} strokeWidth={1.75} />,
   },
@@ -802,7 +842,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       tag: '★★★★★ Verified Amazon Purchase',
       quote: 'Our family has had this arcade for 4 years already, we purchased it from JVL directly. Still going strong — amazing support from the team.',
-      author: 'S.P.',
+      author: 'S. Pachuashvili',
       location: 'Florida, US',
       initials: 'SP',
       avatarColor: '#E85D75',
@@ -811,7 +851,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
     {
       tag: '★★★★★ Verified Amazon Purchase',
       quote: 'Got this arcade for my dad about a year ago directly from JVL. Happy I found it — my dad loves it!',
-      author: 'O.V.',
+      author: 'Olga V.',
       location: 'California, US',
       initials: 'OV',
       avatarColor: '#5CB85C',
@@ -840,13 +880,13 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   const AMAZON_SELLER_URL = 'https://www.amazon.com/sp?ie=UTF8&seller=A1XUVE3EY6OE6R&asin=B0DJ3BSJ4D&ref_=dp_merchant_link'
 
   const extraReviews = [
-    { tag: 'On customer service', quote: 'Honestly, I was really impressed with the customer service from JVL. Every time I reached out, they replied fast, like within an hour, not just copy-paste stuff. They sent video and walked me through things online. The same rep, Andrei, replied each time, it felt personal, like someone had my back. Great service, really made me feel like I was in good hands. Highly recommend!', author: 'FlowRider', initials: 'FR', avatarColor: '#4B6BFB', reviewUrl: AMAZON_SELLER_URL },
-    { tag: 'On delivery & support', quote: 'Andrei was extremely helpful and we love the new game system. Exactly as described and came quick and in great condition!!', author: 'Kim', initials: 'KM', avatarColor: '#5CB85C', reviewUrl: AMAZON_SELLER_URL },
-    { tag: 'On longevity', quote: 'I have Echo that I purchased in 2012. The machine has been spectacular. We have never had any problems with it at all.', author: 'Darcy, Minnesota', initials: 'DA', avatarColor: '#E85D75', reviewUrl: null },
-    { tag: 'On family use', quote: 'The machine we have now is running perfectly fine. Our family has this in our game room for guests and family members to use.', author: 'Isabelle, Texas', initials: 'IS', avatarColor: '#9B59B6', reviewUrl: null },
-    { tag: 'On setup', quote: 'It came in and started right up with no problems. Everything is working good.', author: 'Scott, Pennsylvania', initials: 'SC', avatarColor: '#F0A500', reviewUrl: null },
-    { tag: 'On first impression', quote: 'I unpacked the unit today with zero damage, and it works great. We genuinely love it! It\'s a lot of fun, very intuitive...', author: 'Till, California', initials: 'TI', avatarColor: '#2EAEC9', reviewUrl: null },
-    { tag: 'On game variety', quote: 'There are so many games on this machine....I can sit there for hours...finding new and exciting games to play!', author: 'Harold, Missouri', initials: 'HA', avatarColor: '#FB671F', reviewUrl: null },
+    { tag: 'On customer service', quote: 'Honestly, I was really impressed with the customer service from JVL. Every time I reached out, they replied fast, like within an hour, not just copy-paste stuff. They sent video and walked me through things online. The same rep, Andrei, replied each time, it felt personal, like someone had my back. Great service, really made me feel like I was in good hands. Highly recommend!', author: 'FlowRider', location: 'Florida, US', initials: 'FR', avatarColor: '#4B6BFB', reviewUrl: AMAZON_SELLER_URL },
+    { tag: 'On delivery & support', quote: 'Andrei was extremely helpful and we love the new game system. Exactly as described and came quick and in great condition!!', author: 'Kim', location: '', initials: 'KM', avatarColor: '#5CB85C', reviewUrl: AMAZON_SELLER_URL },
+    { tag: 'On longevity', quote: 'I have Echo that I purchased in 2012. The machine has been spectacular. We have never had any problems with it at all.', author: 'Darcy', location: 'Minnesota, US', initials: 'DA', avatarColor: '#E85D75', reviewUrl: null },
+    { tag: 'On family use', quote: 'The machine we have now is running perfectly fine. Our family has this in our game room for guests and family members to use.', author: 'Isabelle', location: 'Texas, US', initials: 'IS', avatarColor: '#9B59B6', reviewUrl: null },
+    { tag: 'On setup', quote: 'It came in and started right up with no problems. Everything is working good.', author: 'Scott', location: 'Pennsylvania, US', initials: 'SC', avatarColor: '#F0A500', reviewUrl: null },
+    { tag: 'On first impression', quote: 'I unpacked the unit today with zero damage, and it works great. We genuinely love it! It\'s a lot of fun, very intuitive...', author: 'Till', location: 'California, US', initials: 'TI', avatarColor: '#2EAEC9', reviewUrl: null },
+    { tag: 'On game variety', quote: 'There are so many games on this machine....I can sit there for hours...finding new and exciting games to play!', author: 'Harold', location: 'Missouri, US', initials: 'HA', avatarColor: '#FB671F', reviewUrl: null },
   ]
 
   const videoReviews = [
@@ -1497,7 +1537,12 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                       <div style={{ width: 28, height: 28, borderRadius: '50%', background: r.avatarColor, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 11, fontWeight: 700, color: '#fff', flexShrink: 0 }}>
                         {r.initials}
                       </div>
-                      <span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(244,243,236,0.75)' }}>{r.author}</span>
+                      <span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(244,243,236,0.8)' }}>
+                        {r.author}
+                        {r.location && (
+                          <span style={{ fontWeight: 400, color: 'rgba(244,243,236,0.8)' }}> · {r.location}</span>
+                        )}
+                      </span>
                     </div>
                     {r.reviewUrl && (
                       <a href={r.reviewUrl} target="_blank" rel="noopener noreferrer"
