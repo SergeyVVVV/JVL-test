@@ -1361,7 +1361,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           /* Bring ECHO Home — price right, button + subtext centered */
           .echo-price-cta-row { flex-direction: column; align-items: stretch !important; gap: 12px; }
           .echo-price-tag { text-align: right; }
-          .echo-product-home-grid .btn-amazon { align-self: center !important; width: auto !important; }
+          .echo-product-home-grid .btn-amazon { width: 100% !important; justify-content: center; box-sizing: border-box; }
           .echo-pay-over-time { text-align: center !important; }
 
           /* Game Library — hide 4-cell stats, categories 2×3 */
