@@ -980,21 +980,25 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   // ─── Section 8 Ownership cards ──────────────────────────────────────────────
   const ownershipCards = [
     {
+      icon: <ShieldCheck size={32} strokeWidth={1.5} color="#FB671F" />,
       title: 'Warranty',
       body: '1-year all-inclusive. If something isn\'t right, we fix it.',
       highlight: 'JVL covers shipping both ways.',
     },
     {
+      icon: <RotateCcw size={32} strokeWidth={1.5} color="#FB671F" />,
       title: 'Returns',
       body: 'Not what you hoped? Return within 30 days for a full refund.',
       highlight: null,
     },
     {
+      icon: <Phone size={32} strokeWidth={1.5} color="#FB671F" />,
       title: 'Support',
       body: 'Live chat, email, and phone — answered by our team.',
       highlight: null,
     },
     {
+      icon: <Truck size={32} strokeWidth={1.5} color="#FB671F" />,
       title: 'Shipping',
       body: 'Ships directly from our factory. Individually tested, securely packed.',
       highlight: null,
@@ -1802,19 +1806,22 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           <div className="echo-ownership-grid">
             {ownershipCards.map((c) => (
               <div key={c.title} style={{
-                borderTop: '3px solid #FB671F',
-                padding: '28px 24px',
-                background: '#0d0f10',
-                borderRadius: '0 0 4px 4px',
+                background: '#141618',
+                border: '1px solid rgba(255,255,255,0.07)',
+                borderRadius: 10,
+                padding: '28px 28px 32px',
+                display: 'flex',
+                flexDirection: 'column',
               }}>
-                <h3 style={{ fontSize: 17, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px 0' }}>
+                <div style={{ marginBottom: 16 }}>{c.icon}</div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
                   {c.title}
                 </h3>
-                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: 0 }}>
+                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
                   {c.body}
                 </p>
                 {c.highlight && (
-                  <p style={{ fontSize: 13, color: '#FB671F', margin: '12px 0 0 0', fontWeight: 600 }}>
+                  <p style={{ fontSize: 13, color: '#FB671F', margin: '14px 0 0 0', fontWeight: 600 }}>
                     {c.highlight}
                   </p>
                 )}
