@@ -1025,8 +1025,33 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-uc1-headline { font-size: 28px; font-weight: 700; color: #F4F3EC; margin: 0 0 12px 0; line-height: 1.15; }
         .echo-uc1-desc { font-size: 20px; font-weight: 400; line-height: 1.5; color: rgba(244,243,236,0.85); margin: 0; max-width: 800px; }
         @media (max-width: 768px) {
-          .echo-uc1-tabs { display: flex; flex-wrap: wrap; width: 100%; padding: 10px 5vw; gap: 4px; justify-content: center; background: none; backdrop-filter: none; }
-          .echo-uc1-tabs button { padding: 6px 14px !important; font-size: 13px !important; border-left: none !important; border: 1px solid rgba(244,243,236,0.2) !important; border-radius: 20px !important; }
+          .echo-uc1-tabs {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            padding: 0 !important;
+            backdrop-filter: blur(6px);
+            background: rgba(16,18,19,0.6) !important;
+            border-radius: 0 !important;
+          }
+          .echo-uc1-tabs button {
+            padding: 10px 8px !important;
+            font-size: 13px !important;
+            border-left: none !important;
+            border: none !important;
+            border-radius: 0 !important;
+            border-bottom: 1px solid rgba(244,243,236,0.18) !important;
+            justify-content: center;
+            white-space: nowrap;
+          }
+          .echo-uc1-tabs button:nth-child(odd) {
+            border-right: 1px solid rgba(244,243,236,0.18) !important;
+          }
+          .echo-uc1-tabs button:nth-child(5) {
+            grid-column: span 2;
+            border-bottom: none !important;
+            border-right: none !important;
+          }
           .echo-uc1-bg { background-image: var(--bg-mob); }
           .echo-uc1-headline { font-size: 1.15rem !important; }
           .echo-uc1-desc { font-size: 16px !important; max-width: 100% !important; }
