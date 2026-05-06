@@ -211,9 +211,9 @@ function GalleryViewer() {
 
   return (
     <>
-      <div style={{ display: 'flex', gap: 12, width: '100%', alignItems: 'flex-start' }}>
-        {/* Thumbnails column */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0, width: 64 }}>
+      <div className="echo-gallery-viewer">
+        {/* Thumbnails column → horizontal strip on mobile */}
+        <div className="echo-gallery-thumbs">
           {GALLERY_THUMBS.map((t, i) => (
             <button
               key={i}
@@ -231,9 +231,10 @@ function GalleryViewer() {
         </div>
         {/* Main image */}
         <div
+          className="echo-gallery-main"
           onClick={() => mainSrc && setLightbox(true)}
           style={{
-            flex: 1, aspectRatio: '1 / 1', background: '#F0EEE6', borderRadius: 6, overflow: 'hidden',
+            background: '#F0EEE6', borderRadius: 6, overflow: 'hidden',
             display: 'flex', alignItems: 'center', justifyContent: 'center',
             cursor: mainSrc ? 'zoom-in' : 'default', position: 'relative',
           }}
@@ -1222,6 +1223,20 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-specs-img { position: static; }
         }
 
+        /* Gallery viewer — desktop: side thumbnails; mobile: main top, thumbs strip below */
+        .echo-gallery-viewer { display: flex; gap: 12px; width: 100%; align-items: flex-start; overflow: hidden; }
+        .echo-gallery-thumbs { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; width: 64px; }
+        .echo-gallery-main { flex: 1; aspect-ratio: 1 / 1; }
+
+        /* Why ECHO dot indicators — mobile only */
+        .echo-uc1-dots { display: none; }
+        .echo-uc1-dot {
+          width: 8px; height: 8px; border-radius: 50%;
+          background: rgba(244,243,236,0.35); border: none; cursor: pointer;
+          padding: 0; transition: width 0.2s, border-radius 0.2s, background 0.2s; flex-shrink: 0;
+        }
+        .echo-uc1-dot.active { width: 24px; border-radius: 4px; background: #F4F3EC; }
+
         /* Product section home grid */
         .echo-product-home-grid {
           display: grid;
@@ -1238,6 +1253,19 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-feat-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: clamp(180px, 26vw, 240px); }
           .echo-feat-first { grid-column: span 2; }
         }
+        @media (max-width: 768px) {
+          /* Gallery: main image full-width on top, horizontal thumb strip below */
+          .echo-gallery-viewer { flex-direction: column-reverse; }
+          .echo-gallery-main { flex: none; width: 100%; }
+          .echo-gallery-thumbs { flex-direction: row; width: 100%; overflow-x: auto; scrollbar-width: none; }
+          .echo-gallery-thumbs::-webkit-scrollbar { display: none; }
+          /* Why ECHO: swap text tabs for dot indicators */
+          .echo-uc1-tabs { display: none !important; }
+          .echo-uc1-dots {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            position: absolute; bottom: 90px; left: 0; right: 0;
+          }
+        }
         @media (max-width: 600px) {
           .echo-facts-grid { grid-template-columns: 1fr 1fr; }
           .echo-feat-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
@@ -1248,6 +1276,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-why-grid { grid-template-columns: 1fr; gap: 36px; }
           .echo-built-grid { grid-template-columns: 1fr; gap: 32px; }
           .echo-games-grid { grid-template-columns: 1fr; gap: 24px; }
+          .echo-library-grid { grid-template-columns: 1fr; gap: 40px; }
+          .echo-library-sticky { position: static; }
           .echo-reviews-stats { grid-template-columns: 1fr; }
           .echo-trust-row1 { grid-template-columns: 1fr; }
           .echo-trust-row2 { grid-template-columns: 1fr 1fr; }
@@ -1256,6 +1286,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-reviews-grid { grid-template-columns: 1fr; }
           .echo-extra-reviews-grid { grid-template-columns: 1fr 1fr; }
           .echo-ownership-grid { grid-template-columns: 1fr 1fr; }
+          /* Amazon button full-width on tablet/mobile */
+          .btn-amazon { width: 100%; justify-content: center; box-sizing: border-box; }
         }
         @media (max-width: 480px) {
           .echo-facts-grid { grid-template-columns: 1fr; }
@@ -1387,6 +1419,17 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 </button>
               ))}
             </div>
+          </div>
+          {/* Mobile: dot/pill navigation */}
+          <div className="echo-uc1-dots">
+            {USE_CASES.map((uc, i) => (
+              <button
+                key={i}
+                onClick={() => ucSwitchTo(i)}
+                className={`echo-uc1-dot${ucActive === i ? ' active' : ''}`}
+                aria-label={uc.label}
+              />
+            ))}
           </div>
           <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '50px 5vw 70px', opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease' }}>
             <p className="echo-uc1-headline">{ucItem.headline}</p>
