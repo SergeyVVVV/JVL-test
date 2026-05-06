@@ -1033,7 +1033,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             overflow: hidden;
           }
           .echo-uc1-tabs button {
-            padding: 10px 8px !important;
+            padding: 8px 6px !important;
             font-size: 13px !important;
             border-left: none !important;
             border: none !important;
@@ -1046,7 +1046,9 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             border-right: 1px solid rgba(244,243,236,0.18) !important;
           }
           .echo-uc1-tabs button:nth-child(5) {
-            grid-column: span 2;
+            grid-column: 1 / -1;
+            justify-self: center;
+            min-width: 50%;
             border-bottom: none !important;
             border-right: none !important;
           }
