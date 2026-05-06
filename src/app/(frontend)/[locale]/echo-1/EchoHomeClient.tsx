@@ -42,14 +42,25 @@ function Hero({ data }: { data: PageData['hero'] }) {
         <img src={data.desktopPoster} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
       )}
 
-      {/* Video */}
+      {/* Desktop video */}
       {data.desktopVideo && (
         <video
           ref={videoRef}
           src={data.desktopVideo}
           poster={data.desktopPoster ?? undefined}
           autoPlay muted loop playsInline
-          className="echo-hero-video"
+          className="echo-hero-video echo-hero-video-desk"
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+      )}
+
+      {/* Mobile video */}
+      {data.mobileVideo && (
+        <video
+          src={data.mobileVideo}
+          poster={data.mobilePoster ?? undefined}
+          autoPlay muted loop playsInline
+          className="echo-hero-video echo-hero-video-mob"
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
         />
       )}
@@ -317,8 +328,8 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
 
             {/* Price + CTA */}
             <div style={{ marginTop: 24 }}>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
-                <div style={{ fontSize: 36, fontWeight: 600, color: '#101213', flexShrink: 0 }}>
+              <div className="echo-price-cta-row" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+                <div className="echo-price-tag" style={{ fontSize: 36, fontWeight: 600, color: '#101213', flexShrink: 0 }}>
                   {HOME_PRODUCT.price}
                 </div>
                 <a
@@ -332,7 +343,7 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
                   <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </a>
               </div>
-              <p style={{ fontSize: 13, color: '#9B9890', margin: '8px 0 0', lineHeight: 1.5, textAlign: 'right' }}>
+              <p className="echo-pay-over-time" style={{ fontSize: 13, color: '#9B9890', margin: '8px 0 0', lineHeight: 1.5, textAlign: 'right' }}>
                 {HOME_PRODUCT.payOverTime}
               </p>
             </div>
@@ -405,7 +416,7 @@ function GamesSectionDark() {
   return (
     <div>
       {/* Stats row */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, border: '1px solid #1e2022', borderRadius: 4, overflow: 'hidden', marginBottom: 56 }}>
+      <div className="echo-games-stats" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, border: '1px solid #1e2022', borderRadius: 4, overflow: 'hidden', marginBottom: 56 }}>
         {[
           { value: '149',         label: 'BUILT-IN GAMES' },
           { value: '1–2 Players', label: 'TOURNAMENTS AND LEADERBOARDS' },
@@ -978,6 +989,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
       <style>{`
         .echo-hero { height: calc(100vh - 72px); }
         .echo-hero-video { height: 100%; }
+        .echo-hero-video-mob { display: none; }
 
         .echo-section-what { background: #101213; padding: 96px 0; }
         .echo-section-why { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
@@ -1286,8 +1298,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-reviews-grid { grid-template-columns: 1fr; }
           .echo-extra-reviews-grid { grid-template-columns: 1fr 1fr; }
           .echo-ownership-grid { grid-template-columns: 1fr 1fr; }
-          /* Amazon button full-width on tablet/mobile */
-          .btn-amazon { width: 100%; justify-content: center; box-sizing: border-box; }
+          /* Amazon button full-width only inside product section */
+          .echo-product-home-grid .btn-amazon { width: 100%; justify-content: center; box-sizing: border-box; }
         }
         @media (max-width: 480px) {
           .echo-facts-grid { grid-template-columns: 1fr; }
@@ -1296,6 +1308,59 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-extra-reviews-grid { grid-template-columns: 1fr; }
           .echo-ownership-grid { grid-template-columns: 1fr; }
           .echo-trust-row2 { grid-template-columns: 1fr; }
+        }
+
+        /* ── Mobile-first overrides (must be last to win cascade) ── */
+        @media (max-width: 767px) {
+          /* Hero */
+          .echo-hero { height: 100svh; }
+          .echo-hero-video-desk { display: none; }
+          .echo-hero-video-mob { display: block; }
+
+          /* All sections: top padding 60px, horizontal breathing room */
+          .echo-section-what    { padding: 60px 0 32px; }
+          .echo-section-why     { padding: 60px 0; }
+          .echo-section-library { padding: 60px 0; }
+          .echo-section-reviews { padding: 60px 0 30px; }
+          .echo-section-ownership { padding: 60px 0; }
+          .echo-section-faq     { padding: 60px 0; }
+          .echo-section-cta     { padding: 60px 0; }
+          .echo-section-bottom-cta { padding: 60px 0; }
+          .echo-section-built   { padding: 60px 0; }
+          .echo-section-trust   { padding: 60px 0; }
+          .echo-gather-header   { padding: 60px 5vw 40px; }
+
+          /* What ECHO Is — facts 2×2 (override the 1-column 480px rule) */
+          .echo-facts-grid { grid-template-columns: 1fr 1fr !important; }
+          .echo-fact-cell { border-right: none !important; border-bottom: none !important; }
+          .echo-fact-cell:nth-child(odd) { border-right: 1px solid #1e2022 !important; }
+          .echo-fact-cell:nth-child(1),
+          .echo-fact-cell:nth-child(2) { border-bottom: 1px solid #1e2022 !important; }
+          .echo-fact-cell:last-child { border-bottom: none !important; }
+          .echo-fact-value { font-size: 1.1rem !important; }
+          .echo-fact-label { font-size: 11px !important; }
+
+          /* Feature cards */
+          .echo-feat-grid { gap: 16px; }
+          .echo-feat-title { font-size: 18px !important; }
+
+          /* Why ECHO — dots well above the headline text */
+          .echo-uc1-dots { bottom: 155px; }
+
+          /* Bring ECHO Home — price right, pay-over-time centered */
+          .echo-price-cta-row { flex-direction: column; align-items: stretch; gap: 12px; }
+          .echo-price-tag { text-align: right; }
+          .echo-pay-over-time { text-align: center !important; }
+
+          /* Game Library — hide 4-cell stats, categories 2×3 */
+          .echo-games-stats { display: none !important; }
+          .echo-cat-vert { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+          .echo-cat-vert > div:first-child { grid-column: span 2; }
+          .echo-cat-vert > div:last-child { grid-column: span 2; }
+
+          /* CTA banner buttons — auto width centered (not full-width) */
+          .echo-section-cta .btn-amazon,
+          .echo-section-bottom-cta .btn-amazon { width: auto; }
         }
       `}</style>
 
@@ -1333,10 +1398,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           <div className="echo-facts-grid">
             {facts.map((f) => (
               <div key={f.stat} className="echo-fact-cell">
-                <div style={{ fontSize: f.small ? 'clamp(1.2rem, 1.8vw, 1.5rem)' : 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, whiteSpace: f.small ? 'nowrap' : undefined }}>
+                <div className="echo-fact-value" style={{ fontSize: f.small ? 'clamp(1.2rem, 1.8vw, 1.5rem)' : 'clamp(1.6rem, 2.5vw, 2rem)', fontWeight: 700, color: '#F4F3EC', lineHeight: 1.1, whiteSpace: f.small ? 'nowrap' : undefined }}>
                   {f.stat}
                 </div>
-                <div style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
+                <div className="echo-fact-label" style={{ fontSize: 13, color: 'rgba(244,243,236,0.5)', marginTop: 6, letterSpacing: '0.04em' }}>
                   {f.label}
                 </div>
               </div>
@@ -1351,7 +1416,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
                 <img src={c.img} alt={c.label} className="echo-feat-img" />
                 <div className="echo-feat-grad" />
                 <div className="echo-feat-text">
-                  <div style={{ fontSize: 16, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: 6 }}>
+                  <div className="echo-feat-title" style={{ fontSize: 16, fontWeight: 700, color: '#F4F3EC', lineHeight: 1.2, marginBottom: 6 }}>
                     {c.label}
                   </div>
                   <div style={{
