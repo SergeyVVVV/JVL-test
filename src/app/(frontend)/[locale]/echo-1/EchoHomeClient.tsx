@@ -1547,7 +1547,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               />
             ))}
           </div>
-          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '50px 5vw 70px', opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease' }}>
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '50px 5vw 52px', opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease' }}>
             <p className="echo-uc1-headline">{ucItem.headline}</p>
             <p className="echo-uc1-desc">{ucItem.text}</p>
           </div>
