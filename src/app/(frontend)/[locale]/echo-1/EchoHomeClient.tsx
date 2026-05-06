@@ -350,7 +350,7 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-amazon"
-                  style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
+                  style={{ padding: '16px 32px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
                 >
                   Explore on Amazon
                   <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -1358,10 +1358,11 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           /* Why ECHO — dots well above the headline text */
           .echo-uc1-dots { bottom: 155px; }
 
-          /* Bring ECHO Home — price + button right-aligned, auto-width */
-          .echo-price-cta-row { flex-direction: column; align-items: flex-end !important; gap: 12px; }
-          .echo-pay-over-time { text-align: right !important; }
-          .echo-product-home-grid .btn-amazon { width: auto !important; justify-content: center; }
+          /* Bring ECHO Home — price right, button + subtext centered */
+          .echo-price-cta-row { flex-direction: column; align-items: stretch !important; gap: 12px; }
+          .echo-price-tag { text-align: right; }
+          .echo-product-home-grid .btn-amazon { align-self: center !important; width: auto !important; }
+          .echo-pay-over-time { text-align: center !important; }
 
           /* Game Library — hide 4-cell stats, categories 2×3 */
           .echo-games-stats { display: none !important; }
