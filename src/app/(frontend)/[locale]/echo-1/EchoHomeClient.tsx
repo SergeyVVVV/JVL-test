@@ -28,11 +28,13 @@ const AMAZON_URL = 'https://www.amazon.com/JVL-Echo-Touchscreen-Arcade-Machine/d
 
 function Hero({ data }: { data: PageData['hero'] }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const mobileVideoRef = useRef<HTMLVideoElement>(null)
   const [muted, setMuted] = useState(true)
   const [playing, setPlaying] = useState(true)
 
   useEffect(() => {
     videoRef.current?.play().catch(() => {})
+    mobileVideoRef.current?.play().catch(() => {})
   }, [])
 
   return (
@@ -42,14 +44,14 @@ function Hero({ data }: { data: PageData['hero'] }) {
         <img src={data.desktopPoster} alt="" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
       )}
 
-      {/* Desktop video */}
+      {/* Desktop video — only gets echo-hero-video-desk (hidden on mobile) when a mobile video also exists */}
       {data.desktopVideo && (
         <video
           ref={videoRef}
           src={data.desktopVideo}
           poster={data.desktopPoster ?? undefined}
           autoPlay muted loop playsInline
-          className="echo-hero-video echo-hero-video-desk"
+          className={`echo-hero-video${data.mobileVideo ? ' echo-hero-video-desk' : ''}`}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }}
         />
       )}
@@ -57,6 +59,7 @@ function Hero({ data }: { data: PageData['hero'] }) {
       {/* Mobile video */}
       {data.mobileVideo && (
         <video
+          ref={mobileVideoRef}
           src={data.mobileVideo}
           poster={data.mobilePoster ?? undefined}
           autoPlay muted loop playsInline
@@ -110,11 +113,16 @@ function Hero({ data }: { data: PageData['hero'] }) {
       {/* Bottom bar */}
       <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}>
         <div style={{ height: 1, background: 'rgba(255,255,255,0.15)' }} />
-        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 5vw', maxWidth: 1440, margin: '0 auto', width: '100%' }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '16px 5vw', paddingBottom: 'max(16px, env(safe-area-inset-bottom, 16px))', maxWidth: 1440, margin: '0 auto', width: '100%' }}>
           {/* Controls */}
           <div style={{ display: 'flex', gap: 20, alignItems: 'center' }}>
             <button
-              onClick={() => { if (videoRef.current) { playing ? videoRef.current.pause() : videoRef.current.play(); setPlaying(!playing) } }}
+              onClick={() => {
+                const vd = videoRef.current
+                const vm = mobileVideoRef.current
+                if (playing) { vd?.pause(); vm?.pause() } else { vd?.play(); vm?.play() }
+                setPlaying(!playing)
+              }}
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', padding: 0, display: 'flex' }}
             >
               {playing
@@ -123,7 +131,12 @@ function Hero({ data }: { data: PageData['hero'] }) {
               }
             </button>
             <button
-              onClick={() => { if (videoRef.current) { videoRef.current.muted = !muted; setMuted(!muted) } }}
+              onClick={() => {
+                const newMuted = !muted
+                if (videoRef.current) videoRef.current.muted = newMuted
+                if (mobileVideoRef.current) mobileVideoRef.current.muted = newMuted
+                setMuted(newMuted)
+              }}
               style={{ background: 'none', border: 'none', cursor: 'pointer', color: 'rgba(255,255,255,0.7)', padding: 0, display: 'flex' }}
             >
               {muted
@@ -678,11 +691,11 @@ function SpecsSectionLight() {
           </div>
 
           {/* Accordion */}
-          <div>
+          <div style={{ overflowAnchor: 'none' }}>
             {SPECS_ITEMS.map((item, i) => (
-              <div key={item.label} style={{ borderTop: '1px solid #D0CEC6' }}>
+              <div key={item.label} style={{ borderTop: '1px solid #D0CEC6', overflowAnchor: 'none' }}>
                 <button
-                  onClick={() => setOpen(i === open ? -1 : i)}
+                  onClick={(e) => { e.currentTarget.blur(); setOpen(i === open ? -1 : i) }}
                   style={{
                     width: '100%', background: 'none', border: 'none', cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -702,7 +715,11 @@ function SpecsSectionLight() {
                   </svg>
                 </button>
 
-                {open === i && (
+                <div style={{
+                  maxHeight: open === i ? 600 : 0,
+                  overflow: 'hidden',
+                  transition: 'max-height 0.3s ease',
+                }}>
                   <div style={{ paddingBottom: 20 }}>
                     {'table' in item && item.table ? (
                       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -721,7 +738,7 @@ function SpecsSectionLight() {
                       </p>
                     )}
                   </div>
-                )}
+                </div>
               </div>
             ))}
             <div style={{ borderTop: '1px solid #D0CEC6' }} />
@@ -1004,8 +1021,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-uc1-headline { font-size: 28px; font-weight: 700; color: #F4F3EC; margin: 0 0 12px 0; line-height: 1.15; }
         .echo-uc1-desc { font-size: 20px; font-weight: 400; line-height: 1.5; color: rgba(244,243,236,0.85); margin: 0; max-width: 800px; }
         @media (max-width: 768px) {
-          .echo-uc1-tabs { display: flex; width: 100%; padding: 10px 0; overflow-x: auto; scrollbar-width: none; justify-content: center; }
-          .echo-uc1-tabs button { padding: 5px 14px !important; font-size: 13px !important; }
+          .echo-uc1-tabs { display: flex; flex-wrap: wrap; width: 100%; padding: 10px 5vw; gap: 4px; justify-content: center; background: none; backdrop-filter: none; }
+          .echo-uc1-tabs button { padding: 6px 14px !important; font-size: 13px !important; border-left: none !important; border: 1px solid rgba(244,243,236,0.2) !important; border-radius: 20px !important; }
           .echo-uc1-bg { background-image: var(--bg-mob); }
           .echo-uc1-headline { font-size: 1.15rem !important; }
           .echo-uc1-desc { font-size: 16px !important; max-width: 100% !important; }
@@ -1271,12 +1288,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-gallery-main { flex: none; width: 100%; }
           .echo-gallery-thumbs { flex-direction: row; width: 100%; overflow-x: auto; scrollbar-width: none; }
           .echo-gallery-thumbs::-webkit-scrollbar { display: none; }
-          /* Why ECHO: swap text tabs for dot indicators */
-          .echo-uc1-tabs { display: none !important; }
-          .echo-uc1-dots {
-            display: flex; align-items: center; justify-content: center; gap: 8px;
-            position: absolute; bottom: 90px; left: 0; right: 0;
-          }
         }
         @media (max-width: 600px) {
           .echo-facts-grid { grid-template-columns: 1fr 1fr; }
@@ -1347,10 +1358,10 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           /* Why ECHO — dots well above the headline text */
           .echo-uc1-dots { bottom: 155px; }
 
-          /* Bring ECHO Home — price right, pay-over-time centered */
-          .echo-price-cta-row { flex-direction: column; align-items: stretch; gap: 12px; }
-          .echo-price-tag { text-align: right; }
-          .echo-pay-over-time { text-align: center !important; }
+          /* Bring ECHO Home — price + button right-aligned, auto-width */
+          .echo-price-cta-row { flex-direction: column; align-items: flex-end !important; gap: 12px; }
+          .echo-pay-over-time { text-align: right !important; }
+          .echo-product-home-grid .btn-amazon { width: auto !important; justify-content: center; }
 
           /* Game Library — hide 4-cell stats, categories 2×3 */
           .echo-games-stats { display: none !important; }
