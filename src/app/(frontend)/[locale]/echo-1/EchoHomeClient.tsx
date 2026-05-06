@@ -307,7 +307,7 @@ function GalleryViewer() {
 
 function ProductSectionHome({ data }: { data: PageData['product'] }) {
   return (
-    <section style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
+    <section className="echo-section-product" style={{ background: '#F4F3EC', borderTop: '1px solid #E0DDD4' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
         {/* Badge + Title + Subtitle */}
         <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 48px' }}>
@@ -350,7 +350,7 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-amazon"
-                  style={{ padding: '14px 24px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
+                  style={{ padding: '16px 32px', textTransform: 'uppercase', whiteSpace: 'nowrap', textDecoration: 'none' }}
                 >
                   Explore on Amazon
                   <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
@@ -655,11 +655,11 @@ function SpecsSectionLight() {
   const wrap = { maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }
 
   return (
-    <section style={{ background: '#F4F3EC', padding: '96px 0', borderTop: '1px solid #E0DDD4' }}>
+    <section className="echo-section-specs" style={{ background: '#F4F3EC', borderTop: '1px solid #E0DDD4' }}>
       <div style={wrap}>
         {/* Heading */}
         <div style={{ marginBottom: 52 }}>
-          <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 14px' }}>
+          <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 20px 0' }}>
             Technical Details
           </p>
           <h2 style={{
@@ -669,7 +669,7 @@ function SpecsSectionLight() {
             lineHeight: 1.1,
             color: '#101213',
             maxWidth: 700,
-            margin: '0 0 20px',
+            margin: '0 0 16px',
           }}>
             Product Specifications
           </h2>
@@ -691,11 +691,11 @@ function SpecsSectionLight() {
           </div>
 
           {/* Accordion */}
-          <div style={{ overflowAnchor: 'none' }}>
+          <div>
             {SPECS_ITEMS.map((item, i) => (
-              <div key={item.label} style={{ borderTop: '1px solid #D0CEC6', overflowAnchor: 'none' }}>
+              <div key={item.label} style={{ borderTop: '1px solid #D0CEC6' }}>
                 <button
-                  onClick={(e) => { e.currentTarget.blur(); setOpen(i === open ? -1 : i) }}
+                  onClick={() => setOpen(i === open ? -1 : i)}
                   style={{
                     width: '100%', background: 'none', border: 'none', cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -715,11 +715,7 @@ function SpecsSectionLight() {
                   </svg>
                 </button>
 
-                <div style={{
-                  maxHeight: open === i ? 600 : 0,
-                  overflow: 'hidden',
-                  transition: 'max-height 0.3s ease',
-                }}>
+                <div className="echo-specs-answer" style={{ maxHeight: open === i ? 600 : 0 }}>
                   <div style={{ paddingBottom: 20 }}>
                     {'table' in item && item.table ? (
                       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -980,21 +976,25 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   // ─── Section 8 Ownership cards ──────────────────────────────────────────────
   const ownershipCards = [
     {
+      icon: <ShieldCheck size={32} strokeWidth={1.5} color="#FB671F" />,
       title: 'Warranty',
       body: '1-year all-inclusive. If something isn\'t right, we fix it.',
       highlight: 'JVL covers shipping both ways.',
     },
     {
+      icon: <RotateCcw size={32} strokeWidth={1.5} color="#FB671F" />,
       title: 'Returns',
       body: 'Not what you hoped? Return within 30 days for a full refund.',
       highlight: null,
     },
     {
+      icon: <Phone size={32} strokeWidth={1.5} color="#FB671F" />,
       title: 'Support',
       body: 'Live chat, email, and phone — answered by our team.',
       highlight: null,
     },
     {
+      icon: <Truck size={32} strokeWidth={1.5} color="#FB671F" />,
       title: 'Shipping',
       body: 'Ships directly from our factory. Individually tested, securely packed.',
       highlight: null,
@@ -1021,12 +1021,43 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-uc1-headline { font-size: 28px; font-weight: 700; color: #F4F3EC; margin: 0 0 12px 0; line-height: 1.15; }
         .echo-uc1-desc { font-size: 20px; font-weight: 400; line-height: 1.5; color: rgba(244,243,236,0.85); margin: 0; max-width: 800px; }
         @media (max-width: 768px) {
-          .echo-uc1-tabs { display: flex; flex-wrap: wrap; width: 100%; padding: 10px 5vw; gap: 4px; justify-content: center; background: none; backdrop-filter: none; }
-          .echo-uc1-tabs button { padding: 6px 14px !important; font-size: 13px !important; border-left: none !important; border: 1px solid rgba(244,243,236,0.2) !important; border-radius: 20px !important; }
+          .echo-uc1-nav { padding: 0 16px !important; }
+          .echo-uc1-tabs {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr;
+            width: 100%;
+            padding: 0 !important;
+            backdrop-filter: blur(6px);
+            background: rgba(16,18,19,0.6) !important;
+            border-radius: 4px !important;
+            overflow: hidden;
+          }
+          .echo-uc1-tabs button {
+            padding: 8px 6px !important;
+            font-size: 13px !important;
+            border-left: none !important;
+            border: none !important;
+            border-radius: 0 !important;
+            border-bottom: 1px solid rgba(244,243,236,0.18) !important;
+            justify-content: center;
+            white-space: nowrap;
+          }
+          .echo-uc1-tabs button:nth-child(odd) {
+            border-right: 1px solid rgba(244,243,236,0.18) !important;
+          }
+          .echo-uc1-tabs button:nth-child(5) {
+            grid-column: 1 / -1;
+            justify-self: center;
+            min-width: 50%;
+            border-bottom: none !important;
+            border-right: none !important;
+          }
           .echo-uc1-bg { background-image: var(--bg-mob); }
           .echo-uc1-headline { font-size: 1.15rem !important; }
           .echo-uc1-desc { font-size: 16px !important; max-width: 100% !important; }
         }
+        .echo-section-specs { padding: 96px 0; }
+        .echo-section-product { padding: 80px 0; }
         .echo-section-built { background: #080a0b; padding: 96px 0 96px; border-top: 1px solid #1e2022; }
         .echo-section-cta { background: #101213; padding: 80px 0; border-top: 1px solid #1e2022; }
         .echo-section-reviews { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
@@ -1230,6 +1261,12 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           transition: max-height 0.3s ease;
         }
 
+        /* Specs accordion */
+        .echo-specs-answer {
+          overflow: hidden;
+          transition: max-height 0.35s ease;
+        }
+
         /* Timeline */
         .echo-legacy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; min-height: 320px; }
         .echo-legacy-text { text-align: right; padding-right: 32px; }
@@ -1324,7 +1361,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         /* ── Mobile-first overrides (must be last to win cascade) ── */
         @media (max-width: 767px) {
           /* Hero */
-          .echo-hero { height: 100svh; }
+          .echo-hero { height: calc(100svh - 72px); min-height: 520px; }
           .echo-hero-video-desk { display: none; }
           .echo-hero-video-mob { display: block; }
 
@@ -1339,6 +1376,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-section-bottom-cta { padding: 60px 0; }
           .echo-section-built   { padding: 60px 0; }
           .echo-section-trust   { padding: 60px 0; }
+          .echo-section-specs   { padding: 60px 0; }
+          .echo-section-product { padding: 60px 0; }
           .echo-gather-header   { padding: 60px 5vw 40px; }
 
           /* What ECHO Is — facts 2×2 (override the 1-column 480px rule) */
@@ -1358,10 +1397,11 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           /* Why ECHO — dots well above the headline text */
           .echo-uc1-dots { bottom: 155px; }
 
-          /* Bring ECHO Home — price + button right-aligned, auto-width */
-          .echo-price-cta-row { flex-direction: column; align-items: flex-end !important; gap: 12px; }
-          .echo-pay-over-time { text-align: right !important; }
-          .echo-product-home-grid .btn-amazon { width: auto !important; justify-content: center; }
+          /* Bring ECHO Home — price right, button + subtext centered */
+          .echo-price-cta-row { flex-direction: column; align-items: stretch !important; gap: 12px; }
+          .echo-price-tag { text-align: right; }
+          .echo-product-home-grid .btn-amazon { width: 100% !important; justify-content: center; box-sizing: border-box; }
+          .echo-pay-over-time { text-align: center !important; }
 
           /* Game Library — hide 4-cell stats, categories 2×3 */
           .echo-games-stats { display: none !important; }
@@ -1390,7 +1430,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               lineHeight: 1.2,
               letterSpacing: '-0.01em',
               color: '#F4F3EC',
-              margin: '0 0 20px 0',
+              margin: '0 0 16px 0',
             }}>
               A premium bartop arcade for your home
             </h2>
@@ -1470,7 +1510,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             }}
           />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%)' }} />
-          <div style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
+          <div className="echo-uc1-nav" style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
             <div className="echo-uc1-tabs">
               {USE_CASES.map((uc, i) => (
                 <button
@@ -1507,7 +1547,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               />
             ))}
           </div>
-          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '50px 5vw 70px', opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease' }}>
+          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '50px 5vw 52px', opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease' }}>
             <p className="echo-uc1-headline">{ucItem.headline}</p>
             <p className="echo-uc1-desc">{ucItem.text}</p>
           </div>
@@ -1801,19 +1841,22 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           <div className="echo-ownership-grid">
             {ownershipCards.map((c) => (
               <div key={c.title} style={{
-                borderTop: '3px solid #FB671F',
-                padding: '28px 24px',
-                background: '#0d0f10',
-                borderRadius: '0 0 4px 4px',
+                background: '#141618',
+                border: '1px solid rgba(255,255,255,0.07)',
+                borderRadius: 10,
+                padding: '28px 28px 32px',
+                display: 'flex',
+                flexDirection: 'column',
               }}>
-                <h3 style={{ fontSize: 17, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px 0' }}>
+                <div style={{ marginBottom: 16 }}>{c.icon}</div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 10px 0' }}>
                   {c.title}
                 </h3>
-                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.6)', lineHeight: 1.65, margin: 0 }}>
+                <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: 0 }}>
                   {c.body}
                 </p>
                 {c.highlight && (
-                  <p style={{ fontSize: 13, color: '#FB671F', margin: '12px 0 0 0', fontWeight: 600 }}>
+                  <p style={{ fontSize: 13, color: '#FB671F', margin: '14px 0 0 0', fontWeight: 600 }}>
                     {c.highlight}
                   </p>
                 )}
