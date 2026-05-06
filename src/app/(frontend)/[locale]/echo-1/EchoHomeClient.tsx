@@ -307,7 +307,7 @@ function GalleryViewer() {
 
 function ProductSectionHome({ data }: { data: PageData['product'] }) {
   return (
-    <section style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
+    <section className="echo-section-product" style={{ background: '#F4F3EC', borderTop: '1px solid #E0DDD4' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
         {/* Badge + Title + Subtitle */}
         <div style={{ textAlign: 'center', maxWidth: 760, margin: '0 auto 48px' }}>
@@ -655,7 +655,7 @@ function SpecsSectionLight() {
   const wrap = { maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }
 
   return (
-    <section style={{ background: '#F4F3EC', padding: '96px 0', borderTop: '1px solid #E0DDD4' }}>
+    <section className="echo-section-specs" style={{ background: '#F4F3EC', borderTop: '1px solid #E0DDD4' }}>
       <div style={wrap}>
         {/* Heading */}
         <div style={{ marginBottom: 52 }}>
@@ -1056,6 +1056,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-uc1-headline { font-size: 1.15rem !important; }
           .echo-uc1-desc { font-size: 16px !important; max-width: 100% !important; }
         }
+        .echo-section-specs { padding: 96px 0; }
+        .echo-section-product { padding: 80px 0; }
         .echo-section-built { background: #080a0b; padding: 96px 0 96px; border-top: 1px solid #1e2022; }
         .echo-section-cta { background: #101213; padding: 80px 0; border-top: 1px solid #1e2022; }
         .echo-section-reviews { background: #080a0b; padding: 96px 0; border-top: 1px solid #1e2022; }
@@ -1374,6 +1376,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           .echo-section-bottom-cta { padding: 60px 0; }
           .echo-section-built   { padding: 60px 0; }
           .echo-section-trust   { padding: 60px 0; }
+          .echo-section-specs   { padding: 60px 0; }
+          .echo-section-product { padding: 60px 0; }
           .echo-gather-header   { padding: 60px 5vw 40px; }
 
           /* What ECHO Is — facts 2×2 (override the 1-column 480px rule) */
