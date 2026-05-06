@@ -183,6 +183,24 @@ export function buildProduct({
   }
 }
 
+export function buildFAQ(
+  pageUrl: string,
+  items: { q: string; a: string }[],
+) {
+  return {
+    '@type': 'FAQPage',
+    '@id': `${pageUrl}#faq`,
+    mainEntity: items.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: a,
+      },
+    })),
+  }
+}
+
 export function buildGraph(nodes: object[]) {
   return {
     '@context': 'https://schema.org',
