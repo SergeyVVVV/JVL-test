@@ -211,7 +211,7 @@ function GalleryViewer() {
 
   return (
     <>
-      <div style={{ display: 'flex', gap: 12, width: '100%' }}>
+      <div style={{ display: 'flex', gap: 12, width: '100%', alignItems: 'flex-start' }}>
         {/* Thumbnails column */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, flexShrink: 0, width: 64 }}>
           {GALLERY_THUMBS.map((t, i) => (
@@ -315,11 +315,11 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
             </div>
 
             {/* Price + CTA */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: 24, gap: 16, flexWrap: 'wrap' }}>
-              <div style={{ fontSize: 36, fontWeight: 600, color: '#101213', flexShrink: 0 }}>
-                {HOME_PRODUCT.price}
-              </div>
-              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: 8 }}>
+            <div style={{ marginTop: 24 }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap' }}>
+                <div style={{ fontSize: 36, fontWeight: 600, color: '#101213', flexShrink: 0 }}>
+                  {HOME_PRODUCT.price}
+                </div>
                 <a
                   href={data.buttonUrl}
                   target="_blank"
@@ -330,10 +330,10 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
                   Explore on Amazon
                   <svg width="11" height="11" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
                 </a>
-                <p style={{ fontSize: 13, color: '#9B9890', margin: 0, lineHeight: 1.5 }}>
-                  {HOME_PRODUCT.payOverTime}
-                </p>
               </div>
+              <p style={{ fontSize: 13, color: '#9B9890', margin: '8px 0 0', lineHeight: 1.5, textAlign: 'right' }}>
+                {HOME_PRODUCT.payOverTime}
+              </p>
             </div>
           </div>
         </div>
@@ -406,10 +406,10 @@ function GamesSectionDark() {
       {/* Stats row */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, border: '1px solid #1e2022', borderRadius: 4, overflow: 'hidden', marginBottom: 56 }}>
         {[
-          { value: '149',          label: 'BUILT-IN GAMES' },
-          { value: '1 & 2-Player', label: 'TOURNAMENTS AND LEADERBOARDS' },
-          { value: 'Just Play',    label: 'NO DOWNLOADS & SUBSCRIPTIONS' },
-          { value: 'Ages 4–100',   label: 'FOR EVERY GENERATION' },
+          { value: '149',         label: 'BUILT-IN GAMES' },
+          { value: '1–2 Players', label: 'TOURNAMENTS AND LEADERBOARDS' },
+          { value: 'Instant Play', label: 'NO DOWNLOADS & SUBSCRIPTIONS' },
+          { value: 'All Ages',    label: 'FUN FOR EVERY GENERATION' },
         ].map((s, i) => (
           <div key={s.label} style={{
             padding: '24px 20px',
@@ -466,15 +466,15 @@ function GamesSectionDark() {
 
         {/* Right: video + description */}
         <div>
-          <div style={{ position: 'relative', borderRadius: 6, overflow: 'hidden', marginBottom: 20, background: '#000' }}>
+          <div style={{ position: 'relative', borderRadius: 6, overflow: 'hidden', marginBottom: 20, background: '#000', aspectRatio: '16 / 9' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={cat.img} alt={cat.label} style={{ width: '100%', display: 'block', opacity: playing ? 0 : 1, transition: 'opacity 0.2s' }} />
+            <img src={cat.img} alt={cat.label} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: playing ? 0 : 1, transition: 'opacity 0.2s' }} />
             {cat.video && (
               <video
                 ref={videoRef}
                 src={cat.video}
                 controls
-                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', opacity: playing ? 1 : 0, transition: 'opacity 0.2s' }}
+                style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'contain', opacity: playing ? 1 : 0, transition: 'opacity 0.2s' }}
               />
             )}
             {cat.video && !playing && (
@@ -988,7 +988,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-gather-header { background: #080a0b; padding: 80px 0 48px; text-align: center; }
         .echo-uc1-tabs { display: inline-flex; align-items: center; background: rgba(16,18,19,0.6); backdrop-filter: blur(5px); padding: 15px 20px; border-radius: 4px; }
         .echo-uc1-bg { background-image: var(--bg-desk); background-size: cover; background-position: center; }
-        .echo-uc1-headline { font-size: 25px; font-weight: 700; color: #F4F3EC; margin: 0 0 12px 0; line-height: 1.15; }
+        .echo-uc1-headline { font-size: 28px; font-weight: 700; color: #F4F3EC; margin: 0 0 12px 0; line-height: 1.15; }
         .echo-uc1-desc { font-size: 20px; font-weight: 400; line-height: 1.5; color: rgba(244,243,236,0.85); margin: 0; max-width: 800px; }
         @media (max-width: 768px) {
           .echo-uc1-tabs { display: flex; width: 100%; padding: 10px 0; overflow-x: auto; scrollbar-width: none; justify-content: center; }
