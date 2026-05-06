@@ -691,11 +691,11 @@ function SpecsSectionLight() {
           </div>
 
           {/* Accordion */}
-          <div style={{ overflowAnchor: 'none' }}>
+          <div>
             {SPECS_ITEMS.map((item, i) => (
-              <div key={item.label} style={{ borderTop: '1px solid #D0CEC6', overflowAnchor: 'none' }}>
+              <div key={item.label} style={{ borderTop: '1px solid #D0CEC6' }}>
                 <button
-                  onClick={(e) => { e.currentTarget.blur(); setOpen(i === open ? -1 : i) }}
+                  onClick={() => setOpen(i === open ? -1 : i)}
                   style={{
                     width: '100%', background: 'none', border: 'none', cursor: 'pointer',
                     display: 'flex', alignItems: 'center', justifyContent: 'space-between',
@@ -715,11 +715,7 @@ function SpecsSectionLight() {
                   </svg>
                 </button>
 
-                <div style={{
-                  maxHeight: open === i ? 600 : 0,
-                  overflow: 'hidden',
-                  transition: 'max-height 0.3s ease',
-                }}>
+                <div className="echo-specs-answer" style={{ maxHeight: open === i ? 600 : 0 }}>
                   <div style={{ paddingBottom: 20 }}>
                     {'table' in item && item.table ? (
                       <table style={{ width: '100%', borderCollapse: 'collapse' }}>
@@ -1025,6 +1021,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-uc1-headline { font-size: 28px; font-weight: 700; color: #F4F3EC; margin: 0 0 12px 0; line-height: 1.15; }
         .echo-uc1-desc { font-size: 20px; font-weight: 400; line-height: 1.5; color: rgba(244,243,236,0.85); margin: 0; max-width: 800px; }
         @media (max-width: 768px) {
+          .echo-uc1-nav { padding: 0 16px !important; }
           .echo-uc1-tabs {
             display: grid !important;
             grid-template-columns: 1fr 1fr;
@@ -1032,7 +1029,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             padding: 0 !important;
             backdrop-filter: blur(6px);
             background: rgba(16,18,19,0.6) !important;
-            border-radius: 0 !important;
+            border-radius: 4px !important;
+            overflow: hidden;
           }
           .echo-uc1-tabs button {
             padding: 10px 8px !important;
@@ -1257,6 +1255,12 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-faq-answer {
           overflow: hidden;
           transition: max-height 0.3s ease;
+        }
+
+        /* Specs accordion */
+        .echo-specs-answer {
+          overflow: hidden;
+          transition: max-height 0.35s ease;
         }
 
         /* Timeline */
@@ -1500,7 +1504,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             }}
           />
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%)' }} />
-          <div style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
+          <div className="echo-uc1-nav" style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
             <div className="echo-uc1-tabs">
               {USE_CASES.map((uc, i) => (
                 <button
