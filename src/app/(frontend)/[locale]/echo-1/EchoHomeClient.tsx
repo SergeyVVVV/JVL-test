@@ -659,7 +659,7 @@ function SpecsSectionLight() {
       <div style={wrap}>
         {/* Heading */}
         <div style={{ marginBottom: 52 }}>
-          <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 14px' }}>
+          <p style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#FB671F', margin: '0 0 20px 0' }}>
             Technical Details
           </p>
           <h2 style={{
@@ -669,7 +669,7 @@ function SpecsSectionLight() {
             lineHeight: 1.1,
             color: '#101213',
             maxWidth: 700,
-            margin: '0 0 20px',
+            margin: '0 0 16px',
           }}>
             Product Specifications
           </h2>
@@ -1430,7 +1430,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               lineHeight: 1.2,
               letterSpacing: '-0.01em',
               color: '#F4F3EC',
-              margin: '0 0 20px 0',
+              margin: '0 0 16px 0',
             }}>
               A premium bartop arcade for your home
             </h2>
