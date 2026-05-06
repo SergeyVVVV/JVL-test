@@ -1361,7 +1361,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         /* ── Mobile-first overrides (must be last to win cascade) ── */
         @media (max-width: 767px) {
           /* Hero */
-          .echo-hero { height: 100svh; }
+          .echo-hero { height: calc(100svh - 72px); min-height: 520px; }
           .echo-hero-video-desk { display: none; }
           .echo-hero-video-mob { display: block; }
 
