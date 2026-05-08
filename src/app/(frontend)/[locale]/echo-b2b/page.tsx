@@ -141,7 +141,7 @@ export default async function EchoB2bPage() {
       />
 
       {/* ── 2. B2B Promise ── */}
-      <section style={{ background: '#101213', borderTop: '1px solid #1e2022', padding: '96px 0' }}>
+      <section data-ga-block-view="b2b_scroll_promise" style={{ background: '#101213', borderTop: '1px solid #1e2022', padding: '96px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
           <div className="eb2b-promise-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '64px 80px', alignItems: 'start' }}>
             {/* Left: badge + heading, then description + CTA in same row */}
@@ -217,7 +217,7 @@ export default async function EchoB2bPage() {
       />
 
       {/* ── 5. Bottom CTA ── */}
-      <section style={{ background: '#080a0b', borderTop: '1px solid #1e2022', padding: '96px 0' }}>
+      <section data-ga-block-view="b2b_scroll_cta" style={{ background: '#080a0b', borderTop: '1px solid #1e2022', padding: '96px 0' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
           <div className="eb2b-bottom-grid">
             {/* Left: title + description */}

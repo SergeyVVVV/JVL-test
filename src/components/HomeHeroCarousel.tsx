@@ -71,6 +71,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
   return (
     <section
       className="hp-hero"
+      data-ga-block-view="home_scroll_hero"
       style={{ position: 'relative', background: '#080a0b', overflow: 'hidden' }}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}

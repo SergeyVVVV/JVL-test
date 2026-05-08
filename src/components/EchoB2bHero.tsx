@@ -34,7 +34,7 @@ export default function EchoB2bHero({
         .eb2b-hero .echo-hero-h1 { font-size: clamp(1.15rem, 5vw, 1.5rem) !important; line-height: 1.15 !important; }
       }
     `}</style>
-    <section className="echo-hero eb2b-hero" style={{
+    <section className="echo-hero eb2b-hero" data-ga-block-view="b2b_scroll_hero" style={{
       position: 'relative', width: '100%', background: '#080a0b',
       overflow: 'hidden',
     }}>
