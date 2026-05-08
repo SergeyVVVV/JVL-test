@@ -190,7 +190,7 @@ export default async function HomePage() {
       <HomeHeroCarousel slides={slides} />
 
       {/* ── 2a. Our Products ─────────────────────────────────────────────────── */}
-      <section style={{ background: '#101213', padding: '96px 0' }}>
+      <section data-ga-block-view="home_scroll_products" style={{ background: '#101213', padding: '96px 0' }}>
         <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
@@ -250,7 +250,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── 2b. About Us ─────────────────────────────────────────────────────── */}
-      <section style={{ background: '#080a0b', padding: '96px 0', borderTop: '1px solid #1e2022' }}>
+      <section data-ga-block-view="home_scroll_about" style={{ background: '#080a0b', padding: '96px 0', borderTop: '1px solid #1e2022' }}>
         <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <div className="hp-about-grid">
@@ -310,7 +310,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── 3. Discover Our Games ────────────────────────────────────────────── */}
-      <section style={{ background: '#101213', padding: '96px 0', borderTop: '1px solid #222' }}>
+      <section data-ga-block-view="home_scroll_games" style={{ background: '#101213', padding: '96px 0', borderTop: '1px solid #222' }}>
         <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 
@@ -409,7 +409,7 @@ export default async function HomePage() {
       </section>
 
       {/* ── 4. News ──────────────────────────────────────────────────────────── */}
-      <section style={{ background: '#080a0b', padding: '96px 0', borderTop: '1px solid #1e2022' }}>
+      <section data-ga-block-view="home_scroll_news" style={{ background: '#080a0b', padding: '96px 0', borderTop: '1px solid #1e2022' }}>
         <div style={{ maxWidth: 1440, margin: '0 auto', padding: '0 6vw' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
 

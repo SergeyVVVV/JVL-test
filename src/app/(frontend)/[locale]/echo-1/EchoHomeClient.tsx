@@ -1017,7 +1017,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-section-gather { border-top: 1px solid #1e2022; }
         .echo-gather-header { background: #080a0b; padding: 80px 0 48px; text-align: center; }
         .echo-uc1-tabs { display: inline-flex; align-items: center; background: rgba(16,18,19,0.6); backdrop-filter: blur(5px); padding: 15px 20px; border-radius: 4px; }
-        .echo-uc1-bg { background-image: var(--bg-desk); background-size: cover; background-position: center; }
+        .echo-uc1-bg { background-size: cover; background-position: center; }
         .echo-uc1-headline { font-size: 28px; font-weight: 700; color: #F4F3EC; margin: 0 0 12px 0; line-height: 1.15; }
         .echo-uc1-desc { font-size: 20px; font-weight: 400; line-height: 1.5; color: rgba(244,243,236,0.85); margin: 0; max-width: 800px; }
         @media (max-width: 768px) {
@@ -1052,7 +1052,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             border-bottom: none !important;
             border-right: none !important;
           }
-          .echo-uc1-bg { background-image: var(--bg-mob); }
+
           .echo-uc1-headline { font-size: 1.15rem !important; }
           .echo-uc1-desc { font-size: 16px !important; max-width: 100% !important; }
         }
@@ -1504,11 +1504,15 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             className="echo-uc1-bg"
             style={{
               position: 'absolute', inset: 0,
-              ['--bg-desk' as string]: `url(${ucItem.img})`,
-              ['--bg-mob' as string]: `url(${ucItem.imgMob})`,
               opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease',
             }}
-          />
+          >
+            <picture style={{ position: 'absolute', inset: 0, display: 'block', width: '100%', height: '100%' }}>
+              <source media="(max-width: 768px)" srcSet={ucItem.imgMob} />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={ucItem.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+            </picture>
+          </div>
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%)' }} />
           <div className="echo-uc1-nav" style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
             <div className="echo-uc1-tabs">

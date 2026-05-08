@@ -29,7 +29,7 @@ export function VenuesSection({ items }: { items: VenueItem[] }) {
   if (!item) return null
 
   return (
-    <section className="eb2b-uc-section" style={{ position: 'relative', width: '100%', height: 'clamp(500px, 75vh, 70vw)', overflow: 'hidden' }}>
+    <section className="eb2b-uc-section" data-ga-block-view="b2b_scroll_venues" style={{ position: 'relative', width: '100%', height: 'clamp(500px, 75vh, 70vw)', overflow: 'hidden' }}>
       {/* Background image */}
       <div style={{
         position: 'absolute', inset: 0,
@@ -134,7 +134,7 @@ export function FeaturesSection({
   const [open, setOpen] = useState(0)
 
   return (
-    <section style={{ background: '#F4F3EC', padding: '80px 0' }}>
+    <section data-ga-block-view="b2b_scroll_features" style={{ background: '#F4F3EC', padding: '80px 0' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
 
         {/* Heading + desc + CTA */}
