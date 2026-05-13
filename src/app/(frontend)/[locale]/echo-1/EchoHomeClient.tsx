@@ -1053,6 +1053,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             border-right: none !important;
           }
 
+          .echo-uc1-stage { height: 62vw !important; min-height: 240px !important; }
           .echo-uc1-headline { font-size: 1.15rem !important; }
           .echo-uc1-desc { font-size: 16px !important; max-width: 100% !important; }
         }
@@ -1499,7 +1500,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             More than a game machine – it becomes a part of the room, and part of the memories people make together.
           </p>
         </div>
-        <div style={{ position: 'relative', width: '100%', height: 'clamp(520px, 80vh, 900px)', overflow: 'hidden' }}>
+        <div className="echo-uc1-stage" style={{ position: 'relative', width: '100%', height: 'clamp(520px, 80vh, 900px)', overflow: 'hidden' }}>
           <div
             className="echo-uc1-bg"
             style={{
