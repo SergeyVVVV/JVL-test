@@ -2,7 +2,7 @@ import { getLandingBlock, getMediaUrl, getPageMeta } from '@/lib/db'
 import { buildMeta, BASE_URL } from '@/lib/seo'
 import JsonLd from '@/components/JsonLd'
 import { buildBreadcrumb, buildProduct, buildFAQ, buildGraph } from '@/lib/jsonld'
-import EchoHomeClient from './EchoHomeClient'
+import EchoPageClient from './EchoPageClient'
 
 export const revalidate = 300
 
@@ -91,7 +91,7 @@ export default async function EchoPage1Page() {
   return (
     <>
       <JsonLd data={jsonLd} />
-      <EchoHomeClient data={data} />
+      <EchoPageClient data={data} />
     </>
   )
 }
