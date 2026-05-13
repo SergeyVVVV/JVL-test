@@ -40,8 +40,8 @@ const PRODUCTS = [
 
 export default function Header() {
   const pathname = usePathname()
-  // Show product switcher only on /echo, not on /echo-1 or /echo-b2b
-  const showProductBar = /\/echo(\/|$)/.test(pathname)
+  // Product switcher disabled — old /echo page was replaced by new EchoHomeClient
+  const showProductBar = false
 
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
