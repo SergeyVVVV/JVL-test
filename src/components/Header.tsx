@@ -40,8 +40,8 @@ const PRODUCTS = [
 
 export default function Header() {
   const pathname = usePathname()
-  // Product switcher disabled — old /echo page was replaced by new EchoHomeClient
-  const showProductBar = false
+  // Show product switcher on /echo-1 (old page) but not on /echo (new EchoHomeClient)
+  const showProductBar = /\/echo-1(\/|$)/.test(pathname)
 
   const [mobileOpen, setMobileOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
