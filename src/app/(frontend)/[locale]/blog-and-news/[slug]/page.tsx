@@ -5,8 +5,9 @@ import { buildMeta, BASE_URL } from '@/lib/seo'
 import ArticleTOC from './ArticleTOC'
 import NewsCard from '@/components/NewsCard'
 import JsonLd from '@/components/JsonLd'
-import { buildBreadcrumb, buildBlogPosting, buildGraph } from '@/lib/jsonld'
+import { buildBreadcrumb, buildBlogPosting, buildFAQ, buildGraph } from '@/lib/jsonld'
 import { articleHighlights } from '@/data/articleHighlights'
+import { articleFaqs } from '@/data/articleFaqs'
 
 export const revalidate = 3600 // re-render at most once per hour
 
@@ -159,6 +160,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
   // Lead text: description from DB or first paragraph of content
   const leadText = article.description || extractExcerpt(article.content1)
 
+  const faqs = articleFaqs[slug]
   const pageUrl = `${BASE_URL}/en/blog-and-news/${slug}`
   const jsonLd = buildGraph([
     buildBreadcrumb(pageUrl, [
@@ -173,6 +175,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
       publishedAt: article.publishedAt,
       image: article.heroImage ? `${BASE_URL}${article.heroImage}` : null,
     }),
+    ...(faqs && faqs.length > 0 ? [buildFAQ(pageUrl, faqs)] : []),
   ])
 
   return (
@@ -368,6 +371,43 @@ export default async function BlogArticlePage({ params }: PageProps) {
           color: #FB671F;
         }
 
+        /* FAQ block */
+        .blog-faq {
+          margin-top: 56px;
+          padding-top: 40px;
+          border-top: 1px solid #D0CEC6;
+        }
+        .blog-faq-heading {
+          font-size: 24px;
+          font-weight: 700;
+          color: #101213;
+          margin: 0 0 24px;
+          line-height: 1.2;
+          scroll-margin-top: 80px;
+        }
+        @media (min-width: 768px) { .blog-faq-heading { font-size: 28px; } }
+        .blog-faq-item {
+          border-bottom: 1px solid #E0DDD4;
+          padding: 20px 0;
+        }
+        .blog-faq-item:last-child { border-bottom: none; }
+        .blog-faq-q {
+          font-size: 17px;
+          font-weight: 600;
+          color: #101213;
+          margin: 0 0 10px;
+          line-height: 1.35;
+        }
+        @media (min-width: 768px) { .blog-faq-q { font-size: 18px; } }
+        .blog-faq-a {
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 1.7;
+          color: #2A2A2A;
+          margin: 0;
+        }
+        @media (min-width: 768px) { .blog-faq-a { font-size: 17px; } }
+
         /* Related grid */
         .related-grid {
           display: grid;
@@ -523,6 +563,19 @@ export default async function BlogArticlePage({ params }: PageProps) {
               {content1 && <div dangerouslySetInnerHTML={{ __html: content1 }} />}
               {content2 && <div dangerouslySetInnerHTML={{ __html: content2 }} />}
             </div>
+
+            {/* FAQ block */}
+            {faqs && faqs.length > 0 && (
+              <section className="blog-faq" aria-labelledby="faq-heading">
+                <h2 id="faq-heading" className="blog-faq-heading">Frequently Asked Questions</h2>
+                {faqs.map((item, i) => (
+                  <div key={i} className="blog-faq-item">
+                    <h3 className="blog-faq-q">{item.q}</h3>
+                    <p className="blog-faq-a">{item.a}</p>
+                  </div>
+                ))}
+              </section>
+            )}
           </div>
 
           {/* RIGHT: sticky TOC (xl+ only) */}
