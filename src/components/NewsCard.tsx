@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { articleUpdatedDates } from '@/data/articleUpdatedDates'
 
 export interface NewsCardItem {
   id: number
@@ -14,13 +13,6 @@ export interface NewsCardItem {
   description?: string | null
 }
 
-function formatDate(iso: string | null): string {
-  if (!iso) return ''
-  const d = new Date(iso)
-  if (Number.isNaN(d.getTime())) return ''
-  return d.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })
-}
-
 export default function NewsCard({ item, locale, dark = false }: { item: NewsCardItem; locale: string; dark?: boolean }) {
   const bg = dark ? '#181a1b' : '#FFFFFF'
   const border = dark ? '1px solid #2a2a2a' : '1px solid #D0CEC6'
@@ -29,7 +21,6 @@ export default function NewsCard({ item, locale, dark = false }: { item: NewsCar
   const badgeColor = dark ? 'rgba(244,243,236,0.5)' : '#787878'
   const titleColor = dark ? '#F4F3EC' : '#101213'
   const textColor = dark ? 'rgba(244,243,236,0.55)' : '#787878'
-  const dateColor = dark ? 'rgba(244,243,236,0.35)' : '#787878'
   const linkColor = dark ? '#F4F3EC' : '#101213'
 
   return (
@@ -94,11 +85,6 @@ export default function NewsCard({ item, locale, dark = false }: { item: NewsCar
               overflow: 'hidden',
             }}>
               {item.description}
-            </p>
-          )}
-          {item.publishedAt && (
-            <p style={{ fontSize: 14, color: dateColor, margin: '8px 0 0' }}>
-              {formatDate(articleUpdatedDates[item.slug] ?? item.publishedAt)}
             </p>
           )}
         </div>
