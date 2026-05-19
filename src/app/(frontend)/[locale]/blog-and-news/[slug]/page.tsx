@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { getNewsArticleBySlug, getRelatedNews } from '@/lib/db'
-import { buildMeta, BASE_URL } from '@/lib/seo'
+import { buildMeta, BASE_URL, toFullIsoDate } from '@/lib/seo'
 import ArticleTOC from './ArticleTOC'
 import NewsCard from '@/components/NewsCard'
 import JsonLd from '@/components/JsonLd'
@@ -132,14 +132,15 @@ export async function generateMetadata({ params }: PageProps) {
   const title = article.metaTitle ?? `${article.title ?? 'JVL Blog'} — JVL`
   const description = article.metaDescription ?? article.description ?? extractExcerpt(article.content1) ?? ''
   const ogImage = article.heroImage ? `${BASE_URL}${article.heroImage}` : null
-  const modifiedTime = articleUpdatedDates[slug] ?? article.publishedAt
+  const publishedTime = toFullIsoDate(article.publishedAt)
+  const modifiedTime = toFullIsoDate(articleUpdatedDates[slug] ?? article.publishedAt)
   return buildMeta({
     title,
     description,
     path: `/en/blog-and-news/${slug}`,
     ogImage,
     type: 'article',
-    publishedTime: article.publishedAt,
+    publishedTime,
     modifiedTime,
   })
 }
@@ -164,7 +165,8 @@ export default async function BlogArticlePage({ params }: PageProps) {
   const leadText = article.description || extractExcerpt(article.content1)
 
   const faqs = articleFaqs[slug]
-  const lastUpdatedAt = articleUpdatedDates[slug] ?? article.publishedAt
+  const publishedAtIso = toFullIsoDate(article.publishedAt)
+  const lastUpdatedAtIso = toFullIsoDate(articleUpdatedDates[slug] ?? article.publishedAt)
   const pageUrl = `${BASE_URL}/en/blog-and-news/${slug}`
   const jsonLd = buildGraph([
     buildBreadcrumb(pageUrl, [
@@ -176,8 +178,8 @@ export default async function BlogArticlePage({ params }: PageProps) {
       url: pageUrl,
       title: article.title ?? '',
       description: article.metaDescription ?? article.description,
-      publishedAt: article.publishedAt,
-      modifiedAt: lastUpdatedAt,
+      publishedAt: publishedAtIso,
+      modifiedAt: lastUpdatedAtIso,
       image: article.heroImage ? `${BASE_URL}${article.heroImage}` : null,
     }),
     ...(faqs && faqs.length > 0 ? [buildFAQ(pageUrl, faqs)] : []),
