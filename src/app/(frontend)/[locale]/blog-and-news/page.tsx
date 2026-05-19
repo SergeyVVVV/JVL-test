@@ -5,7 +5,6 @@ import BlogSearchInput from '@/components/BlogSearchInput'
 import EchoBanner from '@/components/EchoBanner'
 import JsonLd from '@/components/JsonLd'
 import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
-import { articleUpdatedDates } from '@/data/articleUpdatedDates'
 
 export const revalidate = 300
 
@@ -15,13 +14,6 @@ interface PageProps {
 }
 
 /* ── Helpers ──────────────────────────────────────────────── */
-
-function formatDate(iso: string | null): string {
-  if (!iso) return ''
-  const d = new Date(iso)
-  if (Number.isNaN(d.getTime())) return ''
-  return d.toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' })
-}
 
 function extractExcerpt(html: string | null, maxLen = 160): string | null {
   if (!html) return null
@@ -244,7 +236,6 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
                   {featured.description || featured.metaDescription || extractExcerpt(featured.content1, 240)}
                 </p>
               )}
-              <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: '0 0 24px' }}>{formatDate(articleUpdatedDates[featured.slug] ?? featured.publishedAt)}</p>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 14, fontWeight: 600, color: '#F4F3EC', background: '#FB671F', padding: '10px 22px', borderRadius: 6 }}>
                 Read Article →
               </span>
@@ -296,9 +287,6 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
                         {item.description || item.metaDescription || extractExcerpt(item.content1)}
                       </p>
                     )}
-                    <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: 'auto 0 0' }}>
-                      {formatDate(articleUpdatedDates[item.slug] ?? item.publishedAt)}
-                    </p>
                   </div>
                 </article>
               </Link>
