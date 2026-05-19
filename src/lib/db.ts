@@ -96,13 +96,21 @@ export interface RelatedNewsItem {
 export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise<NewsArticle | null> {
   try {
     const db = getPool()
+    // NOTE: metas is fetched as correlated subqueries (not LEFT JOIN) for the
+    // same defensive reason as getNewsList — duplicate metas rows for a page
+    // would otherwise let MySQL pick an arbitrary one. LIMIT 1 keeps the choice
+    // deterministic (the lowest id-ordered row).
     const [rows] = await db.execute(
       `SELECT p.id AS page_id, p.slug, p.title, p.content1, p.content2, p.description,
               n.id AS news_id, n.type, n.published_at,
-              m.title AS meta_title, m.description AS meta_description
+              (SELECT m.title FROM metas m
+               WHERE m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
+               ORDER BY m.id LIMIT 1) AS meta_title,
+              (SELECT m.description FROM metas m
+               WHERE m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
+               ORDER BY m.id LIMIT 1) AS meta_description
        FROM pages p
        INNER JOIN news n ON n.page_id = p.id
-       LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
        WHERE p.slug = ? AND n.active = 1
        LIMIT 1`,
       [slug]
@@ -287,10 +295,16 @@ export async function getNewsList(
     const total = (countRows as any[])[0]?.cnt ?? 0
 
     // Items
+    // NOTE: metas is fetched as a correlated subquery (not LEFT JOIN) because
+    // some page_ids accumulate >1 row in the metas table; a plain LEFT JOIN
+    // would multiply the result rows (1 news → N cards). LIMIT 1 in the
+    // subquery guarantees one row per news regardless of metas data shape.
     const [rows] = await db.execute(
       `SELECT n.id AS news_id, n.type, n.published_at,
               p.id AS page_id, p.slug, p.title, p.description, p.content1,
-              m.description AS meta_description,
+              (SELECT m.description FROM metas m
+               WHERE m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
+               LIMIT 1) AS meta_description,
               (SELECT t3.name FROM taggables tbl3
                INNER JOIN tags t3 ON t3.id = tbl3.tag_id
                WHERE tbl3.taggable_type = 'App\\\\Models\\\\News'
@@ -298,7 +312,6 @@ export async function getNewsList(
                LIMIT 1) AS tag_name
        FROM news n
        INNER JOIN pages p ON p.id = n.page_id
-       LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
        WHERE n.active = 1 ${whereCategory} ${whereSearch}
        ORDER BY n.published_at DESC, n.id DESC
        LIMIT ${perPage} OFFSET ${offset}`,
