@@ -121,12 +121,14 @@ export function buildBlogPosting({
   title,
   description,
   publishedAt,
+  modifiedAt,
   image,
 }: {
   url: string
   title: string
   description?: string | null
   publishedAt?: string | null
+  modifiedAt?: string | null
   image?: string | null
 }) {
   return {
@@ -137,6 +139,7 @@ export function buildBlogPosting({
     name: title,
     ...(description ? { description } : {}),
     ...(publishedAt ? { datePublished: publishedAt } : {}),
+    ...(modifiedAt ? { dateModified: modifiedAt } : {}),
     image: image ?? DEFAULT_OG_IMAGE,
     author: { '@id': ORG_ID },
     publisher: { '@id': ORG_ID },

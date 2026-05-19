@@ -8,6 +8,7 @@ import JsonLd from '@/components/JsonLd'
 import { buildBreadcrumb, buildBlogPosting, buildFAQ, buildGraph } from '@/lib/jsonld'
 import { articleHighlights } from '@/data/articleHighlights'
 import { articleFaqs } from '@/data/articleFaqs'
+import { articleUpdatedDates } from '@/data/articleUpdatedDates'
 
 export const revalidate = 3600 // re-render at most once per hour
 
@@ -131,6 +132,7 @@ export async function generateMetadata({ params }: PageProps) {
   const title = article.metaTitle ?? `${article.title ?? 'JVL Blog'} — JVL`
   const description = article.metaDescription ?? article.description ?? extractExcerpt(article.content1) ?? ''
   const ogImage = article.heroImage ? `${BASE_URL}${article.heroImage}` : null
+  const modifiedTime = articleUpdatedDates[slug] ?? article.publishedAt
   return buildMeta({
     title,
     description,
@@ -138,6 +140,7 @@ export async function generateMetadata({ params }: PageProps) {
     ogImage,
     type: 'article',
     publishedTime: article.publishedAt,
+    modifiedTime,
   })
 }
 
@@ -161,6 +164,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
   const leadText = article.description || extractExcerpt(article.content1)
 
   const faqs = articleFaqs[slug]
+  const lastUpdatedAt = articleUpdatedDates[slug] ?? article.publishedAt
   const pageUrl = `${BASE_URL}/en/blog-and-news/${slug}`
   const jsonLd = buildGraph([
     buildBreadcrumb(pageUrl, [
@@ -173,6 +177,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
       title: article.title ?? '',
       description: article.metaDescription ?? article.description,
       publishedAt: article.publishedAt,
+      modifiedAt: lastUpdatedAt,
       image: article.heroImage ? `${BASE_URL}${article.heroImage}` : null,
     }),
     ...(faqs && faqs.length > 0 ? [buildFAQ(pageUrl, faqs)] : []),

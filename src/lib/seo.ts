@@ -8,6 +8,7 @@ export function buildMeta({
   ogImage,
   type = 'website',
   publishedTime,
+  modifiedTime,
 }: {
   title: string
   description: string
@@ -15,6 +16,7 @@ export function buildMeta({
   ogImage?: string | null
   type?: 'website' | 'article'
   publishedTime?: string | null
+  modifiedTime?: string | null
 }) {
   const url = `${BASE_URL}${path}`
   const image = ogImage
@@ -32,6 +34,7 @@ export function buildMeta({
       images: [{ url: image }],
       type,
       ...(publishedTime ? { publishedTime } : {}),
+      ...(modifiedTime ? { modifiedTime } : {}),
     },
   }
 }
