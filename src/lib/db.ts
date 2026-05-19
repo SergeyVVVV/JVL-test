@@ -77,6 +77,7 @@ export interface NewsArticle {
   content2: string | null
   description: string | null
   publishedAt: string | null
+  lastUpdatedAt: string | null
   type: number
   heroImage: string | null
   heroImageMobile: string | null
@@ -102,7 +103,7 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
     // deterministic (the lowest id-ordered row).
     const [rows] = await db.execute(
       `SELECT p.id AS page_id, p.slug, p.title, p.content1, p.content2, p.description,
-              n.id AS news_id, n.type, n.published_at,
+              n.id AS news_id, n.type, n.published_at, n.last_updated_at,
               (SELECT m.title FROM metas m
                WHERE m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
                ORDER BY m.id LIMIT 1) AS meta_title,
@@ -140,11 +141,12 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
         .filter((v): v is string => !!v)
     } catch {}
 
-    const publishedAt = row.published_at
-      ? (row.published_at instanceof Date
-          ? row.published_at.toISOString().slice(0, 10)
-          : String(row.published_at).slice(0, 10))
-      : null
+    const toYmd = (v: unknown): string | null => {
+      if (!v) return null
+      return v instanceof Date ? v.toISOString().slice(0, 10) : String(v).slice(0, 10)
+    }
+    const publishedAt = toYmd(row.published_at)
+    const lastUpdatedAt = toYmd(row.last_updated_at)
 
     return {
       id: row.news_id,
@@ -157,6 +159,7 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
       content2: parseLocale(row.content2, locale),
       description: parseLocale(row.description, locale),
       publishedAt,
+      lastUpdatedAt,
       type: Number(row.type ?? 0),
       heroImage: hero,
       heroImageMobile: heroMobile,
