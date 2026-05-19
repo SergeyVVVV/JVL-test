@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { articleUpdatedDates } from '@/data/articleUpdatedDates'
 
 export interface NewsCardItem {
   id: number
@@ -97,7 +98,7 @@ export default function NewsCard({ item, locale, dark = false }: { item: NewsCar
           )}
           {item.publishedAt && (
             <p style={{ fontSize: 14, color: dateColor, margin: '8px 0 0' }}>
-              {formatDate(item.publishedAt)}
+              {formatDate(articleUpdatedDates[item.slug] ?? item.publishedAt)}
             </p>
           )}
         </div>

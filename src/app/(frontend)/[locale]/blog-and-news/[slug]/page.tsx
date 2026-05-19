@@ -166,7 +166,8 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
   const faqs = articleFaqs[slug]
   const publishedAtIso = toFullIsoDate(article.publishedAt)
-  const lastUpdatedAtIso = toFullIsoDate(articleUpdatedDates[slug] ?? article.publishedAt)
+  const lastUpdatedAt = articleUpdatedDates[slug] ?? article.publishedAt
+  const lastUpdatedAtIso = toFullIsoDate(lastUpdatedAt)
   const pageUrl = `${BASE_URL}/en/blog-and-news/${slug}`
   const jsonLd = buildGraph([
     buildBreadcrumb(pageUrl, [
@@ -503,7 +504,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
                   <path d="M1 6h14" stroke="#787878" strokeWidth="1.4"/>
                   <path d="M5 1v3M11 1v3" stroke="#787878" strokeWidth="1.4" strokeLinecap="round"/>
                 </svg>
-                Updated {formatDate(article.publishedAt)}
+                Updated {formatDate(lastUpdatedAt)}
               </span>
             )}
             <span style={{ display: 'flex', alignItems: 'center', gap: 6 }}>

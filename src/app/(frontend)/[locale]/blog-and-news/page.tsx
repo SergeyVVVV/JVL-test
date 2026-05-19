@@ -5,6 +5,7 @@ import BlogSearchInput from '@/components/BlogSearchInput'
 import EchoBanner from '@/components/EchoBanner'
 import JsonLd from '@/components/JsonLd'
 import { buildBreadcrumb, buildWebPage, buildGraph } from '@/lib/jsonld'
+import { articleUpdatedDates } from '@/data/articleUpdatedDates'
 
 export const revalidate = 300
 
@@ -243,7 +244,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
                   {featured.description || featured.metaDescription || extractExcerpt(featured.content1, 240)}
                 </p>
               )}
-              <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: '0 0 24px' }}>{formatDate(featured.publishedAt)}</p>
+              <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: '0 0 24px' }}>{formatDate(articleUpdatedDates[featured.slug] ?? featured.publishedAt)}</p>
               <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 14, fontWeight: 600, color: '#F4F3EC', background: '#FB671F', padding: '10px 22px', borderRadius: 6 }}>
                 Read Article →
               </span>
@@ -296,7 +297,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
                       </p>
                     )}
                     <p style={{ fontSize: 13, color: 'rgba(244,243,236,0.35)', margin: 'auto 0 0' }}>
-                      {formatDate(item.publishedAt)}
+                      {formatDate(articleUpdatedDates[item.slug] ?? item.publishedAt)}
                     </p>
                   </div>
                 </article>
