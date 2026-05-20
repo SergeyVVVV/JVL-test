@@ -132,8 +132,11 @@ export async function generateMetadata({ params }: PageProps) {
   const title = article.metaTitle ?? `${article.title ?? 'JVL Blog'} — JVL`
   const description = article.metaDescription ?? article.description ?? extractExcerpt(article.content1) ?? ''
   const ogImage = article.heroImage ? `${BASE_URL}${article.heroImage}` : null
+  // Priority: DB (n.last_updated_at, managed in AdminLTE) > legacy override
+  // file > publishedAt. The override file is kept as a fallback during the
+  // transition period until all articles' last_updated_at are set via admin.
   const publishedTime = toFullIsoDate(article.publishedAt)
-  const modifiedTime = toFullIsoDate(articleUpdatedDates[slug] ?? article.publishedAt)
+  const modifiedTime = toFullIsoDate(article.lastUpdatedAt ?? articleUpdatedDates[slug] ?? article.publishedAt)
   return buildMeta({
     title,
     description,
@@ -166,7 +169,8 @@ export default async function BlogArticlePage({ params }: PageProps) {
 
   const faqs = articleFaqs[slug]
   const publishedAtIso = toFullIsoDate(article.publishedAt)
-  const lastUpdatedAt = articleUpdatedDates[slug] ?? article.publishedAt
+  // Same priority chain as generateMetadata: DB > legacy override > publishedAt.
+  const lastUpdatedAt = article.lastUpdatedAt ?? articleUpdatedDates[slug] ?? article.publishedAt
   const lastUpdatedAtIso = toFullIsoDate(lastUpdatedAt)
   const pageUrl = `${BASE_URL}/en/blog-and-news/${slug}`
   const jsonLd = buildGraph([
