@@ -787,6 +787,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   const [ucActive, setUcActive] = useState(0)
   const [ucFading, setUcFading] = useState(false)
   const [ucDisplayed, setUcDisplayed] = useState(0)
+  const [ucIsMobile, setUcIsMobile] = useState(false)
   const ucActiveRef = useRef(0)
   const ucIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const ucSectionRef = useRef<HTMLElement>(null)
@@ -804,6 +805,14 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
   function ucStopAutoPlay() {
     if (ucIntervalRef.current) { clearInterval(ucIntervalRef.current); ucIntervalRef.current = null }
   }
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 768px)')
+    setUcIsMobile(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setUcIsMobile(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [])
 
   useEffect(() => {
     const section = ucSectionRef.current
@@ -1509,11 +1518,12 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease',
             }}
           >
-            <picture style={{ position: 'absolute', inset: 0, display: 'block', width: '100%', height: '100%' }}>
-              <source media="(max-width: 768px)" srcSet={ucItem.imgMob} />
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={ucItem.img} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
-            </picture>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={ucIsMobile ? ucItem.imgMob : ucItem.img}
+              alt=""
+              style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+            />
           </div>
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%)' }} />
           <div className="echo-uc1-nav" style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
