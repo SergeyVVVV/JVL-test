@@ -1029,42 +1029,56 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-uc1-bg { background-size: cover; background-position: center; }
         .echo-uc1-headline { font-size: 28px; font-weight: 700; color: #F4F3EC; margin: 0 0 12px 0; line-height: 1.15; }
         .echo-uc1-desc { font-size: 20px; font-weight: 400; line-height: 1.5; color: rgba(244,243,236,0.85); margin: 0; max-width: 800px; }
-        @media (max-width: 768px) {
-          .echo-uc1-nav { padding: 0 16px !important; }
-          .echo-uc1-tabs {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr;
-            width: 100%;
-            padding: 0 !important;
-            backdrop-filter: blur(6px);
-            background: rgba(16,18,19,0.6) !important;
-            border-radius: 4px !important;
-            overflow: hidden;
+
+        /* Mobile-only tab bar and text block — hidden on desktop */
+        .echo-uc1-tabs-mob { display: none; }
+        .echo-uc1-text-mob  { display: none; }
+
+        @media (max-width: 767px) {
+          /* Show mobile tab bar above the image */
+          .echo-uc1-tabs-mob {
+            display: flex;
+            overflow-x: auto;
+            scrollbar-width: none;
+            background: #080a0b;
+            border-bottom: 1px solid #1e2022;
+            padding: 0 5vw;
           }
-          .echo-uc1-tabs button {
-            padding: 8px 6px !important;
-            font-size: 13px !important;
-            border-left: none !important;
-            border: none !important;
-            border-radius: 0 !important;
-            border-bottom: 1px solid rgba(244,243,236,0.18) !important;
-            justify-content: center;
+          .echo-uc1-tabs-mob::-webkit-scrollbar { display: none; }
+          .echo-uc1-tab-mob-btn {
+            flex-shrink: 0;
+            background: none; border: none; cursor: pointer;
+            padding: 11px 14px;
+            font-size: 13px; font-weight: 400;
+            color: rgba(244,243,236,0.45);
+            border-bottom: 2px solid transparent;
             white-space: nowrap;
+            transition: color 0.2s, border-color 0.2s;
           }
-          .echo-uc1-tabs button:nth-child(odd) {
-            border-right: 1px solid rgba(244,243,236,0.18) !important;
-          }
-          .echo-uc1-tabs button:nth-child(5) {
-            grid-column: 1 / -1;
-            justify-self: center;
-            min-width: 50%;
-            border-bottom: none !important;
-            border-right: none !important;
+          .echo-uc1-tab-mob-btn.active {
+            color: #F4F3EC;
+            border-bottom: 2px solid #059FFF;
           }
 
-          .echo-uc1-stage { height: 62vw !important; min-height: 240px !important; }
-          .echo-uc1-headline { font-size: 1.15rem !important; }
-          .echo-uc1-desc { font-size: 16px !important; max-width: 100% !important; }
+          /* Stage: show image only, no text overlay */
+          .echo-uc1-stage { height: clamp(220px, 75vw, 380px) !important; }
+          .echo-uc1-nav       { display: none !important; }
+          .echo-uc1-text-desk { display: none !important; }
+
+          /* Show text block below the image */
+          .echo-uc1-text-mob {
+            display: block;
+            background: #080a0b;
+            padding: 20px 5vw 28px;
+          }
+          .echo-uc1-text-mob .echo-uc1-headline {
+            font-size: 1.1rem !important;
+            margin: 0 0 6px 0 !important;
+          }
+          .echo-uc1-text-mob .echo-uc1-desc {
+            font-size: 15px !important;
+            max-width: 100% !important;
+          }
         }
         .echo-section-specs { padding: 96px 0; }
         .echo-section-product { padding: 80px 0; }
@@ -1304,14 +1318,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         .echo-gallery-thumbs { display: flex; flex-direction: column; gap: 8px; flex-shrink: 0; width: 64px; }
         .echo-gallery-main { flex: 1; aspect-ratio: 1 / 1; }
 
-        /* Why ECHO dot indicators — mobile only */
-        .echo-uc1-dots { display: none; }
-        .echo-uc1-dot {
-          width: 8px; height: 8px; border-radius: 50%;
-          background: rgba(244,243,236,0.35); border: none; cursor: pointer;
-          padding: 0; transition: width 0.2s, border-radius 0.2s, background 0.2s; flex-shrink: 0;
-        }
-        .echo-uc1-dot.active { width: 24px; border-radius: 4px; background: #F4F3EC; }
+        /* Why ECHO dot indicators — removed (replaced by mobile tab bar) */
 
         /* Product section home grid */
         .echo-product-home-grid {
@@ -1404,9 +1411,6 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
           /* Feature cards */
           .echo-feat-grid { gap: 16px; }
           .echo-feat-title { font-size: 18px !important; }
-
-          /* Why ECHO — dots well above the headline text */
-          .echo-uc1-dots { bottom: 155px; }
 
           /* Bring ECHO Home — price right, button + subtext centered */
           .echo-price-cta-row { flex-direction: column; align-items: stretch !important; gap: 12px; }
@@ -1510,6 +1514,20 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             More than a game machine – it becomes a part of the room, and part of the memories people make together.
           </p>
         </div>
+
+        {/* Mobile tab bar — outside the image, above it. Hidden on desktop. */}
+        <div className="echo-uc1-tabs-mob">
+          {USE_CASES.map((uc, i) => (
+            <button
+              key={uc.label}
+              onClick={() => ucSwitchTo(i)}
+              className={`echo-uc1-tab-mob-btn${ucActive === i ? ' active' : ''}`}
+            >
+              {uc.label}
+            </button>
+          ))}
+        </div>
+
         <div className="echo-uc1-stage" style={{ position: 'relative', width: '100%', height: 'clamp(520px, 80vh, 900px)', overflow: 'hidden' }}>
           <div
             className="echo-uc1-bg"
@@ -1526,6 +1544,8 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
             />
           </div>
           <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.75) 100%)' }} />
+
+          {/* Desktop tab bar — inside the image. Hidden on mobile. */}
           <div className="echo-uc1-nav" style={{ position: 'absolute', top: 30, left: 0, right: 0, display: 'flex', justifyContent: 'center' }}>
             <div className="echo-uc1-tabs">
               {USE_CASES.map((uc, i) => (
@@ -1552,21 +1572,18 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
               ))}
             </div>
           </div>
-          {/* Mobile: dot/pill navigation */}
-          <div className="echo-uc1-dots">
-            {USE_CASES.map((uc, i) => (
-              <button
-                key={i}
-                onClick={() => ucSwitchTo(i)}
-                className={`echo-uc1-dot${ucActive === i ? ' active' : ''}`}
-                aria-label={uc.label}
-              />
-            ))}
-          </div>
-          <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '50px 5vw 52px', opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease' }}>
+
+          {/* Desktop text — inside the image at bottom. Hidden on mobile. */}
+          <div className="echo-uc1-text-desk" style={{ position: 'absolute', bottom: 0, left: 0, right: 0, padding: '50px 5vw 52px', opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease' }}>
             <p className="echo-uc1-headline">{ucItem.headline}</p>
             <p className="echo-uc1-desc">{ucItem.text}</p>
           </div>
+        </div>
+
+        {/* Mobile text block — outside the image, below it. Hidden on desktop. */}
+        <div className="echo-uc1-text-mob" style={{ opacity: ucFading ? 0 : 1, transition: 'opacity 0.28s ease' }}>
+          <p className="echo-uc1-headline">{ucItem.headline}</p>
+          <p className="echo-uc1-desc">{ucItem.text}</p>
         </div>
       </section>
 
