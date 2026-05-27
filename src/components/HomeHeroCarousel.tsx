@@ -147,7 +147,7 @@ export default function HomeHeroCarousel({ slides }: { slides: HeroSlide[] }) {
           fontFamily: 'inherit',
           fontSize: 'clamp(2rem, 3.5vw, 3.8rem)',
           fontWeight: 600, lineHeight: 1.1,
-          letterSpacing: '-0.01em', textTransform: 'uppercase',
+          letterSpacing: '-0.01em',
           color: '#fff', margin: '0 0 16px', maxWidth: 780,
         }}>
           {slide.heading}

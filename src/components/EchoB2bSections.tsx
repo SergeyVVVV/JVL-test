@@ -142,7 +142,6 @@ export function FeaturesSection({
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
             fontWeight: 600,
-            textTransform: 'uppercase',
             letterSpacing: '-0.02em',
             lineHeight: 1.1,
             color: '#101213',

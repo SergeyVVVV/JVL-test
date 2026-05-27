@@ -288,8 +288,8 @@ export default function WarrantyForm() {
       {/* ── Step 1: Product Registration ── */}
       {step === 1 && (
         <div>
-          <h2 style={{ fontSize: 20, fontWeight: 700, color: '#F4F3EC', margin: '0 0 32px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-            Product Registration
+          <h2 style={{ fontSize: 20, fontWeight: 700, color: '#F4F3EC', margin: '0 0 32px', letterSpacing: '0.04em' }}>
+            Product registration
           </h2>
 
           {/* Serial number */}
@@ -388,8 +388,8 @@ export default function WarrantyForm() {
             Back
           </button>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, color: '#F4F3EC', margin: '0 0 32px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-            Your Information
+          <h2 style={{ fontSize: 20, fontWeight: 700, color: '#F4F3EC', margin: '0 0 32px', letterSpacing: '0.04em' }}>
+            Your information
           </h2>
 
           <div style={{ marginBottom: 28 }}>
@@ -469,7 +469,7 @@ export default function WarrantyForm() {
             Back
           </button>
 
-          <h2 style={{ fontSize: 20, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+          <h2 style={{ fontSize: 20, fontWeight: 700, color: '#F4F3EC', margin: '0 0 12px', letterSpacing: '0.04em' }}>
             Questionnaire
           </h2>
           <p style={{ fontSize: 15, color: 'rgba(244,243,236,0.55)', lineHeight: 1.65, margin: '0 0 36px' }}>

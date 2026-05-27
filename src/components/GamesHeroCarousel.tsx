@@ -96,7 +96,7 @@ export default function GamesHeroCarousel({ slides, locale = 'en' }: Props) {
             fontFamily: 'inherit',
             fontSize: 'clamp(1.8rem, 4vw, 4rem)',
             fontWeight: 700, lineHeight: 1.05,
-            letterSpacing: '-0.02em', textTransform: 'uppercase',
+            letterSpacing: '-0.02em',
             color: '#F4F3EC', margin: '0 0 12px', maxWidth: 640,
           }}>
             {current.title}

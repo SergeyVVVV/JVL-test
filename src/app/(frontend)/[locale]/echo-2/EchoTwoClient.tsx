@@ -236,7 +236,7 @@ function ProductSectionHome({ data }: { data: PageData['product'] }) {
     <section style={{ background: '#F4F3EC', padding: '80px 0', borderTop: '1px solid #E0DDD4' }}>
       <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 6vw' }}>
         <h2 style={{
-          fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 600, textTransform: 'uppercase',
+          fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 600,
           letterSpacing: '-0.02em', lineHeight: 1.1, color: '#101213',
           textAlign: 'center', maxWidth: 840, margin: '0 auto 40px',
         }}>

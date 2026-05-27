@@ -50,7 +50,7 @@ export default async function AboutJVLPage({ params }: PageProps) {
           fontFamily: 'inherit',
           fontSize: 'clamp(1.8rem, 4vw, 3rem)',
           fontWeight: 700, lineHeight: 1.05, letterSpacing: '-0.02em',
-          textTransform: 'uppercase', color: '#F4F3EC',
+          color: '#F4F3EC',
           margin: (pageMeta?.description || pageMeta?.metaDescription) ? '0 0 20px' : '0 0 64px',
         }}>
           About JVL
@@ -71,10 +71,10 @@ export default async function AboutJVLPage({ params }: PageProps) {
             fontFamily: 'inherit',
             fontSize: 'clamp(1.3rem, 2.5vw, 1.9rem)',
             fontWeight: 700, lineHeight: 1.15, letterSpacing: '-0.01em',
-            textTransform: 'uppercase', color: '#F4F3EC',
+            color: '#F4F3EC',
             margin: '0 0 32px',
           }}>
-            A Family Tradition of Precision, Passion, and Play
+            A family tradition of precision, passion, and play
           </h2>
 
           {/* Image — float right, inside body text */}
@@ -113,10 +113,10 @@ export default async function AboutJVLPage({ params }: PageProps) {
             fontFamily: 'inherit',
             fontSize: 'clamp(1.3rem, 2.5vw, 1.9rem)',
             fontWeight: 700, lineHeight: 1.15, letterSpacing: '-0.01em',
-            textTransform: 'uppercase', color: '#F4F3EC',
+            color: '#F4F3EC',
             margin: '48px 0 32px',
           }}>
-            Shaping the Future of Gaming — One Machine at a Time
+            Shaping the future of gaming — one machine at a time
           </h2>
 
           <p className="about-body">
@@ -138,10 +138,10 @@ export default async function AboutJVLPage({ params }: PageProps) {
             fontFamily: 'inherit',
             fontSize: 'clamp(1.3rem, 2.5vw, 1.9rem)',
             fontWeight: 700, lineHeight: 1.15, letterSpacing: '-0.01em',
-            textTransform: 'uppercase', color: '#F4F3EC',
+            color: '#F4F3EC',
             margin: '48px 0 32px',
           }}>
-            Tradition, Innovation, and a Personal Touch
+            Tradition, innovation, and a personal touch
           </h2>
 
           <p className="about-body">
@@ -170,10 +170,10 @@ export default async function AboutJVLPage({ params }: PageProps) {
             fontFamily: 'inherit',
             fontSize: 'clamp(1.3rem, 2.5vw, 1.9rem)',
             fontWeight: 700, lineHeight: 1.15, letterSpacing: '-0.01em',
-            textTransform: 'uppercase', color: '#F4F3EC',
+            color: '#F4F3EC',
             margin: '48px 0 32px',
           }}>
-            Three Generations, One Vision
+            Three generations, one vision
           </h2>
 
           <p className="about-body">

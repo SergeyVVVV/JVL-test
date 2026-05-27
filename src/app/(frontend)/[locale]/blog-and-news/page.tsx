@@ -167,11 +167,10 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
           fontWeight: 700,
           lineHeight: 1.1,
           letterSpacing: '-0.02em',
-          textTransform: 'uppercase',
           color: '#F4F3EC',
           margin: '0 0 16px',
         }}>
-          Blog, News &amp; Offers
+          Blog, news &amp; offers
         </h1>
         {(pageMeta?.description || pageMeta?.metaDescription) && (
           <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.55)', lineHeight: 1.6, margin: 0, maxWidth: 720 }}>
@@ -228,7 +227,7 @@ export default async function BlogListingPage({ params, searchParams }: PageProp
               <span style={{ display: 'inline-block', fontSize: 13, fontWeight: 500, padding: '5px 10px', border: '1px solid #3a3a3a', borderRadius: 6, color: 'rgba(244,243,236,0.5)', marginBottom: 16 }}>
                 {featured.category ?? (featured.type === 1 ? 'Blog' : 'News')}
               </span>
-              <h2 style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.75rem)', fontWeight: 700, lineHeight: 1.2, color: '#F4F3EC', margin: '0 0 14px', textTransform: 'uppercase' }}>
+              <h2 style={{ fontSize: 'clamp(1.2rem, 2.5vw, 1.75rem)', fontWeight: 700, lineHeight: 1.2, color: '#F4F3EC', margin: '0 0 14px' }}>
                 {featured.title}
               </h2>
               {(featured.description || featured.content1) && (

@@ -91,7 +91,6 @@ function Hero({ data }: { data: PageData['hero'] }) {
           fontWeight: 600,
           lineHeight: 1.1,
           letterSpacing: '-0.01em',
-          textTransform: 'uppercase',
           color: '#fff',
           margin: 0,
         }}>
@@ -243,7 +242,6 @@ function LegacySection() {
         <h2 style={{
           fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
           fontWeight: 600,
-          textTransform: 'uppercase',
           letterSpacing: '-0.02em',
           lineHeight: 1.05,
           color: '#F4F3EC',
@@ -251,7 +249,7 @@ function LegacySection() {
           maxWidth: 840,
           margin: '0 auto 28px',
         }}>
-          Touchscreen Arcade Machine with 40+ Years of Innovation
+          Touchscreen arcade machine with 40+ years of innovation
         </h2>
 
         {/* Centered description */}
@@ -349,7 +347,6 @@ function CountertopSection({ data }: { data: PageData['countertop'] }) {
           textAlign: 'center',
           fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
           fontWeight: 600,
-          textTransform: 'uppercase',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
           color: '#101213',
@@ -559,7 +556,6 @@ function ProductSection({ data }: { data: PageData['product'] }) {
         <h2 style={{
           fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
           fontWeight: 600,
-          textTransform: 'uppercase',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
           color: '#101213',
@@ -792,14 +788,13 @@ function DesignedSection() {
         <h2 style={{
           fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
           fontWeight: 600,
-          textTransform: 'uppercase',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
           color: '#101213',
           maxWidth: 840,
           margin: '0 0 28px',
         }}>
-          Premium Countertop Arcade Machine Designed for Modern Game Rooms
+          Premium countertop arcade machine designed for modern game rooms
         </h2>
 
         {/* ── Text left + CTA right ── */}
@@ -983,7 +978,6 @@ function GamesSection() {
         <h2 style={{
           fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
           fontWeight: 600,
-          textTransform: 'uppercase',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
           color: '#101213',
@@ -991,7 +985,7 @@ function GamesSection() {
           maxWidth: 840,
           margin: '0 auto 14px',
         }}>
-          Home Arcade Machine with Multiple Games
+          Home arcade machine with multiple games
         </h2>
 
         {/* Subheading */}
@@ -1176,14 +1170,13 @@ function SpecsSection() {
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
             fontWeight: 600,
-            textTransform: 'uppercase',
             letterSpacing: '-0.02em',
             lineHeight: 1.1,
             color: '#101213',
             maxWidth: 840,
             margin: '0 0 20px',
           }}>
-            Mini Arcade Cabinet with Games – Compact Power, Endless Fun
+            Mini arcade cabinet with games – compact power, endless fun
           </h2>
           <div className="echo-specs-hdr">
             <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: '#4B4B4B', margin: 0 }}>
@@ -1324,14 +1317,13 @@ function SupportSection() {
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
             fontWeight: 600,
-            textTransform: 'uppercase',
             letterSpacing: '-0.02em',
             lineHeight: 1.1,
             color: '#F4F3EC',
             maxWidth: 840,
             margin: '0 0 20px',
           }}>
-            Secure Amazon Checkout, Warranty & Support You Can Trust
+            Secure Amazon checkout, warranty & support you can trust
           </h2>
           <div className="echo-sup-hdr">
             <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.75, color: 'rgba(244,243,236,0.65)', margin: 0 }}>
@@ -1487,13 +1479,12 @@ function FeatureGrid() {
           <h2 style={{
             fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
             fontWeight: 600,
-            textTransform: 'uppercase',
             letterSpacing: '-0.02em',
             color: '#F4F3EC',
             maxWidth: 840,
             margin: '0 auto',
           }}>
-            Why Operators Choose Echo
+            Why operators choose Echo
           </h2>
         </div>
 
@@ -1541,13 +1532,12 @@ function CTABanner() {
       <h2 style={{
         fontSize: 'clamp(1.6rem, 3vw, 2.5rem)',
         fontWeight: 600,
-        textTransform: 'uppercase',
         letterSpacing: '-0.02em',
         color: '#fff',
         maxWidth: 840,
         margin: '0 auto 16px',
       }}>
-        Ready to Bring Echo to Your Venue?
+        Ready to bring Echo to your venue?
       </h2>
       <p style={{ fontSize: 18, fontWeight: 300, color: 'rgba(255,255,255,0.85)', margin: '0 0 40px' }}>
         Talk to our team and find the right solution for your business.

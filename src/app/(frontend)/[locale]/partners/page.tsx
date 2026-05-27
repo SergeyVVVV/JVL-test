@@ -42,7 +42,7 @@ export default function PartnersPage() {
           fontFamily: 'inherit',
           fontSize: 'clamp(3rem, 8vw, 7rem)',
           fontWeight: 700, lineHeight: 0.95, letterSpacing: '-0.03em',
-          textTransform: 'uppercase', color: '#F4F3EC',
+          color: '#F4F3EC',
           margin: '0 0 64px', maxWidth: 800,
         }}>
           Partners
@@ -83,10 +83,10 @@ export default function PartnersPage() {
           fontFamily: 'inherit',
           fontSize: 'clamp(2rem, 5vw, 4.2rem)',
           fontWeight: 700, lineHeight: 1.0, letterSpacing: '-0.02em',
-          textTransform: 'uppercase', color: '#F4F3EC',
+          color: '#F4F3EC',
           margin: '0 auto 28px', maxWidth: 860,
         }}>
-          Ready to Start a Conversation?
+          Ready to start a conversation?
         </h2>
 
         <p style={{

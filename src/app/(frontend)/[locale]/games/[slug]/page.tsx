@@ -129,7 +129,7 @@ export default async function GameDetailPage({
           <h1 style={{
             fontFamily: 'inherit', fontSize: 'clamp(2rem, 5vw, 4.5rem)',
             fontWeight: 600, lineHeight: 1.05, letterSpacing: '-0.02em',
-            textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 16px', maxWidth: 800,
+            color: '#F4F3EC', margin: '0 0 16px', maxWidth: 800,
           }}>
             {game.title}
           </h1>
@@ -205,9 +205,9 @@ export default async function GameDetailPage({
             <h2 style={{
               fontFamily: 'inherit', fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)',
               fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
-              textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 40px',
+              color: '#F4F3EC', margin: '0 0 40px',
             }}>
-              Game Screens
+              Game screens
             </h2>
             <GameScreensCarousel slides={screenSlides} title={game.title ?? ''} />
           </div>
@@ -224,9 +224,9 @@ export default async function GameDetailPage({
             <h2 style={{
               fontFamily: 'inherit', fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)',
               fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
-              textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 48px',
+              color: '#F4F3EC', margin: '0 0 48px',
             }}>
-              Game Features
+              Game features
             </h2>
             <GameFeatures features={features} />
           </div>
@@ -247,7 +247,7 @@ export default async function GameDetailPage({
                   <h2 style={{
                     fontFamily: 'inherit', fontSize: 'clamp(1.4rem, 2.5vw, 2.4rem)',
                     fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
-                    textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 24px',
+                    color: '#F4F3EC', margin: '0 0 24px',
                   }}>
                     {game.storyTitle}
                   </h2>
@@ -302,7 +302,7 @@ export default async function GameDetailPage({
                 <h2 style={{
                   fontFamily: 'inherit', fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)',
                   fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
-                  textTransform: 'uppercase', color: '#F4F3EC', margin: 0,
+                  color: '#F4F3EC', margin: 0,
                 }}>
                   Reviews
                 </h2>
@@ -352,9 +352,9 @@ export default async function GameDetailPage({
                 <h2 style={{
                   fontFamily: 'inherit', fontSize: 'clamp(1.4rem, 2.5vw, 2.2rem)',
                   fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
-                  textTransform: 'uppercase', color: '#F4F3EC', margin: 0,
+                  color: '#F4F3EC', margin: 0,
                 }}>
-                  You May Also Like
+                  You may also like
                 </h2>
               </div>
               <Link
