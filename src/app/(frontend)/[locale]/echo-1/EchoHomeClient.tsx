@@ -1330,6 +1330,7 @@ export default function EchoHomeClient({ data }: { data: PageData }) {
         @media (max-width: 600px) {
           .echo-facts-grid { grid-template-columns: 1fr 1fr; }
           .echo-feat-grid { grid-template-columns: 1fr; grid-auto-rows: 260px; }
+          .echo-feat-first { grid-column: span 1; }
         }
         @media (max-width: 900px) {
           .echo-product-home-grid { grid-template-columns: 1fr; gap: 40px; }
