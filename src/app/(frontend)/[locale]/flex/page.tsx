@@ -76,9 +76,9 @@ export default function FlexPage() {
           <h2 className="flex-section-h2" style={{
             fontFamily: 'inherit', fontSize: 'clamp(1.7rem, 2.5vw, 2.8rem)',
             fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
-            textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 52px',
+            color: '#F4F3EC', margin: '0 0 52px',
           }}>
-            Model-Specific Presentations
+            Model-specific presentations
           </h2>
 
           {/* Cards grid */}
@@ -135,9 +135,9 @@ export default function FlexPage() {
               <h2 className="flex-section-h2" style={{
                 fontFamily: 'inherit', fontSize: 'clamp(1.7rem, 2.5vw, 2.8rem)',
                 fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
-                textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 20px',
+                color: '#F4F3EC', margin: '0 0 20px',
               }}>
-                Get in Touch With Our Team
+                Get in touch with our team
               </h2>
               <p className="flex-contact-desc" style={{ fontSize: 16, color: 'rgba(244,243,236,0.62)', lineHeight: 1.7, margin: '0 0 48px', maxWidth: 440 }}>
                 Our experts are ready to answer your questions, provide product details, and help you find the perfect solution for your needs.

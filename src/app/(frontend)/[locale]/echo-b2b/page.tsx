@@ -152,9 +152,9 @@ export default async function EchoB2bPage() {
               <h2 style={{
                 fontFamily: 'inherit', fontSize: 'clamp(1.7rem, 2.5vw, 2.8rem)',
                 fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
-                textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 24px',
+                color: '#F4F3EC', margin: '0 0 24px',
               }}>
-                {supportBlock?.title ?? "JVL's Promise to B2B Partners"}
+                {supportBlock?.title ?? "JVL's promise to B2B partners"}
               </h2>
               <div className="eb2b-promise-desc-row" style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
                 <p style={{ flex: 1, fontSize: 15, color: 'rgba(244,243,236,0.62)', lineHeight: 1.7, margin: 0 }}>
@@ -225,7 +225,7 @@ export default async function EchoB2bPage() {
               <h2 style={{
                 fontFamily: 'inherit', fontSize: 'clamp(1.9rem, 3vw, 3.2rem)',
                 fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.01em',
-                textTransform: 'uppercase', color: '#F4F3EC', margin: '0 0 20px',
+                color: '#F4F3EC', margin: '0 0 20px',
               }}>
                 {bottomBlock?.title ?? 'Bring ECHO to your business'}
               </h2>

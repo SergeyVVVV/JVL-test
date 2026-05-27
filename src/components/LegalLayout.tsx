@@ -17,7 +17,6 @@ const h2Style: React.CSSProperties = {
   fontSize: 'clamp(1.4rem, 2.5vw, 2.4rem)',
   fontWeight: 700,
   color: '#F4F3EC',
-  textTransform: 'uppercase',
   letterSpacing: '0.08em',
   margin: '48px 0 16px',
 }
@@ -67,7 +66,7 @@ export default function LegalLayout({ badge, title, lastUpdated, sections, htmlC
           fontFamily: 'inherit',
           fontSize: 'clamp(1.8rem, 4vw, 3rem)',
           fontWeight: 600, lineHeight: 1.05, letterSpacing: '-0.02em',
-          textTransform: 'uppercase', color: '#F4F3EC',
+          color: '#F4F3EC',
           textAlign: 'center', margin: '0 0 16px',
         }}>
           {title}

@@ -71,10 +71,10 @@ export default async function GamesPage({ params }: { params: Promise<{ locale: 
             fontFamily: 'inherit',
             fontSize: 'clamp(1.6rem, 3vw, 3rem)',
             fontWeight: 600, lineHeight: 1.1,
-            letterSpacing: '-0.02em', textTransform: 'uppercase',
+            letterSpacing: '-0.02em',
             color: '#F4F3EC', margin: (pageMeta?.description || pageMeta?.metaDescription) ? '0 0 16px' : '0 0 48px',
           }}>
-            Online Slot Games<br className="gg-title-br" /> and Video Slots
+            Online slot games<br className="gg-title-br" /> and video slots
           </h1>
           {(pageMeta?.description || pageMeta?.metaDescription) && (
             <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.55)', lineHeight: 1.6, margin: '0 0 48px', maxWidth: 720 }}>

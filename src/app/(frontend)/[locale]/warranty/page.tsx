@@ -45,10 +45,10 @@ export default function WarrantyPage() {
         <h1 style={{
           fontFamily: 'inherit', fontSize: 'clamp(2.2rem, 5vw, 4rem)',
           fontWeight: 600, lineHeight: 1.05, letterSpacing: '-0.02em',
-          textTransform: 'uppercase', color: '#F4F3EC',
+          color: '#F4F3EC',
           textAlign: 'center', margin: '0 0 20px',
         }}>
-          Warranty Registration
+          Warranty registration
         </h1>
 
         {/* Subtitle */}

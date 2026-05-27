@@ -200,7 +200,7 @@ export default async function HomePage() {
 
           <h2 style={{
             fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-            fontWeight: 700, textTransform: 'uppercase',
+            fontWeight: 700,
             letterSpacing: '-0.02em', lineHeight: 1.0,
             color: '#F4F3EC', margin: 0,
           }}>
@@ -262,10 +262,10 @@ export default async function HomePage() {
               </p>
               <h2 style={{
                 fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', fontWeight: 700,
-                textTransform: 'uppercase', letterSpacing: '-0.02em',
+                letterSpacing: '-0.02em',
                 lineHeight: 1.1, color: '#F4F3EC', margin: '0 0 24px',
               }}>
-                Trusted Name in Gaming Since 1984
+                Trusted name in gaming since 1984
               </h2>
               <p style={{ fontSize: 17, fontWeight: 300, lineHeight: 1.8, color: 'rgba(244,243,236,0.75)', margin: '0 0 20px' }}>
                 JVL, founded in 1984, is a family-owned supplier of land-based casino cabinets, slot games (for both cabinets and online), and coin-operated amusement machines.
@@ -323,11 +323,11 @@ export default async function HomePage() {
           <div className="hp-games-header">
             <h2 style={{
               fontSize: 'clamp(2rem, 4vw, 3.2rem)',
-              fontWeight: 700, textTransform: 'uppercase',
+              fontWeight: 700,
               letterSpacing: '-0.02em', lineHeight: 1.0,
               color: '#F4F3EC', margin: 0,
             }}>
-              Discover Our Games
+              Discover our games
             </h2>
             <form action="/en/echo-1" method="GET" style={{ position: 'relative', width: 280, paddingTop: 8 }}>
               <input
@@ -421,10 +421,10 @@ export default async function HomePage() {
               </p>
               <h2 style={{
                 fontSize: 'clamp(1.6rem, 3vw, 2.5rem)', fontWeight: 600,
-                textTransform: 'uppercase', letterSpacing: '-0.02em',
+                letterSpacing: '-0.02em',
                 lineHeight: 1.05, color: '#F4F3EC', margin: 0,
               }}>
-                Latest News
+                Latest news
               </h2>
             </div>
             <a

@@ -479,7 +479,6 @@ export default async function BlogArticlePage({ params }: PageProps) {
             fontWeight: 700,
             lineHeight: 1.1,
             letterSpacing: '-0.02em',
-            textTransform: 'uppercase',
             color: '#101213',
             margin: '0 0 24px',
           }}>
@@ -579,7 +578,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
             {/* FAQ block */}
             {faqs && faqs.length > 0 && (
               <section className="blog-faq" aria-labelledby="faq-heading">
-                <h2 id="faq-heading" className="blog-faq-heading">Frequently Asked Questions</h2>
+                <h2 id="faq-heading" className="blog-faq-heading">Frequently asked questions</h2>
                 {faqs.map((item, i) => (
                   <div key={i} className="blog-faq-item">
                     <h3 className="blog-faq-q">{item.q}</h3>
@@ -603,7 +602,7 @@ export default async function BlogArticlePage({ params }: PageProps) {
         <div className="blog-container">
           <section style={{ borderTop: '1px solid #D0CEC6', paddingTop: 48, paddingBottom: 80 }}>
             <h2 style={{ fontSize: 24, fontWeight: 700, color: '#101213', margin: '0 0 32px' }}>
-              Related Articles
+              Related articles
             </h2>
             <div className="related-grid">
               {related.map((r) => (

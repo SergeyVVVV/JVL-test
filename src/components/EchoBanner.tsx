@@ -23,8 +23,8 @@ export default function EchoBanner({ locale }: { locale: string }) {
           <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#FB671F' }}>
             For Home
           </span>
-          <h2 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, lineHeight: 1.2, color: '#F4F3EC', margin: 0, textTransform: 'uppercase' }}>
-            Echo HD3 — Premium Touchscreen Arcade
+          <h2 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, lineHeight: 1.2, color: '#F4F3EC', margin: 0 }}>
+            Echo HD3 — Premium touchscreen arcade
           </h2>
           <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.65)', lineHeight: 1.7, margin: 0 }}>
             Bring the full arcade experience home. 100+ games, HD touchscreen, tournament-grade hardware.
@@ -44,8 +44,8 @@ export default function EchoBanner({ locale }: { locale: string }) {
           <span style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.15em', textTransform: 'uppercase', color: '#059FFF' }}>
             For Business
           </span>
-          <h2 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, lineHeight: 1.2, color: '#F4F3EC', margin: 0, textTransform: 'uppercase' }}>
-            Echo B2B — Revenue-Generating Gaming
+          <h2 style={{ fontSize: 'clamp(1.4rem, 2.5vw, 2rem)', fontWeight: 700, lineHeight: 1.2, color: '#F4F3EC', margin: 0 }}>
+            Echo B2B — Revenue-generating gaming
           </h2>
           <p style={{ fontSize: 16, color: 'rgba(244,243,236,0.65)', lineHeight: 1.7, margin: 0 }}>
             Designed for bars, lounges, and hospitality venues. Proven ROI with industry-leading support.
