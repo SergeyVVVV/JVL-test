@@ -82,6 +82,7 @@ export interface NewsArticle {
   heroImage: string | null
   heroImageMobile: string | null
   tags: string[]
+  noindex: boolean
 }
 
 export interface RelatedNewsItem {
@@ -109,7 +110,10 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
                ORDER BY m.id LIMIT 1) AS meta_title,
               (SELECT m.description FROM metas m
                WHERE m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
-               ORDER BY m.id LIMIT 1) AS meta_description
+               ORDER BY m.id LIMIT 1) AS meta_description,
+              (SELECT m.noindexNofollow FROM metas m
+               WHERE m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
+               ORDER BY m.id LIMIT 1) AS noindex
        FROM pages p
        INNER JOIN news n ON n.page_id = p.id
        WHERE p.slug = ? AND n.active = 1
@@ -164,6 +168,7 @@ export async function getNewsArticleBySlug(slug: string, locale = 'en'): Promise
       heroImage: hero,
       heroImageMobile: heroMobile,
       tags,
+      noindex: Boolean(row.noindex),
     }
   } catch (err) {
     console.error('[news] getNewsArticleBySlug failed:', err)
@@ -693,6 +698,7 @@ export interface GameDetail {
   squareImage: string | null
   symbolImage: string | null
   backgroundImage: string | null
+  noindex: boolean
 }
 
 export async function getGameBySlug(slug: string, locale = 'en'): Promise<GameDetail | null> {
@@ -703,11 +709,13 @@ export async function getGameBySlug(slug: string, locale = 'en'): Promise<GameDe
               m.title AS meta_title, m.description AS meta_description,
               g.id AS game_id, g.reels, g.paylines, g.play_url,
               g.story_title, g.story_text, g.story_symbol_name, g.story_about_symbol,
-              g.rtps, g.min_bet, g.max_bet, g.max_win
+              g.rtps, g.min_bet, g.max_bet, g.max_win,
+              m.noindexNofollow AS noindex
        FROM pages p
        INNER JOIN games g ON g.page_id = p.id
        LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
        WHERE p.slug = ? AND g.active = 1
+       ORDER BY m.id
        LIMIT 1`,
       [slug]
     )
@@ -769,6 +777,7 @@ export async function getGameBySlug(slug: string, locale = 'en'): Promise<GameDe
       squareImage: square,
       symbolImage: symbol,
       backgroundImage: background,
+      noindex: Boolean(r.noindex),
     }
   } catch (err) {
     console.error('[game] getGameBySlug failed:', err)
@@ -975,15 +984,19 @@ export async function getStaticPage(pageId: number, locale = 'en'): Promise<{
   content1: string | null
   content2: string | null
   updatedAt: string | null
+  noindex: boolean
 } | null> {
   try {
     const db = getPool()
+    // ORDER BY m.id keeps the metas choice deterministic when a page has
+    // duplicate metas rows (a known data issue) — mirrors getNewsArticleBySlug.
     const [rows] = await db.execute(
       `SELECT p.title, p.description, m.title AS meta_title, m.description AS meta_description,
-              p.content1, p.content2, p.updated_at
+              p.content1, p.content2, p.updated_at, m.noindexNofollow AS noindex
        FROM pages p
        LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
        WHERE p.id = ?
+       ORDER BY m.id
        LIMIT 1`,
       [pageId]
     )
@@ -998,6 +1011,7 @@ export async function getStaticPage(pageId: number, locale = 'en'): Promise<{
       content1: parseLocale(r.content1, locale),
       content2: parseLocale(r.content2, locale),
       updatedAt: r.updated_at ? new Date(r.updated_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : null,
+      noindex: Boolean(r.noindex),
     }
   } catch (err) {
     console.error('[getStaticPage] failed:', err)
@@ -1011,14 +1025,19 @@ export async function getPageMeta(slug: string, locale = 'en'): Promise<{
   description: string | null
   metaDescription: string | null
   ogImage: string | null
+  noindex: boolean
 } | null> {
   try {
     const db = getPool()
+    // ORDER BY m.id keeps the metas choice deterministic when a page has
+    // duplicate metas rows (a known data issue) — mirrors getNewsArticleBySlug.
     const [rows] = await db.execute(
-      `SELECT p.id, p.description, m.title AS meta_title, m.description AS meta_description
+      `SELECT p.id, p.description, m.title AS meta_title, m.description AS meta_description,
+              m.noindexNofollow AS noindex
        FROM pages p
        LEFT JOIN metas m ON m.model_type = 'App\\\\Models\\\\Page' AND m.model_id = p.id
        WHERE p.slug = ?
+       ORDER BY m.id
        LIMIT 1`,
       [slug]
     )
@@ -1030,6 +1049,7 @@ export async function getPageMeta(slug: string, locale = 'en'): Promise<{
       description: parseLocale(r.description, locale),
       metaDescription: parseLocale(r.meta_description, locale),
       ogImage,
+      noindex: Boolean(r.noindex),
     }
   } catch (err) {
     console.error('[getPageMeta] failed:', err)

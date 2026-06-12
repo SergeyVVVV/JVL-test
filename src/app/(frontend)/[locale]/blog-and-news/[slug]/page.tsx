@@ -145,6 +145,7 @@ export async function generateMetadata({ params }: PageProps) {
     type: 'article',
     publishedTime,
     modifiedTime,
+    noindex: article.noindex,
   })
 }
 

@@ -35,7 +35,7 @@ export async function generateMetadata({ params, searchParams }: { params: Promi
   const baseDescription = meta?.metaDescription ?? meta?.description ?? 'Read the latest JVL articles, news and special offers about arcade gaming.'
   const title = page > 1 ? `${baseTitle} – Page ${page}` : baseTitle
   const description = page > 1 ? `${baseDescription} Page ${page}` : baseDescription
-  return buildMeta({ title, description, path: page > 1 ? `/en/blog-and-news?page=${page}` : '/en/blog-and-news', ogImage: meta?.ogImage })
+  return buildMeta({ title, description, path: page > 1 ? `/en/blog-and-news?page=${page}` : '/en/blog-and-news', ogImage: meta?.ogImage, noindex: meta?.noindex })
 }
 
 /* ── Page ─────────────────────────────────────────────────── */

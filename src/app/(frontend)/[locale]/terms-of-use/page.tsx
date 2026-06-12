@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const page = await getStaticPage(4, locale)
   const title = page?.metaTitle ?? page?.title ?? 'Terms of Use — JVL'
   const description = page?.metaDescription ?? 'Terms and conditions governing your use of the JVL website and services.'
-  return buildMeta({ title, description, path: '/en/terms-of-use', ogImage: page?.ogImage })
+  return buildMeta({ title, description, path: '/en/terms-of-use', ogImage: page?.ogImage, noindex: page?.noindex })
 }
 
 export default async function TermsOfUsePage({ params }: { params: Promise<{ locale: string }> }) {

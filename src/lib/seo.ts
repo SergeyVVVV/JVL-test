@@ -31,6 +31,7 @@ export function buildMeta({
   type = 'website',
   publishedTime,
   modifiedTime,
+  noindex = false,
 }: {
   title: string
   description: string
@@ -39,6 +40,9 @@ export function buildMeta({
   type?: 'website' | 'article'
   publishedTime?: string | null
   modifiedTime?: string | null
+  /** When true, emit <meta name="robots" content="noindex, nofollow">.
+   *  Driven by the `noindexNofollow` flag from the Laravel admin (metas table). */
+  noindex?: boolean
 }) {
   const url = `${BASE_URL}${path}`
   const image = ogImage
@@ -48,6 +52,7 @@ export function buildMeta({
     title,
     description,
     alternates: { canonical: url },
+    ...(noindex ? { robots: { index: false, follow: false } } : {}),
     openGraph: {
       title,
       description,

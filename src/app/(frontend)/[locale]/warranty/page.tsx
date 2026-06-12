@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const meta = await getPageMeta('warranty', locale)
   const title = meta?.title ?? 'Warranty Registration — JVL'
   const description = meta?.metaDescription ?? meta?.description ?? 'Register your JVL ECHO device warranty. Quick 3-step process to activate your coverage.'
-  return buildMeta({ title, description, path: '/en/warranty', ogImage: meta?.ogImage })
+  return buildMeta({ title, description, path: '/en/warranty', ogImage: meta?.ogImage, noindex: meta?.noindex })
 }
 
 export default function WarrantyPage() {

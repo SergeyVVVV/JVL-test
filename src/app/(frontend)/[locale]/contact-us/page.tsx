@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const meta = await getPageMeta('contact-us', locale)
   const title = meta?.title ?? 'Contact Us — JVL'
   const description = meta?.metaDescription ?? meta?.description ?? 'Contact us with any questions — we\'re here to help. Whether it\'s about partnerships, our cabinets and games, or just to say hello.'
-  return buildMeta({ title, description, path: '/en/contact-us', ogImage: meta?.ogImage })
+  return buildMeta({ title, description, path: '/en/contact-us', ogImage: meta?.ogImage, noindex: meta?.noindex })
 }
 
 export default function ContactUsPage() {
