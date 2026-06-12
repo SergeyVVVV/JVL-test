@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const meta = await getPageMeta('partners', locale)
   const title = meta?.title ?? 'Partners — JVL'
   const description = meta?.metaDescription ?? meta?.description ?? 'JVL works with platform providers and operators worldwide to design and build personalized slot games that match your brand and objectives.'
-  return buildMeta({ title, description, path: '/en/partners', ogImage: meta?.ogImage })
+  return buildMeta({ title, description, path: '/en/partners', ogImage: meta?.ogImage, noindex: meta?.noindex })
 }
 
 export default function PartnersPage() {

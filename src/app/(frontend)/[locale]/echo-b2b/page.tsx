@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const meta = await getPageMeta('echo-b2b', locale)
   const title = meta?.title ?? 'JVL Echo Amusement — Commercial Tabletop Arcade Machine for Business'
   const description = meta?.metaDescription ?? meta?.description ?? 'Free Play and commercial-grade tabletop arcade machine engineered for bars, lounges, and amusement venues. 40+ years of proven performance.'
-  return buildMeta({ title, description, path: '/en/echo-b2b', ogImage: meta?.ogImage })
+  return buildMeta({ title, description, path: '/en/echo-b2b', ogImage: meta?.ogImage, noindex: meta?.noindex })
 }
 
 // Icon SVGs for support cards (mapped by inline entity sort order)

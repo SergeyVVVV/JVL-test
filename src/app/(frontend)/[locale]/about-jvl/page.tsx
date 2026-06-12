@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const meta = await getPageMeta('about-jvl', locale)
   const title = meta?.title ?? 'About JVL — A Family Tradition of Precision, Passion, and Play'
   const description = meta?.metaDescription ?? meta?.description ?? 'Since 1984, JVL has been a family-owned supplier of gaming cabinets, slot games, and coin-operated amusement machines — built on integrity and craftsmanship.'
-  return buildMeta({ title, description, path: '/en/about-jvl', ogImage: meta?.ogImage })
+  return buildMeta({ title, description, path: '/en/about-jvl', ogImage: meta?.ogImage, noindex: meta?.noindex })
 }
 
 export default async function AboutJVLPage({ params }: PageProps) {

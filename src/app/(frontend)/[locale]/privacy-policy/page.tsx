@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const page = await getStaticPage(5, locale)
   const title = page?.metaTitle ?? page?.title ?? 'Privacy Policy — JVL'
   const description = page?.metaDescription ?? 'Learn how JVL collects, uses, and protects your personal information.'
-  return buildMeta({ title, description, path: '/en/privacy-policy', ogImage: page?.ogImage })
+  return buildMeta({ title, description, path: '/en/privacy-policy', ogImage: page?.ogImage, noindex: page?.noindex })
 }
 
 export default async function PrivacyPolicyPage({ params }: { params: Promise<{ locale: string }> }) {

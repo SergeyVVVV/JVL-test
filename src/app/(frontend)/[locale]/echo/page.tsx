@@ -11,7 +11,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const meta = await getPageMeta('echo', locale)
   const title = 'JVL Echo HD3 — Premium Home Arcade Machine'
   const description = 'Bring the arcade feeling home with JVL ECHO HD3 — a premium 22" touchscreen bartop arcade machine with 149 built-in games, no Wi-Fi, no downloads, and JVL warranty support.'
-  return buildMeta({ title, description, path: '/en/echo', ogImage: meta?.ogImage })
+  return buildMeta({ title, description, path: '/en/echo', ogImage: meta?.ogImage, noindex: meta?.noindex })
 }
 
 export default async function EchoPage() {

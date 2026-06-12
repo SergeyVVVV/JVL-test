@@ -17,7 +17,7 @@ export async function generateMetadata({ params, searchParams }: { params: Promi
   const baseDescription = meta?.metaDescription ?? meta?.description ?? 'Browse JVL\'s full collection of online slot games and video slots — crafted for casinos worldwide with 40+ years of gaming expertise.'
   const title = page > 1 ? `${baseTitle} – Page ${page}` : baseTitle
   const description = page > 1 ? `${baseDescription} Page ${page}` : baseDescription
-  return buildMeta({ title, description, path: page > 1 ? `/en/games?page=${page}` : '/en/games', ogImage: meta?.ogImage })
+  return buildMeta({ title, description, path: page > 1 ? `/en/games?page=${page}` : '/en/games', ogImage: meta?.ogImage, noindex: meta?.noindex })
 }
 
 const PER_PAGE = 24

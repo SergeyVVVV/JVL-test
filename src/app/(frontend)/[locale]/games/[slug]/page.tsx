@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: game.metaTitle ?? `${game.title} — JVL Online Games`,
     description: game.metaDescription ?? game.description ?? undefined,
+    ...(game.noindex ? { robots: { index: false, follow: false } } : {}),
   }
 }
 

@@ -12,7 +12,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const meta = await getPageMeta('flex', locale)
   const title = meta?.title ?? 'JVL Flex — Land-Based Casino Cabinets'
   const description = meta?.metaDescription ?? meta?.description ?? 'Land-based casino cabinets engineered for performance, revenue, and operator peace of mind. 40+ years of proven gaming excellence.'
-  return buildMeta({ title, description, path: '/en/flex', ogImage: meta?.ogImage })
+  return buildMeta({ title, description, path: '/en/flex', ogImage: meta?.ogImage, noindex: meta?.noindex })
 }
 
 const MODELS = [

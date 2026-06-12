@@ -10,7 +10,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const page = await getStaticPage(1, locale)
   const title = page?.metaTitle ?? page?.title ?? 'JVL — Gaming Cabinets, Online Slots & Amusement Machines'
   const description = page?.metaDescription ?? 'JVL is a family-owned supplier of land-based casino cabinets, online slot games, and coin-operated amusement machines — trusted worldwide since 1984.'
-  return buildMeta({ title, description, path: '/en', ogImage: page?.ogImage })
+  return buildMeta({ title, description, path: '/en', ogImage: page?.ogImage, noindex: page?.noindex })
 }
 
 // ── Static product data ───────────────────────────────────────────────────────
