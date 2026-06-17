@@ -61,8 +61,8 @@ export default function FlexPage() {
         title="Experience FLEX — Precision."
         buttonText="Contact Us"
         buttonUrl="/en/contact-us"
-        desktopVideoSrc="https://www.jvl.ca/img/flex_1920x1080.mp4"
-        mobileVideoSrc="https://www.jvl.ca/img/flex_1080x1920_mobile.mp4"
+        desktopVideoSrc="https://www.jvl.ca/img/flex_1920x1080-optimized.mp4"
+        mobileVideoSrc="https://www.jvl.ca/img/flex_1080x1920_mobile_opt.mp4"
       />
 
       {/* ── 2. Model-Specific Presentations ── */}
